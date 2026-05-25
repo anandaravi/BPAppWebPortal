@@ -25,7 +25,7 @@ export type ModuleData = {
     title: string;
     nodes: { label: string; sub?: string; highlight?: boolean }[];
   };
-  capabilities: { icon: string; title: string; desc: string }[];
+  capabilities: { icon: string; title: string; desc: string; status?: "preview" | "roadmap" }[];
   integrations: { module: string; action: string; effect: string }[];
 };
 

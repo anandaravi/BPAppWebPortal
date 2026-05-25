@@ -138,10 +138,18 @@ export default function FeaturesPage() {
                               style={{ background: `${cap.module.accent}12`, border: `1px solid ${cap.module.accent}25` }}>
                               <Icon size={15} style={{ color: cap.module.accent }} />
                             </div>
-                            <span className="text-[10px] font-semibold uppercase tracking-wider"
-                              style={{ color: cap.module.accent }}>
-                              {cap.module.name}
-                            </span>
+                            <div className="flex items-center gap-1.5">
+                              {cap.status === "preview" && (
+                                <span className="px-1.5 py-0.5 rounded-full text-[9px] font-semibold uppercase tracking-wider bg-amber-500/10 text-amber-400 border border-amber-500/25">Preview</span>
+                              )}
+                              {cap.status === "roadmap" && (
+                                <span className="px-1.5 py-0.5 rounded-full text-[9px] font-semibold uppercase tracking-wider bg-zinc-800 text-zinc-400 border border-zinc-700">Roadmap</span>
+                              )}
+                              <span className="text-[10px] font-semibold uppercase tracking-wider"
+                                style={{ color: cap.module.accent }}>
+                                {cap.module.name}
+                              </span>
+                            </div>
                           </div>
                           <h3 className="text-white font-bold mb-1.5 text-sm leading-tight group-hover:text-amber-400 transition-colors">{cap.title}</h3>
                           <p className="text-zinc-500 text-[12px] leading-relaxed line-clamp-3">{cap.desc}</p>
@@ -213,7 +221,15 @@ export default function FeaturesPage() {
                                   className="flex items-start gap-2.5 p-2.5 rounded-lg hover:bg-amber-500/5 transition-colors group">
                                   <CapIcon size={12} className="mt-0.5 flex-shrink-0" style={{ color: m.accent }} />
                                   <div className="flex-1 min-w-0">
-                                    <p className="text-xs font-semibold text-zinc-200 group-hover:text-amber-400 transition-colors leading-tight truncate">{cap.title}</p>
+                                    <div className="flex items-center gap-1.5">
+                                      <p className="text-xs font-semibold text-zinc-200 group-hover:text-amber-400 transition-colors leading-tight truncate">{cap.title}</p>
+                                      {cap.status === "preview" && (
+                                        <span className="flex-shrink-0 px-1 py-0 rounded text-[8px] font-bold uppercase bg-amber-500/10 text-amber-400 border border-amber-500/25">Preview</span>
+                                      )}
+                                      {cap.status === "roadmap" && (
+                                        <span className="flex-shrink-0 px-1 py-0 rounded text-[8px] font-bold uppercase bg-zinc-800 text-zinc-500 border border-zinc-700">Roadmap</span>
+                                      )}
+                                    </div>
                                     <p className="text-[10px] text-zinc-600 line-clamp-1 mt-0.5">{cap.desc}</p>
                                   </div>
                                   <ArrowRight size={10} className="text-zinc-700 group-hover:text-amber-400 group-hover:translate-x-0.5 transition-all flex-shrink-0 mt-1" />

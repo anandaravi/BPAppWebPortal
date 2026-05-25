@@ -10,6 +10,7 @@ export type FeatureCard = {
   icon: string;
   title: string;
   desc: string;
+  status?: "preview" | "roadmap";
 };
 
 export function FeatureCardGrid({ title, eyebrow, cards, accent, moduleSlug }: { title: string; eyebrow?: string; cards: FeatureCard[]; accent: string; moduleSlug?: string }) {
@@ -18,7 +19,21 @@ export function FeatureCardGrid({ title, eyebrow, cards, accent, moduleSlug }: {
       <div className="max-w-7xl mx-auto px-6">
         {eyebrow && <p className="text-xs font-semibold uppercase tracking-widest mb-3" style={{ color: accent }}>{eyebrow}</p>}
         <h2 className="text-3xl md:text-4xl font-black text-white tracking-tight mb-3">{title}</h2>
-        {moduleSlug && <p className="text-zinc-500 mb-12">Click any capability to drill into the workflow, screens, and integration details.</p>}
+        {moduleSlug && (
+          <div className="flex flex-wrap items-center gap-x-5 gap-y-2 mb-12">
+            <p className="text-zinc-500 text-sm">Click any capability to drill in.</p>
+            <div className="flex items-center gap-3">
+              <span className="flex items-center gap-1.5 text-[11px] text-zinc-500">
+                <span className="w-2 h-2 rounded-full bg-amber-400 inline-block" />
+                Preview — available on request
+              </span>
+              <span className="flex items-center gap-1.5 text-[11px] text-zinc-500">
+                <span className="w-2 h-2 rounded-full bg-zinc-600 inline-block" />
+                Roadmap — planned within 12 months
+              </span>
+            </div>
+          </div>
+        )}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
           {cards.map((c, i) => {
             const Icon = getIcon(c.icon);
@@ -29,12 +44,24 @@ export function FeatureCardGrid({ title, eyebrow, cards, accent, moduleSlug }: {
                     style={{ background: `${accent}12`, border: `1px solid ${accent}25` }}>
                     <Icon size={18} style={{ color: accent }} />
                   </div>
-                  {moduleSlug && (
-                    <span className="flex items-center gap-1 text-[10px] font-mono text-zinc-600 group-hover:text-amber-400 transition-colors uppercase tracking-wider">
-                      Drill in
-                      <ArrowRight size={11} className="group-hover:translate-x-0.5 transition-transform" />
-                    </span>
-                  )}
+                  <div className="flex items-center gap-2">
+                    {c.status === "preview" && (
+                      <span className="px-2 py-0.5 rounded-full text-[10px] font-semibold uppercase tracking-wider bg-amber-500/10 text-amber-400 border border-amber-500/25">
+                        Preview
+                      </span>
+                    )}
+                    {c.status === "roadmap" && (
+                      <span className="px-2 py-0.5 rounded-full text-[10px] font-semibold uppercase tracking-wider bg-zinc-800 text-zinc-400 border border-zinc-700">
+                        Roadmap
+                      </span>
+                    )}
+                    {moduleSlug && (
+                      <span className="flex items-center gap-1 text-[10px] font-mono text-zinc-600 group-hover:text-amber-400 transition-colors uppercase tracking-wider">
+                        Drill in
+                        <ArrowRight size={11} className="group-hover:translate-x-0.5 transition-transform" />
+                      </span>
+                    )}
+                  </div>
                 </div>
                 <h3 className="text-white font-bold mb-2.5 text-base leading-tight">{c.title}</h3>
                 <p className="text-zinc-400 text-[13px] leading-relaxed">{c.desc}</p>
