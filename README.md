@@ -2,7 +2,7 @@
 
 Public marketing website for **Papyrus BPApp**, an enterprise ERP purpose-built for Indian paper manufacturing. Showcases 44 integrated modules, 396+ capabilities, and the proprietary Deckle Optimizer across a fully animated dark-theme site.
 
-**Live URL:** _configure after Vercel deployment_
+**Live URL:** https://papyrusbpapp.vercel.app
 **GitHub:** https://github.com/anandaravi/BPAppWebPortal
 
 ---
