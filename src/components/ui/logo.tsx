@@ -22,6 +22,7 @@ export function Logo({ className, size = "md" }: LogoProps) {
       height={h}
       className={cn("shrink-0", className)}
       priority
+      unoptimized
     />
   );
 }
