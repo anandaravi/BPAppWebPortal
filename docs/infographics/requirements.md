@@ -11,13 +11,13 @@ All visuals must be specific to Indian paper manufacturing, dark-theme compatibl
 
 | # | Asset | Type | Dimensions | Description | Status |
 |---|-------|------|-----------|-------------|--------|
-| SW-01 | Logo (dark bg) | Logo | 200×80px SVG | BPApp wordmark on dark background | `[ ]` |
+| SW-01 | Logo (dark bg) | Logo | 200×80px SVG | BPApp wordmark on dark background | `[x]` |
 | SW-02 | Logo (light bg) | Logo | 200×80px SVG | BPApp wordmark on light background | `[ ]` |
-| SW-03 | OG Image | Banner | 1200×630px | Dark hero — logo + "ERP for Paper Mills" tagline | `[ ]` |
+| SW-03 | OG Image | Banner | 1200×630px | Dark hero — logo + "ERP for Paper Mills" tagline | `[x]` |
 | SW-04 | Favicon | Icon | 32×32px ICO + SVG | BPApp icon mark | `[ ]` |
 | SW-05 | Home Hero Banner | Hero | 1920×1080px | Paper mill aerial/interior shot — actual mill ops, NOT generic office | `[ ]` |
 | SW-06 | Home Hero Dashboard Mockup | UI Mockup | 1200×800px | BPApp dashboard screenshot — OEE, orders, production stats | `[ ]` |
-| SW-07 | Platform Architecture Diagram | Architecture | 1600×900px | All 44 modules connected — grouped by domain (Operations/Commercial/Finance/Platform) | `[ ]` |
+| SW-07 | Platform Architecture Diagram | Architecture | 1600×900px | All 44 modules connected — grouped by domain (Operations/Commercial/Finance/Platform) | `[x]` |
 | SW-08 | Module Group Icons (×5) | Icon Set | 64×64px SVG each | Icons for Core Operations, Commercial, Supply Chain, Finance, Platform groups | `[ ]` |
 | SW-09 | "How It Works" Flow | Flow Diagram | 1200×400px | Order → Production → Dispatch → Invoice → Payment — end-to-end mill flow | `[ ]` |
 | SW-10 | Compliance Badges Strip | Infographic | 800×120px | GST · FEMA · PF/ESI · Aadhaar Act · TDS — icon badges | `[ ]` |
@@ -143,7 +143,7 @@ All visuals must be specific to Indian paper manufacturing, dark-theme compatibl
 | M-01 | Hero Banner | Photo | Paper machine maintenance / engineer with wrench | `[x]` |
 | M-02 | Work Order Flow | Flow Diagram | Breakdown → Work Request → WO → Technician → Close | `[ ]` |
 | M-03 | Maintenance Dashboard Mockup | UI Mockup | PM calendar, open WOs, MTBF/MTTR metrics | `[ ]` |
-| M-04 | Feature: Preventive Maintenance | Feature Photo | PM schedule calendar | `[ ]` |
+| M-04 | Feature: Preventive Maintenance | Feature Photo | PM schedule calendar | `[x]` |
 | M-05 | Feature: Spare Parts | Feature Photo | Spare parts inventory with critical stock alerts | `[ ]` |
 
 ---
@@ -156,7 +156,7 @@ All visuals must be specific to Indian paper manufacturing, dark-theme compatibl
 | Q-02 | QC Flow | Flow Diagram | Inspection → Lab Test → Pass/Fail → COA / NCR | `[ ]` |
 | Q-03 | COA Mockup | UI Mockup | Certificate of Analysis PDF with parameter actuals | `[ ]` |
 | Q-04 | SPC Chart Mockup | UI Mockup | Real-time GSM control chart with violations | `[ ]` |
-| Q-05 | Feature: NCR/CAPA | Feature Photo | Non-conformance tracking dashboard | `[ ]` |
+| Q-05 | Feature: NCR/CAPA | Feature Photo | Non-conformance tracking dashboard | `[x]` |
 
 ---
 
@@ -247,16 +247,16 @@ All visuals must be specific to Indian paper manufacturing, dark-theme compatibl
 
 ## Summary Count
 
-| Category | Count | Done | Remaining |
-|----------|-------|------|-----------|
-| Site-wide assets | 11 | 0 | 11 |
-| Module hero banners | 18 | 17 | 1 |
-| UI mockups | 22 | 0 | 22 |
-| Flow / architecture diagrams | 20 | 0 | 20 |
-| Feature section photos | 45 | 31 | 14 |
-| Infographic charts | 8 | 0 | 8 |
-| Icons / badges | 3 | 0 | 3 |
-| **Total** | **127** | **48** | **79** |
+| Category | Count | Done | Remaining | Notes |
+|----------|-------|------|-----------|-------|
+| Site-wide assets | 11 | 3 | 8 | SW-01 logo, SW-03 OG image, SW-07 arch diagram done |
+| Module hero banners | 44 | 27 | 17 | 17 platform module heroes pending CF limit reset |
+| UI mockups | 22 | 0 | 22 | |
+| Flow / architecture diagrams | 20 | 0 | 20 | |
+| Feature section photos (tracked) | 45 | 33 | 12 | +63 platform module photos generated (not individually listed) |
+| Infographic charts | 8 | 0 | 8 | |
+| Icons / badges | 3 | 0 | 3 | |
+| **Total (tracked)** | **153** | **63** | **90** | 96 total images in public/images/ |
 
 ---
 
