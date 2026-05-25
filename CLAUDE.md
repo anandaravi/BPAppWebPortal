@@ -50,6 +50,12 @@ Requirements doc: `docs/infographics/requirements.md`
 - Team ID: `team_VflvNszTOBhmWkw8mJpmYekV`
 - Token in `.vercel/` — use `npx vercel` CLI for deployments
 
+## Logo
+
+- **File:** `public/bp_app.png` — the official app logo. **DO NOT replace, regenerate, or overwrite this file.**
+- Component: `src/components/ui/logo.tsx` — renders the PNG at 3 sizes (sm/md/lg). Do not rewrite to SVG or other format.
+- Any script that generates or moves images must explicitly exclude `public/bp_app.png`.
+
 ## Key Decisions
 
 - No auth — public marketing site only
