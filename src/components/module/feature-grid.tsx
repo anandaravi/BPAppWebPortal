@@ -1,0 +1,64 @@
+"use client";
+
+import Link from "next/link";
+import { motion } from "framer-motion";
+import { ArrowRight } from "lucide-react";
+import { getIcon } from "@/lib/icons";
+import { slugify } from "@/lib/modules/capability-helpers";
+
+export type FeatureCard = {
+  icon: string;
+  title: string;
+  desc: string;
+};
+
+export function FeatureCardGrid({ title, eyebrow, cards, accent, moduleSlug }: { title: string; eyebrow?: string; cards: FeatureCard[]; accent: string; moduleSlug?: string }) {
+  return (
+    <section className="py-20 border-b border-[#1a1a1a]">
+      <div className="max-w-7xl mx-auto px-6">
+        {eyebrow && <p className="text-xs font-semibold uppercase tracking-widest mb-3" style={{ color: accent }}>{eyebrow}</p>}
+        <h2 className="text-3xl md:text-4xl font-black text-white tracking-tight mb-3">{title}</h2>
+        {moduleSlug && <p className="text-zinc-500 mb-12">Click any capability to drill into the workflow, screens, and integration details.</p>}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+          {cards.map((c, i) => {
+            const Icon = getIcon(c.icon);
+            const cardContent = (
+              <>
+                <div className="flex items-start justify-between mb-5">
+                  <div className="w-11 h-11 rounded-xl flex items-center justify-center"
+                    style={{ background: `${accent}12`, border: `1px solid ${accent}25` }}>
+                    <Icon size={18} style={{ color: accent }} />
+                  </div>
+                  {moduleSlug && (
+                    <span className="flex items-center gap-1 text-[10px] font-mono text-zinc-600 group-hover:text-amber-400 transition-colors uppercase tracking-wider">
+                      Drill in
+                      <ArrowRight size={11} className="group-hover:translate-x-0.5 transition-transform" />
+                    </span>
+                  )}
+                </div>
+                <h3 className="text-white font-bold mb-2.5 text-base leading-tight">{c.title}</h3>
+                <p className="text-zinc-400 text-[13px] leading-relaxed">{c.desc}</p>
+              </>
+            );
+
+            const cardClass = "bg-[#0f0f0f] border border-[#1f1f1f] rounded-2xl p-6 hover:border-amber-500/25 hover:bg-[#121212] transition-all duration-200 group block h-full";
+
+            return (
+              <motion.div key={c.title}
+                initial={{ opacity: 0, y: 14 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.35, delay: Math.min(i * 0.04, 0.3) }}>
+                {moduleSlug ? (
+                  <Link href={`/product/${moduleSlug}/${slugify(c.title)}`} className={cardClass}>{cardContent}</Link>
+                ) : (
+                  <div className={cardClass}>{cardContent}</div>
+                )}
+              </motion.div>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  );
+}
