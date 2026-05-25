@@ -14,8 +14,8 @@ export function DeckleSpotlight() {
   return (
     <section className="relative overflow-hidden bg-[#080808] border-y border-[#1a1a1a]">
       <div className="absolute inset-0">
-        <Image src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=1920&q=80"
-          alt="Paper reels" fill className="object-cover opacity-10" unoptimized />
+        <Image src="/images/heroes/deckle-hero.jpg"
+          alt="Paper reels" fill className="object-cover opacity-10" />
         <div className="absolute inset-0 bg-gradient-to-r from-[#080808] via-[#080808]/95 to-[#080808]" />
       </div>
 

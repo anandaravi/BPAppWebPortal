@@ -10,7 +10,7 @@ const SHOWCASES = [
     headline: "Plan, execute, and optimize every production run.",
     body: "From MPS/MRP explosion to shop floor execution — work orders, shift scheduling, OEE tracking, broke management, and statistical process control in one connected system.",
     points: ["MPS/MRP with capacity planning (CRP)", "Real-time OEE dashboards per machine", "Downtime root-cause categorization", "NCR/CAPA quality workflow", "Broke Pareto analytics & recovery"],
-    photo: "https://images.unsplash.com/photo-1565793498704-9cb936e92524?auto=format&fit=crop&w=1200&q=80",
+    photo: "/images/heroes/production-hero.jpg",
     accent: "#F97316",
     flip: false,
   },
@@ -19,7 +19,7 @@ const SHOWCASES = [
     headline: "Batch-level traceability from receipt to dispatch.",
     body: "Full lot traceability with FEFO allocation, reel serial numbering, multi-warehouse transfers, QC holds, sampling plans, cycle counts, and one-click batch recalls.",
     points: ["FEFO / FIFO / weighted-average valuation", "GRN → Inspection → Usage Decision workflow", "Batch split, merge, and recall management", "Physical verification with blind count mode", "Consignment stock & lot serialization"],
-    photo: "https://images.unsplash.com/photo-1553413077-190dd305871c?auto=format&fit=crop&w=1200&q=80",
+    photo: "/images/heroes/inventory-hero.jpg",
     accent: "#8B5CF6",
     flip: true,
   },
@@ -28,7 +28,7 @@ const SHOWCASES = [
     headline: "Indian compliance isn't an add-on. It's built in.",
     body: "GSTR-1/3B auto-filing, ITC ledger, RCM/TCS/TDS auto-deductions, FEMA tracking, trade finance (LC, invoice discounting, ECGC) — and cost accounting segmented by machine and grade.",
     points: ["GSTR-1/3B auto-filing with IRN generation", "ITC ledger & ITC reversal scheduling", "RCM, TCS, TDS auto-deductions", "LC management & forex revaluation", "Cost variance by production line"],
-    photo: "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=1200&q=80",
+    photo: "/images/heroes/finance-hero.jpg",
     accent: "#10B981",
     flip: false,
   },
@@ -37,7 +37,7 @@ const SHOWCASES = [
     headline: "Shift rosters to payslips — statutory by default.",
     body: "Manage multi-shift mills with gap compliance, bulk attendance, and complete statutory payroll — PF, ESI, PT, LWF, TDS, gratuity — with bank advice, Form 16, and ESS/MSS portals.",
     points: ["Gap 2.1 shift compliance enforcement", "PF / ESI / PT / LWF auto-deductions", "PF ECR & Form 16 generation", "ESS self-service + MSS manager portal", "Separation, FnF settlement workflow"],
-    photo: "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1200&q=80",
+    photo: "/images/heroes/hr-hero.jpg",
     accent: "#EC4899",
     flip: true,
   },
@@ -55,7 +55,7 @@ export function ModuleShowcase() {
                 whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}
                 transition={{ duration: 0.7 }}
                 className="relative rounded-2xl overflow-hidden h-72 lg:h-96 border border-[#1f1f1f]">
-                <Image src={s.photo} alt={s.tag} fill className="object-cover" unoptimized />
+                <Image src={s.photo} alt={s.tag} fill className="object-cover" />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a]/60 to-transparent" />
                 <div className="absolute bottom-4 left-4 px-3 py-1.5 rounded-full border text-xs font-bold"
                   style={{ color: s.accent, borderColor: `${s.accent}40`, background: `${s.accent}10` }}>

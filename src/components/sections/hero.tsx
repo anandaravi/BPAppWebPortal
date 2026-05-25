@@ -5,7 +5,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { ArrowRight, TrendingUp, Activity, Package } from "lucide-react";
 
-const PHOTO = "https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?auto=format&fit=crop&w=1920&q=80";
+const PHOTO = "/images/heroes/production-hero.jpg";
 
 export function Hero() {
   return (

@@ -10,8 +10,8 @@ export function CTABanner() {
   return (
     <section className="relative overflow-hidden">
       <div className="absolute inset-0">
-        <Image src="https://images.unsplash.com/photo-1565793498704-9cb936e92524?auto=format&fit=crop&w=1920&q=80"
-          alt="Paper mill" fill className="object-cover" unoptimized />
+        <Image src="/images/heroes/sales-hero.jpg"
+          alt="Paper mill" fill className="object-cover" />
         <div className="absolute inset-0 bg-[#080808]/88" />
         <div className="absolute inset-0 bg-gradient-to-t from-[#080808] via-transparent to-[#080808]" />
       </div>
