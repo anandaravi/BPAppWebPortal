@@ -30,7 +30,7 @@ export const PLATFORM_MODULES: Record<string, ModuleData> = {
           "Certificate upload + validity tracking",
           "HQ vs subsidiary hierarchy",
         ],
-        photo: "https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1200&q=80",
+        photo: "/images/features/administration--multi-entity-setup.jpg",
       },
       {
         tag: "Departments & Cost Centers",
@@ -478,7 +478,7 @@ export const PLATFORM_MODULES: Record<string, ModuleData> = {
     title: "Maintain proactively.",
     highlight: "Repair never.",
     blurb: "Complete asset and maintenance management — preventive maintenance schedules, breakdown logging, spare parts tracking, MTBF/MTTR analytics, condition-based predictive triggers from SCADA, and mobile work order management for technicians.",
-    photo: "https://images.unsplash.com/photo-1581094271901-8022df4466f9?auto=format&fit=crop&w=1920&q=80",
+    photo: "/images/heroes/maintenance-hero.jpg",
     accent: "#84CC16",
     icon: "Wrench",
     metrics: [
@@ -585,7 +585,7 @@ export const PLATFORM_MODULES: Record<string, ModuleData> = {
     title: "Test. Trace. Certify.",
     highlight: "Every batch.",
     blurb: "Standalone quality control system — quality plans, incoming/in-process/final inspection, paper-specific tests (GSM, brightness, moisture, opacity, tensile), NCR with root cause analysis, CAPA workflow, LIMS integration, and Certificate of Analysis generation.",
-    photo: "https://images.unsplash.com/photo-1581093458791-9f3c3900df4b?auto=format&fit=crop&w=1920&q=80",
+    photo: "/images/heroes/quality-hero.jpg",
     accent: "#0EA5E9",
     icon: "Award",
     metrics: [

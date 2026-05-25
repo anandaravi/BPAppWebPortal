@@ -37,7 +37,7 @@ export const MODULES_DATA: Record<string, ModuleData> = {
     title: "From inquiry to invoice.",
     highlight: "In one connected flow.",
     blurb: "Complete order-to-cash cycle for paper mills — inquiry capture, multi-version quotations, sales orders with ATP, delivery challans, e-invoicing, payment receipts, returns, and credit notes. GST and FEMA compliant by default.",
-    photo: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=1920&q=80",
+    photo: "/images/heroes/sales-hero.jpg",
     accent: "#F59E0B",
     icon: "ShoppingCart",
     metrics: [
@@ -59,7 +59,7 @@ export const MODULES_DATA: Record<string, ModuleData> = {
           "Win/loss analysis with competitor intelligence",
           "Validity extension and bulk expiry management",
         ],
-        photo: "https://images.unsplash.com/photo-1551836022-deb4988cc6c0?auto=format&fit=crop&w=1200&q=80",
+        photo: "/images/features/sales--inquiry-quotation.jpg",
       },
       {
         tag: "Sales Order Lifecycle",
@@ -73,7 +73,7 @@ export const MODULES_DATA: Record<string, ModuleData> = {
           "Multi-stage approval matrix per order type",
           "Real-time order incompletion validation",
         ],
-        photo: "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=1200&q=80",
+        photo: "/images/features/sales--sales-order-lifecycle.jpg",
         flip: true,
       },
       {
@@ -88,7 +88,7 @@ export const MODULES_DATA: Record<string, ModuleData> = {
           "POD capture with photo + signature",
           "Vehicle tracking with delivery ETAs",
         ],
-        photo: "https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?auto=format&fit=crop&w=1200&q=80",
+        photo: "/images/features/sales--dispatch-control-tower.jpg",
       },
       {
         tag: "Invoicing & E-Invoice",
@@ -102,7 +102,7 @@ export const MODULES_DATA: Record<string, ModuleData> = {
           "Amendment cycle (cancel + new IRN)",
           "Multi-copy PDF with QR + envelope rendering",
         ],
-        photo: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=1200&q=80",
+        photo: "/images/features/sales--invoicing-e-invoice.jpg",
         flip: true,
       },
       {
@@ -117,7 +117,7 @@ export const MODULES_DATA: Record<string, ModuleData> = {
           "Interest auto-calculation + debit note generation",
           "Write-off workflow with approval",
         ],
-        photo: "https://images.unsplash.com/photo-1556742044-3c52d6e88c62?auto=format&fit=crop&w=1200&q=80",
+        photo: "/images/features/sales--receivables-collections.jpg",
       },
       {
         tag: "Export & Trade",
@@ -131,7 +131,7 @@ export const MODULES_DATA: Record<string, ModuleData> = {
           "Bill of Entry for import customs",
           "Forex revaluation + gain/loss accounting",
         ],
-        photo: "https://images.unsplash.com/photo-1577416412292-747c6607f055?auto=format&fit=crop&w=1200&q=80",
+        photo: "/images/features/sales--export-trade.jpg",
         flip: true,
       },
     ],
@@ -189,7 +189,7 @@ export const MODULES_DATA: Record<string, ModuleData> = {
     title: "From requisition to three-way match.",
     highlight: "In hours, not days.",
     blurb: "MRP-driven auto-requisitions, RFQ email bridge for instant supplier quotes, scorecards, 3-way match (PO ↔ GRN ↔ AP Invoice), MSME compliance, and reverse-charge mechanism — all configurable per company.",
-    photo: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=1920&q=80",
+    photo: "/images/heroes/procurement-hero.jpg",
     accent: "#3B82F6",
     icon: "Package",
     metrics: [
@@ -211,7 +211,7 @@ export const MODULES_DATA: Record<string, ModuleData> = {
           "Bulk PO generation from approved PRs",
           "PR-to-PO conversion with budget gates",
         ],
-        photo: "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=1200&q=80",
+        photo: "/images/features/procurement--smart-sourcing.jpg",
       },
       {
         tag: "Three-Way Match",
@@ -225,7 +225,7 @@ export const MODULES_DATA: Record<string, ModuleData> = {
           "Hold-payment-on-mismatch policy",
           "RCM reverse charge reconciliation",
         ],
-        photo: "https://images.unsplash.com/photo-1573164574572-cb89e39749b4?auto=format&fit=crop&w=1200&q=80",
+        photo: "/images/features/procurement--three-way-match.jpg",
         flip: true,
       },
       {
@@ -240,7 +240,7 @@ export const MODULES_DATA: Record<string, ModuleData> = {
           "TCS Section 206C handling",
           "Vendor blacklist with reason tracking",
         ],
-        photo: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=1200&q=80",
+        photo: "/images/features/procurement--indian-compliance.jpg",
       },
     ],
     workflow: {
@@ -284,7 +284,7 @@ export const MODULES_DATA: Record<string, ModuleData> = {
     title: "From schedule to settled WO.",
     highlight: "Every reel. Every shift. Accounted for.",
     blurb: "Complete paper mill manufacturing — MPS/MRP/CRP planning, Gantt scheduling with grade-change optimization, work order lifecycle, shop floor execution, reel tracking, OEE analytics, lab QC, downtime management, and what-if scenario analysis. Purpose-built for paper mill operations.",
-    photo: "https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?auto=format&fit=crop&w=1920&q=80",
+    photo: "/images/heroes/production-hero.jpg",
     accent: "#F97316",
     icon: "Factory",
     metrics: [
@@ -308,7 +308,7 @@ export const MODULES_DATA: Record<string, ModuleData> = {
           "Demand forecasting: moving average, exponential smoothing, seasonal",
           "Forecast-to-demand consumption tracking",
         ],
-        photo: "https://images.unsplash.com/photo-1551836022-deb4988cc6c0?auto=format&fit=crop&w=1200&q=80",
+        photo: "/images/features/production--planning-layers.jpg",
       },
       {
         tag: "Production Scheduling",
@@ -324,7 +324,7 @@ export const MODULES_DATA: Record<string, ModuleData> = {
           "Freeze windows to protect released schedules from edits",
           "Auto-schedule from demand → schedule-to-WO conversion",
         ],
-        photo: "https://images.unsplash.com/photo-1565793498704-9cb936e92524?auto=format&fit=crop&w=1200&q=80",
+        photo: "/images/features/production--production-scheduling.jpg",
         flip: true,
       },
       {
@@ -341,7 +341,7 @@ export const MODULES_DATA: Record<string, ModuleData> = {
           "QC pass/fail with auto rework WO and FG receipt block on fail",
           "Split WO, bulk release/cancel, cost variance settlement with approval",
         ],
-        photo: "https://images.unsplash.com/photo-1565793298495-4f3c61ee7ec1?auto=format&fit=crop&w=1200&q=80",
+        photo: "/images/features/production--work-order-lifecycle.jpg",
       },
       {
         tag: "Shop Floor Execution",
@@ -357,7 +357,7 @@ export const MODULES_DATA: Record<string, ModuleData> = {
           "Shift allotment: crew assignment, breaks, night-shift premium validation",
           "Shift report PDF with submit → approve → reject workflow",
         ],
-        photo: "https://images.unsplash.com/photo-1581094271901-8022df4466f9?auto=format&fit=crop&w=1200&q=80",
+        photo: "/images/features/production--shop-floor-execution.jpg",
         flip: true,
       },
       {
@@ -374,7 +374,7 @@ export const MODULES_DATA: Record<string, ModuleData> = {
           "NCR (non-conformance) → CAPA with 5-Why root cause analysis",
           "Quality sort: prime / second / third / broke with disposition workflow",
         ],
-        photo: "https://images.unsplash.com/photo-1581093458791-9f3c3900df4b?auto=format&fit=crop&w=1200&q=80",
+        photo: "/images/features/production--quality-lab.jpg",
       },
       {
         tag: "Analytics & OEE",
@@ -390,7 +390,7 @@ export const MODULES_DATA: Record<string, ModuleData> = {
           "Custom report builder with metric selection and scheduled distribution",
           "Energy analytics: kWh/tonne, steam/tonne vs benchmarks, anomaly detection",
         ],
-        photo: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80",
+        photo: "/images/features/production--analytics-oee.jpg",
         flip: true,
       },
       {
@@ -407,7 +407,7 @@ export const MODULES_DATA: Record<string, ModuleData> = {
           "Grade-change sequence optimizer with actual vs predicted tracking",
           "Downtime Pareto by machine, reason, shift for maintenance prioritization",
         ],
-        photo: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200&q=80",
+        photo: "/images/features/production--downtime-optimization.jpg",
       },
       {
         tag: "Resource & Labour Planning",
@@ -423,7 +423,7 @@ export const MODULES_DATA: Record<string, ModuleData> = {
           "Process parameter targets per product/machine with actual vs target trending",
           "Chemical dosing records: target rate vs actual, variance alerts",
         ],
-        photo: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=1200&q=80",
+        photo: "/images/features/production--resource-labour-planning.jpg",
         flip: true,
       },
     ],
@@ -471,7 +471,7 @@ export const MODULES_DATA: Record<string, ModuleData> = {
     title: "Eliminate trim waste.",
     highlight: "Maximize reel recovery.",
     blurb: "Proprietary three-tier optimization engine for paper mill slitting plans. From reactive mid-shift adjustments (<2s) to fully optimal daily plans with 180+ constraints (≤5 min). Saves mills ₹100K+ per month.",
-    photo: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=1920&q=80",
+    photo: "/images/heroes/deckle-hero.jpg",
     accent: "#EF4444",
     icon: "Scissors",
     metrics: [
@@ -493,7 +493,7 @@ export const MODULES_DATA: Record<string, ModuleData> = {
           "Live progress streaming during optimization",
           "Cancellable runs with cleanup",
         ],
-        photo: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=1200&q=80",
+        photo: "/images/features/deckle--3-tier-optimization.jpg",
       },
       {
         tag: "Explainability",
@@ -507,7 +507,7 @@ export const MODULES_DATA: Record<string, ModuleData> = {
           "Pattern effectiveness analytics",
           "Plan vs. actual reconciliation",
         ],
-        photo: "https://images.unsplash.com/photo-1554224154-22dec7ec8818?auto=format&fit=crop&w=1200&q=80",
+        photo: "/images/features/deckle--explainability.jpg",
         flip: true,
       },
       {
@@ -522,7 +522,7 @@ export const MODULES_DATA: Record<string, ModuleData> = {
           "Grade substitution rules",
           "Position constraint refinement over time",
         ],
-        photo: "https://images.unsplash.com/photo-1517420704952-d9f39e95b43e?auto=format&fit=crop&w=1200&q=80",
+        photo: "/images/features/deckle--pattern-learning.jpg",
       },
       {
         tag: "Configuration",
@@ -537,7 +537,7 @@ export const MODULES_DATA: Record<string, ModuleData> = {
           "Allowance rules: pocket / reel / machine-specific",
           "Cost config per company + grade overrides",
         ],
-        photo: "https://images.unsplash.com/photo-1517420704952-d9f39e95b43e?auto=format&fit=crop&w=1200&q=80",
+        photo: "/images/features/deckle--configuration.jpg",
         flip: true,
       },
       {
@@ -553,7 +553,7 @@ export const MODULES_DATA: Record<string, ModuleData> = {
           "Plan release back into your ERP as production orders",
           "Works alongside, not instead of, your existing systems",
         ],
-        photo: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80",
+        photo: "/images/features/deckle--standalone-pluggable.jpg",
       },
     ],
     workflow: {
@@ -594,7 +594,7 @@ export const MODULES_DATA: Record<string, ModuleData> = {
     title: "Batch-level precision.",
     highlight: "Reel-level traceability.",
     blurb: "From goods receipt to finished reel — full lot traceability with FEFO allocation, reel serial numbering, multi-warehouse, QC holds, sampling plans, cycle counts, recall management, and consignment stock.",
-    photo: "https://images.unsplash.com/photo-1553413077-190dd305871c?auto=format&fit=crop&w=1920&q=80",
+    photo: "/images/heroes/inventory-hero.jpg",
     accent: "#8B5CF6",
     icon: "Boxes",
     metrics: [
@@ -616,7 +616,7 @@ export const MODULES_DATA: Record<string, ModuleData> = {
           "Batch label generation (A6 PDF) with QR codes",
           "Auto putaway with overflow bin handling",
         ],
-        photo: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=1200&q=80",
+        photo: "/images/features/inventory--grn-workflow.jpg",
       },
       {
         tag: "Batch Management",
@@ -631,7 +631,7 @@ export const MODULES_DATA: Record<string, ModuleData> = {
           "Customer allocation with availability validation",
           "FEFO suggestions with auto-block on expiry",
         ],
-        photo: "https://images.unsplash.com/photo-1565793298495-4f3c61ee7ec1?auto=format&fit=crop&w=1200&q=80",
+        photo: "/images/features/inventory--batch-management.jpg",
         flip: true,
       },
       {
@@ -646,7 +646,7 @@ export const MODULES_DATA: Record<string, ModuleData> = {
           "Stock adjustment with approval + posting",
           "Complete movement ledger with GL bridges",
         ],
-        photo: "https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?auto=format&fit=crop&w=1200&q=80",
+        photo: "/images/features/inventory--movement-valuation.jpg",
       },
       {
         tag: "Physical Verification",
@@ -660,7 +660,7 @@ export const MODULES_DATA: Record<string, ModuleData> = {
           "Threshold-based variance flagging (default 5%)",
           "Auto-create stock adjustments on post",
         ],
-        photo: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=1200&q=80",
+        photo: "/images/features/inventory--physical-verification.jpg",
         flip: true,
       },
       {
@@ -675,7 +675,7 @@ export const MODULES_DATA: Record<string, ModuleData> = {
           "Lot serialization (batch-level serial numbers)",
           "Consignment stock tracking",
         ],
-        photo: "https://images.unsplash.com/photo-1581093458791-9f3c3900df4b?auto=format&fit=crop&w=1200&q=80",
+        photo: "/images/features/inventory--quality-recall.jpg",
       },
     ],
     workflow: {
@@ -716,7 +716,7 @@ export const MODULES_DATA: Record<string, ModuleData> = {
     title: "Indian compliance, native.",
     highlight: "Not bolted on.",
     blurb: "GSTR-1/3B auto-filing, ITC ledger, TDS/TCS/RCM auto-deductions, FEMA tracking, LC management, forex revaluation, cost accounting per machine and grade, and trade finance — all built for Indian paper manufacturing.",
-    photo: "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=1920&q=80",
+    photo: "/images/heroes/finance-hero.jpg",
     accent: "#10B981",
     icon: "IndianRupee",
     metrics: [
@@ -738,7 +738,7 @@ export const MODULES_DATA: Record<string, ModuleData> = {
           "TCS Section 206C handling",
           "FEMA tracking for forex transactions",
         ],
-        photo: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=1200&q=80",
+        photo: "/images/features/finance--gst-compliance.jpg",
       },
       {
         tag: "GL & Periods",
@@ -752,7 +752,7 @@ export const MODULES_DATA: Record<string, ModuleData> = {
           "Trial balance with drill-down",
           "Period-end closing with checks",
         ],
-        photo: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=1200&q=80",
+        photo: "/images/features/finance--gl-periods.jpg",
         flip: true,
       },
       {
@@ -767,7 +767,7 @@ export const MODULES_DATA: Record<string, ModuleData> = {
           "Customer receipt application",
           "AR aging with collection priority",
         ],
-        photo: "https://images.unsplash.com/photo-1553729459-efe14ef6055d?auto=format&fit=crop&w=1200&q=80",
+        photo: "/images/features/finance--ap-ar.jpg",
       },
       {
         tag: "Costing & Budgets",
@@ -781,7 +781,7 @@ export const MODULES_DATA: Record<string, ModuleData> = {
           "Budget lock with read-only mode",
           "Landed cost for imported materials",
         ],
-        photo: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80",
+        photo: "/images/features/finance--costing-budgets.jpg",
         flip: true,
       },
       {
@@ -796,7 +796,7 @@ export const MODULES_DATA: Record<string, ModuleData> = {
           "Forex revaluation: FX gain/loss",
           "Multi-currency journal entries",
         ],
-        photo: "https://images.unsplash.com/photo-1559526324-c1f275fbfa32?auto=format&fit=crop&w=1200&q=80",
+        photo: "/images/features/finance--trade-finance.jpg",
       },
     ],
     workflow: {
@@ -837,7 +837,7 @@ export const MODULES_DATA: Record<string, ModuleData> = {
     title: "Roster to payroll.",
     highlight: "Statutory by default.",
     blurb: "Multi-shift mill workforce management with gap compliance, bulk attendance, complete Indian statutory payroll (PF, ESI, PT, LWF, TDS, gratuity), Form 16 generation, separation workflow, and ESS/MSS portals.",
-    photo: "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1920&q=80",
+    photo: "/images/heroes/hr-hero.jpg",
     accent: "#EC4899",
     icon: "Users",
     metrics: [
@@ -859,7 +859,7 @@ export const MODULES_DATA: Record<string, ModuleData> = {
           "Direct reports hierarchy",
           "Bulk update for department/designation/manager",
         ],
-        photo: "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&w=1200&q=80",
+        photo: "/images/features/hr--workforce-master.jpg",
       },
       {
         tag: "Shifts & Attendance",
@@ -874,7 +874,7 @@ export const MODULES_DATA: Record<string, ModuleData> = {
           "Bulk attendance marking (CSV)",
           "WFH and late marking support",
         ],
-        photo: "https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=1200&q=80",
+        photo: "/images/features/hr--shifts-attendance.jpg",
         flip: true,
       },
       {
@@ -892,7 +892,7 @@ export const MODULES_DATA: Record<string, ModuleData> = {
           "Arrears + recalc on backdated changes",
           "Bank advice file generation",
         ],
-        photo: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=1200&q=80",
+        photo: "/images/features/hr--payroll-processing.jpg",
       },
       {
         tag: "Statutory Returns",
@@ -906,7 +906,7 @@ export const MODULES_DATA: Record<string, ModuleData> = {
           "Form 16 annual TDS certificate",
           "Statutory registers per Indian Labour Codes",
         ],
-        photo: "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=1200&q=80",
+        photo: "/images/features/hr--statutory-returns.jpg",
         flip: true,
       },
       {
@@ -922,7 +922,7 @@ export const MODULES_DATA: Record<string, ModuleData> = {
           "Separation: F&F settlement, gratuity, clearance",
           "Investment declaration (80C, 80D)",
         ],
-        photo: "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1200&q=80",
+        photo: "/images/features/hr--leave-separation.jpg",
       },
       {
         tag: "ESS & MSS",
@@ -936,7 +936,7 @@ export const MODULES_DATA: Record<string, ModuleData> = {
           "MSS: performance review submission",
           "Bulk email payslips (rate-limited)",
         ],
-        photo: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&w=1200&q=80",
+        photo: "/images/features/hr--ess-mss.jpg",
         flip: true,
       },
     ],
@@ -978,7 +978,7 @@ export const MODULES_DATA: Record<string, ModuleData> = {
     title: "Ask your ERP anything.",
     highlight: "Act instantly.",
     blurb: "Natural language chat across all 44 modules, AI-powered bulk actions with human-in-the-loop preview, 50+ predictive analytics (cash flow, demand forecasting, anomaly detection), and a 5-phase analytics roadmap.",
-    photo: "https://images.unsplash.com/photo-1677442135703-1787eea5ce01?auto=format&fit=crop&w=1920&q=80",
+    photo: "/images/heroes/ai-hero.jpg",
     accent: "#A78BFA",
     icon: "Sparkles",
     metrics: [
@@ -1000,7 +1000,7 @@ export const MODULES_DATA: Record<string, ModuleData> = {
           "Multi-language: English, Hindi, Tamil",
           "Rate-limited (20 req/min) with quota enforcement",
         ],
-        photo: "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?auto=format&fit=crop&w=1200&q=80",
+        photo: "/images/features/ai--conversational-ai.jpg",
       },
       {
         tag: "Bulk Actions",
@@ -1014,7 +1014,7 @@ export const MODULES_DATA: Record<string, ModuleData> = {
           "Action registry with permission gates",
           "Smart form auto-fill with context",
         ],
-        photo: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80",
+        photo: "/images/features/ai--bulk-actions.jpg",
         flip: true,
       },
       {
@@ -1029,7 +1029,7 @@ export const MODULES_DATA: Record<string, ModuleData> = {
           "Phase 4: predictive maintenance + energy",
           "Phase 5: digital twin + supply chain control tower",
         ],
-        photo: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80",
+        photo: "/images/features/ai--predictive-analytics-5-phases.jpg",
       },
     ],
     workflow: {
@@ -1093,7 +1093,7 @@ export const MODULES_DATA: Record<string, ModuleData> = {
           "Multi-jurisdiction tax info",
           "Parent/child group relationships",
         ],
-        photo: "https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=1200&q=80",
+        photo: "/images/features/party--hierarchical-profiles.jpg",
       },
       {
         tag: "Credit & Risk",
@@ -1107,7 +1107,7 @@ export const MODULES_DATA: Record<string, ModuleData> = {
           "Blacklist with reason tracking",
           "Delivery preferences and rules",
         ],
-        photo: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=1200&q=80",
+        photo: "/images/features/party--credit-risk.jpg",
         flip: true,
       },
       {
@@ -1122,7 +1122,7 @@ export const MODULES_DATA: Record<string, ModuleData> = {
           "Audit log per document view",
           "Version control + download history",
         ],
-        photo: "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=1200&q=80",
+        photo: "/images/features/party--documents-certifications.jpg",
       },
       {
         tag: "Bulk Operations",
@@ -1136,7 +1136,7 @@ export const MODULES_DATA: Record<string, ModuleData> = {
           "Party code auto-generation",
           "Status bulk updates",
         ],
-        photo: "https://images.unsplash.com/photo-1606857521015-7f9fcf423740?auto=format&fit=crop&w=1200&q=80",
+        photo: "/images/features/party--bulk-operations.jpg",
         flip: true,
       },
     ],
