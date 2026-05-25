@@ -99,6 +99,8 @@ export function Navbar() {
           <Link href="/customers" className="text-sm text-zinc-400 hover:text-white transition-colors">Who It&apos;s For</Link>
           <Link href="/solutions" className="text-sm text-zinc-400 hover:text-white transition-colors">By Role</Link>
           <Link href="/features" className="text-sm text-zinc-400 hover:text-white transition-colors">Features</Link>
+          <Link href="/resources" className="text-sm text-zinc-400 hover:text-white transition-colors">Resources</Link>
+          <Link href="/pricing" className="text-sm text-zinc-400 hover:text-white transition-colors">Pricing</Link>
           <Link href="/contact" className="text-sm text-zinc-400 hover:text-white transition-colors">Contact</Link>
           <Link href="/contact" className="px-4 py-2 rounded-lg bg-amber-500 hover:bg-amber-400 text-black text-sm font-semibold transition-colors">
             Request Demo
@@ -134,6 +136,8 @@ export function Navbar() {
           <Link href="/customers" className="text-sm text-zinc-400 hover:text-white" onClick={() => setMenuOpen(false)}>Who It&apos;s For</Link>
           <Link href="/solutions" className="text-sm text-zinc-400 hover:text-white" onClick={() => setMenuOpen(false)}>By Role</Link>
           <Link href="/features" className="text-sm text-zinc-400 hover:text-white" onClick={() => setMenuOpen(false)}>Features</Link>
+          <Link href="/resources" className="text-sm text-zinc-400 hover:text-white" onClick={() => setMenuOpen(false)}>Resources</Link>
+          <Link href="/pricing" className="text-sm text-zinc-400 hover:text-white" onClick={() => setMenuOpen(false)}>Pricing</Link>
           <Link href="/contact" className="text-sm text-zinc-400 hover:text-white" onClick={() => setMenuOpen(false)}>Contact</Link>
           <Link href="/contact"
             className="px-4 py-2.5 rounded-lg bg-amber-500 text-black text-sm font-semibold text-center mt-2"
