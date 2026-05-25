@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 52" fill="none">
+  <!-- Icon mark: stacked paper sheets forming a "P" motif -->
+  <g>
+    <!-- Background badge -->
+    <rect x="0" y="6" width="40" height="40" rx="8" fill="#F59E0B"/>
+    <!-- Paper lines inside badge (white) -->
+    <rect x="8" y="15" width="18" height="3" rx="1.5" fill="white" opacity="0.9"/>
+    <rect x="8" y="22" width="24" height="3" rx="1.5" fill="white" opacity="0.9"/>
+    <rect x="8" y="29" width="20" height="3" rx="1.5" fill="white" opacity="0.9"/>
+    <rect x="8" y="36" width="14" height="3" rx="1.5" fill="white" opacity="0.6"/>
+    <!-- Vertical bar for P -->
+    <rect x="30" y="15" width="4" height="11" rx="2" fill="white" opacity="0.9"/>
+    <!-- Arc top of P -->
+    <path d="M30 15 Q38 15 38 20.5 Q38 26 30 26" stroke="white" stroke-width="0" fill="white" opacity="0" />
+  </g>
+  <!-- Wordmark -->
+  <text x="52" y="30" font-family="'Geist', 'Inter', -apple-system, sans-serif" font-weight="800" font-size="22" fill="white" letter-spacing="-0.5">Papyrus</text>
+  <text x="53" y="44" font-family="'Geist Mono', 'JetBrains Mono', monospace" font-weight="500" font-size="11" fill="#F59E0B" letter-spacing="1">BPApp</text>
+</svg>

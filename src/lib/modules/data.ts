@@ -1070,7 +1070,7 @@ export const MODULES_DATA: Record<string, ModuleData> = {
     title: "Customers. Suppliers.",
     highlight: "360° profiles. Compliant.",
     blurb: "Master data for 11 party types — customers, suppliers, transporters, banks, agents, brokers — with multi-address, multi-contact, multi-bank, certifications with expiry alerts, credit terms, MSME registration, and bulk import.",
-    photo: "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&w=1920&q=80",
+    photo: "/images/heroes/party-hero.jpg",
     accent: "#64748B",
     icon: "Building2",
     metrics: [

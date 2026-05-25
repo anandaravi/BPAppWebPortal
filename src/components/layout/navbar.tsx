@@ -1,13 +1,13 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import Image from "next/image";
 import Link from "next/link";
 import { Menu, X, ChevronDown } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { ALL_MODULES, MODULE_GROUPS } from "@/lib/modules";
 import { getIcon } from "@/lib/icons";
+import { Logo } from "@/components/ui/logo";
 
 export function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -38,15 +38,7 @@ export function Navbar() {
     )}>
       <nav className="max-w-7xl mx-auto px-6 flex items-center justify-between h-16">
         <Link href="/" className="flex items-center gap-2 group">
-          <Image
-            src="/logo.png"
-            alt="BPApp"
-            width={92}
-            height={36}
-            className="h-9 object-contain"
-            style={{ width: "auto" }}
-            priority
-          />
+          <Logo size="sm" />
         </Link>
 
         <div className="hidden lg:flex items-center gap-7">

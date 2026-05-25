@@ -44,7 +44,7 @@ export const PLATFORM_MODULES: Record<string, ModuleData> = {
           "Manufacturing facility profiles",
           "Mill-type configuration (paper, board, tissue)",
         ],
-        photo: "https://images.unsplash.com/photo-1573164574572-cb89e39749b4?auto=format&fit=crop&w=1200&q=80",
+        photo: "/images/features/administration--departments-cost-centers.jpg",
         flip: true,
       },
       {
@@ -59,7 +59,7 @@ export const PLATFORM_MODULES: Record<string, ModuleData> = {
           "Document templates with Handlebars + versioning",
           "Template preview + rollback support",
         ],
-        photo: "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=1200&q=80",
+        photo: "/images/features/administration--governance-templates.jpg",
       },
       {
         tag: "Integration Hub",
@@ -73,7 +73,7 @@ export const PLATFORM_MODULES: Record<string, ModuleData> = {
           "Supplier + customer portal management",
           "Webhook + event bus integration",
         ],
-        photo: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80",
+        photo: "/images/features/administration--integration-hub.jpg",
         flip: true,
       },
     ],
@@ -136,7 +136,7 @@ export const PLATFORM_MODULES: Record<string, ModuleData> = {
           "Per-username throttling (5/15min)",
           "Password complexity + reset workflows",
         ],
-        photo: "https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?auto=format&fit=crop&w=1200&q=80",
+        photo: "/images/features/rbac--authentication.jpg",
       },
       {
         tag: "Roles & Permissions",
@@ -150,7 +150,7 @@ export const PLATFORM_MODULES: Record<string, ModuleData> = {
           "Row-level security at query layer",
           "Conditional access (time, IP, context)",
         ],
-        photo: "https://images.unsplash.com/photo-1563013544-824ae1b704d3?auto=format&fit=crop&w=1200&q=80",
+        photo: "/images/features/rbac--roles-permissions.jpg",
         flip: true,
       },
       {
@@ -165,7 +165,7 @@ export const PLATFORM_MODULES: Record<string, ModuleData> = {
           "Compliance reports (SOC 2, ISO 27001 ready)",
           "Tamper-proof immutable audit log",
         ],
-        photo: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200&q=80",
+        photo: "/images/features/rbac--audit-compliance.jpg",
       },
     ],
     workflow: {
@@ -227,7 +227,7 @@ export const PLATFORM_MODULES: Record<string, ModuleData> = {
           "Multi-language: EN / HI / TA",
           "Reset to defaults on demand",
         ],
-        photo: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=1200&q=80",
+        photo: "/images/features/email-hub--templates-variables.jpg",
       },
       {
         tag: "Workflow Triggers",
@@ -241,7 +241,7 @@ export const PLATFORM_MODULES: Record<string, ModuleData> = {
           "Bulk operations (5 real sends/min limit)",
           "Custom workflow event triggers",
         ],
-        photo: "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&w=1200&q=80",
+        photo: "/images/features/email-hub--workflow-triggers.jpg",
         flip: true,
       },
       {
@@ -256,7 +256,7 @@ export const PLATFORM_MODULES: Record<string, ModuleData> = {
           "Bounce handling + retry logic",
           "Email delivery status tracking",
         ],
-        photo: "https://images.unsplash.com/photo-1557200134-90327ee9fafa?auto=format&fit=crop&w=1200&q=80",
+        photo: "/images/features/email-hub--inbox-email-to-ticket.jpg",
       },
     ],
     workflow: {
@@ -319,7 +319,7 @@ export const PLATFORM_MODULES: Record<string, ModuleData> = {
           "Per-user mute + do-not-disturb",
           "Smart filtering by relevance",
         ],
-        photo: "https://images.unsplash.com/photo-1551434678-e076c223a692?auto=format&fit=crop&w=1200&q=80",
+        photo: "/images/features/notifications--smart-alerting.jpg",
       },
       {
         tag: "Auto-Escalation",
@@ -333,7 +333,7 @@ export const PLATFORM_MODULES: Record<string, ModuleData> = {
           "Backup contacts on no-response",
           "Holiday + on-call calendar awareness",
         ],
-        photo: "https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=1200&q=80",
+        photo: "/images/features/notifications--auto-escalation.jpg",
         flip: true,
       },
       {
@@ -348,7 +348,7 @@ export const PLATFORM_MODULES: Record<string, ModuleData> = {
           "Demand anomaly detection",
           "Self-tuning ML model accuracy",
         ],
-        photo: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80",
+        photo: "/images/features/notifications--predictive-alerts.jpg",
       },
     ],
     workflow: {
@@ -411,7 +411,7 @@ export const PLATFORM_MODULES: Record<string, ModuleData> = {
           "Per-endpoint p50/p95/p99 latency",
           "Rate-limited (30 req/min, admin only)",
         ],
-        photo: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200&q=80",
+        photo: "/images/features/monitoring--backend-health.jpg",
       },
       {
         tag: "Frontend Monitoring",
@@ -425,7 +425,7 @@ export const PLATFORM_MODULES: Record<string, ModuleData> = {
           "Rate limited (60 req/min per IP)",
           "Batch ingestion + aggregation",
         ],
-        photo: "https://images.unsplash.com/photo-1555099962-4199c345e5dd?auto=format&fit=crop&w=1200&q=80",
+        photo: "/images/features/monitoring--frontend-monitoring.jpg",
         flip: true,
       },
       {
@@ -440,7 +440,7 @@ export const PLATFORM_MODULES: Record<string, ModuleData> = {
           "Breach detection + auto-alert",
           "Capacity trend analysis",
         ],
-        photo: "https://images.unsplash.com/photo-1543286386-2e659306cd6c?auto=format&fit=crop&w=1200&q=80",
+        photo: "/images/features/monitoring--sla-dashboards.jpg",
       },
     ],
     workflow: {
@@ -500,7 +500,7 @@ export const PLATFORM_MODULES: Record<string, ModuleData> = {
           "Checklist execution with photos",
           "Completion certificates + signatures",
         ],
-        photo: "https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?auto=format&fit=crop&w=1200&q=80",
+        photo: "/images/features/maintenance--preventive-maintenance.jpg",
       },
       {
         tag: "Breakdown Management",
@@ -514,7 +514,7 @@ export const PLATFORM_MODULES: Record<string, ModuleData> = {
           "Spare parts consumption logging",
           "Production impact analysis",
         ],
-        photo: "https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?auto=format&fit=crop&w=1200&q=80",
+        photo: "/images/features/maintenance--breakdown-management.jpg",
         flip: true,
       },
       {
@@ -529,7 +529,7 @@ export const PLATFORM_MODULES: Record<string, ModuleData> = {
           "Auto-PR for needed spares",
           "Calendar integration with shutdown plans",
         ],
-        photo: "https://images.unsplash.com/photo-1581094271901-8022df4466f9?auto=format&fit=crop&w=1200&q=80",
+        photo: "/images/features/maintenance--predictive-condition-based.jpg",
       },
       {
         tag: "Analytics & Reliability",
@@ -543,7 +543,7 @@ export const PLATFORM_MODULES: Record<string, ModuleData> = {
           "Maintenance cost per machine",
           "OEE availability component tracking",
         ],
-        photo: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80",
+        photo: "/images/features/maintenance--analytics-reliability.jpg",
         flip: true,
       },
     ],
@@ -607,7 +607,7 @@ export const PLATFORM_MODULES: Record<string, ModuleData> = {
           "Customer specification overrides",
           "Template inheritance with overrides",
         ],
-        photo: "https://images.unsplash.com/photo-1581093450021-4a7360e9a6b5?auto=format&fit=crop&w=1200&q=80",
+        photo: "/images/features/quality--quality-plans.jpg",
       },
       {
         tag: "Inspection Workflow",
@@ -621,7 +621,7 @@ export const PLATFORM_MODULES: Record<string, ModuleData> = {
           "Photo + signature evidence",
           "Multi-tier inspector approval",
         ],
-        photo: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=1200&q=80",
+        photo: "/images/features/quality--inspection-workflow.jpg",
         flip: true,
       },
       {
@@ -636,7 +636,7 @@ export const PLATFORM_MODULES: Record<string, ModuleData> = {
           "Closure documentation with sign-off",
           "Audit-ready compliance reports",
         ],
-        photo: "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=1200&q=80",
+        photo: "/images/features/quality--ncr-capa.jpg",
       },
       {
         tag: "LIMS & CoA",
@@ -650,7 +650,7 @@ export const PLATFORM_MODULES: Record<string, ModuleData> = {
           "Customer-specific CoA templates",
           "Batch genealogy traceability",
         ],
-        photo: "https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?auto=format&fit=crop&w=1200&q=80",
+        photo: "/images/features/quality--lims-coa.jpg",
         flip: true,
       },
     ],
@@ -713,7 +713,7 @@ export const PLATFORM_MODULES: Record<string, ModuleData> = {
           "Gantt chart with resource overlay",
           "Paper mill project templates",
         ],
-        photo: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=1200&q=80",
+        photo: "/images/features/projects--planning-wbs.jpg",
       },
       {
         tag: "Resource & Budget",
@@ -727,7 +727,7 @@ export const PLATFORM_MODULES: Record<string, ModuleData> = {
           "Change order management",
           "Estimate-at-Completion (EAC)",
         ],
-        photo: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=1200&q=80",
+        photo: "/images/features/projects--resource-budget.jpg",
         flip: true,
       },
       {
@@ -742,7 +742,7 @@ export const PLATFORM_MODULES: Record<string, ModuleData> = {
           "Schedule performance index (SPI)",
           "Portfolio prioritization by ROI",
         ],
-        photo: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80",
+        photo: "/images/features/projects--risk-milestones.jpg",
       },
     ],
     workflow: {
@@ -803,7 +803,7 @@ export const PLATFORM_MODULES: Record<string, ModuleData> = {
           "Reusable sub-workflows",
           "Live testing with sample data",
         ],
-        photo: "https://images.unsplash.com/photo-1618401471353-b98afee0b2eb?auto=format&fit=crop&w=1200&q=80",
+        photo: "/images/features/automations--visual-designer.jpg",
       },
       {
         tag: "Triggers & Actions",
@@ -818,7 +818,7 @@ export const PLATFORM_MODULES: Record<string, ModuleData> = {
           "Call external APIs + webhooks",
           "Generate PDFs + reports",
         ],
-        photo: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80",
+        photo: "/images/features/automations--triggers-actions.jpg",
         flip: true,
       },
       {
@@ -834,7 +834,7 @@ export const PLATFORM_MODULES: Record<string, ModuleData> = {
           "GST filing automation",
           "Approval chain templates",
         ],
-        photo: "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?auto=format&fit=crop&w=1200&q=80",
+        photo: "/images/features/automations--rpa-templates.jpg",
       },
       {
         tag: "Monitoring & SLA",
@@ -848,7 +848,7 @@ export const PLATFORM_MODULES: Record<string, ModuleData> = {
           "AI-suggested parallel execution opportunities",
           "Performance analytics + bottleneck detection",
         ],
-        photo: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80",
+        photo: "/images/features/automations--monitoring-sla.jpg",
         flip: true,
       },
     ],
@@ -911,7 +911,7 @@ export const PLATFORM_MODULES: Record<string, ModuleData> = {
           "Large-button shop floor UI",
           "Voice-enabled data entry",
         ],
-        photo: "https://images.unsplash.com/photo-1581094271901-8022df4466f9?auto=format&fit=crop&w=1200&q=80",
+        photo: "/images/features/mobile--shop-floor-operations.jpg",
       },
       {
         tag: "Offline-First",
@@ -925,7 +925,7 @@ export const PLATFORM_MODULES: Record<string, ModuleData> = {
           "95% offline capture success rate",
           "Background sync with retry",
         ],
-        photo: "https://images.unsplash.com/photo-1551434678-e076c223a692?auto=format&fit=crop&w=1200&q=80",
+        photo: "/images/features/mobile--offline-first.jpg",
         flip: true,
       },
       {
@@ -940,7 +940,7 @@ export const PLATFORM_MODULES: Record<string, ModuleData> = {
           "MSS: team management",
           "Biometric auth (Face ID / fingerprint)",
         ],
-        photo: "https://images.unsplash.com/photo-1551836022-deb4988cc6c0?auto=format&fit=crop&w=1200&q=80",
+        photo: "/images/features/mobile--approvals-dashboards.jpg",
       },
       {
         tag: "Field Service & Delivery",
@@ -954,7 +954,7 @@ export const PLATFORM_MODULES: Record<string, ModuleData> = {
           "Maintenance technician work orders",
           "Camera for quality + document capture",
         ],
-        photo: "https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?auto=format&fit=crop&w=1200&q=80",
+        photo: "/images/features/mobile--field-service-delivery.jpg",
         flip: true,
       },
     ],
@@ -1018,7 +1018,7 @@ export const PLATFORM_MODULES: Record<string, ModuleData> = {
           "Large file support (up to 1GB)",
           "S3-backed durability + CDN delivery",
         ],
-        photo: "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=1200&q=80",
+        photo: "/images/features/documents--storage-versioning.jpg",
       },
       {
         tag: "AI Classification & OCR",
@@ -1032,7 +1032,7 @@ export const PLATFORM_MODULES: Record<string, ModuleData> = {
           "Auto-attach to matching transaction",
           "ISO + certificate auto-tagging",
         ],
-        photo: "https://images.unsplash.com/photo-1606857521015-7f9fcf423740?auto=format&fit=crop&w=1200&q=80",
+        photo: "/images/features/documents--ai-classification-ocr.jpg",
         flip: true,
       },
       {
@@ -1047,7 +1047,7 @@ export const PLATFORM_MODULES: Record<string, ModuleData> = {
           "Signed PDF with embedded signature",
           "Verification API for third parties",
         ],
-        photo: "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=1200&q=80",
+        photo: "/images/features/documents--digital-signatures.jpg",
       },
       {
         tag: "Retention & Compliance",
@@ -1061,7 +1061,7 @@ export const PLATFORM_MODULES: Record<string, ModuleData> = {
           "Access audit logs per document",
           "Compliance reports (SOC 2, GDPR)",
         ],
-        photo: "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=1200&q=80",
+        photo: "/images/features/documents--retention-compliance.jpg",
         flip: true,
       },
     ],
@@ -1125,7 +1125,7 @@ export const PLATFORM_MODULES: Record<string, ModuleData> = {
           "Multi-currency cost basis",
           "Per-grade default workflows",
         ],
-        photo: "https://images.unsplash.com/photo-1606857521015-7f9fcf423740?auto=format&fit=crop&w=1200&q=80",
+        photo: "/images/features/product-catalog--material-grade-master.jpg",
       },
       {
         tag: "BOM & Routing",
@@ -1139,7 +1139,7 @@ export const PLATFORM_MODULES: Record<string, ModuleData> = {
           "Engineering Change Order (ECO) workflow",
           "Effective date ranges per BOM version",
         ],
-        photo: "https://images.unsplash.com/photo-1581094271901-8022df4466f9?auto=format&fit=crop&w=1200&q=80",
+        photo: "/images/features/product-catalog--bom-routing.jpg",
         flip: true,
       },
       {
@@ -1154,7 +1154,7 @@ export const PLATFORM_MODULES: Record<string, ModuleData> = {
           "Approval-gated spec changes",
           "Audit history of every spec change",
         ],
-        photo: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=1200&q=80",
+        photo: "/images/features/product-catalog--customer-specifications.jpg",
       },
     ],
     workflow: {
@@ -1217,7 +1217,7 @@ export const PLATFORM_MODULES: Record<string, ModuleData> = {
           "Bulk price update with approval workflow",
           "Audit trail of every price change",
         ],
-        photo: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=1200&q=80",
+        photo: "/images/features/pricing--price-lists-hierarchies.jpg",
       },
       {
         tag: "Customer Rate Contracts",
@@ -1231,7 +1231,7 @@ export const PLATFORM_MODULES: Record<string, ModuleData> = {
           "Renewal notification before expiry",
           "Variance tracking vs contract terms",
         ],
-        photo: "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&w=1200&q=80",
+        photo: "/images/features/pricing--customer-rate-contracts.jpg",
         flip: true,
       },
       {
@@ -1246,7 +1246,7 @@ export const PLATFORM_MODULES: Record<string, ModuleData> = {
           "Margin trend analytics per rep/customer",
           "Auto-block on customers in arrears",
         ],
-        photo: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80",
+        photo: "/images/features/pricing--margin-approval.jpg",
       },
     ],
     workflow: {
@@ -1310,7 +1310,7 @@ export const PLATFORM_MODULES: Record<string, ModuleData> = {
           "State-wise PT slabs",
           "ESI / PF rates per notification",
         ],
-        photo: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=1200&q=80",
+        photo: "/images/features/lookups--statutory-reference-data.jpg",
       },
       {
         tag: "Geographic & Currency",
@@ -1324,7 +1324,7 @@ export const PLATFORM_MODULES: Record<string, ModuleData> = {
           "Phone country code prefixes",
           "Address formatting templates per country",
         ],
-        photo: "https://images.unsplash.com/photo-1606857521015-7f9fcf423740?auto=format&fit=crop&w=1200&q=80",
+        photo: "/images/features/lookups--geographic-currency.jpg",
         flip: true,
       },
       {
@@ -1339,7 +1339,7 @@ export const PLATFORM_MODULES: Record<string, ModuleData> = {
           "Bank codes + IFSC master",
           "Standard reason codes (return, NCR, write-off)",
         ],
-        photo: "https://images.unsplash.com/photo-1573164574572-cb89e39749b4?auto=format&fit=crop&w=1200&q=80",
+        photo: "/images/features/lookups--business-reference.jpg",
       },
     ],
     workflow: {
@@ -1400,7 +1400,7 @@ export const PLATFORM_MODULES: Record<string, ModuleData> = {
           "Year-end auto-reset (next FY starts at 1)",
           "Multi-format support: INV/2026-27/00042 etc.",
         ],
-        photo: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=1200&q=80",
+        photo: "/images/features/number-series--configurable-patterns.jpg",
       },
       {
         tag: "Statutory Compliance",
@@ -1414,7 +1414,7 @@ export const PLATFORM_MODULES: Record<string, ModuleData> = {
           "Reservation + commit for transactional safety",
           "GSTR-1 ready output",
         ],
-        photo: "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=1200&q=80",
+        photo: "/images/features/number-series--statutory-compliance.jpg",
         flip: true,
       },
       {
@@ -1429,7 +1429,7 @@ export const PLATFORM_MODULES: Record<string, ModuleData> = {
           "Number gap report + reconciliation",
           "Bulk regeneration in dry-run mode",
         ],
-        photo: "https://images.unsplash.com/photo-1604881991720-f91add269bed?auto=format&fit=crop&w=1200&q=80",
+        photo: "/images/features/number-series--lifecycle-management.jpg",
       },
     ],
     workflow: {
@@ -1491,7 +1491,7 @@ export const PLATFORM_MODULES: Record<string, ModuleData> = {
           "Headcount + shift structure",
           "Existing systems being replaced",
         ],
-        photo: "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1200&q=80",
+        photo: "/images/features/business-profile--mill-profile-capture.jpg",
       },
       {
         tag: "Auto-Configuration",
@@ -1505,7 +1505,7 @@ export const PLATFORM_MODULES: Record<string, ModuleData> = {
           "Set shift patterns per mill type",
           "Pre-load HSN + GST rates for products",
         ],
-        photo: "https://images.unsplash.com/photo-1553413077-190dd305871c?auto=format&fit=crop&w=1200&q=80",
+        photo: "/images/features/business-profile--auto-configuration.jpg",
         flip: true,
       },
       {
@@ -1520,7 +1520,7 @@ export const PLATFORM_MODULES: Record<string, ModuleData> = {
           "FSC + ISO certifications",
           "Statutory return calendar populated",
         ],
-        photo: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=1200&q=80",
+        photo: "/images/features/business-profile--compliance-setup.jpg",
       },
     ],
     workflow: {
@@ -1583,7 +1583,7 @@ export const PLATFORM_MODULES: Record<string, ModuleData> = {
           "Comment + reason capture",
           "Auto-route based on requester history",
         ],
-        photo: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=1200&q=80",
+        photo: "/images/features/approvals--unified-inbox.jpg",
       },
       {
         tag: "Dynamic Matrix",
@@ -1597,7 +1597,7 @@ export const PLATFORM_MODULES: Record<string, ModuleData> = {
           "Per-company / branch / role customization",
           "Version-controlled matrix changes",
         ],
-        photo: "https://images.unsplash.com/photo-1573164574572-cb89e39749b4?auto=format&fit=crop&w=1200&q=80",
+        photo: "/images/features/approvals--dynamic-matrix.jpg",
         flip: true,
       },
       {
@@ -1612,7 +1612,7 @@ export const PLATFORM_MODULES: Record<string, ModuleData> = {
           "Backup approver on extended absence",
           "Compliance reporting on SLA adherence",
         ],
-        photo: "https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=1200&q=80",
+        photo: "/images/features/approvals--sla-escalation.jpg",
       },
     ],
     workflow: {
@@ -1675,7 +1675,7 @@ export const PLATFORM_MODULES: Record<string, ModuleData> = {
           "Configuration change events",
           "Indexed for fast search across millions of entries",
         ],
-        photo: "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=1200&q=80",
+        photo: "/images/features/audit--tamper-proof-ledger.jpg",
       },
       {
         tag: "Compliance Calendar",
@@ -1689,7 +1689,7 @@ export const PLATFORM_MODULES: Record<string, ModuleData> = {
           "ISO / FSC / FSSAI recertification",
           "Customer audit + financial audit scheduling",
         ],
-        photo: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=1200&q=80",
+        photo: "/images/features/audit--compliance-calendar.jpg",
         flip: true,
       },
       {
@@ -1704,7 +1704,7 @@ export const PLATFORM_MODULES: Record<string, ModuleData> = {
           "Document download with watermark",
           "Auditor's own access fully logged",
         ],
-        photo: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=1200&q=80",
+        photo: "/images/features/audit--auditor-workspace.jpg",
       },
       {
         tag: "Evidence Exports",
@@ -1718,7 +1718,7 @@ export const PLATFORM_MODULES: Record<string, ModuleData> = {
           "Aadhaar Act §29 access logs",
           "GDPR data subject request exports",
         ],
-        photo: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=1200&q=80",
+        photo: "/images/features/audit--evidence-exports.jpg",
         flip: true,
       },
     ],
@@ -1782,7 +1782,7 @@ export const PLATFORM_MODULES: Record<string, ModuleData> = {
           "Acceptance criteria + tolerance bands",
           "Test duration + cost per run",
         ],
-        photo: "https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?auto=format&fit=crop&w=1200&q=80",
+        photo: "/images/features/lab-master--test-procedure-library.jpg",
       },
       {
         tag: "Equipment & Calibration",
@@ -1796,7 +1796,7 @@ export const PLATFORM_MODULES: Record<string, ModuleData> = {
           "ISO 17025 compliance evidence",
           "Equipment availability calendar",
         ],
-        photo: "https://images.unsplash.com/photo-1581093458791-9f3c3900df4b?auto=format&fit=crop&w=1200&q=80",
+        photo: "/images/features/lab-master--equipment-calibration.jpg",
         flip: true,
       },
       {
@@ -1811,7 +1811,7 @@ export const PLATFORM_MODULES: Record<string, ModuleData> = {
           "Statistical confidence levels",
           "Sampling cost analytics",
         ],
-        photo: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=1200&q=80",
+        photo: "/images/features/lab-master--sampling-plans.jpg",
       },
     ],
     workflow: {

@@ -165,7 +165,7 @@ export const EXTRA_MODULES: Record<string, ModuleData> = {
     slug: "helpdesk", tag: "Customer Service & Helpdesk", name: "Helpdesk",
     title: "Tickets in.", highlight: "Resolution out.",
     blurb: "Ticket-based customer support with SLA tracking, knowledge base, customer portal, satisfaction surveys. Complaint resolution that closes the loop instead of letting issues fester.",
-    photo: "https://images.unsplash.com/photo-1556745757-8d76bdb6984b?auto=format&fit=crop&w=1920&q=80",
+    photo: "/images/heroes/helpdesk-hero.jpg",
     accent: "#F59E0B", icon: "MessageSquare",
     metrics: [{ value: "SLA", label: "tracked" }, { value: "Multi-channel", label: "intake" }, { value: "KB", label: "self-service" }, { value: "CSAT", label: "surveyed" }],
     features: [
@@ -197,7 +197,7 @@ export const EXTRA_MODULES: Record<string, ModuleData> = {
     slug: "marketing-automation", tag: "Marketing Automation", name: "Marketing",
     title: "Right message.", highlight: "Right person. Right time.",
     blurb: "Campaign management, lead nurturing, audience segmentation, email sequences, content personalization, ROI tracking. The marketing engine that runs alongside CRM.",
-    photo: "https://images.unsplash.com/photo-1432888622747-4eb9a8efeb07?auto=format&fit=crop&w=1920&q=80",
+    photo: "/images/heroes/marketing-automation-hero.jpg",
     accent: "#EC4899", icon: "Megaphone",
     metrics: [{ value: "Segmented", label: "audiences" }, { value: "Nurture", label: "automation" }, { value: "Multi-touch", label: "attribution" }, { value: "ROI", label: "tracked" }],
     features: [
@@ -229,7 +229,7 @@ export const EXTRA_MODULES: Record<string, ModuleData> = {
     slug: "field-service", tag: "Field Service Management", name: "Field Service",
     title: "Right tech.", highlight: "Right place. Right time.",
     blurb: "Technician scheduling, route optimization, on-site work orders, mobile completion, customer signature capture. For mill OEMs, service providers, and after-sales operations.",
-    photo: "https://images.unsplash.com/photo-1581094271901-8022df4466f9?auto=format&fit=crop&w=1920&q=80",
+    photo: "/images/heroes/field-service-hero.jpg",
     accent: "#84CC16", icon: "Wrench",
     metrics: [{ value: "Route", label: "optimized" }, { value: "Mobile", label: "completion" }, { value: "Customer", label: "sign-off" }, { value: "SLA", label: "tracked" }],
     features: [
@@ -325,7 +325,7 @@ export const EXTRA_MODULES: Record<string, ModuleData> = {
     slug: "sustainability", tag: "Sustainability & ESG", name: "Sustainability",
     title: "Measure. Report.", highlight: "Reduce.",
     blurb: "Carbon footprint tracking, water consumption, waste streams, energy intensity, sustainability certifications, ESG reporting per BRSR/GRI standards. The reporting layer customers + investors now expect.",
-    photo: "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&w=1920&q=80",
+    photo: "/images/heroes/sustainability-hero.jpg",
     accent: "#16A34A", icon: "Globe",
     metrics: [{ value: "Scope 1+2+3", label: "tracked" }, { value: "BRSR", label: "+ GRI ready" }, { value: "Water", label: "+ waste" }, { value: "Per-tonne", label: "intensity" }],
     features: [
@@ -357,7 +357,7 @@ export const EXTRA_MODULES: Record<string, ModuleData> = {
     slug: "edge-computing", tag: "Edge Computing", name: "Edge",
     title: "Decisions at the edge.", highlight: "Latency. Resilience.",
     blurb: "Edge gateways that run analytics locally on the shop floor — predictive maintenance models, quality outliers, control loops. Offline-capable; sync with cloud when connected.",
-    photo: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1920&q=80",
+    photo: "/images/heroes/edge-computing-hero.jpg",
     accent: "#0891B2", icon: "Cpu" as string,
     metrics: [{ value: "Edge AI", label: "inference" }, { value: "Offline", label: "capable" }, { value: "Low", label: "latency" }, { value: "Buffered", label: "sync" }],
     features: [
@@ -389,7 +389,7 @@ export const EXTRA_MODULES: Record<string, ModuleData> = {
     slug: "rpa", tag: "RPA / Bot Orchestration", name: "RPA",
     title: "Bots that work.", highlight: "While humans sleep.",
     blurb: "Robotic Process Automation — software bots that perform repetitive tasks across legacy systems, web portals, and Excel. OCR-driven data extraction, screen scraping, form filling, scheduled batch operations.",
-    photo: "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?auto=format&fit=crop&w=1920&q=80",
+    photo: "/images/heroes/rpa-hero.jpg",
     accent: "#FB923C", icon: "Bot",
     metrics: [{ value: "Attended", label: "+ unattended" }, { value: "OCR", label: "pipelines" }, { value: "Audit", label: "every step" }, { value: "ROI", label: "tracked" }],
     features: [
@@ -421,7 +421,7 @@ export const EXTRA_MODULES: Record<string, ModuleData> = {
     slug: "voice", tag: "Voice Interface", name: "Voice",
     title: "Hands busy.", highlight: "Voice ready.",
     blurb: "Speech-to-text and voice commands for shop floor workflows — log production entries, mark quality results, capture breakdown observations, request approvals. When hands are gloved and screens are far.",
-    photo: "https://images.unsplash.com/photo-1606761568499-6d2451b23c66?auto=format&fit=crop&w=1920&q=80",
+    photo: "/images/heroes/voice-hero.jpg",
     accent: "#7C3AED", icon: "MessageSquare",
     metrics: [{ value: "Multi-lang", label: "EN/HI/TA" }, { value: "On-device", label: "STT" }, { value: "Wake-word", label: "+ push-to-talk" }, { value: "Offline", label: "capable" }],
     features: [
@@ -453,7 +453,7 @@ export const EXTRA_MODULES: Record<string, ModuleData> = {
     slug: "document-intelligence", tag: "Document Intelligence", name: "Doc Intel",
     title: "Paper to structured data.", highlight: "Automatically.",
     blurb: "OCR + AI entity extraction + semantic search across every document in the system. Inbound invoices, supplier docs, contracts, certificates — all become structured, searchable, actionable data.",
-    photo: "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=1920&q=80",
+    photo: "/images/heroes/document-intelligence-hero.jpg",
     accent: "#0EA5E9", icon: "Eye",
     metrics: [{ value: "OCR", label: "multi-lang" }, { value: "Entity", label: "extraction" }, { value: "Semantic", label: "search" }, { value: "Auto-link", label: "to txn" }],
     features: [
@@ -485,7 +485,7 @@ export const EXTRA_MODULES: Record<string, ModuleData> = {
     slug: "engineering-change", tag: "Engineering Change Management", name: "ECM",
     title: "Change. Controlled.", highlight: "Impact. Analyzed.",
     blurb: "Engineering Change Request workflow with impact analysis across BOMs, recipes, customer specs, in-flight production. Approval routing, version control, effective dating. The right way to change product definitions.",
-    photo: "https://images.unsplash.com/photo-1453928582365-b6ad33cbcf64?auto=format&fit=crop&w=1920&q=80",
+    photo: "/images/heroes/engineering-change-hero.jpg",
     accent: "#F472B6", icon: "GitBranch",
     metrics: [{ value: "ECR", label: "workflow" }, { value: "Impact", label: "analyzed" }, { value: "Multi-tier", label: "approval" }, { value: "Effective", label: "dating" }],
     features: [

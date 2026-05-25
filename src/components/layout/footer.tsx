@@ -1,6 +1,6 @@
-import Image from "next/image";
 import Link from "next/link";
 import { SITE } from "@/lib/constants";
+import { Logo } from "@/components/ui/logo";
 
 const NAV = [
   { label: "Product", href: "/product" },
@@ -20,14 +20,7 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
           <div className="flex flex-col gap-4">
             <Link href="/" className="inline-block">
-              <Image
-                src="/logo.png"
-                alt="BPApp"
-                width={120}
-                height={47}
-                className="h-12 object-contain"
-                style={{ width: "auto" }}
-              />
+              <Logo size="md" />
             </Link>
             <p className="text-sm text-zinc-500 max-w-xs leading-relaxed">{SITE.tagline}. Built for Indian paper manufacturing — modular, scalable, and compliant.</p>
           </div>
