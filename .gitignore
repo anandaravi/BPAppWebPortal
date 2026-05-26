@@ -39,3 +39,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# YouTube OAuth secrets
+youtube_auth.json
+scripts/client_secrets.json
+scripts/.youtube_token.pkl
+scripts/__pycache__/

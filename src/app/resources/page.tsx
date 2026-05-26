@@ -48,6 +48,33 @@ const VIDEOS: VideoItem[] = [
     category: "Customer Story",
   },
   {
+    id: "day-in-life",
+    youtubeId: "BLZ1n_yMVqo",
+    title: "A Day in the Life of a Paper Mill — Powered by Papyrus BPApp",
+    duration: "Watch",
+    description:
+      "Follow a single day at an Indian paper mill on BPApp — shift handover, production, quality, dispatch, GST, and MIS, all in one system.",
+    category: "Customer Story",
+  },
+  {
+    id: "platform-overview",
+    youtubeId: "FEklm6Ji9ho",
+    title: "Papyrus BPApp — The Complete ERP for Indian Paper Mills",
+    duration: "Watch",
+    description:
+      "Full platform overview — 44 integrated modules covering production, sales, finance, HR, quality, maintenance, AI, and more.",
+    category: "Product",
+  },
+  {
+    id: "unified-flow",
+    youtubeId: "OBn-tlhePTs",
+    title: "The Unified Flow: How All 44 Modules Work Together",
+    duration: "Watch",
+    description:
+      "Order → Production → Dispatch → Invoice → Payment. See how data flows across departments without re-entry, in real time.",
+    category: "Product",
+  },
+  {
     id: "ai-engine",
     youtubeId: "MgMQ6hb3mWc",
     title: "AI-Powered Paper Mill ERP — Predict, Detect & Automate",
@@ -58,11 +85,20 @@ const VIDEOS: VideoItem[] = [
   },
   {
     id: "deckle-optimizer",
-    youtubeId: "3ap2joVrCyc",
+    youtubeId: "7rRt1sY3a-U",
     title: "Stop Wasting ₹3 Crore/Year on Paper Trim",
     duration: "Watch",
     description:
       "The Deckle Optimizer cuts trim waste using a proprietary optimization engine — live demo for Indian paper mills.",
+    category: "Product",
+  },
+  {
+    id: "deckle-deep-dive",
+    youtubeId: "_g1zvb2YWF8",
+    title: "Deckle Optimizer Deep Dive — Proprietary Optimization Engine",
+    duration: "Watch",
+    description:
+      "Detailed walkthrough of the 3-tier deckle architecture, constraint handling, pattern catalog, and ROI calculator.",
     category: "Product",
   },
   {
@@ -93,10 +129,12 @@ const VIDEOS: VideoItem[] = [
     category: "Product",
   },
   {
-    id: "gst-compliance",
-    title: "GST Compliance Workflow",
-    duration: "11 min",
-    description: "E-invoice, GSTR-1, GSTR-3B auto-population walkthrough.",
+    id: "cost-of-quality",
+    youtubeId: "X5N05aXFLbk",
+    title: "The Cost of Quality in Paper Manufacturing",
+    duration: "Watch",
+    description:
+      "Quality plans, LIMS, NCR/CAPA workflows, and cost-of-quality tracking — eliminate rework and customer returns.",
     category: "Product",
   },
 ];
