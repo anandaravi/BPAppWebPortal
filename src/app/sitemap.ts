@@ -38,6 +38,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/for/kraft-mill",
     "/for/tissue-mill",
     "/for/integrated-mill",
+    "/for/newsprint-mill",
+    "/for/board-mill",
+    "/for/recycled-mill",
   ];
 
   const contentRoutes = ["/glossary", "/blog", "/roi-calculator", "/erp-for-paper-mills"];

@@ -1,7 +1,9 @@
 import { ModuleTemplate } from "@/components/module/module-template";
 import { DeckleDeepDive } from "@/components/module/deckle-deep-dive";
+import { ModuleFAQ } from "@/components/module/module-faq";
 import { ALL_MODULES, ALL_SLUGS } from "@/lib/modules";
-import { JsonLd, productSchema, breadcrumbSchema } from "@/components/seo/json-ld";
+import { JsonLd, productSchema, breadcrumbSchema, faqSchema } from "@/components/seo/json-ld";
+import { MODULE_FAQS } from "@/lib/module-faqs";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
@@ -38,25 +40,30 @@ export default async function Page({ params }: { params: Promise<{ module: strin
   const data = ALL_MODULES[module];
   if (!data) notFound();
 
+  const faqs = MODULE_FAQS[module];
+  const schemas: Record<string, unknown>[] = [
+    productSchema({
+      name: `${data.name} — Papyrus BPApp`,
+      description: data.blurb,
+      slug: module,
+      image: data.photo,
+      category: `Paper mill ERP module — ${data.name}`,
+    }),
+    breadcrumbSchema([
+      { name: "Home", url: "/" },
+      { name: "Product", url: "/product" },
+      { name: data.name, url: `/product/${module}` },
+    ]),
+  ];
+  if (faqs && faqs.length > 0) {
+    schemas.push(faqSchema(faqs));
+  }
+
   return (
     <>
-      <JsonLd
-        data={[
-          productSchema({
-            name: `${data.name} — Papyrus BPApp`,
-            description: data.blurb,
-            slug: module,
-            image: data.photo,
-            category: `Paper mill ERP module — ${data.name}`,
-          }),
-          breadcrumbSchema([
-            { name: "Home", url: "/" },
-            { name: "Product", url: "/product" },
-            { name: data.name, url: `/product/${module}` },
-          ]),
-        ]}
-      />
+      <JsonLd data={schemas} />
       {module === "deckle" ? <DeckleDeepDive data={data} /> : <ModuleTemplate data={data} />}
+      {faqs && faqs.length > 0 && module !== "deckle" && <ModuleFAQ faqs={faqs} moduleName={data.name} />}
     </>
   );
 }
