@@ -20,7 +20,7 @@ export async function POST(req: NextRequest) {
     }
 
     const apiKey = process.env.RESEND_API_KEY;
-    const toEmail = process.env.CONTACT_TO_EMAIL ?? "anandaravi.ramasamy@gmail.com";
+    const toEmail = process.env.CONTACT_TO_EMAIL ?? "ardv.anandaravi@gmail.com";
 
     const interestList = interests && interests.length > 0 ? interests : [];
     const interestSummary = interestList.length > 0
@@ -31,7 +31,7 @@ export async function POST(req: NextRequest) {
       const { Resend } = await import("resend");
       const resend = new Resend(apiKey);
 
-      await resend.emails.send({
+      const result = await resend.emails.send({
         from: "Papyrus BPApp Website <onboarding@resend.dev>",
         to: toEmail,
         subject: `Demo: ${company} (${interestSummary})`,
@@ -50,6 +50,14 @@ export async function POST(req: NextRequest) {
           message ?? "—",
         ].join("\n"),
       });
+      if (result.error) {
+        console.error("[contact] Resend error:", result.error);
+        return NextResponse.json(
+          { error: "Email send failed", detail: result.error },
+          { status: 500 }
+        );
+      }
+      console.log("[contact] sent:", result.data?.id, "→", toEmail);
     } else {
       console.log("[contact] RESEND_API_KEY not set — logging submission:", {
         name, company, email, role, interests: interestList,
