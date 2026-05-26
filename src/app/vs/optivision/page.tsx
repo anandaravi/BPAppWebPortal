@@ -1,6 +1,14 @@
 import type { Metadata } from "next";
+import { ogImage } from "@/lib/og";
 import { ComparisonPage, type ComparisonPageData } from "@/components/seo/comparison-page";
 
+
+const OG = ogImage({
+  title: "Papyrus BPApp vs Optivision",
+  subtitle: "Enterprise paper mill MES (Honeywell)",
+  tag: "Comparison",
+  accent: "#EF4444",
+});
 export const metadata: Metadata = {
   title: "Papyrus BPApp vs Honeywell Optivision | Paper Mill MES Alternative",
   description:
@@ -17,7 +25,9 @@ export const metadata: Metadata = {
     title: "Papyrus BPApp vs Honeywell Optivision",
     description: "Optivision is enterprise MES. Papyrus BPApp is integrated MES + ERP + GST for Indian mills.",
     url: "/vs/optivision",
+    images: [OG],
   },
+  twitter: { card: "summary_large_image", images: [OG] },
 };
 
 const data: ComparisonPageData = {

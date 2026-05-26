@@ -1,6 +1,14 @@
 import type { Metadata } from "next";
+import { ogImage } from "@/lib/og";
 import { ComparisonPage, type ComparisonPageData } from "@/components/seo/comparison-page";
 
+
+const OG = ogImage({
+  title: "Papyrus BPApp vs Microsoft Dynamics 365",
+  subtitle: "Microsoft's cloud ERP platform",
+  tag: "Comparison",
+  accent: "#EF4444",
+});
 export const metadata: Metadata = {
   title: "Papyrus BPApp vs Microsoft Dynamics 365 | Paper Mill ERP Alternative",
   description:
@@ -17,7 +25,9 @@ export const metadata: Metadata = {
     title: "Papyrus BPApp vs Microsoft Dynamics 365",
     description: "D365 is general cloud ERP. Papyrus BPApp is paper-first.",
     url: "/vs/microsoft-dynamics",
+    images: [OG],
   },
+  twitter: { card: "summary_large_image", images: [OG] },
 };
 
 const data: ComparisonPageData = {

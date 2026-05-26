@@ -1,6 +1,14 @@
 import type { Metadata } from "next";
+import { ogImage } from "@/lib/og";
 import { MillTypePage, type MillTypePageData } from "@/components/seo/mill-type-page";
 
+
+const OG = ogImage({
+  title: "ERP for Board / Paperboard Paper Mills",
+  subtitle: "Multi-ply formers, food-grade compliance, FBB/SBS/CUK",
+  tag: "By Mill Type",
+  accent: "#A78BFA",
+});
 export const metadata: Metadata = {
   title: "ERP for Paperboard & Packaging Mills | Papyrus BPApp",
   description:
@@ -17,7 +25,9 @@ export const metadata: Metadata = {
     title: "ERP for Indian Paperboard & Packaging Mills",
     description: "Multi-ply board + coating + FMCG compliance + deckle for board mills.",
     url: "/for/board-mill",
+    images: [OG],
   },
+  twitter: { card: "summary_large_image", images: [OG] },
 };
 
 const data: MillTypePageData = {

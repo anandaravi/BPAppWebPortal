@@ -1,6 +1,14 @@
 import type { Metadata } from "next";
+import { ogImage } from "@/lib/og";
 import { ComparisonPage, type ComparisonPageData } from "@/components/seo/comparison-page";
 
+
+const OG = ogImage({
+  title: "Papyrus BPApp vs Oracle JDE",
+  subtitle: "Mid-large enterprise ERP",
+  tag: "Comparison",
+  accent: "#EF4444",
+});
 export const metadata: Metadata = {
   title: "Papyrus BPApp vs Oracle JD Edwards | Paper Mill ERP Alternative",
   description:
@@ -17,7 +25,9 @@ export const metadata: Metadata = {
     title: "Papyrus BPApp vs Oracle JD Edwards",
     description: "JDE is enterprise generic. Papyrus BPApp is paper-first, India-first.",
     url: "/vs/oracle-jde",
+    images: [OG],
   },
+  twitter: { card: "summary_large_image", images: [OG] },
 };
 
 const data: ComparisonPageData = {

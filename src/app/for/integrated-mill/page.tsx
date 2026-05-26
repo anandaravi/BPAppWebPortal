@@ -1,6 +1,14 @@
 import type { Metadata } from "next";
+import { ogImage } from "@/lib/og";
 import { MillTypePage, type MillTypePageData } from "@/components/seo/mill-type-page";
 
+
+const OG = ogImage({
+  title: "ERP for Integrated Paper Mills",
+  subtitle: "Pulping + papermaking + converting on one campus",
+  tag: "By Mill Type",
+  accent: "#10B981",
+});
 export const metadata: Metadata = {
   title: "ERP for Integrated Pulp & Paper Mills | Papyrus BPApp",
   description:
@@ -18,7 +26,9 @@ export const metadata: Metadata = {
     title: "ERP for Integrated Pulp & Paper Mills (India)",
     description: "Wood yard to finished reel. One platform. Built for India's largest paper companies.",
     url: "/for/integrated-mill",
+    images: [OG],
   },
+  twitter: { card: "summary_large_image", images: [OG] },
 };
 
 const data: MillTypePageData = {

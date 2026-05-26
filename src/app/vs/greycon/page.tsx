@@ -1,6 +1,14 @@
 import type { Metadata } from "next";
+import { ogImage } from "@/lib/og";
 import { ComparisonPage, type ComparisonPageData } from "@/components/seo/comparison-page";
 
+
+const OG = ogImage({
+  title: "Papyrus BPApp vs Greycon",
+  subtitle: "Global trim optimization specialist",
+  tag: "Comparison",
+  accent: "#EF4444",
+});
 export const metadata: Metadata = {
   title: "Papyrus BPApp vs Greycon | Deckle Optimizer + ERP Alternative",
   description:
@@ -18,7 +26,9 @@ export const metadata: Metadata = {
     title: "Papyrus BPApp vs Greycon — Deckle Optimization + Full ERP",
     description: "Greycon is the global trim leader. Papyrus BPApp delivers integrated deckle optimization plus a full Indian paper mill ERP.",
     url: "/vs/greycon",
+    images: [OG],
   },
+  twitter: { card: "summary_large_image", images: [OG] },
 };
 
 const data: ComparisonPageData = {

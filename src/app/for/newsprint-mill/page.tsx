@@ -1,6 +1,14 @@
 import type { Metadata } from "next";
+import { ogImage } from "@/lib/og";
 import { MillTypePage, type MillTypePageData } from "@/components/seo/mill-type-page";
 
+
+const OG = ogImage({
+  title: "ERP for Newsprint Paper Mills",
+  subtitle: "High-speed PMs, DIP furnish, daily newspaper customers",
+  tag: "By Mill Type",
+  accent: "#3B82F6",
+});
 export const metadata: Metadata = {
   title: "ERP for Newsprint Mills | Papyrus BPApp",
   description:
@@ -17,7 +25,9 @@ export const metadata: Metadata = {
     title: "ERP for Indian Newsprint Mills",
     description: "High-speed machine OEE + FTA import handling + GST for newsprint mills.",
     url: "/for/newsprint-mill",
+    images: [OG],
   },
+  twitter: { card: "summary_large_image", images: [OG] },
 };
 
 const data: MillTypePageData = {

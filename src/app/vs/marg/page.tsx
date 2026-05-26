@@ -1,6 +1,14 @@
 import type { Metadata } from "next";
+import { ogImage } from "@/lib/og";
 import { ComparisonPage, type ComparisonPageData } from "@/components/seo/comparison-page";
 
+
+const OG = ogImage({
+  title: "Papyrus BPApp vs Marg",
+  subtitle: "Popular Indian SMB ERP",
+  tag: "Comparison",
+  accent: "#EF4444",
+});
 export const metadata: Metadata = {
   title: "Papyrus BPApp vs Marg ERP | Paper Mill ERP Alternative",
   description:
@@ -17,7 +25,9 @@ export const metadata: Metadata = {
     title: "Papyrus BPApp vs Marg ERP",
     description: "Marg is distribution. Papyrus BPApp is full paper manufacturing.",
     url: "/vs/marg",
+    images: [OG],
   },
+  twitter: { card: "summary_large_image", images: [OG] },
 };
 
 const data: ComparisonPageData = {

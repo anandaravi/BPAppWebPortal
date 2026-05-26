@@ -5,6 +5,7 @@ import { ArrowRight, MapPin, Building2, Check } from "lucide-react";
 import { CITIES, CITY_SLUGS } from "@/lib/cities";
 import { JsonLd, breadcrumbSchema, faqSchema } from "@/components/seo/json-ld";
 import { SITE } from "@/lib/constants";
+import { ogImage } from "@/lib/og";
 
 export function generateStaticParams() {
   return CITY_SLUGS.map((city) => ({ city }));
@@ -36,6 +37,25 @@ export async function generateMetadata({
       title,
       description: desc,
       url: `/erp-for-paper-mills/${city}`,
+      images: [
+        ogImage({
+          title: `ERP for ${c.name} Paper Mills`,
+          subtitle: `${c.region} Indian paper cluster · ${c.primaryGrades.slice(0, 3).join(", ")}`,
+          tag: c.state,
+          accent: "#10B981",
+        }),
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      images: [
+        ogImage({
+          title: `ERP for ${c.name} Paper Mills`,
+          subtitle: `${c.region} Indian paper cluster · ${c.primaryGrades.slice(0, 3).join(", ")}`,
+          tag: c.state,
+          accent: "#10B981",
+        }),
+      ],
     },
   };
 }

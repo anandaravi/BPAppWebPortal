@@ -1,6 +1,14 @@
 import type { Metadata } from "next";
+import { ogImage } from "@/lib/og";
 import { MillTypePage, type MillTypePageData } from "@/components/seo/mill-type-page";
 
+
+const OG = ogImage({
+  title: "ERP for Tissue Paper Mills",
+  subtitle: "Soft furnish, converter customers, hygiene & specialty",
+  tag: "By Mill Type",
+  accent: "#EC4899",
+});
 export const metadata: Metadata = {
   title: "ERP for Tissue Paper Mills | Papyrus BPApp",
   description:
@@ -18,7 +26,9 @@ export const metadata: Metadata = {
     title: "ERP for Indian Tissue & Towel Paper Mills",
     description: "From parent reel to converted SKU. One platform for tissue mills.",
     url: "/for/tissue-mill",
+    images: [OG],
   },
+  twitter: { card: "summary_large_image", images: [OG] },
 };
 
 const data: MillTypePageData = {

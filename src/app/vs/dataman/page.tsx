@@ -1,6 +1,14 @@
 import type { Metadata } from "next";
+import { ogImage } from "@/lib/og";
 import { ComparisonPage, type ComparisonPageData } from "@/components/seo/comparison-page";
 
+
+const OG = ogImage({
+  title: "Papyrus BPApp vs Dataman",
+  subtitle: "European paper mill execution specialist",
+  tag: "Comparison",
+  accent: "#EF4444",
+});
 export const metadata: Metadata = {
   title: "Papyrus BPApp vs Dataman | Paper Mill MES + ERP Alternative",
   description:
@@ -17,7 +25,9 @@ export const metadata: Metadata = {
     title: "Papyrus BPApp vs Dataman — Integrated MES + ERP",
     description: "Dataman is MES. Papyrus BPApp is MES + full ERP + Indian compliance, in one platform.",
     url: "/vs/dataman",
+    images: [OG],
   },
+  twitter: { card: "summary_large_image", images: [OG] },
 };
 
 const data: ComparisonPageData = {

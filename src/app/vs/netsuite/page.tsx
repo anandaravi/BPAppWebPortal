@@ -1,6 +1,14 @@
 import type { Metadata } from "next";
+import { ogImage } from "@/lib/og";
 import { ComparisonPage, type ComparisonPageData } from "@/components/seo/comparison-page";
 
+
+const OG = ogImage({
+  title: "Papyrus BPApp vs NetSuite",
+  subtitle: "Cloud ERP for SMB to mid-market",
+  tag: "Comparison",
+  accent: "#EF4444",
+});
 export const metadata: Metadata = {
   title: "Papyrus BPApp vs Oracle NetSuite | Paper Mill ERP Alternative",
   description:
@@ -16,7 +24,9 @@ export const metadata: Metadata = {
     title: "Papyrus BPApp vs Oracle NetSuite",
     description: "NetSuite is generic cloud ERP. Papyrus BPApp is paper-first cloud ERP.",
     url: "/vs/netsuite",
+    images: [OG],
   },
+  twitter: { card: "summary_large_image", images: [OG] },
 };
 
 const data: ComparisonPageData = {

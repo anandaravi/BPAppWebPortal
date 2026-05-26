@@ -1,6 +1,14 @@
 import type { Metadata } from "next";
+import { ogImage } from "@/lib/og";
 import { ComparisonPage, type ComparisonPageData } from "@/components/seo/comparison-page";
 
+
+const OG = ogImage({
+  title: "Papyrus BPApp vs ProcessPro",
+  subtitle: "Process manufacturing ERP",
+  tag: "Comparison",
+  accent: "#EF4444",
+});
 export const metadata: Metadata = {
   title: "Papyrus BPApp vs ProcessPro / ProcessProERP | Paper Mill ERP Alternative",
   description:
@@ -16,7 +24,9 @@ export const metadata: Metadata = {
     title: "Papyrus BPApp vs ProcessProERP",
     description: "ProcessPro is generic process. Papyrus BPApp is paper-specific.",
     url: "/vs/processpro",
+    images: [OG],
   },
+  twitter: { card: "summary_large_image", images: [OG] },
 };
 
 const data: ComparisonPageData = {

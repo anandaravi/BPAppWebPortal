@@ -1,6 +1,14 @@
 import type { Metadata } from "next";
+import { ogImage } from "@/lib/og";
 import { MillTypePage, type MillTypePageData } from "@/components/seo/mill-type-page";
 
+
+const OG = ogImage({
+  title: "ERP for Kraft Paper Mills",
+  subtitle: "BF/BS quality, packaging buyers, virgin + recycled furnish",
+  tag: "By Mill Type",
+  accent: "#F59E0B",
+});
 export const metadata: Metadata = {
   title: "ERP for Kraft Paper Mills | Papyrus BPApp",
   description:
@@ -18,7 +26,9 @@ export const metadata: Metadata = {
     title: "ERP for Indian Kraft Paper Mills",
     description: "Deckle, BF/BS quality, packaging buyers, GST — all in one platform built for kraft mills.",
     url: "/for/kraft-mill",
+    images: [OG],
   },
+  twitter: { card: "summary_large_image", images: [OG] },
 };
 
 const data: MillTypePageData = {

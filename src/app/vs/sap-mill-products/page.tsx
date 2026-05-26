@@ -1,6 +1,14 @@
 import type { Metadata } from "next";
+import { ogImage } from "@/lib/og";
 import { ComparisonPage, type ComparisonPageData } from "@/components/seo/comparison-page";
 
+
+const OG = ogImage({
+  title: "Papyrus BPApp vs SAP S/4HANA Mill Products",
+  subtitle: "Enterprise-scale global ERP",
+  tag: "Comparison",
+  accent: "#EF4444",
+});
 export const metadata: Metadata = {
   title: "Papyrus BPApp vs SAP S/4HANA Mill Products | Paper Mill ERP Alternative",
   description:
@@ -17,7 +25,9 @@ export const metadata: Metadata = {
     title: "Papyrus BPApp vs SAP S/4HANA Mill Products",
     description: "SAP for paper mills is enterprise-grade but slow + expensive. Papyrus BPApp is purpose-built, India-native, and ships faster.",
     url: "/vs/sap-mill-products",
+    images: [OG],
   },
+  twitter: { card: "summary_large_image", images: [OG] },
 };
 
 const data: ComparisonPageData = {

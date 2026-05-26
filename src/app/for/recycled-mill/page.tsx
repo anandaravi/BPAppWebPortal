@@ -1,6 +1,14 @@
 import type { Metadata } from "next";
+import { ogImage } from "@/lib/og";
 import { MillTypePage, type MillTypePageData } from "@/components/seo/mill-type-page";
 
+
+const OG = ogImage({
+  title: "ERP for Recycled Paper Mills",
+  subtitle: "Waste-paper procurement, grade-wise pricing, RCM transport",
+  tag: "By Mill Type",
+  accent: "#EF4444",
+});
 export const metadata: Metadata = {
   title: "ERP for Recycled Paper Mills | Papyrus BPApp",
   description:
@@ -17,7 +25,9 @@ export const metadata: Metadata = {
     title: "ERP for Indian Recycled Paper Mills",
     description: "Waste paper costing + recycled fibre quality + deckle for recycled mills.",
     url: "/for/recycled-mill",
+    images: [OG],
   },
+  twitter: { card: "summary_large_image", images: [OG] },
 };
 
 const data: MillTypePageData = {

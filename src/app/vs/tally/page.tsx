@@ -1,6 +1,14 @@
 import type { Metadata } from "next";
+import { ogImage } from "@/lib/og";
 import { ComparisonPage, type ComparisonPageData } from "@/components/seo/comparison-page";
 
+
+const OG = ogImage({
+  title: "Papyrus BPApp vs Tally",
+  subtitle: "India's most popular accounting software",
+  tag: "Comparison",
+  accent: "#EF4444",
+});
 export const metadata: Metadata = {
   title: "Papyrus BPApp vs Tally | Manufacturing ERP for Paper Mills",
   description:
@@ -18,7 +26,9 @@ export const metadata: Metadata = {
     title: "Papyrus BPApp vs Tally — Full Manufacturing ERP for Paper Mills",
     description: "Tally is accounting. Papyrus BPApp is the complete mill — production, deckle, quality, finance, HR, AI.",
     url: "/vs/tally",
+    images: [OG],
   },
+  twitter: { card: "summary_large_image", images: [OG] },
 };
 
 const data: ComparisonPageData = {
