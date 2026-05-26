@@ -329,7 +329,7 @@ export default function ClientsPage() {
                   { region: "West India", states: ["Gujarat", "Maharashtra"], color: "#10B981" },
                   { region: "North India", states: ["Punjab", "Uttar Pradesh"], color: "#34D399" },
                   { region: "South India", states: ["Tamil Nadu", "Andhra Pradesh", "Karnataka"], color: "#6EE7B7" },
-                  { region: "East India", states: ["Odisha"], color: "#A7F3D0" },
+                  { region: "East India", states: ["Odisha", "West Bengal"], color: "#A7F3D0" },
                   { region: "Gulf", states: ["Riyadh", "Sharjah"], color: "#FBBF24" },
                 ].map((r) => {
                   const count = CLIENTS.filter((c) =>
