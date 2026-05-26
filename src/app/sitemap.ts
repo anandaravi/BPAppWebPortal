@@ -51,7 +51,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/for/recycled-mill",
   ];
 
-  const contentRoutes = ["/glossary", "/blog", "/roi-calculator", "/erp-for-paper-mills", "/case-studies"];
+  const contentRoutes = ["/glossary", "/blog", "/roi-calculator", "/erp-for-paper-mills", "/case-studies", "/clients"];
   const caseStudyRoutes = CASE_STUDY_SLUGS.map((slug) => `/case-studies/${slug}`);
   const blogArticles = Object.keys(ARTICLES).map((slug) => `/blog/${slug}`);
   const cityRoutes = CITY_SLUGS.map((slug) => `/erp-for-paper-mills/${slug}`);

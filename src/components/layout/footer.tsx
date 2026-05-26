@@ -15,6 +15,7 @@ const PRODUCT_NAV = [
 const COMPANY_NAV = [
   { label: "About", href: "/about" },
   { label: "Who It's For", href: "/customers" },
+  { label: "Clients", href: "/clients" },
   { label: "By Role", href: "/solutions" },
   { label: "By Mill Type", href: "/for" },
   { label: "Implementation", href: "/implementation" },
