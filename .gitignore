@@ -45,3 +45,17 @@ youtube_auth.json
 scripts/client_secrets.json
 scripts/.youtube_token.pkl
 scripts/__pycache__/
+
+# Local screenshots
+*.png
+!public/**/*.png
+
+# Tool directories
+.claude/
+.playwright-cli/
+
+# Windows Zone.Identifier files
+*:Zone.Identifier
+
+# Abandoned Pollinations page-images script
+scripts/generate-page-images.py
