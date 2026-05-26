@@ -1,6 +1,7 @@
 import { ModuleTemplate } from "@/components/module/module-template";
 import { DeckleDeepDive } from "@/components/module/deckle-deep-dive";
 import { ALL_MODULES, ALL_SLUGS } from "@/lib/modules";
+import { JsonLd, productSchema, breadcrumbSchema } from "@/components/seo/json-ld";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
@@ -13,8 +14,22 @@ export async function generateMetadata({ params }: { params: Promise<{ module: s
   const data = ALL_MODULES[module];
   if (!data) return { title: "Module not found" };
   return {
-    title: `${data.tag} — Papyrus BPApp`,
+    title: `${data.name} — ${data.tag} | Paper Mill ERP Module`,
     description: data.blurb,
+    alternates: { canonical: `/product/${module}` },
+    keywords: [
+      data.name,
+      `${data.name} module`,
+      `${data.name} for paper mill`,
+      "paper mill ERP",
+      "Papyrus BPApp",
+    ],
+    openGraph: {
+      title: `${data.name} — ${data.tag}`,
+      description: data.blurb,
+      url: `/product/${module}`,
+      images: data.photo ? [data.photo] : undefined,
+    },
   };
 }
 
@@ -23,10 +38,25 @@ export default async function Page({ params }: { params: Promise<{ module: strin
   const data = ALL_MODULES[module];
   if (!data) notFound();
 
-  // Deckle gets a custom deep-dive page; all other modules use generic template
-  if (module === "deckle") {
-    return <DeckleDeepDive data={data} />;
-  }
-
-  return <ModuleTemplate data={data} />;
+  return (
+    <>
+      <JsonLd
+        data={[
+          productSchema({
+            name: `${data.name} — Papyrus BPApp`,
+            description: data.blurb,
+            slug: module,
+            image: data.photo,
+            category: `Paper mill ERP module — ${data.name}`,
+          }),
+          breadcrumbSchema([
+            { name: "Home", url: "/" },
+            { name: "Product", url: "/product" },
+            { name: data.name, url: `/product/${module}` },
+          ]),
+        ]}
+      />
+      {module === "deckle" ? <DeckleDeepDive data={data} /> : <ModuleTemplate data={data} />}
+    </>
+  );
 }

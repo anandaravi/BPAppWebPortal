@@ -1,0 +1,71 @@
+import type { MetadataRoute } from "next";
+import { ALL_SLUGS, MODULE_GROUPS } from "@/lib/modules";
+import { SITE } from "@/lib/constants";
+
+export default function sitemap(): MetadataRoute.Sitemap {
+  const now = new Date();
+  const base = SITE.url.replace(/\/$/, "");
+
+  const staticRoutes = [
+    "",
+    "/product",
+    "/features",
+    "/architecture",
+    "/technical",
+    "/customers",
+    "/solutions",
+    "/resources",
+    "/pricing",
+    "/about",
+    "/contact",
+  ];
+
+  const compareRoutes = [
+    "/vs/greycon",
+    "/vs/sap-mill-products",
+    "/vs/tally",
+  ];
+
+  const millTypeRoutes = [
+    "/for/kraft-mill",
+    "/for/tissue-mill",
+    "/for/integrated-mill",
+  ];
+
+  const groupAnchors = MODULE_GROUPS.map((g) => `/product#${g.slug}`);
+
+  const entries: MetadataRoute.Sitemap = [
+    ...staticRoutes.map((path) => ({
+      url: `${base}${path}`,
+      lastModified: now,
+      changeFrequency: "weekly" as const,
+      priority: path === "" ? 1.0 : 0.8,
+    })),
+    ...ALL_SLUGS.map((slug) => ({
+      url: `${base}/product/${slug}`,
+      lastModified: now,
+      changeFrequency: "monthly" as const,
+      priority: 0.7,
+    })),
+    ...compareRoutes.map((path) => ({
+      url: `${base}${path}`,
+      lastModified: now,
+      changeFrequency: "monthly" as const,
+      priority: 0.9,
+    })),
+    ...millTypeRoutes.map((path) => ({
+      url: `${base}${path}`,
+      lastModified: now,
+      changeFrequency: "monthly" as const,
+      priority: 0.85,
+    })),
+    ...groupAnchors.map((path) => ({
+      url: `${base}${path}`,
+      lastModified: now,
+      changeFrequency: "monthly" as const,
+      priority: 0.7,
+    })),
+  ];
+
+  return entries;
+}

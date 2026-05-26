@@ -6,20 +6,70 @@ import { Footer } from "@/components/layout/footer";
 import { Providers } from "@/components/providers";
 import { PageTransition } from "@/components/page-transition";
 import { SITE } from "@/lib/constants";
+import { JsonLd, ORGANIZATION_SCHEMA, SOFTWARE_APPLICATION_SCHEMA } from "@/components/seo/json-ld";
 
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
 const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
 
+const defaultTitle = `${SITE.name} — ERP for Paper Mills | Deckle Optimizer + GST + AI`;
+
 export const metadata: Metadata = {
-  title: { default: `${SITE.name} — ERP for Paper Mills`, template: `%s — ${SITE.name}` },
+  title: { default: defaultTitle, template: `%s — ${SITE.name}` },
   description: SITE.description,
   metadataBase: new URL(SITE.url),
-  openGraph: { type: "website", siteName: SITE.name, title: `${SITE.name} — ERP for Paper Mills`, description: SITE.description },
+  keywords: SITE.keywords,
+  authors: [{ name: SITE.name, url: SITE.url }],
+  creator: SITE.name,
+  publisher: SITE.name,
+  alternates: { canonical: "/" },
+  category: "Enterprise Software",
+  openGraph: {
+    type: "website",
+    siteName: SITE.name,
+    title: defaultTitle,
+    description: SITE.description,
+    url: SITE.url,
+    locale: "en_IN",
+    images: [
+      {
+        url: "/bp_app.png",
+        width: 1200,
+        height: 630,
+        alt: `${SITE.name} — ERP for Indian Paper Mills`,
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    site: SITE.twitter,
+    creator: SITE.twitter,
+    title: defaultTitle,
+    description: SITE.description,
+    images: ["/bp_app.png"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+  icons: {
+    icon: "/bp_app.png",
+    apple: "/bp_app.png",
+  },
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" className={`${geistSans.variable} ${geistMono.variable} h-full`}>
+      <head>
+        <JsonLd data={[ORGANIZATION_SCHEMA, SOFTWARE_APPLICATION_SCHEMA]} />
+      </head>
       <body className="min-h-full flex flex-col bg-[#080808] text-white antialiased">
         <Providers>
           <Navbar />
