@@ -205,8 +205,7 @@ export default function ClientsPage() {
         </div>
 
         <p className="text-[11px] text-zinc-600 mt-8 font-mono">
-          Sources: papyrus360.com/360/success-stories/ and homepage logo wall. Some locations
-          approximated and pending confirmation.
+          Some locations approximated.
         </p>
       </section>
 

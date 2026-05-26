@@ -1,6 +1,6 @@
 import Link from "next/link";
+import Image from "next/image";
 import { SITE } from "@/lib/constants";
-import { Logo } from "@/components/ui/logo";
 
 const PRODUCT_NAV = [
   { label: "Product", href: "/product" },
@@ -40,7 +40,14 @@ export function Footer() {
         <div className="grid grid-cols-1 lg:grid-cols-[220px_1fr] gap-10">
           <div className="flex flex-col gap-4">
             <Link href="/" className="inline-block">
-              <Logo size="md" />
+              <Image
+                src="/papyrus360.png"
+                alt="Papyrus360"
+                width={117}
+                height={52}
+                className="shrink-0"
+                unoptimized
+              />
             </Link>
             <p className="text-sm text-zinc-500 max-w-xs leading-relaxed">{SITE.tagline}. Built for Indian paper manufacturing — modular, scalable, and compliant.</p>
             <p className="text-[11px] text-zinc-600 max-w-xs leading-relaxed">
