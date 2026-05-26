@@ -51,7 +51,7 @@ export function FeaturesGrid() {
                       viewport={{ once: true }}
                       transition={{ duration: 0.35, delay: Math.min(i * 0.04, 0.25) }}>
                       <Link href={`/product/${slug}`} className="group block relative h-44 rounded-xl overflow-hidden border border-[#1f1f1f] bg-[#0f0f0f] amber-card">
-                        <Image src={m.photo} alt={m.tag} fill className="object-cover opacity-35 group-hover:opacity-60 group-hover:scale-105 transition-all duration-500" unoptimized />
+                        <Image src={m.photo} alt={m.tag} fill sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw" className="object-cover opacity-35 group-hover:opacity-60 group-hover:scale-105 transition-all duration-500" loading="lazy" />
                         <div className="absolute inset-0 bg-gradient-to-t from-[#0f0f0f] via-[#0f0f0f]/70 to-[#0f0f0f]/20 group-hover:to-[#0f0f0f]/10 transition-all duration-500" />
 
                         <div className="absolute inset-0 p-4 flex flex-col justify-between">

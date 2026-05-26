@@ -96,6 +96,7 @@ export function Navbar() {
           <Link href="/solutions" className="text-sm text-zinc-400 hover:text-white transition-colors">By Role</Link>
           <Link href="/features" className="text-sm text-zinc-400 hover:text-white transition-colors">Features</Link>
           <Link href="/resources" className="text-sm text-zinc-400 hover:text-white transition-colors">Resources</Link>
+          <Link href="/roi-calculator" className="text-sm text-zinc-400 hover:text-white transition-colors">ROI</Link>
           <Link href="/pricing" className="text-sm text-zinc-400 hover:text-white transition-colors">Pricing</Link>
           <Link href="/contact" className="text-sm text-zinc-400 hover:text-white transition-colors">Contact</Link>
           <Link href="/contact" className="px-4 py-2 rounded-lg bg-amber-500 hover:bg-amber-400 text-black text-sm font-semibold transition-colors">
@@ -134,6 +135,7 @@ export function Navbar() {
           <Link href="/solutions" className="text-sm text-zinc-400 hover:text-white" onClick={() => setMenuOpen(false)}>By Role</Link>
           <Link href="/features" className="text-sm text-zinc-400 hover:text-white" onClick={() => setMenuOpen(false)}>Features</Link>
           <Link href="/resources" className="text-sm text-zinc-400 hover:text-white" onClick={() => setMenuOpen(false)}>Resources</Link>
+          <Link href="/roi-calculator" className="text-sm text-zinc-400 hover:text-white" onClick={() => setMenuOpen(false)}>ROI Calculator</Link>
           <Link href="/pricing" className="text-sm text-zinc-400 hover:text-white" onClick={() => setMenuOpen(false)}>Pricing</Link>
           <Link href="/contact" className="text-sm text-zinc-400 hover:text-white" onClick={() => setMenuOpen(false)}>Contact</Link>
           <Link href="/contact"

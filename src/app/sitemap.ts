@@ -28,6 +28,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/vs/dataman",
     "/vs/optivision",
     "/vs/infor-ln",
+    "/vs/oracle-jde",
+    "/vs/marg",
+    "/vs/microsoft-dynamics",
   ];
 
   const millTypeRoutes = [
@@ -36,7 +39,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/for/integrated-mill",
   ];
 
-  const contentRoutes = ["/glossary", "/blog"];
+  const contentRoutes = ["/glossary", "/blog", "/roi-calculator"];
   const blogArticles = Object.keys(ARTICLES).map((slug) => `/blog/${slug}`);
 
   const groupAnchors = MODULE_GROUPS.map((g) => `/product#${g.slug}`);
