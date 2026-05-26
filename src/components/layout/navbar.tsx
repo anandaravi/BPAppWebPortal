@@ -7,6 +7,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { MODULE_GROUPS } from "@/lib/modules";
 import { Logo } from "@/components/ui/logo";
+import { SearchDialog } from "@/components/search/search-dialog";
 
 export function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -99,15 +100,19 @@ export function Navbar() {
           <Link href="/roi-calculator" className="text-sm text-zinc-400 hover:text-white transition-colors">ROI</Link>
           <Link href="/pricing" className="text-sm text-zinc-400 hover:text-white transition-colors">Pricing</Link>
           <Link href="/contact" className="text-sm text-zinc-400 hover:text-white transition-colors">Contact</Link>
+          <SearchDialog />
           <Link href="/contact" className="px-4 py-2 rounded-lg bg-amber-500 hover:bg-amber-400 text-black text-sm font-semibold transition-colors">
             Request Demo
           </Link>
         </div>
 
-        <button className="lg:hidden text-zinc-400 hover:text-white"
-          onClick={() => setMenuOpen(!menuOpen)} aria-label="Toggle menu">
-          {menuOpen ? <X size={20} /> : <Menu size={20} />}
-        </button>
+        <div className="lg:hidden flex items-center gap-2">
+          <SearchDialog />
+          <button className="text-zinc-400 hover:text-white"
+            onClick={() => setMenuOpen(!menuOpen)} aria-label="Toggle menu">
+            {menuOpen ? <X size={20} /> : <Menu size={20} />}
+          </button>
+        </div>
       </nav>
 
       {menuOpen && (
