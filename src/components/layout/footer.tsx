@@ -44,8 +44,8 @@ export function Footer() {
             <p className="text-sm text-zinc-500 max-w-xs leading-relaxed">{SITE.tagline}. Built for Indian paper manufacturing — modular, scalable, and compliant.</p>
             <p className="text-[11px] text-zinc-600 max-w-xs leading-relaxed">
               A <span className="text-zinc-400">Papyrus360</span> product by{" "}
-              <span className="text-zinc-400">Netique Infotech Pvt Ltd.</span> —
-              4 decades of paper-industry domain expertise.
+              <span className="text-zinc-400">Netique Infotech Private Limited</span> —
+              Bangalore. Serving paper mills since 2000.
             </p>
           </div>
 

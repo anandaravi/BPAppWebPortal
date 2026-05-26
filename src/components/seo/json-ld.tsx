@@ -19,16 +19,16 @@ export function JsonLd({ data }: JsonLdProps) {
 export const ORGANIZATION_SCHEMA = {
   "@type": "Organization",
   name: SITE.name,
-  legalName: "Netique Infotech Pvt Ltd.",
+  legalName: "Netique Infotech Private Limited",
   alternateName: ["Papyrus360", "Netique"],
   url: SITE.url,
   logo: `${SITE.url}/bp_app.png`,
   description:
-    "Papyrus BPApp is developed by Netique Infotech Pvt Ltd. — pioneers of Deckle Matching software in India with 4 decades of paper-industry domain expertise. Papyrus360 is the company's brand for paper-industry software and consulting.",
+    "Papyrus BPApp is developed by Netique Infotech Private Limited — a Bangalore-based paper-industry technology partner serving paper mills since 2000, with a consulting team carrying 35+ years of domain experience. Papyrus360 is the umbrella brand covering software (OPTRIM, Papyrus BPApp), consultancy, and raw material supply for the paper industry.",
   email: SITE.email,
-  foundingDate: "1985",
-  founders: [{ "@type": "Person", name: "Anand Aravi Ramasamy" }],
-  address: { "@type": "PostalAddress", addressCountry: "IN" },
+  telephone: "+91-80-2671-6066",
+  foundingDate: "2000",
+  address: { "@type": "PostalAddress", addressCountry: "IN", addressLocality: "Bangalore", addressRegion: "Karnataka" },
   brand: [
     { "@type": "Brand", name: "Papyrus BPApp" },
     { "@type": "Brand", name: "Papyrus360" },

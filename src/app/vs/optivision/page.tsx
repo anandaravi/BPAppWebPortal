@@ -97,7 +97,7 @@ const data: ComparisonPageData = {
     },
     {
       q: "Honeywell has global pedigree. What's Papyrus BPApp's paper-industry track record?",
-      a: "Papyrus BPApp is developed by Netique Infotech Pvt Ltd. — pioneers of Deckle Matching software in India with 4 decades of paper-industry domain expertise. For 20+ years Netique has supported paper mills across India and overseas with NDM (Netique Deckle Matcher), Paper Agent, Optrim, Optrim Web, and Papyrus Production Manager. Papyrus BPApp is the natural evolution of that lineage into a full end-to-end ERP, delivered under the Papyrus360 brand. Specifically for Indian paper mill operations, the team depth is comparable to global vendors with local advantage on GST, FEMA, and India support.",
+      a: "Papyrus BPApp is developed by Netique Infotech Pvt Ltd. — pioneers of Deckle Matching software in India, serving paper mills since 2000 with a consulting team carrying 35+ years of paper-industry experience. For 20+ years Netique has supported paper mills across India and overseas with NDM (Netique Deckle Matcher), Paper Agent, Optrim, Optrim Web, and Papyrus Production Manager. Papyrus BPApp is the natural evolution of that lineage into a full end-to-end ERP, delivered under the Papyrus360 brand. Specifically for Indian paper mill operations, the team depth is comparable to global vendors with local advantage on GST, FEMA, and India support.",
     },
   ],
 };

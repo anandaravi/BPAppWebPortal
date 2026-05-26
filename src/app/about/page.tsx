@@ -15,10 +15,10 @@ import {
 import { CTABanner } from "@/components/sections/cta-banner";
 
 const STATS = [
-  { value: "44", label: "Modules" },
-  { value: "100%", label: "India-native compliance" },
-  { value: "Multi", label: "Tenant architecture" },
-  { value: "3-tier", label: "Deckle optimisation" },
+  { value: "25+ yrs", label: "Serving paper mills since 2000" },
+  { value: "35+ yrs", label: "Consulting team experience" },
+  { value: "0.5–1.7%", label: "Trim waste saved typically" },
+  { value: "9–90 d", label: "ROI window — OPTRIM lineage" },
 ];
 
 const DIFFERENTIATORS = [
@@ -167,14 +167,23 @@ export default function AboutPage() {
                 <p>
                   Papyrus BPApp is developed by{" "}
                   <span className="text-white font-semibold">
-                    Netique Infotech Pvt Ltd.
+                    Netique Infotech Private Limited
                   </span>{" "}
-                  — pioneers of Deckle Matching software in India and a paper-
-                  industry technology partner with 4 decades of domain
-                  expertise. For 20+ years Netique has supported paper mills
-                  across India and overseas with products like NDM (Netique
-                  Deckle Matcher), Paper Agent, Optrim, Optrim Web, and Papyrus
-                  Production Manager.
+                  — a Bangalore-based paper-industry technology partner.
+                  Netique has been serving paper mills since 2000 with a
+                  consulting team carrying 35+ years of domain experience and
+                  is the publisher of OPTRIM, India&apos;s established deckle
+                  matching software. Earlier products in the lineage — NDM
+                  (Netique Deckle Matcher), Paper Agent, OPTRIM 2.0, OPTRIM 2.5,
+                  OPTRIM Web, and Papyrus Production Manager — have been
+                  deployed across paper mills in India and overseas.
+                </p>
+                <p>
+                  Papyrus360 is Netique&apos;s end-to-end paper industry
+                  brand — covering software (OPTRIM, Papyrus BPApp),
+                  consultancy, and raw material supply (woodchips, wood powder,
+                  waste paper, pulp, coal). One-stop solution for paper
+                  manufacturers, traders, and the wider paper supply chain.
                 </p>
                 <p>
                   Indian paper mills spent years forcing generic ERPs to
@@ -182,7 +191,7 @@ export default function AboutPage() {
                   broke management. The result was expensive customisation
                   projects that delivered half-solutions — and left critical
                   mill workflows still running on spreadsheets. Papyrus BPApp is
-                  the natural evolution of Netique&apos;s four decades of
+                  the natural evolution of Netique&apos;s decades of
                   paper-industry experience into a complete end-to-end ERP,
                   delivered under the{" "}
                   <span className="text-white font-semibold">Papyrus360</span>{" "}
@@ -234,7 +243,7 @@ export default function AboutPage() {
             Heritage · Netique Infotech
           </p>
           <h2 className="text-4xl md:text-5xl font-black text-white tracking-tight mb-4 leading-tight">
-            Four decades. Five products.<br />One paper-industry lineage.
+            Since 2000. Six products.<br />One paper-industry lineage.
           </h2>
           <p className="text-zinc-400 text-base max-w-3xl mb-12 leading-relaxed">
             Papyrus BPApp didn&apos;t arrive from nowhere. It is built by the same
@@ -247,29 +256,34 @@ export default function AboutPage() {
             <div className="space-y-4">
               {[
                 {
-                  era: "1980s–90s",
+                  era: "Since 2000",
                   product: "NDM · Netique Deckle Matcher",
-                  desc: "The original Indian deckle matching engine. Decades of mill-floor tuning seeded every constraint in today's optimizer.",
+                  desc: "The original Netique deckle matching engine. Operations-research techniques applied to trim waste; foundation for every constraint in today's optimizer.",
                 },
                 {
                   era: "2000s",
-                  product: "Paper Agent",
-                  desc: "Order-to-dispatch coordination for Indian paper traders and mills. Early experience with multi-customer dispatch realities.",
+                  product: "Netique Paper Agent",
+                  desc: "Tailor-made software for paper Dealers & Traders — day-to-day business transactions, accounting, and order-to-dispatch coordination.",
                 },
                 {
                   era: "2000s–10s",
-                  product: "Optrim · Optrim Web",
-                  desc: "Desktop and web evolutions of the deckle optimization engine. Multi-country deployments, multi-machine configurations.",
+                  product: "OPTRIM 2.0",
+                  desc: "Desktop deckle matching software. ROI window of 9 days to 90 days; trim waste reduction of 0.5%–1.7% depending on deckle size and combinations.",
+                },
+                {
+                  era: "2010s",
+                  product: "OPTRIM 2.5 · OPTRIM Web",
+                  desc: "Multi-country, multi-machine deployments. Browser-native deckle optimization (OPTRIM Web). Free-trial sign-up available.",
                 },
                 {
                   era: "2010s",
                   product: "Papyrus Production Manager",
-                  desc: "Production scheduling and shop floor execution for paper mills — the precursor to the modern Production module.",
+                  desc: "Production scheduling and shop floor execution — precursor to the modern Production module in Papyrus BPApp.",
                 },
                 {
                   era: "2024+",
                   product: "Papyrus BPApp · Papyrus360",
-                  desc: "End-to-end ERP for paper manufacturing. 44 modules. Cloud-native, multi-tenant, GST + FEMA native. Software and consulting delivered under the Papyrus360 brand.",
+                  desc: "End-to-end ERP for paper manufacturing. 44 modules. Cloud-native, multi-tenant, GST + FEMA native. Delivered under the Papyrus360 umbrella covering software, consultancy, and raw material supply.",
                   active: true,
                 },
               ].map((step, i) => (
@@ -309,10 +323,10 @@ export default function AboutPage() {
 
           <div className="mt-10 grid grid-cols-2 md:grid-cols-4 gap-3 max-w-3xl">
             {[
-              { value: "40 yrs", label: "Domain expertise" },
-              { value: "20+ yrs", label: "In-mill deployments" },
+              { value: "35+ yrs", label: "Team domain experience" },
+              { value: "25+ yrs", label: "Serving paper mills since 2000" },
               { value: "Multi", label: "Country footprint" },
-              { value: "5+", label: "Generations of product" },
+              { value: "6+", label: "Generations of product" },
             ].map((m) => (
               <div
                 key={m.label}
@@ -328,8 +342,93 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* WHAT MAKES IT DIFFERENT */}
+      {/* PAPYRUS360 SERVICES */}
       <section className="py-20 bg-[#0a0a0a] border-b border-[#1a1a1a]">
+        <div className="max-w-[var(--container-max)] mx-auto px-6">
+          <p className="text-amber-500 text-xs font-semibold uppercase tracking-widest mb-3">
+            Papyrus360 — Full Stack for Paper Industry
+          </p>
+          <h2 className="text-4xl md:text-5xl font-black text-white tracking-tight mb-4 leading-tight">
+            One-stop solution.<br />Software, consultancy, raw material.
+          </h2>
+          <p className="text-zinc-400 text-base max-w-3xl mb-12 leading-relaxed">
+            Papyrus360 is Netique&apos;s umbrella brand covering everything a
+            paper mill needs to run, optimize, and source. Four service pillars,
+            one accountable partner.
+          </p>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            {[
+              {
+                title: "Deckle Optimisation & ERP",
+                desc: "OPTRIM 2.5, OPTRIM Web, and Papyrus BPApp — the full software stack from trim optimization to end-to-end ERP.",
+                meta: "OPTRIM · BPApp",
+                color: "#F59E0B",
+              },
+              {
+                title: "Consultancy Services",
+                desc: "Process Optimization with innovative process technology. Stalwart team from paper industry with 35+ years of domain experience.",
+                meta: "Process · Strategy",
+                color: "#10B981",
+              },
+              {
+                title: "Woodchips & Wood Powder",
+                desc: "Pulping raw material supply for paper mills — woodchips and wood powder sourced and delivered reliably.",
+                meta: "Pulping inputs",
+                color: "#A78BFA",
+              },
+              {
+                title: "Waste Paper · Pulp · Coal",
+                desc: "Raw material procurement including waste paper, pulp, and coal — sourced domestically and from overseas suppliers for Indian mills.",
+                meta: "Furnish + utilities",
+                color: "#EF4444",
+              },
+            ].map((p) => (
+              <div
+                key={p.title}
+                className="bg-[#0f0f0f] border rounded-2xl p-5 flex flex-col gap-3"
+                style={{ borderColor: `${p.color}30` }}
+              >
+                <div
+                  className="w-10 h-10 rounded-lg border flex items-center justify-center"
+                  style={{ background: `${p.color}12`, borderColor: `${p.color}40` }}
+                >
+                  <span className="w-2.5 h-2.5 rounded-full" style={{ background: p.color }} />
+                </div>
+                <h3 className="text-white font-bold text-base">{p.title}</h3>
+                <p className="text-sm text-zinc-400 leading-relaxed flex-1">{p.desc}</p>
+                <p className="text-[10px] font-mono uppercase tracking-widest pt-2 border-t border-[#1f1f1f]"
+                  style={{ color: p.color }}
+                >
+                  {p.meta}
+                </p>
+              </div>
+            ))}
+          </div>
+
+          {/* VALUES STRIP */}
+          <div className="mt-10 grid grid-cols-1 md:grid-cols-3 gap-3">
+            {[
+              { label: "Quality", desc: "Mill-grade software, validated in real deployments." },
+              { label: "On-Time Supplies", desc: "Reliable raw-material delivery cadence." },
+              { label: "Reliable Supply Chain", desc: "Domestic + overseas sourcing channels." },
+            ].map((v) => (
+              <div
+                key={v.label}
+                className="bg-[#0f0f0f] border border-[#1f1f1f] rounded-xl p-4"
+              >
+                <p className="text-xs font-bold uppercase tracking-widest text-amber-400 mb-1">
+                  {v.label}
+                </p>
+                <p className="text-xs text-zinc-500 leading-relaxed">{v.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* WHAT MAKES IT DIFFERENT */}
+      <section className="py-20 border-b border-[#1a1a1a]">
         <div className="max-w-[var(--container-max)] mx-auto px-6">
           <p className="text-amber-500 text-xs font-semibold uppercase tracking-widest mb-3">
             What Makes It Different

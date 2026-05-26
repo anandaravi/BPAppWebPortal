@@ -4,7 +4,7 @@ import { ogImage } from "@/lib/og";
 
 const OG = ogImage({
   title: "Built by paper industry insiders.",
-  subtitle: "Papyrus BPApp by Netique Infotech — 4 decades of paper-industry domain expertise.",
+  subtitle: "Papyrus BPApp by Netique Infotech — serving paper mills since 2000 with a consulting team carrying 35+ years of paper-industry experience.",
   tag: "About",
   accent: "#F59E0B",
 });
