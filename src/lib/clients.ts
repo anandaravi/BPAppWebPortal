@@ -42,7 +42,7 @@ export const CLIENTS: Client[] = [
     grade: "Packaging Board, W&P",
     product: "Netique Deckle Software",
     testimonial:
-      "Software has been performing well and our deckle utilization has improved.",
+      "This is to certify that we have been using Netique Deckle Software in our Packaging Board division at Songarth Plant. The software has been performing well and our deckle utilization has improved.",
     verified: true,
   },
   {
@@ -55,7 +55,7 @@ export const CLIENTS: Client[] = [
     lat: 20.37,
     lon: 72.91,
     testimonial:
-      "Excellent support and service. Smoother combinations and maximum effective utilization of deckles.",
+      "We would like to congratulate Netique Infotech for their excellent support and service in providing Deckle Matching Software. Netique has enabled us to obtain smooth and easier combinations for maximum and effective utilization of deckles on machines. We appreciate the quality of service and support provided.",
     verified: true,
   },
   {
