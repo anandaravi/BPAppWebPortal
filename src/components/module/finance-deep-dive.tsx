@@ -162,28 +162,28 @@ const FEATURE_CATEGORIES = [
 const USE_CASES = [
   {
     title: "GST month-end close, no panic",
-    photo: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=1200&q=80",
+    photo: "/images/pages/finance-gst-close.jpg",
     scenario: "CFO of a 3-entity group used to spend 5 working days every month-end reconciling GSTR-1, matching GSTR-2B against purchases, and chasing IRN failures.",
     response: "GSTR-1 populates live from IRN-generated invoices. GSTR-2B recon shows mismatches the day they appear, not at filing. ITC ledger live across all 3 GSTINs. CFO reviews exceptions for 2 hours, files for all entities by 5pm of day 1.",
     metrics: { close_days: "5 → 0.5", mismatches_found: "Live", filings: "3 GSTINs" },
   },
   {
     title: "Margin per customer × grade, daily",
-    photo: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80",
+    photo: "/images/pages/finance-margin.jpg",
     scenario: "Sales head wants to know real margin by customer × grade. Finance team produces it quarterly — too late to act when a customer is unprofitable.",
     response: "Multi-stage costing rolls up live. Each invoice tags actual cost (pulp batch, machine hours, energy, conversion). Margin per line visible the same day. Sales head spots customer ABC at -1.2% margin on KR-80, renegotiates within the week.",
     metrics: { granularity: "Customer × Grade", lag: "Same day", margin_recovered: "+2.4%" },
   },
   {
     title: "Export shipment: from PO to eBRC",
-    photo: "https://images.unsplash.com/photo-1581094288338-2314dddb7ece?auto=format&fit=crop&w=1200&q=80",
+    photo: "/images/pages/finance-export.jpg",
     scenario: "Export order to Bangladesh customer. Sales raises invoice, dispatch generates shipping bill, bank realizes proceeds 35 days later. Finance traditionally reconciles eBRC weeks after.",
     response: "Sales order → invoice → shipping bill linked end-to-end. ICEGATE EDI confirms. Bank realization auto-matches against shipping bill, generates eBRC entry. FEMA monitor flags any export approaching realization deadline. No manual stitching, no FEMA breach.",
     metrics: { reconciliation: "Auto", deadline_alerts: "Live", FEMA_breaches: "0" },
   },
   {
     title: "Three-way match catches ₹4.7L overcharge",
-    photo: "https://images.unsplash.com/photo-1554224154-26032ffc0d07?auto=format&fit=crop&w=1200&q=80",
+    photo: "/images/pages/finance-3way-match.jpg",
     scenario: "Pulp supplier raises AP invoice for ₹84.3L. PO was ₹79.6L. GRN was 102 t against 100 t ordered, but supplier billed pre-agreed rate +6% (post-contract revision they hadn't intimated).",
     response: "Three-way match flags ₹4.7L variance. Payment blocked. AP exec sends auto-drafted dispute mail with PO, GRN and invoice attached. Supplier acknowledges error, issues credit note. Payment released against net amount.",
     metrics: { variance_caught: "₹4.7L", time_to_resolve: "2 days", payment_block: "Auto" },
@@ -213,8 +213,8 @@ export function FinanceDeepDive({ data }: { data: ModuleData }) {
       {/* HERO */}
       <section className="relative min-h-[88vh] overflow-hidden grain on-photo">
         <div className="absolute inset-0">
-          <Image src="https://images.unsplash.com/photo-1554224154-22dec7ec8818?auto=format&fit=crop&w=1920&q=80"
-            alt="Finance and GST compliance" fill className="object-cover" priority unoptimized />
+          <Image src="/images/pages/finance-deepdive-hero.jpg"
+            alt="Finance and GST compliance" fill className="object-cover" priority />
           <div className="absolute inset-0 bg-gradient-to-r from-[#080808] via-[#080808]/85 to-[#080808]/30" />
           <div className="absolute inset-0 bg-gradient-to-t from-[#080808] via-transparent to-transparent" />
         </div>
@@ -537,7 +537,7 @@ export function FinanceDeepDive({ data }: { data: ModuleData }) {
                 viewport={{ once: true }} transition={{ duration: 0.5, delay: Math.min(i * 0.06, 0.3) }}
                 className="grid grid-cols-1 lg:grid-cols-5 gap-6 items-stretch">
                 <div className="lg:col-span-2 relative rounded-2xl overflow-hidden h-60 lg:h-auto border border-border-dim">
-                  <Image src={uc.photo} alt={uc.title} fill className="object-cover" unoptimized />
+                  <Image src={uc.photo} alt={uc.title} fill className="object-cover" />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a]/80 to-transparent" />
                   <div className="absolute bottom-4 left-4 right-4">
                     <p className="text-[10px] font-bold uppercase tracking-widest mb-1 text-emerald-300">Case {String(i + 1).padStart(2, "0")}</p>

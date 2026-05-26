@@ -142,28 +142,28 @@ const CAPABILITIES_GRID = [
 const USE_CASES = [
   {
     title: "Mid-shift breakdown on PM-2",
-    photo: "https://images.unsplash.com/photo-1581094794329-c8112a89af12?auto=format&fit=crop&w=1200&q=80",
+    photo: "/images/pages/production-breakdown.jpg",
     scenario: "PM-2 trips at 14:20. Forecasted 4-hour breakdown. Three confirmed SOs were scheduled to run on PM-2 in Shift B with delivery commit tomorrow morning.",
     response: "Planner triggers re-schedule. System checks PM-1 capacity, validates grade compatibility, recommends moving SO-2847 (1200mm kraft 100 GSM) to PM-1 at 16:00 with 8-minute grade-change. Two SOs auto-reslot to next available window. Customer service notified, no missed commits.",
     metrics: { time: "3 min", missed_orders: "0", overtime: "+4 hrs PM-1" },
   },
   {
     title: "Daily plan with grade-change minimization",
-    photo: "https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?auto=format&fit=crop&w=1200&q=80",
+    photo: "/images/pages/production-daily-plan.jpg",
     scenario: "Tomorrow's MPS has 14 grade runs across 2 PMs covering 28 SOs. Manual sequencing produces 9 grade changes (~6 hours of penalty waste).",
     response: "Grade-change optimizer runs penalty matrix across all permutations. Recommended sequence: 5 grade changes, mostly WITHIN_FAMILY. Predicted waste 1.4t vs manual 3.8t. Predicted downtime 1h 12m vs 3h 50m. Planner approves with one override (customer priority).",
     metrics: { changes: "9 → 5", waste_saved: "2.4 t", time_saved: "2h 38m" },
   },
   {
     title: "OEE dropped 7 pts. Find it.",
-    photo: "https://images.unsplash.com/photo-1542222024-c39e2281f121?auto=format&fit=crop&w=1200&q=80",
+    photo: "/images/pages/production-oee-drop.jpg",
     scenario: "PM-1 OEE down from 81% to 74% over 3 days. Plant manager wants root cause before next ops review.",
     response: "Loss waterfall: Availability -3.2 pts (unplanned breakdowns up), Performance -2.1 pts (speed drift on 80 GSM grade), Quality -1.7 pts (defect rate at the calendar). Drill into defect Pareto: edge crack on Reels 4823–4891. Cross-ref with maintenance: bearing replaced on calendar 6 days ago. Predictive alert was issued at install — operator missed acknowledgement.",
     metrics: { time_to_RCA: "11 min", root_cause: "calendar bearing", actions_raised: "3" },
   },
   {
     title: "Integrated mill: stock-prep starves PM-3",
-    photo: "https://images.unsplash.com/photo-1565618722293-d3a51b3c5430?auto=format&fit=crop&w=1200&q=80",
+    photo: "/images/pages/production-stock-prep.jpg",
     scenario: "Integrated mill, 3 PMs, single pulping line. PM-3 about to start 120 GSM run, but pulp tower at 38% — below the 45% safety threshold for grade-change.",
     response: "CRP detects upstream constraint, recommends delaying PM-3 grade-change by 22 minutes or pulling SO-2891 (compatible grade) forward. Planner picks pull-forward. PM-3 stays running, pulp builds back to 52% by handover. No downtime, no broke spike.",
     metrics: { downtime_avoided: "22 min", broke_avoided: "~1.8 t", planner_clicks: "2" },
@@ -193,8 +193,8 @@ export function ProductionDeepDive({ data }: { data: ModuleData }) {
       {/* HERO */}
       <section className="relative min-h-[88vh] overflow-hidden grain on-photo">
         <div className="absolute inset-0">
-          <Image src="https://images.unsplash.com/photo-1565618722293-d3a51b3c5430?auto=format&fit=crop&w=1920&q=80"
-            alt="Paper mill production floor" fill className="object-cover" priority unoptimized />
+          <Image src="/images/pages/production-deepdive-hero.jpg"
+            alt="Paper mill production floor" fill className="object-cover" priority />
           <div className="absolute inset-0 bg-gradient-to-r from-[#080808] via-[#080808]/85 to-[#080808]/30" />
           <div className="absolute inset-0 bg-gradient-to-t from-[#080808] via-transparent to-transparent" />
         </div>
@@ -533,7 +533,7 @@ export function ProductionDeepDive({ data }: { data: ModuleData }) {
                 viewport={{ once: true }} transition={{ duration: 0.5, delay: Math.min(i * 0.06, 0.3) }}
                 className="grid grid-cols-1 lg:grid-cols-5 gap-6 items-stretch">
                 <div className="lg:col-span-2 relative rounded-2xl overflow-hidden h-60 lg:h-auto border border-border-dim">
-                  <Image src={uc.photo} alt={uc.title} fill className="object-cover" unoptimized />
+                  <Image src={uc.photo} alt={uc.title} fill className="object-cover" />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a]/80 to-transparent" />
                   <div className="absolute bottom-4 left-4 right-4">
                     <p className="text-[10px] font-bold uppercase tracking-widest mb-1 text-orange-400">Case {String(i + 1).padStart(2, "0")}</p>

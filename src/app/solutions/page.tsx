@@ -11,7 +11,7 @@ const ROLES = [
     id: "cfo",
     title: "CFO / Finance Controller",
     blurb: "GST, FEMA, ITC, AR aging, cost variance, period-close. Compliance without spreadsheet panic.",
-    photo: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=1200&q=80",
+    photo: "/images/pages/solutions-cfo.jpg",
     accent: "#10B981",
     kpis: ["DSO < 45 days", "GSTR-1/3B on time, every month", "ITC realization > 95%", "Cost variance within ±3%", "FX gain/loss tracked + posted"],
     modules: ["Finance & GST", "Sales (AR + Dunning)", "Procurement (3-way match)", "Party Management", "Documents", "Notifications (Tax calendar)"],
@@ -22,7 +22,7 @@ const ROLES = [
     id: "plant-head",
     title: "Plant Head / Production Director",
     blurb: "OEE, downtime, broke recovery, schedule compliance, quality first-pass yield. The shop floor on one screen.",
-    photo: "https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?auto=format&fit=crop&w=1200&q=80",
+    photo: "/images/pages/solutions-plant-head.jpg",
     accent: "#F59E0B",
     kpis: ["OEE > 85% per machine", "Broke < 4% of production", "Schedule adherence > 92%", "First-pass yield > 96%", "Mean Time To Repair < 2 hours"],
     modules: ["Production (MPS/MRP/CRP)", "Deckle Optimizer", "Quality Control", "Maintenance", "Mobile Apps (shop floor)", "Monitoring (live metrics)"],
@@ -33,7 +33,7 @@ const ROLES = [
     id: "ops-head",
     title: "Operations Manager / GM",
     blurb: "Order-to-dispatch SLA, customer satisfaction, inventory turns, working capital. The business view.",
-    photo: "https://images.unsplash.com/photo-1573164574572-cb89e39749b4?auto=format&fit=crop&w=1200&q=80",
+    photo: "/images/pages/solutions-ops-manager.jpg",
     accent: "#A855F7",
     kpis: ["Order-to-dispatch < 14 days avg", "On-time delivery > 95%", "Inventory turns > 8/year", "Customer complaint rate < 0.5%", "Working capital days < 60"],
     modules: ["Sales (Order management)", "Inventory (FEFO)", "Production planning", "Dispatch Control Tower", "AI & Analytics", "Approvals"],
@@ -44,7 +44,7 @@ const ROLES = [
     id: "it-head",
     title: "IT Head / CIO",
     blurb: "Uptime, security, integration, compliance, total cost of ownership. The platform view.",
-    photo: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200&q=80",
+    photo: "/images/pages/solutions-it-head.jpg",
     accent: "#3B82F6",
     kpis: ["System uptime > 99.5%", "API p95 latency < 200ms", "Security audit pass rate 100%", "Integration SLA met", "User satisfaction > 4.2/5"],
     modules: ["Administration", "RBAC & Security", "Monitoring", "Automations", "Documents", "Email Hub"],
@@ -55,7 +55,7 @@ const ROLES = [
     id: "sales-head",
     title: "Sales / Commercial Head",
     blurb: "Pipeline, win rate, customer LTV, margin, exposure. Sell more, sell smarter.",
-    photo: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=1200&q=80",
+    photo: "/images/pages/solutions-sales-head.jpg",
     accent: "#EC4899",
     kpis: ["Quotation-to-order > 35%", "Average margin > target by grade", "Pipeline coverage 3× quota", "Customer churn < 5% annual", "Credit exposure within limits"],
     modules: ["Sales (Inquiries → Orders)", "Party Management", "AI (lead scoring, churn)", "Email Hub", "Analytics", "Approvals"],
@@ -66,7 +66,7 @@ const ROLES = [
     id: "hr-head",
     title: "HR Head / People Director",
     blurb: "Headcount, attendance, payroll accuracy, statutory compliance, attrition. The workforce view.",
-    photo: "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1200&q=80",
+    photo: "/images/pages/solutions-hr-head.jpg",
     accent: "#F472B6",
     kpis: ["Payroll error rate < 0.1%", "Statutory filings 100% on time", "Attrition < industry benchmark", "Engagement score > 4.0", "PII access incidents = 0"],
     modules: ["HR & Payroll", "ESS / MSS", "Documents (employee records)", "Notifications", "Mobile Apps", "RBAC (PII gates)"],
@@ -81,7 +81,7 @@ export default function SolutionsPage() {
       {/* HERO */}
       <section className="relative overflow-hidden grain on-photo">
         <div className="absolute inset-0">
-          <Image src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1920&q=80"
+          <Image src="/images/pages/solutions-hero.jpg"
             alt="Solutions" fill className="object-cover opacity-25" />
           <div className="absolute inset-0 bg-gradient-to-r from-[#080808] via-[#080808]/85 to-[#080808]/30" />
           <div className="absolute inset-0 bg-gradient-to-t from-[#080808] via-transparent to-transparent" />

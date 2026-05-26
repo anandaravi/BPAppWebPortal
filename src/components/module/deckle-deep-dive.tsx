@@ -198,7 +198,7 @@ const CONFIG_AREAS = [
 const USE_CASES = [
   {
     title: "Reactive: Customer Cancels at 11am",
-    photo: "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&w=1200&q=80",
+    photo: "/images/pages/deckle-reactive.jpg",
     scenario: "Order for 4,800 kg of 42 GSM is cancelled at 11am. Mill has already produced 1,200 kg. Operator has 30 minutes before next changeover.",
     response: "Operator triggers Instant Mode. In 1.4 seconds, engine generates new plan: convert remaining production to nearest-grade SWO at valid pocket positions, reassign 800 kg to backlog order at acceptable substitution width. Operator approves and executes.",
     metrics: { time: "1.4s", recovery: "95%", waste_avoided: "2,800 kg" },
@@ -206,7 +206,7 @@ const USE_CASES = [
   },
   {
     title: "Planning: Tomorrow's Master Plan",
-    photo: "https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?auto=format&fit=crop&w=1200&q=80",
+    photo: "/images/pages/deckle-planning.jpg",
     scenario: "Production planner needs daily plan for tomorrow. 47 confirmed orders, 12 pending priority calls. Two machines, three grade families, 180+ constraints active.",
     response: "Full Optimization mode runs at 4:30 PM. In 3 minutes 42 seconds, engine produces optimized plan with explainability. Planner reviews active constraints, alternate patterns, recovery analysis. Drag-drop two manual overrides, approve, lock plan for production.",
     metrics: { time: "3m 42s", coverage: "100%", trim_pct: "1.8%" },
@@ -214,7 +214,7 @@ const USE_CASES = [
   },
   {
     title: "Strategic: Quoting a New Customer",
-    photo: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=1200&q=80",
+    photo: "/images/pages/deckle-strategic.jpg",
     scenario: "New customer wants 8 standard widths over 14 days. Need to quote tight margin without committing to losses. Sales asks production planning for trim implications.",
     response: "Planning Mode runs scenarios. Compare 4 acceptance patterns. Trim curve plotted across volumes. Margin floor validated. Quote sent with confidence.",
     metrics: { scenarios: "4", quote_margin: "+2.8%", risk: "Low" },
@@ -222,7 +222,7 @@ const USE_CASES = [
   },
   {
     title: "Learning: Pattern Becomes Standard",
-    photo: "https://images.unsplash.com/photo-1517420704952-d9f39e95b43e?auto=format&fit=crop&w=1200&q=80",
+    photo: "/images/pages/deckle-learning.jpg",
     scenario: "Planner has approved the same 6-slit pattern for medium-GSM kraft 14 times. Engine has been logging it.",
     response: "After 10 approved runs with consistent outcomes, engine adds pattern to library with effectiveness score. Future similar demand auto-biases toward this pattern. Operator's expertise compounds into the system.",
     metrics: { approvals: "14", confidence: "High", time_saved: "~2 hours/wk" },
@@ -266,8 +266,8 @@ export function DeckleDeepDive({ data }: { data: ModuleData }) {
       {/* HERO */}
       <section className="relative min-h-[88vh] overflow-hidden grain on-photo">
         <div className="absolute inset-0">
-          <Image src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=1920&q=80"
-            alt="Paper reels" fill className="object-cover" priority unoptimized />
+          <Image src="/images/pages/deckle-deepdive-hero.jpg"
+            alt="Paper reels" fill className="object-cover" priority />
           <div className="absolute inset-0 bg-gradient-to-r from-[#080808] via-[#080808]/85 to-[#080808]/30" />
           <div className="absolute inset-0 bg-gradient-to-t from-[#080808] via-transparent to-transparent" />
         </div>
@@ -634,7 +634,7 @@ export function DeckleDeepDive({ data }: { data: ModuleData }) {
                 transition={{ duration: 0.5, delay: Math.min(i * 0.06, 0.3) }}
                 className="grid grid-cols-1 lg:grid-cols-5 gap-6 items-stretch">
                 <div className="lg:col-span-2 relative rounded-2xl overflow-hidden h-60 lg:h-auto border border-border-dim">
-                  <Image src={uc.photo} alt={uc.title} fill className="object-cover" unoptimized />
+                  <Image src={uc.photo} alt={uc.title} fill className="object-cover" />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a]/80 to-transparent" />
                   <div className="absolute bottom-4 left-4 right-4">
                     <p className="text-[10px] font-bold uppercase tracking-widest mb-1" style={{ color: uc.accent }}>Case {String(i + 1).padStart(2, "0")}</p>

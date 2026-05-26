@@ -154,28 +154,28 @@ const FEATURE_CATEGORIES = [
 const USE_CASES = [
   {
     title: "500-employee mill, monthly payroll closed in 1 day",
-    photo: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=1200&q=80",
+    photo: "/images/pages/hr-payroll-close.jpg",
     scenario: "Integrated paper mill with 540 employees across permanent, contract, trainee. Monthly payroll cycle traditionally takes 4 working days with 2 finance + 2 HR staff.",
     response: "Biometric data streams live. Day-1 of cycle: HR runs payroll. Module computes PF/ESI/PT/LWF/Gratuity accruals + TDS automatically per employee. Exceptions list 14 items (reimbursements, OT cap breach). HR clears in 3 hours. Payslips published, PF ECR + ESI challan generated, salaries credited same day.",
     metrics: { cycle: "4 days → 1 day", exceptions: "14", headcount: "540" },
   },
   {
     title: "Audit-ready records for 500+ employees, 7-year history",
-    photo: "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=1200&q=80",
+    photo: "/images/pages/hr-audit-records.jpg",
     scenario: "Labour audit notice. Auditor wants attendance, payroll, PF, ESI records for the last 24 months, including contract workers. Legacy system stores partial data across 3 places.",
     response: "Audit view pulls everything: per-employee attendance + payroll + statutory contribution history. Contract worker records linked to contractor master. Form 16, Form 24Q, ECR files all retrievable by date. Auditor closes review in 2 days with no findings.",
     metrics: { audit_findings: "0", days_to_close: "2", records_pulled: "Full 24 mo" },
   },
   {
     title: "Shift-gap violation caught before roster goes live",
-    photo: "https://images.unsplash.com/photo-1581094794329-c8112a89af12?auto=format&fit=crop&w=1200&q=80",
+    photo: "/images/pages/hr-shift-gap.jpg",
     scenario: "Roster supervisor schedules a tight handover — operator finishes night shift at 6am Sunday, scheduled for day shift at 2pm Sunday. Less than 8-hour gap, breaches Gap 2.1.",
     response: "System blocks save with explicit violation message. Recommends two alternatives — assign different operator, or push the day-shift start to 6pm. Supervisor picks first option. Operator gets full rest. Compliance preserved. Issue would have been a labour-inspector finding if it had gone live.",
     metrics: { gap_required: "8 hrs", attempted: "8 hrs gap fail", blocked: "Yes" },
   },
   {
     title: "Mobile ESS adoption → 80% drop in HR walk-ins",
-    photo: "https://images.unsplash.com/photo-1556157382-97eda2d62296?auto=format&fit=crop&w=1200&q=80",
+    photo: "/images/pages/hr-mobile-ess.jpg",
     scenario: "HR team of 3 spends 60% of their time on payslip downloads, leave applications, attendance regularization requests — paper forms walked in by employees throughout the day.",
     response: "ESS app rolled out. Within 6 weeks: 78% of employees self-serve. HR walk-ins drop from ~40/day to 8/day. Leave applications close in hours not days. Payslip queries near zero. HR team shifts focus to development + grievance.",
     metrics: { walk_ins: "40/day → 8/day", esS_adoption: "78%", hr_time_freed: "60%" },
@@ -205,8 +205,8 @@ export function HRDeepDive({ data }: { data: ModuleData }) {
       {/* HERO */}
       <section className="relative min-h-[88vh] overflow-hidden grain on-photo">
         <div className="absolute inset-0">
-          <Image src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1920&q=80"
-            alt="Mill workforce" fill className="object-cover" priority unoptimized />
+          <Image src="/images/pages/hr-deepdive-hero.jpg"
+            alt="Mill workforce" fill className="object-cover" priority />
           <div className="absolute inset-0 bg-gradient-to-r from-[#080808] via-[#080808]/85 to-[#080808]/30" />
           <div className="absolute inset-0 bg-gradient-to-t from-[#080808] via-transparent to-transparent" />
         </div>
@@ -530,7 +530,7 @@ export function HRDeepDive({ data }: { data: ModuleData }) {
                 viewport={{ once: true }} transition={{ duration: 0.5, delay: Math.min(i * 0.06, 0.3) }}
                 className="grid grid-cols-1 lg:grid-cols-5 gap-6 items-stretch">
                 <div className="lg:col-span-2 relative rounded-2xl overflow-hidden h-60 lg:h-auto border border-border-dim">
-                  <Image src={uc.photo} alt={uc.title} fill className="object-cover" unoptimized />
+                  <Image src={uc.photo} alt={uc.title} fill className="object-cover" />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a]/80 to-transparent" />
                   <div className="absolute bottom-4 left-4 right-4">
                     <p className="text-[10px] font-bold uppercase tracking-widest mb-1 text-pink-300">Case {String(i + 1).padStart(2, "0")}</p>

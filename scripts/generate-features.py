@@ -9,9 +9,26 @@ import os, re, json, base64, time, requests, unicodedata
 
 ACCOUNT_ID = os.environ["CLOUDFLARE_ACCOUNT_ID"]
 API_TOKEN = os.environ["CLOUDFLARE_API_TOKEN"]
+ACCOUNT_ID2 = os.environ.get("CLOUDFLARE_ACCOUNT_ID2", "")
+API_TOKEN2 = os.environ.get("CLOUDFLARE_API_TOKEN2", "")
 MODEL = "@cf/black-forest-labs/flux-1-schnell"
-BASE_URL = f"https://api.cloudflare.com/client/v4/accounts/{ACCOUNT_ID}/ai/run/{MODEL}"
 OUT_DIR = "public/images/features"
+
+_state = {"account": 1, "id": ACCOUNT_ID, "token": API_TOKEN}
+
+def _base_url():
+    return f"https://api.cloudflare.com/client/v4/accounts/{_state['id']}/ai/run/{MODEL}"
+
+def _switch_account():
+    if _state["account"] == 2 or not ACCOUNT_ID2 or not API_TOKEN2:
+        return False
+    _state["account"] = 2
+    _state["id"] = ACCOUNT_ID2
+    _state["token"] = API_TOKEN2
+    print("  ⤳ switched to account 2")
+    return True
+
+import sys as _sys
 
 FILES = [
     "src/lib/modules/data.ts",
@@ -313,10 +330,17 @@ def generate_image_with_prompt(filepath, prompt):
     if os.path.exists(filepath):
         if os.path.getsize(filepath) > 1000:
             return True, "skip"
-    headers = {"Authorization": f"Bearer {API_TOKEN}", "Content-Type": "application/json"}
     payload = {"prompt": prompt, "num_steps": 8, "width": 1200, "height": 800}
     try:
-        resp = requests.post(BASE_URL, headers=headers, json=payload, timeout=120)
+        for attempt in range(2):
+            headers = {"Authorization": f"Bearer {_state['token']}", "Content-Type": "application/json"}
+            resp = requests.post(_base_url(), headers=headers, json=payload, timeout=120)
+            if resp.status_code == 429:
+                if _switch_account():
+                    continue
+                print("  STOP: 429 on both accounts — daily quota exhausted")
+                _sys.exit(2)
+            break
         if resp.status_code != 200:
             return False, f"HTTP {resp.status_code}: {resp.text[:100]}"
         data = json.loads(resp.content)
@@ -325,6 +349,8 @@ def generate_image_with_prompt(filepath, prompt):
         with open(filepath, "wb") as f:
             f.write(img_bytes)
         return True, f"{len(img_bytes)} bytes"
+    except SystemExit:
+        raise
     except Exception as e:
         return False, str(e)
 
@@ -390,6 +416,11 @@ def main():
         print(f"  → {ok} generated, {skip} skipped, {fail} failed")
 
     print(f"\nDone: {total_ok} generated, {total_skip} skipped, {total_fail} failed")
+    from datetime import datetime
+    log_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "_generation.log")
+    ts = datetime.now().isoformat(timespec="seconds")
+    with open(log_path, "a") as f:
+        f.write(f"{ts} generate-features.py gen={total_ok} skip={total_skip} fail={total_fail}\n")
 
 if __name__ == "__main__":
     main()

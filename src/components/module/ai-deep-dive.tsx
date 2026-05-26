@@ -126,28 +126,28 @@ const AI_FEATURES = [
 const USE_CASES = [
   {
     title: "Plant manager asks: 'Why is margin down on KR-100?'",
-    photo: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80",
+    photo: "/images/pages/ai-margin-query.jpg",
     scenario: "Monthly review. Plant manager opens chat: 'Why is margin per tonne on KR-100 GSM kraft down 6.2% vs last quarter?' Expects to spend an afternoon pulling reports.",
     response: "AI joins Production, Finance, Procurement and Sales data. Replies in 14 seconds with: pulp cost up 4.1% (specific supplier batch), broke rate up 1.8 pts (PM-2 calendar bearing), one customer renegotiated price down 2.3%. Each claim cited with drill-down link. Manager raises 3 actions inside the chat.",
     metrics: { time_to_answer: "14s", sources_joined: "4 modules", actions_raised: "3" },
   },
   {
     title: "Predictive: Bearing fails in 38 hours",
-    photo: "https://images.unsplash.com/photo-1581094488379-6c8b29a6e2d0?auto=format&fit=crop&w=1200&q=80",
+    photo: "/images/pages/ai-predictive-bearing.jpg",
     scenario: "PM-1 calendar bearing has been showing vibration drift over 11 days. Trend gradient steepening. Human eye on the dashboard would miss it for another shift or two.",
     response: "AI flags 'bearing failure predicted 38 hours ± 6 hrs, confidence 87%'. Auto-creates maintenance work request, checks spare availability (yes, in store), proposes preventive window (Sunday early shift, lowest production loss). Maintenance head approves with one click. Bearing swapped Sunday. No unplanned breakdown.",
     metrics: { advance_warning: "38 hrs", downtime_avoided: "~6 hrs", confidence: "87%" },
   },
   {
     title: "Bulk: Send dunning to 240 overdue accounts",
-    photo: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=1200&q=80",
+    photo: "/images/pages/ai-bulk-dunning.jpg",
     scenario: "AR clerk needs to send personalized collection emails to 240 overdue accounts before quarter-end. Manual: a full day of mail-merge and review.",
     response: "AI drafts 240 emails, each with customer-specific outstanding aging, last interaction notes, and tone calibrated to relationship history. Preview UI shows all 240 in a virtualized list with confidence per draft. Clerk reviews 18 flagged drafts (low confidence), edits 4, bulk approves the rest. 240 emails sent in 22 minutes.",
     metrics: { drafts: "240", review_time: "22 min", manual_baseline: "~7 hours" },
   },
   {
     title: "Quality anomaly: defect pattern across 14 reels",
-    photo: "https://images.unsplash.com/photo-1565618722293-d3a51b3c5430?auto=format&fit=crop&w=1200&q=80",
+    photo: "/images/pages/ai-quality-anomaly.jpg",
     scenario: "PM-2 made 142 reels overnight. Operator-level defect logging shows nothing unusual. But customer complaint dashboard shows 3 complaints from different customers received this morning.",
     response: "AI runs cluster analysis. Finds 14 reels with subtle moisture profile shift (3.2% above grade target on edges). All 3 complaints trace back to those reels. AI auto-holds the remaining 9 reels still in stock, raises CAPA, links pulp furnish change from 02:14 AM, suggests dryer steam balance check. CAPA opens for engineering before lunch.",
     metrics: { reels_identified: "14", reels_held: "9", customers_protected: "3" },
@@ -186,8 +186,8 @@ export function AIDeepDive({ data }: { data: ModuleData }) {
       {/* HERO */}
       <section className="relative min-h-[88vh] overflow-hidden grain on-photo">
         <div className="absolute inset-0">
-          <Image src="https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=1920&q=80"
-            alt="AI for paper manufacturing" fill className="object-cover" priority unoptimized />
+          <Image src="/images/pages/ai-deepdive-hero.jpg"
+            alt="AI for paper manufacturing" fill className="object-cover" priority />
           <div className="absolute inset-0 bg-gradient-to-r from-[#080808] via-[#080808]/85 to-[#080808]/40" />
           <div className="absolute inset-0 bg-gradient-to-t from-[#080808] via-transparent to-transparent" />
         </div>
@@ -489,7 +489,7 @@ export function AIDeepDive({ data }: { data: ModuleData }) {
                 viewport={{ once: true }} transition={{ duration: 0.5, delay: Math.min(i * 0.06, 0.3) }}
                 className="grid grid-cols-1 lg:grid-cols-5 gap-6 items-stretch">
                 <div className="lg:col-span-2 relative rounded-2xl overflow-hidden h-60 lg:h-auto border border-border-dim">
-                  <Image src={uc.photo} alt={uc.title} fill className="object-cover" unoptimized />
+                  <Image src={uc.photo} alt={uc.title} fill className="object-cover" />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a]/80 to-transparent" />
                   <div className="absolute bottom-4 left-4 right-4">
                     <p className="text-[10px] font-bold uppercase tracking-widest mb-1 text-violet-300">Case {String(i + 1).padStart(2, "0")}</p>

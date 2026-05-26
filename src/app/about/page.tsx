@@ -85,7 +85,7 @@ export default function AboutPage() {
       <section className="relative overflow-hidden grain on-photo">
         <div className="absolute inset-0">
           <Image
-            src="https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?auto=format&fit=crop&w=1920&q=80"
+            src="/images/pages/about-hero.jpg"
             alt="Paper mill"
             fill
             className="object-cover opacity-25"

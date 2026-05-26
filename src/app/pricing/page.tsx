@@ -103,11 +103,10 @@ export default function PricingPage() {
       <section className="relative overflow-hidden grain on-photo">
         <div className="absolute inset-0">
           <Image
-            src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=1920&q=80"
+            src="/images/pages/pricing-hero.jpg"
             alt="Pricing"
             fill
             className="object-cover opacity-25"
-            unoptimized
           />
           <div className="absolute inset-0 bg-gradient-to-r from-[#080808] via-[#080808]/85 to-[#080808]/30" />
           <div className="absolute inset-0 bg-gradient-to-t from-[#080808] via-transparent to-transparent" />

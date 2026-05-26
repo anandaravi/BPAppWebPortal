@@ -285,8 +285,8 @@ export default function TechnicalPage() {
       {/* HERO */}
       <section className="relative overflow-hidden grain on-photo">
         <div className="absolute inset-0">
-          <Image src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=1920&q=80"
-            alt="Technical infrastructure" fill className="object-cover opacity-30" unoptimized />
+          <Image src="/images/pages/tech-hero.jpg"
+            alt="Technical infrastructure" fill className="object-cover opacity-30" />
           <div className="absolute inset-0 bg-gradient-to-r from-[#080808] via-[#080808]/85 to-[#080808]/30" />
           <div className="absolute inset-0 bg-gradient-to-t from-[#080808] via-transparent to-transparent" />
         </div>

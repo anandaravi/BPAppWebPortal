@@ -8,9 +8,24 @@ import requests
 
 ACCOUNT_ID = os.environ["CLOUDFLARE_ACCOUNT_ID"]
 API_TOKEN = os.environ["CLOUDFLARE_API_TOKEN"]
+ACCOUNT_ID2 = os.environ.get("CLOUDFLARE_ACCOUNT_ID2", "")
+API_TOKEN2 = os.environ.get("CLOUDFLARE_API_TOKEN2", "")
 MODEL = "@cf/black-forest-labs/flux-1-schnell"
 OUT_DIR = os.path.join(os.path.dirname(__file__), "../public/images/heroes")
-BASE_URL = f"https://api.cloudflare.com/client/v4/accounts/{ACCOUNT_ID}/ai/run/{MODEL}"
+
+_state = {"account": 1, "id": ACCOUNT_ID, "token": API_TOKEN}
+
+def _base_url():
+    return f"https://api.cloudflare.com/client/v4/accounts/{_state['id']}/ai/run/{MODEL}"
+
+def _switch_account():
+    if _state["account"] == 2 or not ACCOUNT_ID2 or not API_TOKEN2:
+        return False
+    _state["account"] = 2
+    _state["id"] = ACCOUNT_ID2
+    _state["token"] = API_TOKEN2
+    print("  ⤳ switched to account 2")
+    return True
 
 MODULES = [
     {
@@ -245,10 +260,6 @@ def generate_image(module: dict) -> bool:
             return True
 
     print(f"  GEN  {module['slug']}...")
-    headers = {
-        "Authorization": f"Bearer {API_TOKEN}",
-        "Content-Type": "application/json",
-    }
     payload = {
         "prompt": module["prompt"],
         "num_steps": 8,
@@ -256,7 +267,18 @@ def generate_image(module: dict) -> bool:
         "height": 768,
     }
     try:
-        resp = requests.post(BASE_URL, headers=headers, json=payload, timeout=120)
+        for attempt in range(2):
+            headers = {
+                "Authorization": f"Bearer {_state['token']}",
+                "Content-Type": "application/json",
+            }
+            resp = requests.post(_base_url(), headers=headers, json=payload, timeout=120)
+            if resp.status_code == 429:
+                if _switch_account():
+                    continue
+                print(f"  STOP: 429 on both accounts — daily quota exhausted")
+                sys.exit(2)
+            break
         if resp.status_code != 200:
             print(f"  FAIL {module['slug']}: HTTP {resp.status_code} — {resp.text[:200]}")
             return False
@@ -282,19 +304,31 @@ def generate_image(module: dict) -> bool:
         return False
 
 
+def _log_summary(gen, skip, fail):
+    from datetime import datetime
+    log_path = os.path.join(os.path.dirname(__file__), "_generation.log")
+    ts = datetime.now().isoformat(timespec="seconds")
+    with open(log_path, "a") as f:
+        f.write(f"{ts} generate-heroes.py gen={gen} skip={skip} fail={fail}\n")
+
+
 def main():
     os.makedirs(OUT_DIR, exist_ok=True)
     print(f"Generating {len(MODULES)} hero images → {OUT_DIR}\n")
-    ok = 0
-    fail = 0
+    gen = skip = fail = 0
     for m in MODULES:
+        out_path = os.path.join(OUT_DIR, m["file"])
+        pre_exists = os.path.exists(out_path) and os.path.getsize(out_path) > 1000
         success = generate_image(m)
-        if success:
-            ok += 1
+        if success and pre_exists:
+            skip += 1
+        elif success:
+            gen += 1
         else:
             fail += 1
-        time.sleep(0.5)  # be nice to the API
-    print(f"\nDone: {ok} OK, {fail} failed")
+        time.sleep(0.5)
+    print(f"\nDone: {gen} generated, {skip} skipped, {fail} failed")
+    _log_summary(gen, skip, fail)
 
 
 if __name__ == "__main__":

@@ -20,7 +20,7 @@ export const PRINCIPLES: Record<string, Principle> = {
     short: "Activate only the modules you need today. Add more as you grow. No code changes, no migration projects.",
     blurb: "Modules are independently deployable and independently activatable. Every module ships with its own database schema, its own service tier, and its own UI surface — but shares the common platform foundation.",
     accent: "#10B981",
-    photo: "https://images.unsplash.com/photo-1581094271901-8022df4466f9?auto=format&fit=crop&w=1920&q=80",
+    photo: "/images/pages/principles-modular.jpg",
     whatItMeans: [
       "Activate Sales, Inventory, Finance on Day 1; add Production later without re-implementing",
       "Each module has its own version lifecycle — upgrade Finance to v2.5 without touching Sales",
@@ -47,7 +47,7 @@ export const PRINCIPLES: Record<string, Principle> = {
     short: "Every module exposes REST + webhook APIs. Other modules consume them; external systems integrate the same way.",
     blurb: "If a feature exists in the UI, it exists in the API. External integrations are not afterthoughts — they use the same interfaces internal modules use.",
     accent: "#3B82F6",
-    photo: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1920&q=80",
+    photo: "/images/pages/principles-api-first.jpg",
     whatItMeans: [
       "Every action available in the UI is also available as an API call",
       "External systems (SAP, Salesforce, custom apps) integrate as first-class consumers",
@@ -74,7 +74,7 @@ export const PRINCIPLES: Record<string, Principle> = {
     short: "One deployment serves multiple companies, plants, and branches. Data isolation enforced at the query layer.",
     blurb: "Multi-tenancy is built into the data model and the query layer — not bolted on at the application layer. Tenant A literally cannot see Tenant B's data, even if a developer makes a mistake.",
     accent: "#A855F7",
-    photo: "https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1920&q=80",
+    photo: "/images/pages/principles-multitenancy.jpg",
     whatItMeans: [
       "Mill Group with 5 subsidiaries runs on one deployment with strict data isolation",
       "Users see only the companies and branches they're authorized for",
@@ -101,7 +101,7 @@ export const PRINCIPLES: Record<string, Principle> = {
     short: "Every action, every state transition, every read — logged. Built once at the platform, inherited by every module.",
     blurb: "Audit isn't a feature you turn on. It's the default state. Every create, update, delete, and sensitive read operation produces an immutable audit entry with user, timestamp, IP, before/after values, and reason.",
     accent: "#F59E0B",
-    photo: "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=1920&q=80",
+    photo: "/images/pages/principles-audit.jpg",
     whatItMeans: [
       "Tamper-proof log of every CRUD operation across every module",
       "Sensitive reads logged separately (Aadhaar, PAN, salary, contracts)",
@@ -128,7 +128,7 @@ export const PRINCIPLES: Record<string, Principle> = {
     short: "Turn features on or off per company. Gradual rollout, A/B testing, emergency shutoff — all from the admin console.",
     blurb: "Toggles control every feature independently, per company and per role. Roll out new functionality to one mill before all five. Disable a problematic feature in 10 seconds without a code deploy.",
     accent: "#06B6D4",
-    photo: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1920&q=80",
+    photo: "/images/pages/principles-feature-flags.jpg",
     whatItMeans: [
       "Activate new modules or features per company without code deploys",
       "Gradual rollout: enable a feature for 10% of users, watch metrics, then ramp up",
@@ -155,7 +155,7 @@ export const PRINCIPLES: Record<string, Principle> = {
     short: "Every module exposes data to the AI layer through structured contracts. New AI insights work day one across all modules.",
     blurb: "Modules don't need to be AI-aware. They emit structured events and expose query contracts. The AI layer consumes them — adding intelligence without forcing modules to know they're being consumed.",
     accent: "#EAB308",
-    photo: "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?auto=format&fit=crop&w=1920&q=80",
+    photo: "/images/pages/principles-ai-ready.jpg",
     whatItMeans: [
       "AI features can be added without touching individual module code",
       "Same data model powers natural language chat, predictions, and bulk actions",
@@ -182,7 +182,7 @@ export const PRINCIPLES: Record<string, Principle> = {
     short: "Approval matrix, escalation rules, document templates — all editable without deployments. Business changes don't need engineering.",
     blurb: "Business logic lives in configuration, not code. Approval thresholds, escalation paths, email templates, and workflow rules change with a UI edit — not a code deploy.",
     accent: "#EC4899",
-    photo: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=1920&q=80",
+    photo: "/images/pages/principles-workflows.jpg",
     whatItMeans: [
       "Approval matrix changes via admin UI — no developer time",
       "Email templates editable with Handlebars variables and preview",
@@ -209,7 +209,7 @@ export const PRINCIPLES: Record<string, Principle> = {
     short: "Events flow on a shared bus. Subscribe a workflow, alert, or integration to any business event without modifying source modules.",
     blurb: "Every state change publishes an event to the platform event bus. Subscribers add new behavior — workflows, alerts, integrations, analytics — without modifying the source module.",
     accent: "#EF4444",
-    photo: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1920&q=80",
+    photo: "/images/pages/principles-event-driven.jpg",
     whatItMeans: [
       "Adding a new alert or workflow doesn't require changing the module that triggers it",
       "Multiple subscribers can listen to the same event independently",
@@ -236,7 +236,7 @@ export const PRINCIPLES: Record<string, Principle> = {
     short: "Stateless services, queue-driven background jobs, Redis-cached lookups. Add capacity by adding nodes — never by re-architecting.",
     blurb: "The platform was designed to scale horizontally from day one. Services are stateless. State lives in databases. Capacity grows by adding nodes — not by rewriting code or migrating data.",
     accent: "#8B5CF6",
-    photo: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=1920&q=80",
+    photo: "/images/pages/principles-scalable.jpg",
     whatItMeans: [
       "Same architecture supports 50-user mill and 5000-user mill group",
       "Add capacity by adding nodes — no need to re-architect or re-platform",

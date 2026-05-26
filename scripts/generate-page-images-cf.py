@@ -10,9 +10,24 @@ import requests
 
 ACCOUNT_ID = os.environ["CLOUDFLARE_ACCOUNT_ID"]
 API_TOKEN = os.environ["CLOUDFLARE_API_TOKEN"]
+ACCOUNT_ID2 = os.environ.get("CLOUDFLARE_ACCOUNT_ID2", "")
+API_TOKEN2 = os.environ.get("CLOUDFLARE_API_TOKEN2", "")
 MODEL = "@cf/black-forest-labs/flux-1-schnell"
 OUT_DIR = os.path.join(os.path.dirname(__file__), "../public/images/pages")
-BASE_URL = f"https://api.cloudflare.com/client/v4/accounts/{ACCOUNT_ID}/ai/run/{MODEL}"
+
+_state = {"account": 1, "id": ACCOUNT_ID, "token": API_TOKEN}
+
+def _base_url():
+    return f"https://api.cloudflare.com/client/v4/accounts/{_state['id']}/ai/run/{MODEL}"
+
+def _switch_account():
+    if _state["account"] == 2 or not ACCOUNT_ID2 or not API_TOKEN2:
+        return False
+    _state["account"] = 2
+    _state["id"] = ACCOUNT_ID2
+    _state["token"] = API_TOKEN2
+    print("  ⤳ switched to account 2")
+    return True
 
 IMAGES = [
     # --- page heroes ---
@@ -225,6 +240,110 @@ IMAGES = [
         "w": 1360, "h": 768,
         "prompt": "Industrial slitting machine and rewinder at Indian paper mill, close-up of precision slitting blades cutting paper reels into multiple widths simultaneously, narrow slit reels on mandrel, dramatic industrial photography, photorealistic",
     },
+    # --- production deep-dive ---
+    {
+        "file": "production-deepdive-hero.jpg",
+        "w": 1360, "h": 768,
+        "prompt": "Fourdrinier paper machine wet end and dry end in full operation at Indian paper mill, paper web forming on wire, steam rising, operators on platform monitoring controls, dramatic industrial lighting, photorealistic",
+    },
+    {
+        "file": "production-breakdown.jpg",
+        "w": 1200, "h": 800,
+        "prompt": "Paper mill maintenance crew responding to unexpected breakdown on PM-2 paper machine, technicians with toolboxes diagnosing failure mid-shift, warning lights, industrial emergency repair, photorealistic",
+    },
+    {
+        "file": "production-daily-plan.jpg",
+        "w": 1200, "h": 800,
+        "prompt": "Production planner at Indian paper mill working on daily master schedule, Gantt chart with grade-color-coded runs on screen, planning office with multiple monitors, professional industrial setting, photorealistic",
+    },
+    {
+        "file": "production-oee-drop.jpg",
+        "w": 1200, "h": 800,
+        "prompt": "OEE analytics dashboard at paper mill control room showing seven-point drop in availability metric, root-cause investigation on screen, operations manager analyzing performance loss, photorealistic",
+    },
+    {
+        "file": "production-stock-prep.jpg",
+        "w": 1200, "h": 800,
+        "prompt": "Integrated pulp-and-paper mill stock preparation area starving downstream paper machine PM-3, pulp chest level alarms on SCADA screen, operator coordinating between pulp and paper sides, photorealistic",
+    },
+    # --- finance deep-dive ---
+    {
+        "file": "finance-deepdive-hero.jpg",
+        "w": 1360, "h": 768,
+        "prompt": "Indian paper mill finance office with large monitors showing GST compliance dashboard and e-invoice generation, chief financial officer reviewing books, professional accounting environment, dramatic lighting, photorealistic",
+    },
+    {
+        "file": "finance-gst-close.jpg",
+        "w": 1200, "h": 800,
+        "prompt": "GST month-end closing process at Indian paper mill finance team, GSTR-1 and GSTR-3B reconciliation on screen, calm finance staff completing returns on time, professional office setting, photorealistic",
+    },
+    {
+        "file": "finance-margin.jpg",
+        "w": 1200, "h": 800,
+        "prompt": "Margin analysis dashboard at paper mill finance office, daily contribution per customer and grade breakdown on screen, profitability heatmap visualization, financial analyst reviewing margins, photorealistic",
+    },
+    {
+        "file": "finance-export.jpg",
+        "w": 1200, "h": 800,
+        "prompt": "Export shipment trade finance workspace at Indian paper mill, shipping bill and eBRC documents on desk, FEMA compliance dashboard on screen, export finance professional reviewing realisation, photorealistic",
+    },
+    {
+        "file": "finance-3way-match.jpg",
+        "w": 1200, "h": 800,
+        "prompt": "Three-way match process at Indian paper mill accounts payable team, PO and GRN and vendor invoice comparison on screen catching overcharge of four point seven lakh rupees, professional finance office, photorealistic",
+    },
+    # --- hr deep-dive ---
+    {
+        "file": "hr-deepdive-hero.jpg",
+        "w": 1360, "h": 768,
+        "prompt": "Indian paper mill HR office overview, HR director and payroll team at workstations, employees in queue at biometric attendance scanner outside, professional industrial HR environment, photorealistic",
+    },
+    {
+        "file": "hr-payroll-close.jpg",
+        "w": 1200, "h": 800,
+        "prompt": "Five hundred employee paper mill monthly payroll closing in one day, payroll team at Indian HR office finalizing salaries with PF ESI TDS deductions on screen, professional payroll operations, photorealistic",
+    },
+    {
+        "file": "hr-audit-records.jpg",
+        "w": 1200, "h": 800,
+        "prompt": "Audit-ready employee records archive at Indian paper mill HR office, seven year history of payroll documents on screen, auditor reviewing immutable HR audit trail, professional records management, photorealistic",
+    },
+    {
+        "file": "hr-shift-gap.jpg",
+        "w": 1200, "h": 800,
+        "prompt": "Shift roster planning at paper mill HR office, shift-gap rule violation alert blocking unsafe crew assignment on screen, supervisor adjusting roster, statutory compliance check, photorealistic",
+    },
+    {
+        "file": "hr-mobile-ess.jpg",
+        "w": 1200, "h": 800,
+        "prompt": "Paper mill shop floor worker using employee self service app on smartphone, mobile ESS interface showing payslip and leave balance, blue-collar Indian worker reducing HR walk-ins, photorealistic",
+    },
+    # --- ai deep-dive ---
+    {
+        "file": "ai-deepdive-hero.jpg",
+        "w": 1360, "h": 768,
+        "prompt": "AI command center at Indian paper mill, plant manager conversing with AI assistant, large screens showing neural network visualizations and live KPI predictions, amber and blue glowing interfaces, futuristic photorealistic",
+    },
+    {
+        "file": "ai-margin-query.jpg",
+        "w": 1200, "h": 800,
+        "prompt": "Plant manager at Indian paper mill asking AI conversational interface why margin is down on KR-100 grade, chat interface with cited source records on screen, professional analytics workspace, photorealistic",
+    },
+    {
+        "file": "ai-predictive-bearing.jpg",
+        "w": 1200, "h": 800,
+        "prompt": "Predictive maintenance AI alert at paper mill showing bearing failure forecast in thirty-eight hours, vibration sensor trend chart with anomaly highlight, maintenance engineer reviewing prediction, photorealistic",
+    },
+    {
+        "file": "ai-bulk-dunning.jpg",
+        "w": 1200, "h": 800,
+        "prompt": "Bulk dunning operation dashboard at Indian paper mill finance office, AI sending personalized dunning communications to two hundred forty overdue accounts with preview diff, professional bulk action workflow, photorealistic",
+    },
+    {
+        "file": "ai-quality-anomaly.jpg",
+        "w": 1200, "h": 800,
+        "prompt": "Quality AI anomaly detection at paper mill, defect pattern identified across fourteen paper reels on screen, root-cause cluster visualization, quality engineer investigating, professional QA workspace, photorealistic",
+    },
 ]
 
 
@@ -235,10 +354,6 @@ def generate_image(img: dict) -> bool:
         return True
 
     print(f"  GEN  {img['file']}...")
-    headers = {
-        "Authorization": f"Bearer {API_TOKEN}",
-        "Content-Type": "application/json",
-    }
     payload = {
         "prompt": img["prompt"],
         "num_steps": 8,
@@ -246,10 +361,18 @@ def generate_image(img: dict) -> bool:
         "height": img["h"],
     }
     try:
-        resp = requests.post(BASE_URL, headers=headers, json=payload, timeout=120)
-        if resp.status_code == 429:
-            print(f"  STOP: 429 rate limit hit — daily quota exhausted")
-            sys.exit(1)
+        for attempt in range(2):
+            headers = {
+                "Authorization": f"Bearer {_state['token']}",
+                "Content-Type": "application/json",
+            }
+            resp = requests.post(_base_url(), headers=headers, json=payload, timeout=120)
+            if resp.status_code == 429:
+                if _switch_account():
+                    continue
+                print(f"  STOP: 429 on both accounts — daily quota exhausted")
+                sys.exit(2)
+            break
         if resp.status_code != 200:
             print(f"  FAIL {img['file']}: HTTP {resp.status_code} — {resp.text[:200]}")
             return False
@@ -275,18 +398,31 @@ def generate_image(img: dict) -> bool:
         return False
 
 
+def _log_summary(gen, skip, fail):
+    from datetime import datetime
+    log_path = os.path.join(os.path.dirname(__file__), "_generation.log")
+    ts = datetime.now().isoformat(timespec="seconds")
+    with open(log_path, "a") as f:
+        f.write(f"{ts} generate-page-images-cf.py gen={gen} skip={skip} fail={fail}\n")
+
+
 def main():
     os.makedirs(OUT_DIR, exist_ok=True)
     print(f"Generating {len(IMAGES)} page images via CF flux-1-schnell → {OUT_DIR}\n")
-    ok = fail = 0
+    gen = skip = fail = 0
     for img in IMAGES:
+        out_path = os.path.join(OUT_DIR, img["file"])
+        pre_exists = os.path.exists(out_path) and os.path.getsize(out_path) > 10000
         success = generate_image(img)
-        if success:
-            ok += 1
+        if success and pre_exists:
+            skip += 1
+        elif success:
+            gen += 1
         else:
             fail += 1
         time.sleep(0.5)
-    print(f"\nDone: {ok} OK, {fail} failed")
+    print(f"\nDone: {gen} generated, {skip} skipped, {fail} failed")
+    _log_summary(gen, skip, fail)
 
 
 if __name__ == "__main__":
