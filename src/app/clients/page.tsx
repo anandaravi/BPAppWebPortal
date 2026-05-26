@@ -27,7 +27,6 @@ export const metadata: Metadata = {
 };
 
 // Project lat/lon to SVG coords for India + Gulf map
-// Map viewBox: 0 0 900 480 (wider aspect to fit Gulf + India)
 const MAP_W = 900;
 const MAP_H = 480;
 function project(lat: number, lon: number) {
@@ -36,6 +35,39 @@ function project(lat: number, lon: number) {
   const y = MAP_H - ((lat - minLat) / (maxLat - minLat)) * MAP_H;
   return { x, y };
 }
+
+// Build SVG path string from array of [lat, lon] waypoints
+function poly(points: [number, number][]) {
+  return points
+    .map(([lat, lon], i) => {
+      const { x, y } = project(lat, lon);
+      return `${i === 0 ? "M" : "L"} ${x.toFixed(1)} ${y.toFixed(1)}`;
+    })
+    .join(" ") + " Z";
+}
+
+// Simplified India mainland outline (clockwise from north)
+const INDIA_OUTLINE: [number, number][] = [
+  [35, 77], [35, 79], [33, 79], [31, 80], [29, 81], [28, 85], [27, 88],
+  [27, 91], [28, 95], [27, 97], [25, 95], [23, 94], [22, 93], [22, 91],
+  [22, 89], [21, 87], [20, 85], [17, 82], [13, 80], [11, 80], [9, 78],
+  [8, 77], [10, 76], [13, 74], [16, 73], [19, 72], [21, 72], [23, 68],
+  [25, 70], [28, 70], [30, 73], [32, 75], [34, 74], [35, 77],
+];
+
+// Saudi Arabia rough outline (clockwise)
+const SAUDI_OUTLINE: [number, number][] = [
+  [32, 39], [32, 47], [29, 48], [26, 50], [22, 52], [19, 52], [17, 51],
+  [16, 47], [17, 43], [21, 39], [25, 36], [29, 35], [31, 36], [32, 39],
+];
+
+// UAE rough outline
+const UAE_OUTLINE: [number, number][] = [
+  [26, 51], [26, 56], [25, 56], [23, 56], [22, 55], [22, 51], [24, 51], [26, 51],
+];
+
+// Bangalore HQ
+const HQ = { lat: 12.9716, lon: 77.5946, name: "Bangalore", label: "Netique HQ" };
 
 export default function ClientsPage() {
   const indianClients = CLIENTS.filter((c) => c.country === "India");
@@ -96,46 +128,58 @@ export default function ClientsPage() {
             <svg
               viewBox={`0 0 ${MAP_W} ${MAP_H}`}
               className="w-full h-auto"
-              style={{ maxHeight: 540 }}
+              style={{ maxHeight: 560 }}
             >
               <defs>
-                <radialGradient id="indiaGlow" cx="70%" cy="50%" r="42%">
-                  <stop offset="0%" stopColor="#10B98118" />
-                  <stop offset="100%" stopColor="#10B98103" />
-                </radialGradient>
-                <radialGradient id="gulfGlow" cx="12%" cy="42%" r="20%">
-                  <stop offset="0%" stopColor="#FBBF2418" />
-                  <stop offset="100%" stopColor="#FBBF2402" />
-                </radialGradient>
                 <pattern id="grid" width="30" height="30" patternUnits="userSpaceOnUse">
                   <path d="M 30 0 L 0 0 0 30" fill="none" stroke="#ffffff05" strokeWidth="1" />
                 </pattern>
+                <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+                  <path d="M 0 0 L 10 5 L 0 10 z" fill="#F59E0B" opacity="0.5" />
+                </marker>
               </defs>
               <rect width={MAP_W} height={MAP_H} fill="url(#grid)" />
-              <rect width={MAP_W} height={MAP_H} fill="url(#indiaGlow)" />
-              <rect width={MAP_W} height={MAP_H} fill="url(#gulfGlow)" />
 
-              {/* Region labels */}
-              <text x={(((46 - 44) / (100 - 44)) * MAP_W)} y={MAP_H - (((24 - 6) / (36 - 6)) * MAP_H) - 32} fontSize="13" fontWeight="700" fill="#FBBF24" letterSpacing="2">
-                SAUDI ARABIA
-              </text>
-              <text x={(((54 - 44) / (100 - 44)) * MAP_W)} y={MAP_H - (((26 - 6) / (36 - 6)) * MAP_H) - 32} fontSize="11" fontWeight="600" fill="#FBBF24" letterSpacing="1.5">
-                UAE
-              </text>
-              <text x={(((75 - 44) / (100 - 44)) * MAP_W)} y={MAP_H - (((22 - 6) / (36 - 6)) * MAP_H) - 32} fontSize="16" fontWeight="800" fill="#10B981" letterSpacing="3">
-                INDIA
-              </text>
+              {/* Country bodies */}
+              <path d={poly(INDIA_OUTLINE)} fill="#10B98114" stroke="#10B981" strokeWidth="1.5" strokeOpacity="0.7" />
+              <path d={poly(SAUDI_OUTLINE)} fill="#FBBF2412" stroke="#FBBF24" strokeWidth="1.5" strokeOpacity="0.7" />
+              <path d={poly(UAE_OUTLINE)} fill="#F9731612" stroke="#F97316" strokeWidth="1.5" strokeOpacity="0.8" />
 
-              {/* Connector line India ↔ Gulf */}
-              <line
-                x1={(((48 - 44) / (100 - 44)) * MAP_W)}
-                y1={MAP_H - (((24.7 - 6) / (36 - 6)) * MAP_H)}
-                x2={(((72 - 44) / (100 - 44)) * MAP_W)}
-                y2={MAP_H - (((20 - 6) / (36 - 6)) * MAP_H)}
-                stroke="#FBBF2425"
-                strokeWidth="1"
-                strokeDasharray="3 4"
-              />
+              {/* Country labels */}
+              {(() => {
+                const i = project(22, 79);
+                const s = project(24, 44);
+                const u = project(24.5, 54.5);
+                return (
+                  <g>
+                    <text x={i.x} y={i.y} fontSize="22" fontWeight="900" fill="#10B981" opacity="0.5" letterSpacing="6">INDIA</text>
+                    <text x={s.x} y={s.y} fontSize="13" fontWeight="700" fill="#FBBF24" opacity="0.55" letterSpacing="2.5">SAUDI ARABIA</text>
+                    <text x={u.x - 18} y={u.y + 24} fontSize="10" fontWeight="700" fill="#F97316" opacity="0.7" letterSpacing="2">UAE</text>
+                  </g>
+                );
+              })()}
+
+              {/* HQ → City connection lines (one per city, not per client) */}
+              {(() => {
+                const hq = project(HQ.lat, HQ.lon);
+                return Array.from(byCity.entries()).map(([key, group]) => {
+                  const c = group[0];
+                  const p = project(c.lat, c.lon);
+                  return (
+                    <line
+                      key={`line-${key}`}
+                      x1={hq.x}
+                      y1={hq.y}
+                      x2={p.x}
+                      y2={p.y}
+                      stroke="#F59E0B"
+                      strokeWidth="0.7"
+                      strokeOpacity="0.35"
+                      strokeDasharray="2 3"
+                    />
+                  );
+                });
+              })()}
 
               {/* Markers */}
               {Array.from(byCity.entries()).map(([key, group]) => {
@@ -173,9 +217,31 @@ export default function ClientsPage() {
                   </g>
                 );
               })}
+
+              {/* HQ marker (Bangalore) */}
+              {(() => {
+                const hq = project(HQ.lat, HQ.lon);
+                return (
+                  <g>
+                    <circle cx={hq.x} cy={hq.y} r="18" fill="#F59E0B12" />
+                    <circle cx={hq.x} cy={hq.y} r="12" fill="#F59E0B25" />
+                    <circle cx={hq.x} cy={hq.y} r="7" fill="#F59E0B" stroke="#0a0a0a" strokeWidth="2.5" />
+                    <text x={hq.x + 12} y={hq.y - 8} fontSize="11" fontWeight="800" fill="#FBBF24" letterSpacing="1">
+                      NETIQUE HQ
+                    </text>
+                    <text x={hq.x + 12} y={hq.y + 5} fontSize="10" fontWeight="600" fill="#a1a1aa">
+                      Bangalore
+                    </text>
+                  </g>
+                );
+              })()}
             </svg>
 
-            <div className="flex items-center gap-4 mt-3 text-[11px] font-mono">
+            <div className="flex flex-wrap items-center gap-4 mt-3 text-[11px] font-mono">
+              <span className="flex items-center gap-1.5">
+                <span className="w-2.5 h-2.5 rounded-full bg-amber-500 ring-2 ring-amber-500/20" />
+                <span className="text-zinc-400 font-semibold">Bangalore HQ</span>
+              </span>
               <span className="flex items-center gap-1.5">
                 <span className="w-2.5 h-2.5 rounded-full bg-emerald-500" />
                 <span className="text-zinc-500">India · {indianClients.length}</span>
@@ -186,7 +252,7 @@ export default function ClientsPage() {
               </span>
               <span className="text-zinc-700">·</span>
               <span className="text-zinc-600">
-                markers sized by deployment count
+                dotted lines = HQ to client cities
               </span>
             </div>
           </div>
