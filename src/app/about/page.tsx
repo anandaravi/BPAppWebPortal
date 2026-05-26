@@ -89,7 +89,6 @@ export default function AboutPage() {
             alt="Paper mill"
             fill
             className="object-cover opacity-25"
-            unoptimized
           />
           <div className="absolute inset-0 bg-gradient-to-r from-[#080808] via-[#080808]/85 to-[#080808]/30" />
           <div className="absolute inset-0 bg-gradient-to-t from-[#080808] via-transparent to-transparent" />

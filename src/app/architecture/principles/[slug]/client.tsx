@@ -22,7 +22,7 @@ export function PrincipleDetailClient({ slug }: { slug: string }) {
       {/* HERO */}
       <section className="relative overflow-hidden grain min-h-[60vh]">
         <div className="absolute inset-0">
-          <Image src={p.photo} alt={p.title} fill className="object-cover opacity-30" priority unoptimized />
+          <Image src={p.photo} alt={p.title} fill className="object-cover opacity-30" priority />
           <div className="absolute inset-0 bg-gradient-to-r from-[#080808] via-[#080808]/85 to-[#080808]/40" />
           <div className="absolute inset-0 bg-gradient-to-t from-[#080808] via-transparent to-transparent" />
         </div>

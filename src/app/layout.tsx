@@ -58,10 +58,13 @@ export const metadata: Metadata = {
       "max-snippet": -1,
     },
   },
-  icons: {
-    icon: "/bp_app.png",
-    apple: "/bp_app.png",
-  },
+  manifest: "/manifest.webmanifest",
+};
+
+export const viewport = {
+  themeColor: "#F59E0B",
+  width: "device-width",
+  initialScale: 1,
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {

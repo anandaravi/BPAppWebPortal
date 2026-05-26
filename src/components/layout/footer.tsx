@@ -25,6 +25,7 @@ const COMPANY_NAV = [
 const RESOURCES_NAV = [
   { label: "Resources", href: "/resources" },
   { label: "Blog", href: "/blog" },
+  { label: "Case Studies", href: "/case-studies" },
   { label: "Glossary", href: "/glossary" },
   { label: "ROI Calculator", href: "/roi-calculator" },
   { label: "ERP by City", href: "/erp-for-paper-mills" },

@@ -91,6 +91,10 @@ const data: ComparisonPageData = {
       q: "What about Dataman's specific paper industry strengths like grade transitions and tail-fed reel tracking?",
       a: "Both are supported in Papyrus BPApp. Grade transitions are modeled in the Production module with transition reel handling. Tail-fed reel genealogy is tracked through the Inventory module with batch lineage from machine reel to slit reels to finished product.",
     },
+    {
+      q: "Dataman has deep European paper industry pedigree. What's Papyrus BPApp's lineage?",
+      a: "Papyrus BPApp is developed by Netique Infotech Pvt Ltd. — pioneers of Deckle Matching software in India with 4 decades of paper-industry domain expertise. 20+ years of multi-country mill deployments. Earlier products: NDM (Netique Deckle Matcher), Paper Agent, Optrim, Optrim Web, Papyrus Production Manager. Papyrus BPApp is the evolution of that lineage into a full end-to-end ERP, under the Papyrus360 brand. Different geography than Dataman's European pedigree, but equivalent depth on paper-mill operations.",
+    },
   ],
 };
 

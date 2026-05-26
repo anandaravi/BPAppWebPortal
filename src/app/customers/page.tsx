@@ -192,7 +192,7 @@ export default function CustomersPage() {
       <section className="relative overflow-hidden grain">
         <div className="absolute inset-0">
           <Image src="https://images.unsplash.com/photo-1581093458791-9f3c3900df4b?auto=format&fit=crop&w=1920&q=80"
-            alt="Paper mills" fill className="object-cover opacity-25" unoptimized />
+            alt="Paper mills" fill className="object-cover opacity-25" />
           <div className="absolute inset-0 bg-gradient-to-r from-[#080808] via-[#080808]/85 to-[#080808]/30" />
           <div className="absolute inset-0 bg-gradient-to-t from-[#080808] via-transparent to-transparent" />
         </div>
@@ -247,7 +247,7 @@ export default function CustomersPage() {
                 className="grid grid-cols-1 lg:grid-cols-5 gap-8 items-stretch">
                 {/* Photo + size badge */}
                 <div className="lg:col-span-2 relative rounded-2xl overflow-hidden h-60 lg:h-auto border border-[#1f1f1f]">
-                  <Image src={p.photo} alt={p.title} fill className="object-cover" unoptimized />
+                  <Image src={p.photo} alt={p.title} fill className="object-cover" />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a]/80 via-transparent to-transparent" />
                   <div className="absolute top-4 left-4 px-3 py-1.5 rounded-full border text-[10px] font-bold uppercase tracking-widest"
                     style={{ color: p.accent, borderColor: `${p.accent}50`, background: `${p.accent}15` }}>
@@ -308,7 +308,7 @@ export default function CustomersPage() {
                 transition={{ duration: 0.4, delay: i * 0.08 }}
                 className="bg-[#0f0f0f] border border-[#1f1f1f] rounded-2xl overflow-hidden hover:border-amber-500/25 transition-colors">
                 <div className="relative h-44 overflow-hidden">
-                  <Image src={p.photo} alt={p.title} fill className="object-cover opacity-50" unoptimized />
+                  <Image src={p.photo} alt={p.title} fill className="object-cover opacity-50" />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#0f0f0f] to-transparent" />
                   <div className="absolute bottom-3 left-4">
                     <p className="text-[10px] font-bold uppercase tracking-widest mb-1" style={{ color: p.accent }}>{p.size}</p>

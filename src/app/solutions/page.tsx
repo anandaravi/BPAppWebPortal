@@ -82,7 +82,7 @@ export default function SolutionsPage() {
       <section className="relative overflow-hidden grain">
         <div className="absolute inset-0">
           <Image src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1920&q=80"
-            alt="Solutions" fill className="object-cover opacity-25" unoptimized />
+            alt="Solutions" fill className="object-cover opacity-25" />
           <div className="absolute inset-0 bg-gradient-to-r from-[#080808] via-[#080808]/85 to-[#080808]/30" />
           <div className="absolute inset-0 bg-gradient-to-t from-[#080808] via-transparent to-transparent" />
         </div>
@@ -130,7 +130,7 @@ export default function SolutionsPage() {
               className="grid grid-cols-1 lg:grid-cols-5 gap-6">
               {/* Photo + role */}
               <div className="lg:col-span-2 relative rounded-2xl overflow-hidden h-72 lg:h-auto border border-[#1f1f1f]">
-                <Image src={r.photo} alt={r.title} fill className="object-cover" unoptimized />
+                <Image src={r.photo} alt={r.title} fill className="object-cover" />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-[#0a0a0a]/40 to-transparent" />
                 <div className="absolute inset-0 flex flex-col justify-between p-5">
                   <span className="self-start px-3 py-1.5 rounded-full border text-[10px] font-bold uppercase tracking-widest"
