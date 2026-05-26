@@ -327,7 +327,7 @@ export default function ClientsPage() {
               <div className="space-y-2 text-xs">
                 {[
                   { region: "West India", states: ["Gujarat", "Maharashtra"], color: "#10B981" },
-                  { region: "North India", states: ["Punjab", "Uttar Pradesh"], color: "#34D399" },
+                  { region: "North India", states: ["Punjab", "Uttar Pradesh", "Uttarakhand"], color: "#34D399" },
                   { region: "South India", states: ["Tamil Nadu", "Andhra Pradesh", "Karnataka"], color: "#6EE7B7" },
                   { region: "East India", states: ["Odisha", "West Bengal"], color: "#A7F3D0" },
                   { region: "Gulf", states: ["Riyadh", "Sharjah"], color: "#FBBF24" },
