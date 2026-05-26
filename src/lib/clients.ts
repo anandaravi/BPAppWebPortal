@@ -304,7 +304,7 @@ export const CLIENTS: Client[] = [
     grade: "Newsprint, Board",
     product: "Netique Deckle Matcher",
     testimonial:
-      "Using your Netique Deckle Matcher for two years — working smoothly. Satisfied with the system.",
+      "We are using your Netique Deckle Matcher software for the last two years and pleased to inform that it is working smoothly. We are satisfied with the system and hope that you will update and modify the system as required times.",
     verified: true,
   },
 
