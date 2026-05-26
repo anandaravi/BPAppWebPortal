@@ -304,6 +304,19 @@ export const CLIENTS: Client[] = [
     verified: true,
   },
 
+  {
+    slug: "tnpl",
+    name: "Tamil Nadu Newsprint and Papers Ltd (TNPL)",
+    short: "TNPL",
+    city: "Karur",
+    state: "Tamil Nadu",
+    country: "India",
+    lat: 10.96,
+    lon: 78.08,
+    grade: "Newsprint, W&P",
+    verified: true,
+  },
+
   // ====== INTERNATIONAL ======
   {
     slug: "waraq-paper",
@@ -331,9 +344,10 @@ export const CLIENTS: Client[] = [
   },
 ];
 
+// Expanded to cover India + Gulf (Saudi Arabia / UAE)
 export const INDIA_BBOX = {
-  minLon: 68,
-  maxLon: 97,
+  minLon: 44,
+  maxLon: 100,
   minLat: 6,
   maxLat: 36,
 };
