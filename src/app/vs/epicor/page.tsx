@@ -61,7 +61,7 @@ const data: ComparisonPageData = {
   faqs: [
     { q: "Is Papyrus BPApp's process manufacturing capability comparable to Epicor?", a: "For paper industry workflows — yes. Epicor's process manufacturing is broad but generic; Papyrus BPApp is paper-tuned (grades, parent reels, deckle, broke, GSM/BF/BS, MG/MF/calendering)." },
     { q: "Does Papyrus BPApp have configurator like Epicor's CPQ?", a: "Papyrus BPApp has product catalog with variant configuration — sufficient for paper grade combinations. For very complex CPQ (1000+ option combinations), Epicor may have an edge, but rare in paper." },
-    { q: "TCO for 60 TPD mill?", a: "Epicor: ₹1–2 crore implementation, ₹40–80 lakh annual licenses + ₹30–50 lakh partner support. 5-year TCO ₹4–8 crore. Papyrus BPApp: 5-year TCO ₹1.5–3 crore. 60–75% reduction." },
+    { q: "TCO for 60 TPD mill?", a: "Epicor: ₹1–2 crore implementation, ₹40–80 lakh annual licenses + ₹30–50 lakh partner support. 5-year TCO ₹4–8 crore. Papyrus BPApp: annual subscription ₹4–12 lakh for small mills · ₹12–30 lakh for mid mills (60 TPD typical) · ₹30 lakh+ for large mills. 5-year TCO ₹1.5–3 crore. 60–75% reduction." },
   ],
 };
 

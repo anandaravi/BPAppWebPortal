@@ -285,6 +285,144 @@ export default function PricingPage() {
         </div>
       </section>
 
+      {/* INDICATIVE PRICING */}
+      <section className="py-20 border-b border-[#1a1a1a]">
+        <div className="max-w-7xl mx-auto px-6">
+          <p className="text-amber-500 text-xs font-semibold uppercase tracking-widest mb-3">
+            Indicative Annual Cost
+          </p>
+          <h2 className="text-4xl md:text-5xl font-black text-white tracking-tight mb-4">
+            Ballpark, not bait.
+          </h2>
+          <p className="text-zinc-400 text-lg max-w-2xl mb-14 leading-relaxed">
+            Final pricing depends on the four dimensions above. These are realistic
+            annual ranges for typical mill profiles to anchor the conversation
+            before a custom quote.
+          </p>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+            {[
+              {
+                tier: "Small Mill",
+                price: "₹4–12 lakh",
+                period: "per year",
+                desc: "Single paper machine, <50 users, core modules (Sales, Production, Inventory, Finance + Deckle).",
+                accent: "#34D399",
+                items: [
+                  "1 paper machine",
+                  "Up to ~50 named users",
+                  "Cloud SaaS deployment",
+                  "Core 8–12 modules",
+                  "Standard SLA",
+                ],
+              },
+              {
+                tier: "Mid Mill",
+                price: "₹12–30 lakh",
+                period: "per year",
+                desc: "1–2 PMs, 50–150 users, expanded module set with HR/Payroll, Quality, AI add-ons.",
+                accent: "#F59E0B",
+                items: [
+                  "1–2 paper machines",
+                  "50–150 named users",
+                  "Cloud or Private Cloud",
+                  "15–25 modules",
+                  "Priority support",
+                ],
+                featured: true,
+              },
+              {
+                tier: "Large / Integrated Mill",
+                price: "₹30 lakh+",
+                period: "per year",
+                desc: "Multi-PM or integrated mill, 150+ users, full 44-module footprint, multi-plant, custom integration.",
+                accent: "#A78BFA",
+                items: [
+                  "Multi-PM / integrated",
+                  "150+ named users",
+                  "Cloud · On-prem · Hybrid",
+                  "Up to 44 modules",
+                  "Dedicated success team",
+                ],
+              },
+            ].map((tier) => (
+              <div
+                key={tier.tier}
+                className="bg-[#0f0f0f] border rounded-2xl p-6 flex flex-col"
+                style={{
+                  borderColor: tier.featured ? `${tier.accent}50` : "#1f1f1f",
+                  boxShadow: tier.featured ? `0 0 32px ${tier.accent}15` : "none",
+                }}
+              >
+                <div className="flex items-center justify-between mb-4">
+                  <p
+                    className="text-xs font-bold uppercase tracking-widest"
+                    style={{ color: tier.accent }}
+                  >
+                    {tier.tier}
+                  </p>
+                  {tier.featured && (
+                    <span
+                      className="text-[10px] font-mono px-2 py-0.5 rounded border"
+                      style={{
+                        background: `${tier.accent}15`,
+                        borderColor: `${tier.accent}40`,
+                        color: tier.accent,
+                      }}
+                    >
+                      MOST COMMON
+                    </span>
+                  )}
+                </div>
+                <p
+                  className="text-4xl font-black font-mono mb-1"
+                  style={{ color: tier.accent }}
+                >
+                  {tier.price}
+                </p>
+                <p className="text-xs text-zinc-500 mb-5 font-mono">{tier.period}</p>
+                <p className="text-sm text-zinc-400 leading-relaxed mb-5">
+                  {tier.desc}
+                </p>
+                <ul className="space-y-2 mb-6">
+                  {tier.items.map((it) => (
+                    <li
+                      key={it}
+                      className="flex items-start gap-2 text-xs text-zinc-300"
+                    >
+                      <CheckCircle2
+                        size={13}
+                        className="mt-0.5 flex-shrink-0"
+                        style={{ color: tier.accent }}
+                      />
+                      {it}
+                    </li>
+                  ))}
+                </ul>
+                <Link
+                  href="/contact"
+                  className="mt-auto inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg border text-sm font-semibold transition-all"
+                  style={{
+                    borderColor: `${tier.accent}40`,
+                    background: `${tier.accent}10`,
+                    color: tier.accent,
+                  }}
+                >
+                  Get sized quote <ArrowRight size={14} />
+                </Link>
+              </div>
+            ))}
+          </div>
+
+          <p className="text-[11px] text-zinc-600 mt-8 font-mono leading-relaxed max-w-3xl">
+            * Ranges include software subscription. Implementation (typically 4–12
+            weeks), on-site training, and custom integrations are quoted
+            separately and depend on scope. On-premise deployments add
+            infrastructure cost; cloud SaaS bundles it.
+          </p>
+        </div>
+      </section>
+
       {/* MODULE GROUPS OVERVIEW */}
       <section className="py-20 border-b border-[#1a1a1a]">
         <div className="max-w-7xl mx-auto px-6">

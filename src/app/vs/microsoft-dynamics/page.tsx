@@ -78,7 +78,7 @@ const data: ComparisonPageData = {
     },
     {
       q: "TCO comparison for 60 TPD paper mill?",
-      a: "D365 F&O: implementation ₹50 lakh – 1 crore, annual licenses ₹40–80 lakh + customization/ISV ₹30–50 lakh. 5-year TCO ₹3–6 crore. Papyrus BPApp: implementation ₹20–50 lakh, annual ₹20–40 lakh. 5-year TCO ₹1–2.5 crore. Typical 60–75% TCO reduction.",
+      a: "D365 F&O: implementation ₹50 lakh – 1 crore, annual licenses ₹40–80 lakh + customization/ISV ₹30–50 lakh. 5-year TCO ₹3–6 crore. Papyrus BPApp: implementation ₹20–50 lakh, annual subscription scales by mill size — ₹4–12 lakh for small mills, ₹12–30 lakh for mid mills (60 TPD typical), ₹30 lakh+ for large/integrated. 5-year TCO ₹1–2.5 crore. Typical 60–75% TCO reduction.",
     },
     {
       q: "Microsoft says D365 has AI Copilot. Does Papyrus BPApp have AI too?",

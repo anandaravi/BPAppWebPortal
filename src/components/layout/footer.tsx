@@ -9,12 +9,14 @@ const PRODUCT_NAV = [
   { label: "Technical", href: "/technical" },
   { label: "Integrations", href: "/integrations" },
   { label: "Pricing", href: "/pricing" },
+  { label: "Compare", href: "/compare" },
 ];
 
 const COMPANY_NAV = [
   { label: "About", href: "/about" },
   { label: "Who It's For", href: "/customers" },
   { label: "By Role", href: "/solutions" },
+  { label: "By Mill Type", href: "/for" },
   { label: "Implementation", href: "/implementation" },
   { label: "FAQ", href: "/faq" },
   { label: "Contact", href: "/contact" },
@@ -22,10 +24,10 @@ const COMPANY_NAV = [
 
 const RESOURCES_NAV = [
   { label: "Resources", href: "/resources" },
-  { label: "Videos", href: "/resources" },
-  { label: "Guides", href: "/resources" },
-  { label: "Presentations", href: "/resources" },
-  { label: "Webinars", href: "/resources" },
+  { label: "Blog", href: "/blog" },
+  { label: "Glossary", href: "/glossary" },
+  { label: "ROI Calculator", href: "/roi-calculator" },
+  { label: "ERP by City", href: "/erp-for-paper-mills" },
 ];
 
 export function Footer() {
@@ -39,6 +41,11 @@ export function Footer() {
               <Logo size="md" />
             </Link>
             <p className="text-sm text-zinc-500 max-w-xs leading-relaxed">{SITE.tagline}. Built for Indian paper manufacturing — modular, scalable, and compliant.</p>
+            <p className="text-[11px] text-zinc-600 max-w-xs leading-relaxed">
+              A <span className="text-zinc-400">Papyrus360</span> product by{" "}
+              <span className="text-zinc-400">Netique Infotech Pvt Ltd.</span> —
+              4 decades of paper-industry domain expertise.
+            </p>
           </div>
 
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
@@ -92,7 +99,7 @@ export function Footer() {
         </div>
 
         <div className="mt-10 pt-8 border-t border-[#1a1a1a] flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-xs text-zinc-600">© {new Date().getFullYear()} {SITE.name}. All rights reserved.</p>
+          <p className="text-xs text-zinc-600">© {new Date().getFullYear()} Netique Infotech Pvt Ltd. · Papyrus360. All rights reserved.</p>
           <p className="text-xs text-zinc-600 font-mono">Business Process Application for Paper Manufacturing</p>
         </div>
       </div>

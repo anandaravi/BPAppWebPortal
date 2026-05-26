@@ -1,8 +1,5 @@
-"use client";
-
 import Image from "next/image";
 import Link from "next/link";
-import { motion } from "framer-motion";
 import { ArrowRight, ArrowLeft, CheckCircle2, ChevronRight } from "lucide-react";
 import { CapabilityDetail, getCapabilityBlurb, getProcessFlow, getCapabilityFeatures, getRelatedCapabilities, slugify } from "@/lib/modules/capability-helpers";
 import { getIcon } from "@/lib/icons";
@@ -28,17 +25,15 @@ export function CapabilityDetailTemplate({ detail }: { detail: CapabilityDetail 
         <div className="absolute left-0 top-0 bottom-0 w-1" style={{ background: `linear-gradient(to bottom, transparent, ${accent}, transparent)` }} />
 
         <div className="relative max-w-7xl mx-auto px-6 pt-32 pb-16">
-          {/* Breadcrumb */}
-          <motion.nav initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}
-            className="flex items-center gap-2 text-xs text-zinc-500 mb-8">
+          <nav className="flex items-center gap-2 text-xs text-zinc-500 mb-8">
             <Link href="/product" className="hover:text-amber-400 transition-colors">Product</Link>
             <ChevronRight size={12} />
             <Link href={`/product/${module.slug}`} className="hover:text-amber-400 transition-colors" style={{ color: accent }}>{module.name}</Link>
             <ChevronRight size={12} />
             <span className="text-zinc-400">{capability.title}</span>
-          </motion.nav>
+          </nav>
 
-          <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.1 }}>
+          <div>
             <div className="flex items-start gap-5 mb-6">
               <div className="w-16 h-16 rounded-2xl flex items-center justify-center border flex-shrink-0"
                 style={{ background: `${accent}12`, borderColor: `${accent}40` }}>
@@ -64,7 +59,7 @@ export function CapabilityDetailTemplate({ detail }: { detail: CapabilityDetail 
                 <ArrowLeft size={14} /> Back to {module.name}
               </Link>
             </div>
-          </motion.div>
+          </div>
         </div>
       </section>
 
@@ -77,12 +72,8 @@ export function CapabilityDetailTemplate({ detail }: { detail: CapabilityDetail 
           <div className="bg-[#0f0f0f] border border-[#1f1f1f] rounded-2xl p-6 md:p-8">
             <div className="flex flex-wrap items-center gap-3">
               {flow.map((step, i) => (
-                <div key={step.label} className="flex items-center gap-3">
-                  <motion.div
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.35, delay: i * 0.08 }}
+                <div key={`${i}-${step.label}`} className="flex items-center gap-3">
+                  <div
                     className="min-w-[140px] rounded-xl border px-4 py-3.5 flex flex-col items-center text-center"
                     style={{
                       background: i === Math.floor(flow.length / 2) ? `${accent}15` : "#161616",
@@ -91,7 +82,7 @@ export function CapabilityDetailTemplate({ detail }: { detail: CapabilityDetail 
                     <span className="text-[10px] font-mono text-zinc-500 mb-1">{String(i + 1).padStart(2, "0")}</span>
                     <span className="text-sm font-bold text-white">{step.label}</span>
                     {step.sub && <span className="text-[10px] text-zinc-500 mt-0.5 font-mono">{step.sub}</span>}
-                  </motion.div>
+                  </div>
                   {i < flow.length - 1 && (
                     <svg width="22" height="14" viewBox="0 0 22 14" fill="none" className="text-zinc-700 flex-shrink-0">
                       <path d="M0 7 H 16 M 12 1 L 16 7 L 12 13" stroke="currentColor" strokeWidth="1.5" fill="none" strokeLinecap="round" />
@@ -108,25 +99,21 @@ export function CapabilityDetailTemplate({ detail }: { detail: CapabilityDetail 
       <section className="py-20 border-b border-[#1a1a1a]">
         <div className="max-w-7xl mx-auto px-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
-            <motion.div initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.5 }}>
+            <div>
               <p className="text-xs font-semibold uppercase tracking-widest mb-3" style={{ color: accent }}>Key Features</p>
               <h2 className="text-3xl md:text-4xl font-black text-white tracking-tight mb-5">What you get.</h2>
               <p className="text-zinc-400 leading-relaxed">
                 Every feature is purpose-built, fully integrated, and audit-ready. No bolt-ons or compromises.
               </p>
-            </motion.div>
+            </div>
 
             <div className="space-y-3">
               {features.map((f, i) => (
-                <motion.div key={f}
-                  initial={{ opacity: 0, y: 12 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.35, delay: i * 0.06 }}
+                <div key={`${i}-${f.slice(0, 40)}`}
                   className="bg-[#0f0f0f] border border-[#1f1f1f] rounded-xl p-4 flex items-start gap-3 hover:border-amber-500/20 transition-colors">
                   <CheckCircle2 size={16} className="mt-0.5 flex-shrink-0" style={{ color: accent }} />
                   <p className="text-sm text-zinc-300">{f}</p>
-                </motion.div>
+                </div>
               ))}
             </div>
           </div>
@@ -139,12 +126,7 @@ export function CapabilityDetailTemplate({ detail }: { detail: CapabilityDetail 
           <p className="text-xs font-semibold uppercase tracking-widest mb-3" style={{ color: accent }}>In the Product</p>
           <h2 className="text-3xl font-black text-white tracking-tight mb-10">How it looks.</h2>
 
-          <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="bg-[#0f0f0f] border border-[#1f1f1f] rounded-2xl overflow-hidden">
+          <div className="bg-[#0f0f0f] border border-[#1f1f1f] rounded-2xl overflow-hidden">
             <div className="flex items-center gap-2 px-5 py-3.5 border-b border-[#1f1f1f] bg-[#0a0a0a]">
               <div className="flex gap-1.5">
                 <span className="w-2.5 h-2.5 rounded-full bg-red-500/70" />
@@ -158,7 +140,7 @@ export function CapabilityDetailTemplate({ detail }: { detail: CapabilityDetail 
               <div className="bg-[#080808] rounded-xl border border-[#1f1f1f] p-4">
                 <p className="text-[10px] text-zinc-500 uppercase tracking-wider mb-2 font-semibold">Status</p>
                 <div className="flex items-center gap-2 mb-3">
-                  <span className="w-2 h-2 rounded-full animate-pulse" style={{ background: accent }} />
+                  <span className="w-2 h-2 rounded-full" style={{ background: accent }} />
                   <p className="text-sm font-bold text-white">Active</p>
                 </div>
                 <p className="text-[10px] text-zinc-500">Last activity 2 min ago</p>
@@ -182,7 +164,7 @@ export function CapabilityDetailTemplate({ detail }: { detail: CapabilityDetail 
                 <p className="text-[10px] text-zinc-500 uppercase tracking-wider mb-3 font-semibold">Recent Activity</p>
                 <div className="space-y-2">
                   {flow.map((step, i) => (
-                    <div key={i} className="flex items-center gap-3 py-1.5">
+                    <div key={`act-${i}`} className="flex items-center gap-3 py-1.5">
                       <div className="w-6 h-6 rounded-full flex items-center justify-center text-[10px] font-bold font-mono"
                         style={{ background: i === 0 ? `${accent}25` : "#161616", color: i === 0 ? accent : "#71717a" }}>
                         {String(i + 1).padStart(2, "0")}
@@ -195,7 +177,7 @@ export function CapabilityDetailTemplate({ detail }: { detail: CapabilityDetail 
                 </div>
               </div>
             </div>
-          </motion.div>
+          </div>
         </div>
       </section>
 
@@ -210,11 +192,7 @@ export function CapabilityDetailTemplate({ detail }: { detail: CapabilityDetail 
               {related.map((r, i) => {
                 const RIcon = getIcon(r.icon);
                 return (
-                  <motion.div key={r.slug}
-                    initial={{ opacity: 0, y: 12 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.35, delay: Math.min(i * 0.05, 0.25) }}>
+                  <div key={`rel-${i}-${r.slug}`}>
                     <Link href={`/product/${module.slug}/${r.slug}`}
                       className="block bg-[#0f0f0f] border border-[#1f1f1f] rounded-xl p-4 hover:border-amber-500/30 transition-colors group">
                       <div className="flex items-center gap-3">
@@ -228,7 +206,7 @@ export function CapabilityDetailTemplate({ detail }: { detail: CapabilityDetail 
                         <ArrowRight size={12} className="text-zinc-600 group-hover:text-amber-400 group-hover:translate-x-0.5 transition-all" />
                       </div>
                     </Link>
-                  </motion.div>
+                  </div>
                 );
               })}
             </div>

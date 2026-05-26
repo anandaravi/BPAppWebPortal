@@ -61,7 +61,7 @@ const data: ComparisonPageData = {
   faqs: [
     { q: "Does Papyrus BPApp handle batch traceability like ProcessPro?", a: "Yes. Reel-level genealogy, batch lineage through pulping → paper → finishing → dispatch. Audit-ready records for ISO 9001/22000/FSSAI." },
     { q: "Formula management for chemical dosing?", a: "Yes via Recipe Development module — chemical recipes per grade, versioning, customer approval workflow." },
-    { q: "TCO comparison?", a: "ProcessPro: ₹50 lakh – 1.5 crore Y1 + ₹20–40 lakh/year. Papyrus BPApp: ₹15–40 lakh Y1, ₹15–35 lakh/year. 60–70% TCO reduction." },
+    { q: "TCO comparison?", a: "ProcessPro: ₹50 lakh – 1.5 crore Y1 + ₹20–40 lakh/year. Papyrus BPApp: ₹15–40 lakh Y1, annual subscription ₹4–12 lakh for small mills · ₹12–30 lakh for mid mills · ₹30 lakh+ for large/integrated. 60–70% TCO reduction." },
   ],
 };
 

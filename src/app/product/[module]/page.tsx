@@ -1,5 +1,10 @@
+import type { ReactNode } from "react";
 import { ModuleTemplate } from "@/components/module/module-template";
 import { DeckleDeepDive } from "@/components/module/deckle-deep-dive";
+import { ProductionDeepDive } from "@/components/module/production-deep-dive";
+import { AIDeepDive } from "@/components/module/ai-deep-dive";
+import { FinanceDeepDive } from "@/components/module/finance-deep-dive";
+import { HRDeepDive } from "@/components/module/hr-deep-dive";
 import { ModuleFAQ } from "@/components/module/module-faq";
 import { ALL_MODULES, ALL_SLUGS } from "@/lib/modules";
 import { JsonLd, productSchema, breadcrumbSchema, faqSchema } from "@/components/seo/json-ld";
@@ -59,11 +64,23 @@ export default async function Page({ params }: { params: Promise<{ module: strin
     schemas.push(faqSchema(faqs));
   }
 
+  let body: ReactNode;
+  switch (module) {
+    case "deckle": body = <DeckleDeepDive data={data} />; break;
+    case "production": body = <ProductionDeepDive data={data} />; break;
+    case "ai": body = <AIDeepDive data={data} />; break;
+    case "finance": body = <FinanceDeepDive data={data} />; break;
+    case "hr": body = <HRDeepDive data={data} />; break;
+    default: body = <ModuleTemplate data={data} />;
+  }
+
+  const suppressFaq = module === "deckle";
+
   return (
     <>
       <JsonLd data={schemas} />
-      {module === "deckle" ? <DeckleDeepDive data={data} /> : <ModuleTemplate data={data} />}
-      {faqs && faqs.length > 0 && module !== "deckle" && <ModuleFAQ faqs={faqs} moduleName={data.name} />}
+      {body}
+      {faqs && faqs.length > 0 && !suppressFaq && <ModuleFAQ faqs={faqs} moduleName={data.name} />}
     </>
   );
 }

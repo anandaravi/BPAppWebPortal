@@ -76,7 +76,7 @@ const data: ComparisonPageData = {
     },
     {
       q: "TCO comparison for 100 TPD multi-machine mill?",
-      a: "JDE EnterpriseOne: implementation ₹2–4 crore, licenses ₹60–120 lakh/year, AMC + customization ₹40–80 lakh/year. 5-year TCO ₹6–12 crore. Papyrus BPApp: implementation ₹40–80 lakh, annual ₹25–50 lakh. 5-year TCO ₹2–3 crore. Typical 60–75% reduction.",
+      a: "JDE EnterpriseOne: implementation ₹2–4 crore, licenses ₹60–120 lakh/year, AMC + customization ₹40–80 lakh/year. 5-year TCO ₹6–12 crore. Papyrus BPApp: implementation ₹40–80 lakh, annual subscription scales by mill size — ₹4–12 lakh for small mills, ₹12–30 lakh for mid mills, ₹25–50 lakh for large/integrated multi-PM mills. 5-year TCO ₹2–3 crore. Typical 60–75% reduction.",
     },
     {
       q: "Can Papyrus BPApp coexist with our existing JDE during transition?",

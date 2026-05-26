@@ -44,7 +44,7 @@ const data: ComparisonPageData = {
     { feature: "Multi-plant operations", papyrus: true, competitor: "partial" },
     { feature: "AI engine, IoT, mobile-first", papyrus: true, competitor: false },
     { feature: "Cloud-native multi-tenant", papyrus: true, competitor: "partial" },
-    { feature: "Annual cost (small mill)", papyrus: "₹15–25 lakh", competitor: "₹1–3 lakh" },
+    { feature: "Annual cost (small mill)", papyrus: "₹4–12 lakh", competitor: "₹1–3 lakh" },
   ],
   whenChooseCompetitor: [
     "Small paper trader or distributor (no manufacturing) with simple accounting + GST needs.",

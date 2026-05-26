@@ -77,7 +77,7 @@ const data: ComparisonPageData = {
     },
     {
       q: "TCO comparison for a 50 TPD paper mill?",
-      a: "Infor LN: implementation ₹1–2 crore, annual licenses ₹40–80 lakh + AMC ₹20–40 lakh. Papyrus BPApp: implementation ₹15–40 lakh, annual ₹15–35 lakh covering all 44 modules. Typical 60–75% lower 5-year TCO.",
+      a: "Infor LN: implementation ₹1–2 crore, annual licenses ₹40–80 lakh + AMC ₹20–40 lakh. Papyrus BPApp: implementation ₹15–40 lakh, annual subscription ₹4–12 lakh for small mills · ₹12–30 lakh for mid mills (50 TPD typical) · ₹30 lakh+ for large/integrated mills, covering all 44 modules. Typical 60–75% lower 5-year TCO.",
     },
     {
       q: "Will my Infor consultant ecosystem be lost?",

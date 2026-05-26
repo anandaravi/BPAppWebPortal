@@ -63,7 +63,7 @@ const data: ComparisonPageData = {
   faqs: [
     { q: "Is Papyrus BPApp's manufacturing depth comparable to SAP B1 with paper add-ons?", a: "Yes — usually deeper. B1 manufacturing is generic; paper-specific add-ons (Greycon, niche ISVs) bolt onto B1 with integration overhead. Papyrus BPApp has paper-specific workflows natively." },
     { q: "Does it integrate with SAP S/4HANA at parent company?", a: "Yes via REST APIs. Consolidation data (GL summaries, AR/AP, BOM costs) can push to parent S/4HANA as needed." },
-    { q: "TCO for 50 TPD mill?", a: "SAP B1: implementation ₹30–60 lakh, annual licenses ₹15–30 lakh, partner support + customization ₹10–20 lakh/year. Total Y1: ₹55 lakh – 1.1 crore. Papyrus BPApp: ₹15–40 lakh Y1 total. Typical 60–70% reduction." },
+    { q: "TCO for 50 TPD mill?", a: "SAP B1: implementation ₹30–60 lakh, annual licenses ₹15–30 lakh, partner support + customization ₹10–20 lakh/year. Total Y1: ₹55 lakh – 1.1 crore. Papyrus BPApp: ₹15–40 lakh Y1 total — software subscription ₹4–12 lakh for small mills · ₹12–30 lakh for mid mills (50 TPD typical) · ₹30 lakh+ for large/integrated. Typical 60–70% reduction." },
     { q: "Will my CA accept Papyrus BPApp finance for audit?", a: "Yes. Auditor-friendly chart of accounts, trial balance, GSTR-1/3B/9, e-invoice, audit trail — designed with practicing CAs." },
   ],
 };

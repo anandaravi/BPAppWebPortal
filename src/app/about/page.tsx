@@ -166,17 +166,28 @@ export default function AboutPage() {
               </h2>
               <div className="space-y-5 text-zinc-400 leading-relaxed text-base">
                 <p>
+                  Papyrus BPApp is developed by{" "}
+                  <span className="text-white font-semibold">
+                    Netique Infotech Pvt Ltd.
+                  </span>{" "}
+                  — pioneers of Deckle Matching software in India and a paper-
+                  industry technology partner with 4 decades of domain
+                  expertise. For 20+ years Netique has supported paper mills
+                  across India and overseas with products like NDM (Netique
+                  Deckle Matcher), Paper Agent, Optrim, Optrim Web, and Papyrus
+                  Production Manager.
+                </p>
+                <p>
                   Indian paper mills spent years forcing generic ERPs to
                   understand deckle optimisation, grade changeover planning, and
                   broke management. The result was expensive customisation
                   projects that delivered half-solutions — and left critical
-                  mill workflows still running on spreadsheets.
-                </p>
-                <p>
-                  Papyrus BPApp was built to end that compromise. We started
-                  with the paper mill workflow — not with a generic platform —
-                  and built the entire system around the realities of how Indian
-                  paper mills plan, produce, and report.
+                  mill workflows still running on spreadsheets. Papyrus BPApp is
+                  the natural evolution of Netique&apos;s four decades of
+                  paper-industry experience into a complete end-to-end ERP,
+                  delivered under the{" "}
+                  <span className="text-white font-semibold">Papyrus360</span>{" "}
+                  brand for software and consulting.
                 </p>
                 <p>
                   The outcome is an ERP where GST filing, TDS deduction, PF
@@ -213,6 +224,107 @@ export default function AboutPage() {
                 </motion.div>
               ))}
             </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* HERITAGE */}
+      <section className="py-20 border-b border-[#1a1a1a]">
+        <div className="max-w-7xl mx-auto px-6">
+          <p className="text-amber-500 text-xs font-semibold uppercase tracking-widest mb-3">
+            Heritage · Netique Infotech
+          </p>
+          <h2 className="text-4xl md:text-5xl font-black text-white tracking-tight mb-4 leading-tight">
+            Four decades. Five products.<br />One paper-industry lineage.
+          </h2>
+          <p className="text-zinc-400 text-base max-w-3xl mb-12 leading-relaxed">
+            Papyrus BPApp didn&apos;t arrive from nowhere. It is built by the same
+            team that pioneered Deckle Matching software in India — every product
+            in the lineage is still informing how the platform thinks about paper.
+          </p>
+
+          <div className="relative">
+            <div className="absolute left-7 top-2 bottom-2 w-px bg-gradient-to-b from-amber-500/60 via-amber-500/20 to-transparent hidden md:block" />
+            <div className="space-y-4">
+              {[
+                {
+                  era: "1980s–90s",
+                  product: "NDM · Netique Deckle Matcher",
+                  desc: "The original Indian deckle matching engine. Decades of mill-floor tuning seeded every constraint in today's optimizer.",
+                },
+                {
+                  era: "2000s",
+                  product: "Paper Agent",
+                  desc: "Order-to-dispatch coordination for Indian paper traders and mills. Early experience with multi-customer dispatch realities.",
+                },
+                {
+                  era: "2000s–10s",
+                  product: "Optrim · Optrim Web",
+                  desc: "Desktop and web evolutions of the deckle optimization engine. Multi-country deployments, multi-machine configurations.",
+                },
+                {
+                  era: "2010s",
+                  product: "Papyrus Production Manager",
+                  desc: "Production scheduling and shop floor execution for paper mills — the precursor to the modern Production module.",
+                },
+                {
+                  era: "2024+",
+                  product: "Papyrus BPApp · Papyrus360",
+                  desc: "End-to-end ERP for paper manufacturing. 44 modules. Cloud-native, multi-tenant, GST + FEMA native. Software and consulting delivered under the Papyrus360 brand.",
+                  active: true,
+                },
+              ].map((step, i) => (
+                <div key={step.product} className="flex gap-5 items-start">
+                  <div
+                    className="flex-shrink-0 w-14 h-14 rounded-full bg-[#0f0f0f] border-2 flex items-center justify-center font-mono text-[10px] font-bold"
+                    style={{
+                      borderColor: step.active ? "#F59E0B" : "#444",
+                      color: step.active ? "#F59E0B" : "#a1a1aa",
+                    }}
+                  >
+                    {String(i + 1).padStart(2, "0")}
+                  </div>
+                  <div className="bg-[#0f0f0f] border border-[#1f1f1f] rounded-2xl p-5 flex-1">
+                    <div className="flex flex-col sm:flex-row sm:items-center gap-2 mb-2">
+                      <span className="text-xs font-mono font-bold text-amber-400">
+                        {step.era}
+                      </span>
+                      <span className="text-zinc-700 hidden sm:inline">·</span>
+                      <h3 className="text-base font-bold text-white">
+                        {step.product}
+                      </h3>
+                      {step.active && (
+                        <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-amber-500/15 border border-amber-500/30 text-amber-300">
+                          ACTIVE
+                        </span>
+                      )}
+                    </div>
+                    <p className="text-sm text-zinc-400 leading-relaxed">
+                      {step.desc}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="mt-10 grid grid-cols-2 md:grid-cols-4 gap-3 max-w-3xl">
+            {[
+              { value: "40 yrs", label: "Domain expertise" },
+              { value: "20+ yrs", label: "In-mill deployments" },
+              { value: "Multi", label: "Country footprint" },
+              { value: "5+", label: "Generations of product" },
+            ].map((m) => (
+              <div
+                key={m.label}
+                className="bg-[#0f0f0f] border border-[#1f1f1f] rounded-xl p-4"
+              >
+                <p className="text-2xl font-black font-mono text-amber-400 mb-1">
+                  {m.value}
+                </p>
+                <p className="text-xs text-zinc-500">{m.label}</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>

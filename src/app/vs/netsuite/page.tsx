@@ -64,7 +64,7 @@ const data: ComparisonPageData = {
     { q: "Is Papyrus BPApp's manufacturing depth comparable to NetSuite Advanced Manufacturing?", a: "For paper industry workflows — deeper. NetSuite Advanced Manufacturing is generic discrete/process. Papyrus BPApp's data model is paper-native (grades, parent reels, deckle, broke). NetSuite needs SuiteApps to match." },
     { q: "Multi-currency, multi-entity support?", a: "Yes. Papyrus BPApp supports multi-entity, multi-currency, multi-GSTIN. For Indian-focused mills this is sufficient. For complex multi-country consolidation across 5+ countries, NetSuite may have an edge." },
     { q: "Salesforce/HubSpot CRM integration?", a: "Yes via REST APIs. Two-way sync of leads, opportunities, accounts. Or use Papyrus BPApp's built-in CRM module." },
-    { q: "TCO comparison?", a: "NetSuite: USD-priced, typically ₹30–80 lakh/year subscription + ₹30–60 lakh implementation + ₹20–40 lakh/year partner support. 5-year TCO ₹4–10 crore. Papyrus BPApp: 5-year TCO ₹1–2.5 crore. Typical 70% reduction." },
+    { q: "TCO comparison?", a: "NetSuite: USD-priced, typically ₹30–80 lakh/year subscription + ₹30–60 lakh implementation + ₹20–40 lakh/year partner support. 5-year TCO ₹4–10 crore. Papyrus BPApp: INR-priced, starts at ₹4–12 lakh/year for small mills, ₹12–30 lakh for mid mills. 5-year TCO ₹1–2.5 crore. Typical 70% reduction." },
   ],
 };
 

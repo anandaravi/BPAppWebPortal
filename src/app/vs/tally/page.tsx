@@ -52,7 +52,7 @@ const data: ComparisonPageData = {
     { feature: "Mobile app for shop floor / approvals", papyrus: true, competitor: "partial" },
     { feature: "Cloud-native, multi-user real-time", papyrus: true, competitor: "partial", note: "TallyPrime Server / Tally on Cloud exists but multi-user concurrency limited" },
     { feature: "REST API ecosystem", papyrus: true, competitor: "partial", note: "Tally TDL is custom scripting" },
-    { feature: "Typical annual cost (small mill)", papyrus: "₹15–25 lakh", competitor: "₹0.5–2 lakh", note: "Tally is cheap but doesn't cover production/HR/quality" },
+    { feature: "Typical annual cost (small mill)", papyrus: "₹4–12 lakh", competitor: "₹0.5–2 lakh", note: "Tally is cheap but doesn't cover production/HR/quality" },
   ],
   whenChooseCompetitor: [
     "Trader, converter, or very small mill (<10 employees, <5 TPD) where accounting + GST is the only digital need — production runs on Excel and that's fine for now.",
@@ -87,7 +87,7 @@ const data: ComparisonPageData = {
     },
     {
       q: "What about cost vs Tally?",
-      a: "Tally is dramatically cheaper for pure accounting (₹18,000–₹54,000/year). Papyrus BPApp costs more (typically ₹15–25 lakh/year for a small mill) — but you're getting a full manufacturing ERP, not just accounting. The deckle optimizer alone typically pays for the entire platform within 6 months on a 30+ TPD mill. The comparison isn't 'Tally vs Papyrus' on price; it's 'Tally + Excel + manual ops' vs 'Papyrus BPApp end-to-end' on total cost and risk.",
+      a: "Tally is dramatically cheaper for pure accounting (₹18,000–₹54,000/year). Papyrus BPApp costs more (₹4–12 lakh/year for a small mill, ₹12–30 lakh for mid mills) — but you're getting a full manufacturing ERP, not just accounting. The deckle optimizer alone typically pays for the entire platform within 6 months on a 30+ TPD mill. The comparison isn't 'Tally vs Papyrus' on price; it's 'Tally + Excel + manual ops' vs 'Papyrus BPApp end-to-end' on total cost and risk.",
     },
     {
       q: "Will my Tally TDL customizations be lost?",

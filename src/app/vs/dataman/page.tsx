@@ -75,7 +75,7 @@ const data: ComparisonPageData = {
     },
     {
       q: "TCO comparison: Dataman + SAP vs Papyrus BPApp?",
-      a: "Dataman MES license + SAP S/4HANA + integration middleware typically costs ₹3–8 crore implementation + ₹50–100 lakh/year ongoing. Papyrus BPApp full platform: ₹15–40 lakh implementation + ₹15–35 lakh/year. Typical 60–75% TCO reduction.",
+      a: "Dataman MES license + SAP S/4HANA + integration middleware typically costs ₹3–8 crore implementation + ₹50–100 lakh/year ongoing. Papyrus BPApp full platform: ₹15–40 lakh implementation, software starts at ₹4–12 lakh/year for small mills and scales to ₹12–30 lakh/year for mid mills covering all 44 modules. Typical 60–75% TCO reduction.",
     },
     {
       q: "What about Dataman's specific paper industry strengths like grade transitions and tail-fed reel tracking?",

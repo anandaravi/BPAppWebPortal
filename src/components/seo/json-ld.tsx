@@ -19,14 +19,28 @@ export function JsonLd({ data }: JsonLdProps) {
 export const ORGANIZATION_SCHEMA = {
   "@type": "Organization",
   name: SITE.name,
-  legalName: "Papyrus BPApp",
+  legalName: "Netique Infotech Pvt Ltd.",
+  alternateName: ["Papyrus360", "Netique"],
   url: SITE.url,
   logo: `${SITE.url}/bp_app.png`,
-  description: SITE.description,
+  description:
+    "Papyrus BPApp is developed by Netique Infotech Pvt Ltd. — pioneers of Deckle Matching software in India with 4 decades of paper-industry domain expertise. Papyrus360 is the company's brand for paper-industry software and consulting.",
   email: SITE.email,
-  foundingDate: "2024",
+  foundingDate: "1985",
   founders: [{ "@type": "Person", name: "Anand Aravi Ramasamy" }],
   address: { "@type": "PostalAddress", addressCountry: "IN" },
+  brand: [
+    { "@type": "Brand", name: "Papyrus BPApp" },
+    { "@type": "Brand", name: "Papyrus360" },
+  ],
+  owns: [
+    { "@type": "Product", name: "NDM (Netique Deckle Matcher)" },
+    { "@type": "Product", name: "Paper Agent" },
+    { "@type": "Product", name: "Optrim" },
+    { "@type": "Product", name: "Optrim Web" },
+    { "@type": "Product", name: "Papyrus Production Manager" },
+    { "@type": "Product", name: "Papyrus BPApp" },
+  ],
   sameAs: [
     "https://github.com/anandaravi/BPAppWebPortal",
     "https://www.youtube.com/playlist?list=PLI8_1PmAsPBHPu4uD-b4Or0pAveJjYgry",
@@ -35,6 +49,7 @@ export const ORGANIZATION_SCHEMA = {
     "Paper manufacturing",
     "Enterprise resource planning",
     "Deckle optimization",
+    "Deckle matching",
     "Paper mill management",
     "Indian paper industry",
     "GST compliance",
@@ -70,6 +85,11 @@ export const SOFTWARE_APPLICATION_SCHEMA = {
   audience: {
     "@type": "BusinessAudience",
     audienceType: "Paper manufacturers, paper mills, pulp mills, paper converters",
+  },
+  publisher: {
+    "@type": "Organization",
+    name: "Netique Infotech Pvt Ltd.",
+    alternateName: "Papyrus360",
   },
 };
 

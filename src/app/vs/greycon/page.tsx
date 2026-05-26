@@ -81,11 +81,11 @@ const data: ComparisonPageData = {
     },
     {
       q: "What about implementation risk vs Greycon's proven global track record?",
-      a: "Greycon has decades of installations at large multinationals. Papyrus BPApp is newer but is built on modern, well-understood cloud architecture (PostgreSQL, Node.js, Next.js, Redis) deployed on AWS/Azure/GCP. Risk is mitigated by: (1) phased modular rollout starting with deckle, (2) 4–12 week implementation cycle vs 6–18 months reducing exposure, (3) cloud-native with automatic backups and disaster recovery, (4) India-based dedicated support team.",
+      a: "Greycon has decades of installations at large multinationals — that pedigree is real. But Papyrus BPApp is not a startup product either. It is developed by Netique Infotech Pvt Ltd., pioneers of Deckle Matching software in India with 4 decades of paper-industry domain expertise and 20+ years of supporting mills across multiple countries. Netique's earlier products — NDM (Netique Deckle Matcher), Paper Agent, Optrim, Optrim Web, and Papyrus Production Manager — have been running in Indian and overseas paper mills for two decades. Papyrus BPApp is the natural evolution of that lineage into a full end-to-end ERP, delivered under the Papyrus360 brand for software + consulting. Architecturally, it sits on modern cloud foundations (PostgreSQL, Node.js, Next.js, Redis) on AWS/Azure/GCP. Implementation risk is further mitigated by: (1) phased modular rollout starting with deckle, (2) 4–12 week implementation cycle vs 6–18 months, (3) cloud-native with automatic backups and disaster recovery, (4) India-based dedicated support team that already understands paper mill operations.",
     },
     {
       q: "Total cost of ownership: Papyrus BPApp vs Greycon + separate ERP?",
-      a: "A typical 50 TPD Indian mill running Greycon X-Trim + SAP B1 + Tally for compliance ends up with 3 vendor contracts, 2–3 integrations, and TCO often exceeding ₹1 crore/year (licenses + AMC + integration maintenance). Papyrus BPApp consolidates into one platform with INR-denominated, modular pricing — typically 40–60% lower TCO for equivalent functional scope.",
+      a: "A typical 50 TPD Indian mill running Greycon X-Trim + SAP B1 + Tally for compliance ends up with 3 vendor contracts, 2–3 integrations, and TCO often exceeding ₹1 crore/year (licenses + AMC + integration maintenance). Papyrus BPApp consolidates into one platform with INR-denominated, modular pricing — small mills typically start at ₹4–12 lakh/year for the core module set including Deckle Optimizer. Equivalent functional scope at 40–60% lower TCO than the multi-vendor stack.",
     },
     {
       q: "Does Papyrus BPApp work for non-Indian mills too?",

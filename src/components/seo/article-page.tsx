@@ -46,6 +46,60 @@ function renderBody(md: string) {
         </blockquote>,
       );
       i++;
+    } else if (
+      line.trim().startsWith("|") &&
+      line.trim().endsWith("|") &&
+      i + 1 < lines.length &&
+      /^\s*\|?[\s:|-]+\|[\s:|-]+\|?\s*$/.test(lines[i + 1])
+    ) {
+      const parseRow = (l: string) =>
+        l
+          .trim()
+          .replace(/^\|/, "")
+          .replace(/\|$/, "")
+          .split("|")
+          .map((c) => c.trim());
+      const headers = parseRow(line);
+      i += 2; // skip header + separator
+      const rows: string[][] = [];
+      while (
+        i < lines.length &&
+        lines[i].trim().startsWith("|") &&
+        lines[i].trim().endsWith("|")
+      ) {
+        rows.push(parseRow(lines[i]));
+        i++;
+      }
+      out.push(
+        <div key={key++} className="my-6 overflow-x-auto rounded-xl border border-[#1f1f1f]">
+          <table className="w-full text-sm border-collapse">
+            <thead>
+              <tr className="bg-[#0f0f0f]">
+                {headers.map((h, j) => (
+                  <th
+                    key={j}
+                    className="text-left text-[11px] font-bold uppercase tracking-widest text-amber-400 px-4 py-3 border-b border-[#1f1f1f]"
+                    dangerouslySetInnerHTML={{ __html: renderInline(h) }}
+                  />
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {rows.map((r, ri) => (
+                <tr key={ri} className="hover:bg-[#0c0c0c] transition-colors">
+                  {r.map((c, ci) => (
+                    <td
+                      key={ci}
+                      className="px-4 py-2.5 text-zinc-300 border-b border-[#1a1a1a] last:border-b-0 align-top leading-relaxed"
+                      dangerouslySetInnerHTML={{ __html: renderInline(c) }}
+                    />
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>,
+      );
     } else if (line.startsWith("- ") || line.startsWith("* ")) {
       const items: string[] = [];
       while (i < lines.length && (lines[i].startsWith("- ") || lines[i].startsWith("* "))) {

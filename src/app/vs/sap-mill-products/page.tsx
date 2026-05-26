@@ -79,7 +79,7 @@ const data: ComparisonPageData = {
     },
     {
       q: "Cost comparison for a typical 50 TPD Indian mill?",
-      a: "SAP S/4HANA Mill Products: implementation ₹2–5 crore, annual license ₹40–80 lakh, AMC + ongoing customization ₹30–60 lakh/year. Total 5-year TCO often ₹6–12 crore. Papyrus BPApp: implementation ₹15–40 lakh, annual subscription ₹15–35 lakh covering all 44 modules. Total 5-year TCO typically ₹1–2.5 crore — 4–6× lower for comparable functional scope.",
+      a: "SAP S/4HANA Mill Products: implementation ₹2–5 crore, annual license ₹40–80 lakh, AMC + ongoing customization ₹30–60 lakh/year. Total 5-year TCO often ₹6–12 crore. Papyrus BPApp: implementation ₹15–40 lakh, annual subscription scales by mill size — ₹4–12 lakh for small mills · ₹12–30 lakh for mid mills (50 TPD typical) · ₹30 lakh+ for large/integrated multi-PM mills, covering all 44 modules. Total 5-year TCO typically ₹1–2.5 crore — 4–6× lower for comparable functional scope.",
     },
     {
       q: "Does Papyrus BPApp support multi-company / multi-plant?",
