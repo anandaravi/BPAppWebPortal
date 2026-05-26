@@ -2,6 +2,14 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight, Scissors, Factory, Globe } from "lucide-react";
 import { CTABanner } from "@/components/sections/cta-banner";
+import { ogImage } from "@/lib/og";
+
+const OG = ogImage({
+  title: "13 alternatives. One honest comparison.",
+  subtitle: "Papyrus BPApp vs Greycon, SAP, Oracle, Tally + 10 more — side by side.",
+  tag: "Compare",
+  accent: "#F59E0B",
+});
 
 export const metadata: Metadata = {
   title: "Compare Papyrus BPApp | vs Greycon, SAP, Oracle, Tally + 10 more",
@@ -20,7 +28,9 @@ export const metadata: Metadata = {
     title: "Compare Papyrus BPApp — 13 alternatives, side by side",
     description: "Paper-mill specialists, Indian SMB ERPs, and global platforms — compared against Papyrus BPApp.",
     url: "/compare",
+    images: [OG],
   },
+  twitter: { card: "summary_large_image", images: [OG] },
 };
 
 type Competitor = {

@@ -9,6 +9,7 @@ import { ModuleFAQ } from "@/components/module/module-faq";
 import { ALL_MODULES, ALL_SLUGS } from "@/lib/modules";
 import { JsonLd, productSchema, breadcrumbSchema, faqSchema } from "@/components/seo/json-ld";
 import { MODULE_FAQS } from "@/lib/module-faqs";
+import { ogImage } from "@/lib/og";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
@@ -35,7 +36,27 @@ export async function generateMetadata({ params }: { params: Promise<{ module: s
       title: `${data.name} — ${data.tag}`,
       description: data.blurb,
       url: `/product/${module}`,
-      images: data.photo ? [data.photo] : undefined,
+      images: [
+        ogImage({
+          title: data.name,
+          subtitle: data.blurb,
+          tag: data.tag,
+          accent: data.accent,
+        }),
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${data.name} — ${data.tag}`,
+      description: data.blurb,
+      images: [
+        ogImage({
+          title: data.name,
+          subtitle: data.blurb,
+          tag: data.tag,
+          accent: data.accent,
+        }),
+      ],
     },
   };
 }

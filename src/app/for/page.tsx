@@ -2,6 +2,14 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { CTABanner } from "@/components/sections/cta-banner";
+import { ogImage } from "@/lib/og";
+
+const OG = ogImage({
+  title: "Every paper mill. Configured right.",
+  subtitle: "Kraft · Tissue · Integrated · Newsprint · Board · Recycled — workflows tuned to your grade family.",
+  tag: "By Mill Type",
+  accent: "#F59E0B",
+});
 
 export const metadata: Metadata = {
   title: "ERP by Paper Mill Type | Kraft · Tissue · Newsprint · Board · Recycled",
@@ -20,7 +28,9 @@ export const metadata: Metadata = {
     title: "ERP by Mill Type — Papyrus BPApp",
     description: "Configured for kraft, tissue, integrated, newsprint, board, and recycled mills.",
     url: "/for",
+    images: [OG],
   },
+  twitter: { card: "summary_large_image", images: [OG] },
 };
 
 const MILL_TYPES = [
