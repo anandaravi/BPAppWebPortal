@@ -32,6 +32,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/vs/oracle-jde",
     "/vs/marg",
     "/vs/microsoft-dynamics",
+    "/vs/sap-business-one",
+    "/vs/netsuite",
+    "/vs/epicor",
+    "/vs/processpro",
   ];
 
   const millTypeRoutes = [
