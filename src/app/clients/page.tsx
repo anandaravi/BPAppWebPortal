@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
-import Link from "next/link";
-import { ArrowRight, MapPin, Quote, Globe, CheckCircle2 } from "lucide-react";
+import { MapPin, Quote, Globe, CheckCircle2 } from "lucide-react";
 import { CLIENTS } from "@/lib/clients";
 import { CTABanner } from "@/components/sections/cta-banner";
 import { ogImage } from "@/lib/og";

@@ -11,7 +11,8 @@ type Mode = (typeof ORDER)[number];
 export function ThemeToggle({ className }: { className?: string }) {
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
-  useEffect(() => setMounted(true), []);
+  // eslint-disable-next-line react-hooks/set-state-in-effect
+  useEffect(() => { setMounted(true); }, []);
 
   const current: Mode = mounted ? ((theme as Mode) ?? "system") : "system";
   const next = () => {

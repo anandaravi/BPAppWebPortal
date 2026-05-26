@@ -46,7 +46,7 @@ const SHOWCASES = [
 export function ModuleShowcase() {
   return (
     <section className="bg-background">
-      {SHOWCASES.map((s, i) => (
+      {SHOWCASES.map((s) => (
         <div key={s.tag} className="relative overflow-hidden border-b border-border-dim">
           <div className="max-w-[var(--container-max)] mx-auto px-6 py-20">
             <div className={`grid grid-cols-1 lg:grid-cols-2 gap-12 items-center ${s.flip ? "lg:flex lg:flex-row-reverse" : ""}`}>

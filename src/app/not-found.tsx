@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function NotFound() {
   return (
     <div style={{ minHeight: "100vh", background: "#080808", color: "#f9fafb", display: "flex", alignItems: "center", justifyContent: "center", padding: 24 }}>
@@ -7,7 +9,7 @@ export default function NotFound() {
         <p style={{ color: "#a1a1aa", marginBottom: 32 }}>
           The page you&apos;re looking for doesn&apos;t exist or has moved.
         </p>
-        <a href="/" style={{ display: "inline-block", padding: "12px 24px", background: "#f59e0b", color: "#000", fontWeight: 700, borderRadius: 8, textDecoration: "none" }}>Back to home</a>
+        <Link href="/" style={{ display: "inline-block", padding: "12px 24px", background: "#f59e0b", color: "#000", fontWeight: 700, borderRadius: 8, textDecoration: "none" }}>Back to home</Link>
       </div>
     </div>
   );

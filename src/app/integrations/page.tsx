@@ -423,7 +423,6 @@ export default function IntegrationsPage() {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
               {STATUS_LEGEND.map(({ status, meaning }, i) => {
-                const s = STATUS_STYLES[status];
                 return (
                   <motion.div
                     key={status}

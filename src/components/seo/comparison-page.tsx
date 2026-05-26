@@ -200,7 +200,7 @@ export function ComparisonPage({ data }: { data: ComparisonPageData }) {
             See Papyrus BPApp on your own data
           </h2>
           <p className="text-text-2 mb-6 max-w-xl mx-auto">
-            Book a personalized demo. We'll walk through the modules most relevant to your mill —
+            Book a personalized demo. We&apos;ll walk through the modules most relevant to your mill —
             and show you exactly how it stacks up against {data.competitor}.
           </p>
           <Link

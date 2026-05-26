@@ -149,7 +149,7 @@ export function MillTypePage({ data }: { data: MillTypePageData }) {
             Built specifically for {data.millType.toLowerCase()}s
           </h2>
           <p className="text-text-2 mb-6 max-w-xl mx-auto">
-            Book a demo tailored to your mill type. We'll show you the exact workflows
+            Book a demo tailored to your mill type. We&apos;ll show you the exact workflows
             and modules that match your operations.
           </p>
           <Link

@@ -6,6 +6,7 @@ import { getIcon } from "@/lib/icons";
 
 export function CapabilityDetailTemplate({ detail }: { detail: CapabilityDetail }) {
   const { module, capability } = detail;
+   
   const Icon = getIcon(capability.icon);
   const accent = module.accent;
   const blurb = getCapabilityBlurb(capability, module);
@@ -37,6 +38,7 @@ export function CapabilityDetailTemplate({ detail }: { detail: CapabilityDetail 
             <div className="flex items-start gap-5 mb-6">
               <div className="w-16 h-16 rounded-2xl flex items-center justify-center border flex-shrink-0"
                 style={{ background: `${accent}12`, borderColor: `${accent}40` }}>
+                {/* eslint-disable-next-line react-hooks/static-components */}
                 <Icon size={24} style={{ color: accent }} />
               </div>
               <div>

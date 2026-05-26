@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { ArrowRight, CheckCircle2, Quote, Calendar } from "lucide-react";
+import { ArrowRight, Quote, Calendar } from "lucide-react";
 import { CASE_STUDIES, CASE_STUDY_SLUGS } from "@/lib/case-studies";
 import { JsonLd, breadcrumbSchema } from "@/components/seo/json-ld";
 import { CTABanner } from "@/components/sections/cta-banner";

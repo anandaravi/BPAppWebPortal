@@ -4,8 +4,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import {
-  ArrowRight, ArrowLeft, Users, ShieldCheck, Fingerprint, Smartphone, FileCheck, Clock,
-  Calendar, AlertTriangle, CheckCircle2, BarChart3, Calculator, Wallet, HardHat,
+  ArrowRight, ArrowLeft, Users, ShieldCheck, Fingerprint, Smartphone, Clock,
+  Calendar, AlertTriangle, CheckCircle2, Calculator, Wallet, HardHat,
   ClipboardCheck, ScrollText, UserCheck, Briefcase,
 } from "lucide-react";
 import { CTABanner } from "@/components/sections/cta-banner";

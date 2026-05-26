@@ -4,9 +4,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import {
-  ArrowRight, Cloud, Server, Database, Shield, Cpu, HardDrive, Network,
-  Lock, CheckCircle2, AlertTriangle, Activity, Smartphone, MapPin, Radio,
-  CloudUpload, Key, Globe, Workflow, GitBranch, Layers, Gauge, Zap, RefreshCw,
+  ArrowRight, Cloud, Server, Shield, HardDrive, Network,
+  Lock, CheckCircle2, Activity, Smartphone, MapPin, Radio,
+  CloudUpload, Key, Globe, Workflow, GitBranch,
 } from "lucide-react";
 import { CTABanner } from "@/components/sections/cta-banner";
 

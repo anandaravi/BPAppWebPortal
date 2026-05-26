@@ -22,6 +22,7 @@ export function WidthToggle() {
     const saved = localStorage.getItem(STORAGE_KEY);
     if (saved) {
       document.documentElement.style.setProperty("--container-max", saved);
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setCurrent(saved);
     }
   }, []);

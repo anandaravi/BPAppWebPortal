@@ -18,15 +18,15 @@ export type CapabilityDetail = {
 };
 
 export function getCapability(moduleSlug: string, capabilitySlug: string): CapabilityDetail | null {
-  const module = ALL_MODULES[moduleSlug];
-  if (!module) return null;
-  const idx = module.capabilities.findIndex((c) => slugify(c.title) === capabilitySlug);
+  const mod = ALL_MODULES[moduleSlug];
+  if (!mod) return null;
+  const idx = mod.capabilities.findIndex((c) => slugify(c.title) === capabilitySlug);
   if (idx === -1) return null;
   return {
     moduleSlug,
     capabilitySlug,
-    module,
-    capability: module.capabilities[idx],
+    module: mod,
+    capability: mod.capabilities[idx],
     capabilityIndex: idx,
   };
 }

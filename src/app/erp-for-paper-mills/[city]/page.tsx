@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { ArrowRight, MapPin, Building2, Check } from "lucide-react";
+import { ArrowRight, MapPin, Check } from "lucide-react";
 import { CITIES, CITY_SLUGS } from "@/lib/cities";
 import { JsonLd, breadcrumbSchema, faqSchema } from "@/components/seo/json-ld";
 import { SITE } from "@/lib/constants";
@@ -260,7 +260,7 @@ export default async function Page({ params }: { params: Promise<{ city: string 
               See Papyrus BPApp for your {c.name} mill
             </h2>
             <p className="text-text-2 mb-6 max-w-xl mx-auto">
-              Book a personalized demo. We'll walk through workflows tailored to{" "}
+              Book a personalized demo. We&apos;ll walk through workflows tailored to{" "}
               {c.primaryGrades[0].toLowerCase()} mills in {c.region} India.
             </p>
             <Link

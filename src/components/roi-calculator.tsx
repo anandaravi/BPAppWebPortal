@@ -57,7 +57,7 @@ export function ROICalculator({ faqs }: { faqs: { q: string; a: string }[] }) {
           </h1>
           <p className="text-lg text-text-2 max-w-2xl mx-auto leading-relaxed">
             Adjust the sliders below for your mill. See your annual trim loss — and what
-            you'd save with a 3-tier Deckle Optimizer.
+            you&apos;d save with a 3-tier Deckle Optimizer.
           </p>
         </header>
 
@@ -276,7 +276,7 @@ export function ROICalculator({ faqs }: { faqs: { q: string; a: string }[] }) {
             Get a detailed ROI report for your mill
           </h2>
           <p className="text-text-2 mb-6 max-w-xl mx-auto">
-            Share your production data and we'll build a custom business case — including
+            Share your production data and we&apos;ll build a custom business case — including
             deckle, payroll, working capital, and compliance savings.
           </p>
           <Link

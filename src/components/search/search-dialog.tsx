@@ -71,7 +71,9 @@ export function SearchDialog() {
   // Focus + reset on open
   useEffect(() => {
     if (open) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setQuery("");
+       
       setHighlight(0);
       setTimeout(() => inputRef.current?.focus(), 0);
     }
@@ -79,6 +81,7 @@ export function SearchDialog() {
 
   // Keep highlight in bounds
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     if (highlight >= displayed.length) setHighlight(Math.max(0, displayed.length - 1));
   }, [displayed.length, highlight]);
 

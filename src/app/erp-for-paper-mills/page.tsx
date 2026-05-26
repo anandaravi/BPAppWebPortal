@@ -102,7 +102,7 @@ export default function Page() {
               Your city not listed?
             </h2>
             <p className="text-text-2 mb-6 max-w-xl mx-auto">
-              We serve paper mills across India regardless of location. Book a demo and we'll
+              We serve paper mills across India regardless of location. Book a demo and we&apos;ll
               tailor the conversation to your regional buyer base, grades, and compliance
               requirements.
             </p>

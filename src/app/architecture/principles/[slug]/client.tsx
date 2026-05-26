@@ -12,6 +12,7 @@ export function PrincipleDetailClient({ slug }: { slug: string }) {
   const p = PRINCIPLES[slug];
   if (!p) return null;
 
+   
   const Icon = getIcon(p.iconName);
   const idx = PRINCIPLE_SLUGS.indexOf(slug);
   const prev = idx > 0 ? PRINCIPLES[PRINCIPLE_SLUGS[idx - 1]] : null;
@@ -42,6 +43,7 @@ export function PrincipleDetailClient({ slug }: { slug: string }) {
             <div className="flex items-start gap-5 mb-6">
               <div className="w-16 h-16 rounded-2xl flex items-center justify-center border flex-shrink-0"
                 style={{ background: `${p.accent}12`, borderColor: `${p.accent}40` }}>
+                {/* eslint-disable-next-line react-hooks/static-components */}
                 <Icon size={24} style={{ color: p.accent }} />
               </div>
               <div>

@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { ArrowRight, TrendingUp, Activity, Package } from "lucide-react";
+import { ArrowRight, Activity, Package } from "lucide-react";
 
 const PHOTO = "/images/heroes/production-hero.jpg";
 

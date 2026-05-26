@@ -222,7 +222,7 @@ export function ArticlePage({ article }: { article: ArticleData }) {
             See how Papyrus BPApp solves this
           </h2>
           <p className="text-text-2 mb-5 max-w-xl mx-auto">
-            Book a demo tailored to your mill — we'll show you exactly the workflows discussed
+            Book a demo tailored to your mill — we&apos;ll show you exactly the workflows discussed
             in this article.
           </p>
           <Link

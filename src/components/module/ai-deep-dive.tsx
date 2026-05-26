@@ -5,8 +5,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import {
   ArrowRight, ArrowLeft, Sparkles, Brain, MessageSquare, AlertTriangle, CheckCircle2,
-  Eye, Database, Workflow, Zap, Target, Activity, BarChart3, Layers, Cpu, ShieldCheck,
-  TrendingUp, GitBranch, Lock, FlaskConical, Wand2, Search, Bell,
+  Eye, Activity, Cpu, ShieldCheck, GitBranch, Lock, FlaskConical, Wand2, Search, Bell,
 } from "lucide-react";
 import { CTABanner } from "@/components/sections/cta-banner";
 import { ModuleData } from "@/lib/modules";

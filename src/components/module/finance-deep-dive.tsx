@@ -4,9 +4,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import {
-  ArrowRight, ArrowLeft, IndianRupee, FileCheck, Receipt, BookOpen, RefreshCw, Calculator,
-  Globe, Wallet, BarChart3, Lock, AlertTriangle, CheckCircle2, ShieldCheck, Layers, Building2,
-  TrendingUp, FileText, Database, Coins,
+  ArrowRight, ArrowLeft, IndianRupee, FileCheck, Receipt, BookOpen, Calculator,
+  Globe, Wallet, BarChart3, Lock, AlertTriangle, CheckCircle2, Layers, Building2,
 } from "lucide-react";
 import { CTABanner } from "@/components/sections/cta-banner";
 import { ModuleData } from "@/lib/modules";

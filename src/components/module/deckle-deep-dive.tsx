@@ -5,15 +5,15 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import {
   ArrowRight, ArrowLeft, Scissors, Zap, Brain, Target, CheckCircle2, TrendingUp,
-  TrendingDown, Activity, Cog, Eye, Layers, RefreshCw, FileCheck, GitBranch,
-  Database, Server, Workflow, Sparkles, AlertTriangle, BarChart3, Clock, ScrollText,
-  Award, Lock, Globe,
+  TrendingDown, Activity, Cog, Layers, RefreshCw, GitBranch,
+  Database, Workflow, Sparkles, AlertTriangle, BarChart3, Clock, ScrollText,
+  Award, Lock,
 } from "lucide-react";
 import { CTABanner } from "@/components/sections/cta-banner";
 import { ModuleData } from "@/lib/modules";
 import { FeatureCardGrid } from "@/components/module/feature-grid";
 import { IntegrationMap } from "@/components/module/integration-map";
-import { slugify } from "@/lib/modules/capability-helpers";
+import {} from "@/lib/modules/capability-helpers";
 
 const TIERS = [
   {
@@ -515,7 +515,7 @@ export function DeckleDeepDive({ data }: { data: ModuleData }) {
               </div>
 
               <div className="grid grid-cols-7 gap-1 mt-3 text-center">
-                {["Pos 1", "Pos 2", "Pos 3", "Pos 4", "Pos 5", "Pos 6", "Edge"].map((p, i) => (
+                {["Pos 1", "Pos 2", "Pos 3", "Pos 4", "Pos 5", "Pos 6", "Edge"].map((p) => (
                   <span key={p} className="text-[9px] text-text-4 font-mono">{p}</span>
                 ))}
               </div>

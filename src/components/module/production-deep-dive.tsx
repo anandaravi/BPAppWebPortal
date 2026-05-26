@@ -5,15 +5,13 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import {
   ArrowRight, ArrowLeft, Factory, Workflow, CalendarDays, Activity, Cog, AlertTriangle,
-  CheckCircle2, BarChart3, Clock, Layers, GitBranch, Timer, Lightbulb, Users, FlaskConical,
-  TrendingUp, TrendingDown, Award, ClipboardCheck, RefreshCw, AlertCircle, Smartphone, Gauge,
+  CheckCircle2, Layers, GitBranch, ClipboardCheck, Smartphone, Gauge,
 } from "lucide-react";
 import { CTABanner } from "@/components/sections/cta-banner";
 import { ModuleData } from "@/lib/modules";
 import { FeatureCardGrid } from "@/components/module/feature-grid";
 import { IntegrationMap } from "@/components/module/integration-map";
 
-const ACCENT = "#F97316";
 
 const PLANNING_LAYERS = [
   {
