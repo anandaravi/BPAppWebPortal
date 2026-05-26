@@ -8,6 +8,7 @@ import { PageTransition } from "@/components/page-transition";
 import { WidthToggle } from "@/components/dev/width-toggle";
 import { SITE } from "@/lib/constants";
 import { JsonLd, ORGANIZATION_SCHEMA, SOFTWARE_APPLICATION_SCHEMA } from "@/components/seo/json-ld";
+import { Analytics } from "@vercel/analytics/next";
 
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
 const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
@@ -83,6 +84,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           <Footer />
           <WidthToggle />
         </Providers>
+        <Analytics />
       </body>
     </html>
   );
