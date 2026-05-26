@@ -393,13 +393,10 @@ export default function ClientsPage() {
               {c.testimonial && (
                 <blockquote className="text-xs text-zinc-400 italic leading-relaxed border-l-2 border-emerald-500/40 pl-3 mb-2">
                   <Quote size={10} className="inline text-emerald-400 mr-1" />
-                  {c.testimonial}
+                  {c.testimonial.length > 180
+                    ? c.testimonial.slice(0, 178).trimEnd() + "…"
+                    : c.testimonial}
                 </blockquote>
-              )}
-              {c.product && (
-                <p className="text-[10px] text-zinc-600 font-mono mt-2">
-                  Using: {c.product}
-                </p>
               )}
             </div>
           ))}
