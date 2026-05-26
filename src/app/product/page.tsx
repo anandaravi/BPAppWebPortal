@@ -38,7 +38,7 @@ export default function ProductOverview() {
       {/* Groups */}
       <section className="px-6 max-w-7xl mx-auto pb-24 space-y-16">
         {MODULE_GROUPS.map((group, gi) => (
-          <div key={group.title}>
+          <div key={group.title} id={group.slug} className="scroll-mt-24">
             <motion.h2
               initial={{ opacity: 0, x: -10 }}
               whileInView={{ opacity: 1, x: 0 }}

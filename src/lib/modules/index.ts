@@ -30,7 +30,9 @@ export const ALL_SLUGS = [...CORE_SLUGS, ...PLATFORM_SLUGS_ORDERED, ...EXTRA_SLU
 
 export const MODULE_GROUPS = [
   {
+    slug: "core-operations",
     title: "Core Operations",
+    tagline: "Production, deckle, inventory, quality — the mill floor.",
     slugs: [
       "sales", "procurement", "production", "stock-preparation", "deckle",
       "converting-finishing", "broke-management", "inventory", "quality",
@@ -38,26 +40,36 @@ export const MODULE_GROUPS = [
     ],
   },
   {
+    slug: "customer-experience",
     title: "Customer Experience",
+    tagline: "CRM, helpdesk, marketing, field service.",
     slugs: ["crm", "helpdesk", "marketing-automation", "field-service"],
   },
   {
+    slug: "finance-people",
     title: "Finance & People",
+    tagline: "GST-native finance and India-compliant HR/payroll.",
     slugs: ["finance", "hr"],
   },
   {
+    slug: "master-data",
     title: "Master Data & Documents",
+    tagline: "Single source of truth for parties, products, pricing.",
     slugs: [
       "party", "product-catalog", "pricing", "lookups", "number-series",
       "documents", "engineering-change",
     ],
   },
   {
+    slug: "intelligence-automation",
     title: "Intelligence & Automation",
+    tagline: "AI, RPA, approvals, voice, document intelligence.",
     slugs: ["ai", "automations", "approvals", "rpa", "voice", "document-intelligence", "mobile"],
   },
   {
+    slug: "platform",
     title: "Platform & Industry 4.0",
+    tagline: "Admin, RBAC, audit, IoT, digital twin, edge.",
     slugs: [
       "administration", "rbac", "audit", "email-hub", "notifications",
       "monitoring", "projects", "business-profile",

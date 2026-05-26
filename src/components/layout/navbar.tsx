@@ -5,8 +5,7 @@ import Link from "next/link";
 import { Menu, X, ChevronDown } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
-import { ALL_MODULES, MODULE_GROUPS } from "@/lib/modules";
-import { getIcon } from "@/lib/icons";
+import { MODULE_GROUPS } from "@/lib/modules";
 import { Logo } from "@/components/ui/logo";
 
 export function Navbar() {
@@ -54,30 +53,27 @@ export function Navbar() {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -8 }}
                   transition={{ duration: 0.2 }}
-                  className="absolute left-1/2 -translate-x-1/2 top-full mt-2 w-[920px] bg-[#0f0f0f] border border-[#222] rounded-2xl shadow-2xl shadow-black/50 p-5">
-                  <div className="grid grid-cols-5 gap-x-4 gap-y-5">
+                  className="absolute left-1/2 -translate-x-1/2 top-full mt-2 w-[640px] bg-[#0f0f0f] border border-[#222] rounded-2xl shadow-2xl shadow-black/50 p-4">
+                  <div className="grid grid-cols-2 gap-2">
                     {MODULE_GROUPS.map((g) => (
-                      <div key={g.title}>
-                        <p className="text-[10px] font-semibold uppercase tracking-widest text-amber-500 mb-2">{g.title}</p>
-                        <div className="space-y-0.5">
-                          {g.slugs.map((slug) => {
-                            const m = ALL_MODULES[slug];
-                            if (!m) return null;
-                            const Icon = getIcon(m.icon);
-                            return (
-                              <Link key={slug} href={`/product/${slug}`}
-                                onClick={() => setProductOpen(false)}
-                                className="flex items-center gap-2 p-1.5 rounded-md hover:bg-amber-500/5 transition-colors group">
-                                <Icon size={11} style={{ color: m.accent }} className="flex-shrink-0" />
-                                <span className="text-xs text-zinc-300 group-hover:text-white transition-colors truncate">{m.name}</span>
-                              </Link>
-                            );
-                          })}
+                      <Link
+                        key={g.slug}
+                        href={`/product#${g.slug}`}
+                        onClick={() => setProductOpen(false)}
+                        className="group flex items-start justify-between gap-3 p-3 rounded-lg border border-transparent hover:border-amber-500/20 hover:bg-amber-500/5 transition-colors"
+                      >
+                        <div className="flex-1 min-w-0">
+                          <div className="flex items-center gap-2 mb-1">
+                            <p className="text-sm font-semibold text-white group-hover:text-amber-300 transition-colors">{g.title}</p>
+                            <span className="text-[10px] text-zinc-600 font-mono">{g.slugs.length}</span>
+                          </div>
+                          <p className="text-xs text-zinc-500 leading-snug line-clamp-2">{g.tagline}</p>
                         </div>
-                      </div>
+                        <ChevronDown size={12} className="text-zinc-600 group-hover:text-amber-400 -rotate-90 mt-1 flex-shrink-0 transition-colors" />
+                      </Link>
                     ))}
                   </div>
-                  <div className="mt-4 pt-3 border-t border-[#1f1f1f] flex items-center justify-between">
+                  <div className="mt-3 pt-3 border-t border-[#1f1f1f] flex items-center justify-between">
                     <Link href="/product"
                       onClick={() => setProductOpen(false)}
                       className="text-xs text-amber-400 hover:text-amber-300 transition-colors font-medium">
@@ -116,20 +112,21 @@ export function Navbar() {
       {menuOpen && (
         <div className="lg:hidden bg-[#0f0f0f] border-b border-[#222] px-6 py-5 flex flex-col gap-3 max-h-[80vh] overflow-y-auto">
           <Link href="/" className="text-sm text-zinc-400 hover:text-white py-1" onClick={() => setMenuOpen(false)}>Home</Link>
+          <p className="text-[10px] font-semibold uppercase tracking-widest text-amber-500 mb-1 mt-2">Product</p>
           {MODULE_GROUPS.map((g) => (
-            <div key={g.title}>
-              <p className="text-[10px] font-semibold uppercase tracking-widest text-amber-500 mb-2 mt-3">{g.title}</p>
-              {g.slugs.map((slug) => {
-                const m = ALL_MODULES[slug];
-                if (!m) return null;
-                return (
-                  <Link key={slug} href={`/product/${slug}`}
-                    className="block text-sm text-zinc-400 hover:text-white transition-colors py-1"
-                    onClick={() => setMenuOpen(false)}>{m.name}</Link>
-                );
-              })}
-            </div>
+            <Link
+              key={g.slug}
+              href={`/product#${g.slug}`}
+              className="flex items-center justify-between text-sm text-zinc-300 hover:text-white py-1.5 pl-2"
+              onClick={() => setMenuOpen(false)}
+            >
+              <span>{g.title}</span>
+              <span className="text-[10px] text-zinc-600 font-mono">{g.slugs.length}</span>
+            </Link>
           ))}
+          <Link href="/product" className="text-xs text-amber-400 hover:text-amber-300 pl-2 py-1" onClick={() => setMenuOpen(false)}>
+            View all 44 modules →
+          </Link>
           <div className="border-t border-[#1f1f1f] mt-3 pt-3 flex flex-col gap-2" />
           <Link href="/architecture" className="text-sm text-zinc-400 hover:text-white" onClick={() => setMenuOpen(false)}>Architecture</Link>
           <Link href="/technical" className="text-sm text-zinc-400 hover:text-white" onClick={() => setMenuOpen(false)}>Technical</Link>
