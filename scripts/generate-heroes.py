@@ -261,14 +261,22 @@ def generate_image(module: dict) -> bool:
             print(f"  FAIL {module['slug']}: HTTP {resp.status_code} — {resp.text[:200]}")
             return False
         content_type = resp.headers.get("Content-Type", "")
-        if "image" in content_type or len(resp.content) > 1000:
-            with open(out_path, "wb") as f:
-                f.write(resp.content)
-            print(f"  DONE {module['slug']} → {out_path} ({len(resp.content)} bytes)")
-            return True
+        if "image" in content_type:
+            img_bytes = resp.content
+        elif "json" in content_type or resp.content[:1] == b"{":
+            import json as _json, base64 as _b64
+            data = _json.loads(resp.content)
+            img_bytes = _b64.b64decode(data["result"]["image"])
         else:
             print(f"  FAIL {module['slug']}: unexpected response — {resp.text[:300]}")
             return False
+        if len(img_bytes) < 1000:
+            print(f"  FAIL {module['slug']}: image too small ({len(img_bytes)} bytes)")
+            return False
+        with open(out_path, "wb") as f:
+            f.write(img_bytes)
+        print(f"  DONE {module['slug']} → {out_path} ({len(img_bytes)} bytes)")
+        return True
     except Exception as e:
         print(f"  ERR  {module['slug']}: {e}")
         return False
