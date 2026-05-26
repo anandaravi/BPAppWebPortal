@@ -1,11 +1,16 @@
 @import "tailwindcss";
 
-:root {
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root,
+:root.dark {
   --bg:           #080808;
   --surface:      #0f0f0f;
   --surface-2:    #161616;
+  --surface-3:    #1a1a1a;
   --border:       #222222;
   --border-light: #2a2a2a;
+  --border-dim:   #1a1a1a;
 
   --amber:        #F59E0B;
   --amber-dim:    rgba(245,158,11,0.08);
@@ -17,17 +22,121 @@
 
   --text:         #FAFAFA;
   --text-2:       #A1A1AA;
-  --text-3:       #52525B;
+  --text-3:       #71717A;
+  --text-4:       #52525B;
 
   --container-max: 1440px;
+}
+
+:root.light {
+  --bg:           #FAFAFA;
+  --surface:      #FFFFFF;
+  --surface-2:    #F4F4F5;
+  --surface-3:    #E4E4E7;
+  --border:       #E4E4E7;
+  --border-light: #D4D4D8;
+  --border-dim:   #F4F4F5;
+
+  --amber:        #B45309;
+  --amber-dim:    rgba(180,83,9,0.08);
+  --amber-glow:   rgba(180,83,9,0.18);
+  --amber-dark:   #78350F;
+
+  --emerald:      #047857;
+  --emerald-dim:  rgba(4,120,87,0.08);
+
+  --text:         #0A0A0A;
+  --text-2:       #3F3F46;
+  --text-3:       #52525B;
+  --text-4:       #71717A;
 }
 
 @theme inline {
   --color-background: var(--bg);
   --color-foreground: var(--text);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-surface-3: var(--surface-3);
+  --color-border: var(--border);
+  --color-border-light: var(--border-light);
+  --color-border-dim: var(--border-dim);
+  --color-text-2: var(--text-2);
+  --color-text-3: var(--text-3);
+  --color-text-4: var(--text-4);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
+
+/* Light-mode contrast overrides — dark mode untouched */
+:root.light .text-amber-300,
+:root.light .text-amber-400 { color: #B45309 !important; }
+:root.light .text-amber-200 { color: #92400E !important; }
+:root.light .text-emerald-400,
+:root.light .text-emerald-300 { color: #047857 !important; }
+:root.light .text-emerald-200 { color: #064E3B !important; }
+:root.light .hover\:text-amber-300:hover,
+:root.light .hover\:text-amber-400:hover { color: #92400E !important; }
+:root.light .amber-text {
+  background: linear-gradient(135deg, #B45309, #78350F) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  color: transparent !important;
+}
+/* Hero photo overlays stay dark in light mode so white text remains readable.
+   Targets any section with a photo-overlay child OR the .grain texture marker
+   OR explicit .on-photo opt-in OR sections built from inline dark gradients. */
+:root.light :is(section, header, div):where(
+  .on-photo,
+  :has(> .photo-overlay),
+  :has(> .photo-overlay-side),
+  :has(> div > .photo-overlay),
+  :has(> div > .photo-overlay-side)
+) {
+  /* Foreground text → white */
+}
+:root.light :is(section, header, div):where(
+  .on-photo,
+  :has(> .photo-overlay),
+  :has(> .photo-overlay-side),
+  :has(> div > .photo-overlay),
+  :has(> div > .photo-overlay-side)
+) :where(.text-foreground, h1, h2, h3) { color: #FAFAFA !important; }
+
+:root.light :is(section, header, div):where(
+  .on-photo,
+  :has(> .photo-overlay), :has(> .photo-overlay-side),
+  :has(> div > .photo-overlay), :has(> div > .photo-overlay-side)
+) .text-text-2 { color: #D4D4D8 !important; }
+
+:root.light :is(section, header, div):where(
+  .on-photo,
+  :has(> .photo-overlay), :has(> .photo-overlay-side),
+  :has(> div > .photo-overlay), :has(> div > .photo-overlay-side)
+) .text-text-3 { color: #A1A1AA !important; }
+
+:root.light :is(section, header, div):where(
+  .on-photo,
+  :has(> .photo-overlay), :has(> .photo-overlay-side),
+  :has(> div > .photo-overlay), :has(> div > .photo-overlay-side)
+) .amber-text {
+  background: linear-gradient(135deg, #F59E0B, #FCD34D) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+}
+
+:root.light :is(section, header, div):where(
+  .on-photo,
+  :has(> .photo-overlay), :has(> .photo-overlay-side),
+  :has(> div > .photo-overlay), :has(> div > .photo-overlay-side)
+) :where(.text-amber-300, .text-amber-400) { color: #FBBF24 !important; }
+
+:root.light :is(section, header, div):where(
+  .on-photo,
+  :has(> .photo-overlay), :has(> .photo-overlay-side),
+  :has(> div > .photo-overlay), :has(> div > .photo-overlay-side)
+) :where(.text-emerald-300, .text-emerald-400) { color: #34D399 !important; }
 
 * { box-sizing: border-box; }
 

@@ -45,16 +45,16 @@ const SHOWCASES = [
 
 export function ModuleShowcase() {
   return (
-    <section className="bg-[#0a0a0a]">
+    <section className="bg-background">
       {SHOWCASES.map((s, i) => (
-        <div key={s.tag} className="relative overflow-hidden border-b border-[#1a1a1a]">
+        <div key={s.tag} className="relative overflow-hidden border-b border-border-dim">
           <div className="max-w-[var(--container-max)] mx-auto px-6 py-20">
             <div className={`grid grid-cols-1 lg:grid-cols-2 gap-12 items-center ${s.flip ? "lg:flex lg:flex-row-reverse" : ""}`}>
               {/* Photo side */}
               <motion.div initial={{ opacity: 0, x: s.flip ? 30 : -30 }}
                 whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}
                 transition={{ duration: 0.7 }}
-                className="relative rounded-2xl overflow-hidden h-72 lg:h-96 border border-[#1f1f1f]">
+                className="relative rounded-2xl overflow-hidden h-72 lg:h-96 border border-border-dim">
                 <Image src={s.photo} alt={s.tag} fill className="object-cover" />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a]/60 to-transparent" />
                 <div className="absolute bottom-4 left-4 px-3 py-1.5 rounded-full border text-xs font-bold"
@@ -68,11 +68,11 @@ export function ModuleShowcase() {
                 whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}
                 transition={{ duration: 0.7, delay: 0.1 }}>
                 <p className="text-xs font-semibold uppercase tracking-widest mb-4" style={{ color: s.accent }}>{s.tag}</p>
-                <h2 className="text-3xl font-black text-white leading-tight mb-4">{s.headline}</h2>
-                <p className="text-zinc-400 mb-7 leading-relaxed">{s.body}</p>
+                <h2 className="text-3xl font-black text-foreground leading-tight mb-4">{s.headline}</h2>
+                <p className="text-text-2 mb-7 leading-relaxed">{s.body}</p>
                 <ul className="space-y-2.5">
                   {s.points.map((p) => (
-                    <li key={p} className="flex items-start gap-2.5 text-sm text-zinc-300">
+                    <li key={p} className="flex items-start gap-2.5 text-sm text-text-2">
                       <CheckCircle2 size={15} className="mt-0.5 flex-shrink-0" style={{ color: s.accent }} />
                       {p}
                     </li>

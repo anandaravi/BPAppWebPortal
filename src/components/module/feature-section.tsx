@@ -17,7 +17,7 @@ export type FeatureSectionProps = {
 
 export function FeatureSection({ tag, title, body, points, photo, visual, accent, flip }: FeatureSectionProps) {
   return (
-    <div className="border-b border-[#1a1a1a]">
+    <div className="border-b border-border-dim">
       <div className="max-w-[var(--container-max)] mx-auto px-6 py-20">
         <div className={`grid grid-cols-1 lg:grid-cols-2 gap-12 items-center ${flip ? "lg:[&>*:first-child]:order-2" : ""}`}>
           {/* Visual side */}
@@ -29,7 +29,7 @@ export function FeatureSection({ tag, title, body, points, photo, visual, accent
             {visual ? (
               visual
             ) : photo ? (
-              <div className="relative rounded-2xl overflow-hidden h-80 border border-[#1f1f1f]">
+              <div className="relative rounded-2xl overflow-hidden h-80 border border-border-dim">
                 <Image src={photo} alt={tag} fill className="object-cover" unoptimized />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a]/60 to-transparent" />
                 <div className="absolute bottom-4 left-4 px-3 py-1.5 rounded-full border text-xs font-bold"
@@ -47,11 +47,11 @@ export function FeatureSection({ tag, title, body, points, photo, visual, accent
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.1 }}>
             <p className="text-xs font-semibold uppercase tracking-widest mb-4" style={{ color: accent }}>{tag}</p>
-            <h3 className="text-3xl font-black text-white leading-tight mb-4">{title}</h3>
-            <p className="text-zinc-400 mb-6 leading-relaxed">{body}</p>
+            <h3 className="text-3xl font-black text-foreground leading-tight mb-4">{title}</h3>
+            <p className="text-text-2 mb-6 leading-relaxed">{body}</p>
             <ul className="space-y-2.5">
               {points.map((p) => (
-                <li key={p} className="flex items-start gap-2.5 text-sm text-zinc-300">
+                <li key={p} className="flex items-start gap-2.5 text-sm text-text-2">
                   <CheckCircle2 size={15} className="mt-0.5 flex-shrink-0" style={{ color: accent }} />
                   {p}
                 </li>

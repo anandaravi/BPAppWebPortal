@@ -187,9 +187,9 @@ const PERSONAS = [
 
 export default function CustomersPage() {
   return (
-    <div className="min-h-screen bg-[#080808]">
+    <div className="min-h-screen bg-background">
       {/* HERO */}
-      <section className="relative overflow-hidden grain">
+      <section className="relative overflow-hidden grain on-photo">
         <div className="absolute inset-0">
           <Image src="https://images.unsplash.com/photo-1581093458791-9f3c3900df4b?auto=format&fit=crop&w=1920&q=80"
             alt="Paper mills" fill className="object-cover opacity-25" />
@@ -205,12 +205,12 @@ export default function CustomersPage() {
           </motion.div>
 
           <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.1 }}
-            className="text-5xl md:text-7xl font-black text-white leading-[1.0] tracking-tight mb-6 max-w-4xl">
+            className="text-5xl md:text-7xl font-black text-foreground leading-[1.0] tracking-tight mb-6 max-w-4xl">
             One platform.<br /><span className="amber-text">Every paper business.</span>
           </motion.h1>
 
           <motion.p initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.2 }}
-            className="text-lg text-zinc-400 max-w-2xl mb-10 leading-relaxed">
+            className="text-lg text-text-2 max-w-2xl mb-10 leading-relaxed">
             From single-machine mills to multi-plant groups, kraft to tissue to packaging,
             traders to converters — the same platform adapts to your scale and your specialty.
             Built to grow with you, not be replaced.
@@ -221,7 +221,7 @@ export default function CustomersPage() {
             <Link href="/contact" className="group inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-lg bg-amber-500 hover:bg-amber-400 text-black font-bold text-sm transition-all">
               Find the right fit <ArrowRight size={16} className="group-hover:translate-x-0.5 transition-transform" />
             </Link>
-            <Link href="/architecture" className="inline-flex items-center gap-2 px-6 py-3.5 rounded-lg border border-[#333] text-white hover:border-amber-500/40 text-sm font-medium transition-all">
+            <Link href="/architecture" className="inline-flex items-center gap-2 px-6 py-3.5 rounded-lg border border-border-light text-foreground hover:border-amber-500/40 text-sm font-medium transition-all">
               ← Pluggable architecture
             </Link>
           </motion.div>
@@ -229,11 +229,11 @@ export default function CustomersPage() {
       </section>
 
       {/* SIZE-BASED PERSONAS */}
-      <section className="py-20 border-y border-[#1a1a1a]">
+      <section className="py-20 border-y border-border-dim">
         <div className="max-w-[var(--container-max)] mx-auto px-6">
           <p className="text-amber-500 text-xs font-semibold uppercase tracking-widest mb-3">By Size</p>
-          <h2 className="text-4xl md:text-5xl font-black text-white tracking-tight mb-4">From small to group scale.</h2>
-          <p className="text-zinc-400 text-lg max-w-2xl mb-14">
+          <h2 className="text-4xl md:text-5xl font-black text-foreground tracking-tight mb-4">From small to group scale.</h2>
+          <p className="text-text-2 text-lg max-w-2xl mb-14">
             Start with what you need today. Add modules as you grow. No re-implementation, no data loss.
           </p>
 
@@ -246,7 +246,7 @@ export default function CustomersPage() {
                 transition={{ duration: 0.5, delay: i * 0.06 }}
                 className="grid grid-cols-1 lg:grid-cols-5 gap-8 items-stretch">
                 {/* Photo + size badge */}
-                <div className="lg:col-span-2 relative rounded-2xl overflow-hidden h-60 lg:h-auto border border-[#1f1f1f]">
+                <div className="lg:col-span-2 relative rounded-2xl overflow-hidden h-60 lg:h-auto border border-border-dim">
                   <Image src={p.photo} alt={p.title} fill className="object-cover" />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a]/80 via-transparent to-transparent" />
                   <div className="absolute top-4 left-4 px-3 py-1.5 rounded-full border text-[10px] font-bold uppercase tracking-widest"
@@ -254,16 +254,16 @@ export default function CustomersPage() {
                     {p.size}
                   </div>
                   <div className="absolute bottom-4 left-4 right-4">
-                    <h3 className="text-white text-2xl font-black mb-1 drop-shadow">{p.title}</h3>
-                    <p className="text-xs text-zinc-300 font-mono">{p.profile}</p>
+                    <h3 className="text-foreground text-2xl font-black mb-1 drop-shadow">{p.title}</h3>
+                    <p className="text-xs text-text-2 font-mono">{p.profile}</p>
                   </div>
                 </div>
 
                 {/* Content */}
-                <div className="lg:col-span-3 bg-[#0f0f0f] border border-[#1f1f1f] rounded-2xl p-6 space-y-5">
+                <div className="lg:col-span-3 bg-surface border border-border-dim rounded-2xl p-6 space-y-5">
                   <div>
                     <p className="text-[10px] font-semibold uppercase tracking-widest text-red-400 mb-2">Pain Points</p>
-                    <p className="text-sm text-zinc-300 leading-relaxed">{p.pain}</p>
+                    <p className="text-sm text-text-2 leading-relaxed">{p.pain}</p>
                   </div>
 
                   <div>
@@ -279,9 +279,9 @@ export default function CustomersPage() {
                     </div>
                   </div>
 
-                  <div className="pt-3 border-t border-[#1f1f1f]">
+                  <div className="pt-3 border-t border-border-dim">
                     <p className="text-[10px] font-semibold uppercase tracking-widest text-amber-400 mb-1.5">Upgrade Path</p>
-                    <p className="text-xs text-zinc-400 leading-relaxed">{p.upgrade}</p>
+                    <p className="text-xs text-text-2 leading-relaxed">{p.upgrade}</p>
                   </div>
                 </div>
               </motion.div>
@@ -291,11 +291,11 @@ export default function CustomersPage() {
       </section>
 
       {/* SPECIALTY MILLS */}
-      <section className="py-20 bg-[#0a0a0a] border-b border-[#1a1a1a]">
+      <section className="py-20 bg-background border-b border-border-dim">
         <div className="max-w-[var(--container-max)] mx-auto px-6">
           <p className="text-amber-500 text-xs font-semibold uppercase tracking-widest mb-3">By Specialty & Complexity</p>
-          <h2 className="text-4xl font-black text-white tracking-tight mb-4">Built for every mill type.</h2>
-          <p className="text-zinc-400 text-lg max-w-2xl mb-12">
+          <h2 className="text-4xl font-black text-foreground tracking-tight mb-4">Built for every mill type.</h2>
+          <p className="text-text-2 text-lg max-w-2xl mb-12">
             Integrated pulp-and-paper, kraft, tissue, specialty board — each has its own workflows, quality parameters, and complexity.
           </p>
 
@@ -306,23 +306,23 @@ export default function CustomersPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: i * 0.08 }}
-                className="bg-[#0f0f0f] border border-[#1f1f1f] rounded-2xl overflow-hidden hover:border-amber-500/25 transition-colors">
+                className="bg-surface border border-border-dim rounded-2xl overflow-hidden hover:border-amber-500/25 transition-colors">
                 <div className="relative h-44 overflow-hidden">
                   <Image src={p.photo} alt={p.title} fill className="object-cover opacity-50" />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#0f0f0f] to-transparent" />
                   <div className="absolute bottom-3 left-4">
                     <p className="text-[10px] font-bold uppercase tracking-widest mb-1" style={{ color: p.accent }}>{p.size}</p>
-                    <h3 className="text-white text-lg font-black">{p.title}</h3>
+                    <h3 className="text-foreground text-lg font-black">{p.title}</h3>
                   </div>
                 </div>
                 <div className="p-5 space-y-4">
-                  <p className="text-xs text-zinc-500 font-mono">{p.profile}</p>
-                  <p className="text-sm text-zinc-400 leading-relaxed">{p.pain}</p>
+                  <p className="text-xs text-text-3 font-mono">{p.profile}</p>
+                  <p className="text-sm text-text-2 leading-relaxed">{p.pain}</p>
                   <div>
                     <p className="text-[10px] font-semibold uppercase tracking-widest mb-2" style={{ color: p.accent }}>Tailored Modules</p>
                     <ul className="space-y-1">
                       {p.bundle.slice(0, 4).map((b) => (
-                        <li key={b} className="flex items-start gap-2 text-xs text-zinc-300">
+                        <li key={b} className="flex items-start gap-2 text-xs text-text-2">
                           <CheckCircle2 size={11} className="mt-0.5 flex-shrink-0" style={{ color: p.accent }} />
                           {b}
                         </li>
@@ -337,11 +337,11 @@ export default function CustomersPage() {
       </section>
 
       {/* TRADERS + CONVERTERS */}
-      <section className="py-20 border-b border-[#1a1a1a]">
+      <section className="py-20 border-b border-border-dim">
         <div className="max-w-[var(--container-max)] mx-auto px-6">
           <p className="text-amber-500 text-xs font-semibold uppercase tracking-widest mb-3">Beyond Mills</p>
-          <h2 className="text-4xl font-black text-white tracking-tight mb-4">The entire paper value chain.</h2>
-          <p className="text-zinc-400 text-lg max-w-2xl mb-12">
+          <h2 className="text-4xl font-black text-foreground tracking-tight mb-4">The entire paper value chain.</h2>
+          <p className="text-text-2 text-lg max-w-2xl mb-12">
             Traders, converters, job workers, machinery OEMs, EPCs — same platform, different workflows.
           </p>
 
@@ -352,16 +352,16 @@ export default function CustomersPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: i * 0.08 }}
-                className="bg-[#0f0f0f] border border-[#1f1f1f] rounded-2xl p-6 flex flex-col gap-4 hover:border-amber-500/25 transition-colors">
+                className="bg-surface border border-border-dim rounded-2xl p-6 flex flex-col gap-4 hover:border-amber-500/25 transition-colors">
                 <div className="flex items-center gap-3">
                   <span className="px-3 py-1.5 rounded-full border text-[10px] font-bold uppercase tracking-widest"
                     style={{ color: p.accent, borderColor: `${p.accent}50`, background: `${p.accent}15` }}>
                     {p.size}
                   </span>
-                  <h3 className="text-2xl font-black text-white">{p.title}</h3>
+                  <h3 className="text-2xl font-black text-foreground">{p.title}</h3>
                 </div>
-                <p className="text-xs text-zinc-500 font-mono">{p.profile}</p>
-                <p className="text-sm text-zinc-300 leading-relaxed">{p.pain}</p>
+                <p className="text-xs text-text-3 font-mono">{p.profile}</p>
+                <p className="text-sm text-text-2 leading-relaxed">{p.pain}</p>
 
                 <div>
                   <p className="text-[10px] font-semibold uppercase tracking-widest mb-2" style={{ color: p.accent }}>Recommended Bundle</p>
@@ -376,9 +376,9 @@ export default function CustomersPage() {
                   </div>
                 </div>
 
-                <div className="pt-3 mt-auto border-t border-[#1f1f1f]">
+                <div className="pt-3 mt-auto border-t border-border-dim">
                   <p className="text-[10px] font-semibold uppercase tracking-widest text-amber-400 mb-1.5">Next step</p>
-                  <p className="text-xs text-zinc-400 leading-relaxed">{p.upgrade}</p>
+                  <p className="text-xs text-text-2 leading-relaxed">{p.upgrade}</p>
                 </div>
               </motion.div>
             ))}
@@ -387,13 +387,13 @@ export default function CustomersPage() {
       </section>
 
       {/* WHY PAPYRUS */}
-      <section className="py-20 bg-[#0a0a0a] border-b border-[#1a1a1a]">
+      <section className="py-20 bg-background border-b border-border-dim">
         <div className="max-w-[var(--container-max)] mx-auto px-6 text-center">
           <p className="text-amber-500 text-xs font-semibold uppercase tracking-widest mb-3">One Platform. Every Stage.</p>
-          <h2 className="text-4xl font-black text-white tracking-tight mb-6 max-w-3xl mx-auto">
+          <h2 className="text-4xl font-black text-foreground tracking-tight mb-6 max-w-3xl mx-auto">
             The system that fits today is the same system that fits at 10× your scale.
           </h2>
-          <p className="text-zinc-400 text-lg max-w-2xl mx-auto leading-relaxed mb-10">
+          <p className="text-text-2 text-lg max-w-2xl mx-auto leading-relaxed mb-10">
             No re-implementation projects. No painful migrations. No replaced ERPs three years later.
             Activate modules as you need them; the data, the people, the workflows all stay continuous.
           </p>

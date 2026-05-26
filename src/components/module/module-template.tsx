@@ -23,13 +23,13 @@ export function ModuleTemplate({ data }: { data: ModuleData }) {
       />
 
       {/* Workflow + Doc flow */}
-      <section className="py-20 border-b border-[#1a1a1a] bg-[#080808]">
+      <section className="py-20 border-b border-border-dim bg-background">
         <div className="max-w-[var(--container-max)] mx-auto px-6 space-y-6">
           <div>
             <p className="text-xs font-semibold uppercase tracking-widest mb-3" style={{ color: data.accent }}>
               How It Works
             </p>
-            <h2 className="text-3xl md:text-4xl font-black text-white tracking-tight mb-12">
+            <h2 className="text-3xl md:text-4xl font-black text-foreground tracking-tight mb-12">
               {data.workflow.title}
             </h2>
             <WorkflowDiagram
@@ -41,7 +41,7 @@ export function ModuleTemplate({ data }: { data: ModuleData }) {
 
           {data.documentFlow && (
             <div className="pt-6">
-              <h3 className="text-xl md:text-2xl font-bold text-white tracking-tight mb-6">
+              <h3 className="text-xl md:text-2xl font-bold text-foreground tracking-tight mb-6">
                 {data.documentFlow.title}
               </h3>
               <DocumentFlow nodes={data.documentFlow.nodes} accent={data.accent} />
@@ -51,7 +51,7 @@ export function ModuleTemplate({ data }: { data: ModuleData }) {
       </section>
 
       {/* Feature sections */}
-      <section className="bg-[#0a0a0a]">
+      <section className="bg-background">
         {data.features.map((f) => (
           <FeatureSection
             key={f.tag}

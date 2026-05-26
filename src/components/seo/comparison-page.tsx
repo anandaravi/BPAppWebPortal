@@ -33,7 +33,7 @@ function Cell({ value }: { value: ComparisonRow["papyrus"] }) {
     );
   if (value === false)
     return (
-      <span className="inline-flex items-center gap-1.5 text-zinc-600 text-sm">
+      <span className="inline-flex items-center gap-1.5 text-text-4 text-sm">
         <X size={14} /> No
       </span>
     );
@@ -43,12 +43,12 @@ function Cell({ value }: { value: ComparisonRow["papyrus"] }) {
         <Minus size={14} /> Partial
       </span>
     );
-  return <span className="text-sm text-zinc-300">{value}</span>;
+  return <span className="text-sm text-text-2">{value}</span>;
 }
 
 export function ComparisonPage({ data }: { data: ComparisonPageData }) {
   return (
-    <div className="min-h-screen bg-[#080808] pt-28 pb-24">
+    <div className="min-h-screen bg-background pt-28 pb-24">
       <JsonLd
         data={[
           breadcrumbSchema([
@@ -66,11 +66,11 @@ export function ComparisonPage({ data }: { data: ComparisonPageData }) {
           <p className="text-amber-500 text-xs font-semibold uppercase tracking-widest mb-3">
             Comparison
           </p>
-          <h1 className="text-4xl md:text-5xl font-black text-white tracking-tight mb-5 leading-tight">
-            Papyrus BPApp <span className="text-zinc-500">vs</span>{" "}
+          <h1 className="text-4xl md:text-5xl font-black text-foreground tracking-tight mb-5 leading-tight">
+            Papyrus BPApp <span className="text-text-3">vs</span>{" "}
             <span className="amber-text">{data.competitorFull}</span>
           </h1>
-          <p className="text-lg text-zinc-400 leading-relaxed max-w-3xl">{data.intro}</p>
+          <p className="text-lg text-text-2 leading-relaxed max-w-3xl">{data.intro}</p>
         </header>
 
         {/* Positioning */}
@@ -79,32 +79,32 @@ export function ComparisonPage({ data }: { data: ComparisonPageData }) {
             <p className="text-amber-400 text-xs font-bold uppercase tracking-wider mb-2">
               Papyrus BPApp
             </p>
-            <h3 className="text-white font-bold mb-3">India-first, paper-first, integrated</h3>
-            <p className="text-sm text-zinc-300 leading-relaxed">{data.positioningPapyrus}</p>
+            <h3 className="text-foreground font-bold mb-3">India-first, paper-first, integrated</h3>
+            <p className="text-sm text-text-2 leading-relaxed">{data.positioningPapyrus}</p>
           </div>
-          <div className="bg-[#0f0f0f] border border-[#222] rounded-2xl p-6">
-            <p className="text-zinc-500 text-xs font-bold uppercase tracking-wider mb-2">
+          <div className="bg-surface border border-border rounded-2xl p-6">
+            <p className="text-text-3 text-xs font-bold uppercase tracking-wider mb-2">
               {data.competitor}
             </p>
-            <h3 className="text-white font-bold mb-3">{data.competitorTagline}</h3>
-            <p className="text-sm text-zinc-400 leading-relaxed">{data.positioningCompetitor}</p>
+            <h3 className="text-foreground font-bold mb-3">{data.competitorTagline}</h3>
+            <p className="text-sm text-text-2 leading-relaxed">{data.positioningCompetitor}</p>
           </div>
         </section>
 
         {/* Feature matrix */}
         <section className="mb-14">
-          <h2 className="text-2xl font-bold text-white mb-6">Feature comparison</h2>
-          <div className="overflow-hidden rounded-2xl border border-[#222]">
+          <h2 className="text-2xl font-bold text-foreground mb-6">Feature comparison</h2>
+          <div className="overflow-hidden rounded-2xl border border-border">
             <table className="w-full text-left">
-              <thead className="bg-[#0f0f0f] border-b border-[#222]">
+              <thead className="bg-surface border-b border-border">
                 <tr>
-                  <th className="px-4 py-3 text-xs font-semibold uppercase tracking-wider text-zinc-500">
+                  <th className="px-4 py-3 text-xs font-semibold uppercase tracking-wider text-text-3">
                     Feature
                   </th>
                   <th className="px-4 py-3 text-xs font-semibold uppercase tracking-wider text-amber-400 w-44">
                     Papyrus BPApp
                   </th>
-                  <th className="px-4 py-3 text-xs font-semibold uppercase tracking-wider text-zinc-500 w-44">
+                  <th className="px-4 py-3 text-xs font-semibold uppercase tracking-wider text-text-3 w-44">
                     {data.competitor}
                   </th>
                 </tr>
@@ -113,12 +113,12 @@ export function ComparisonPage({ data }: { data: ComparisonPageData }) {
                 {data.rows.map((r, i) => (
                   <tr
                     key={i}
-                    className={`border-b border-[#1a1a1a] last:border-b-0 ${i % 2 === 0 ? "bg-[#0a0a0a]" : "bg-[#080808]"}`}
+                    className={`border-b border-border-dim last:border-b-0 ${i % 2 === 0 ? "bg-background" : "bg-background"}`}
                   >
-                    <td className="px-4 py-3 text-sm text-zinc-200 font-medium">
+                    <td className="px-4 py-3 text-sm text-foreground font-medium">
                       {r.feature}
                       {r.note && (
-                        <span className="block text-xs text-zinc-600 mt-0.5 font-normal">{r.note}</span>
+                        <span className="block text-xs text-text-4 mt-0.5 font-normal">{r.note}</span>
                       )}
                     </td>
                     <td className="px-4 py-3">
@@ -136,14 +136,14 @@ export function ComparisonPage({ data }: { data: ComparisonPageData }) {
 
         {/* When to choose */}
         <section className="grid md:grid-cols-2 gap-4 mb-14">
-          <div className="bg-[#0f0f0f] border border-[#222] rounded-2xl p-6">
-            <p className="text-zinc-500 text-xs font-bold uppercase tracking-wider mb-3">
+          <div className="bg-surface border border-border rounded-2xl p-6">
+            <p className="text-text-3 text-xs font-bold uppercase tracking-wider mb-3">
               When to choose {data.competitor}
             </p>
             <ul className="space-y-2.5">
               {data.whenChooseCompetitor.map((it, i) => (
-                <li key={i} className="text-sm text-zinc-300 leading-relaxed flex gap-2.5">
-                  <span className="text-zinc-600 mt-1">•</span>
+                <li key={i} className="text-sm text-text-2 leading-relaxed flex gap-2.5">
+                  <span className="text-text-4 mt-1">•</span>
                   <span>{it}</span>
                 </li>
               ))}
@@ -155,7 +155,7 @@ export function ComparisonPage({ data }: { data: ComparisonPageData }) {
             </p>
             <ul className="space-y-2.5">
               {data.whenChoosePapyrus.map((it, i) => (
-                <li key={i} className="text-sm text-zinc-200 leading-relaxed flex gap-2.5">
+                <li key={i} className="text-sm text-foreground leading-relaxed flex gap-2.5">
                   <Check size={14} className="text-amber-400 mt-1 flex-shrink-0" />
                   <span>{it}</span>
                 </li>
@@ -166,29 +166,29 @@ export function ComparisonPage({ data }: { data: ComparisonPageData }) {
 
         {data.migration && (
           <section className="mb-14">
-            <h2 className="text-2xl font-bold text-white mb-3">
+            <h2 className="text-2xl font-bold text-foreground mb-3">
               Migrating from {data.competitor}
             </h2>
-            <p className="text-zinc-400 leading-relaxed">{data.migration}</p>
+            <p className="text-text-2 leading-relaxed">{data.migration}</p>
           </section>
         )}
 
         {/* FAQ */}
         <section className="mb-14">
-          <h2 className="text-2xl font-bold text-white mb-6">Frequently asked questions</h2>
+          <h2 className="text-2xl font-bold text-foreground mb-6">Frequently asked questions</h2>
           <div className="space-y-3">
             {data.faqs.map((f, i) => (
               <details
                 key={i}
-                className="group bg-[#0f0f0f] border border-[#222] rounded-xl p-5 open:border-amber-500/30 transition-colors"
+                className="group bg-surface border border-border rounded-xl p-5 open:border-amber-500/30 transition-colors"
               >
-                <summary className="cursor-pointer text-white font-semibold text-base flex items-center justify-between">
+                <summary className="cursor-pointer text-foreground font-semibold text-base flex items-center justify-between">
                   {f.q}
                   <span className="text-amber-400 text-lg group-open:rotate-45 transition-transform">
                     +
                   </span>
                 </summary>
-                <p className="mt-3 text-sm text-zinc-300 leading-relaxed">{f.a}</p>
+                <p className="mt-3 text-sm text-text-2 leading-relaxed">{f.a}</p>
               </details>
             ))}
           </div>
@@ -196,10 +196,10 @@ export function ComparisonPage({ data }: { data: ComparisonPageData }) {
 
         {/* CTA */}
         <section className="bg-gradient-to-br from-amber-500/10 to-transparent border border-amber-500/20 rounded-2xl p-8 text-center">
-          <h2 className="text-2xl font-bold text-white mb-3">
+          <h2 className="text-2xl font-bold text-foreground mb-3">
             See Papyrus BPApp on your own data
           </h2>
-          <p className="text-zinc-400 mb-6 max-w-xl mx-auto">
+          <p className="text-text-2 mb-6 max-w-xl mx-auto">
             Book a personalized demo. We'll walk through the modules most relevant to your mill —
             and show you exactly how it stacks up against {data.competitor}.
           </p>

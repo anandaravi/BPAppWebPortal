@@ -282,29 +282,29 @@ function IntegrationCardItem({ card, index }: { card: IntegrationCard; index: nu
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.35, delay: index * 0.05 }}
-      className="bg-[#0f0f0f] border border-[#1f1f1f] hover:border-amber-500/25 rounded-xl p-5 flex flex-col gap-3 transition-colors"
+      className="bg-surface border border-border-dim hover:border-amber-500/25 rounded-xl p-5 flex flex-col gap-3 transition-colors"
     >
       <div className="flex items-start justify-between gap-3">
         <div className="flex items-center gap-3">
-          <div className="w-9 h-9 rounded-lg bg-[#1a1a1a] border border-[#2a2a2a] flex items-center justify-center flex-shrink-0">
-            <Icon size={16} className="text-zinc-400" />
+          <div className="w-9 h-9 rounded-lg bg-surface-3 border border-border-light flex items-center justify-center flex-shrink-0">
+            <Icon size={16} className="text-text-2" />
           </div>
-          <p className="text-white font-bold text-sm leading-tight">{card.name}</p>
+          <p className="text-foreground font-bold text-sm leading-tight">{card.name}</p>
         </div>
         <div className="flex-shrink-0 pt-0.5">
           <StatusBadge status={card.status} />
         </div>
       </div>
-      <p className="text-xs text-zinc-400 leading-relaxed">{card.description}</p>
+      <p className="text-xs text-text-2 leading-relaxed">{card.description}</p>
     </motion.div>
   );
 }
 
 export default function IntegrationsPage() {
   return (
-    <div className="min-h-screen bg-[#080808]">
+    <div className="min-h-screen bg-background">
       {/* HERO */}
-      <section className="relative overflow-hidden grain">
+      <section className="relative overflow-hidden grain on-photo">
         <div className="absolute inset-0">
           <div className="absolute inset-0 bg-gradient-to-br from-[#080808] via-[#0a0a0a] to-[#080808]" />
           <div
@@ -331,7 +331,7 @@ export default function IntegrationsPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="text-5xl md:text-7xl font-black text-white leading-[1.0] tracking-tight mb-6 max-w-4xl"
+            className="text-5xl md:text-7xl font-black text-foreground leading-[1.0] tracking-tight mb-6 max-w-4xl"
           >
             Fits into your stack.<br />
             <span className="amber-text">Connects to everything.</span>
@@ -341,7 +341,7 @@ export default function IntegrationsPage() {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="text-lg text-zinc-400 max-w-2xl mb-10 leading-relaxed"
+            className="text-lg text-text-2 max-w-2xl mb-10 leading-relaxed"
           >
             REST API, webhooks, and pre-built connectors for government portals, accounting tools,
             communication platforms, and BI systems. BPApp fits into your existing tech stack —
@@ -362,7 +362,7 @@ export default function IntegrationsPage() {
             </Link>
             <Link
               href="/contact"
-              className="inline-flex items-center gap-2 px-6 py-3.5 rounded-lg border border-[#333] text-white hover:border-amber-500/40 text-sm font-medium transition-all"
+              className="inline-flex items-center gap-2 px-6 py-3.5 rounded-lg border border-border-light text-foreground hover:border-amber-500/40 text-sm font-medium transition-all"
             >
               Request Integration
             </Link>
@@ -371,7 +371,7 @@ export default function IntegrationsPage() {
       </section>
 
       {/* INTEGRATION CATEGORIES */}
-      <section className="py-20 border-t border-[#1a1a1a]">
+      <section className="py-20 border-t border-border-dim">
         <div className="max-w-[var(--container-max)] mx-auto px-6 space-y-20">
           {CATEGORIES.map((cat, catIndex) => (
             <motion.div
@@ -394,7 +394,7 @@ export default function IntegrationsPage() {
                   >
                     Category {catIndex + 1}
                   </p>
-                  <h2 className="text-2xl font-black text-white">{cat.label}</h2>
+                  <h2 className="text-2xl font-black text-foreground">{cat.label}</h2>
                 </div>
               </div>
 
@@ -410,7 +410,7 @@ export default function IntegrationsPage() {
       </section>
 
       {/* STATUS LEGEND */}
-      <section className="py-16 bg-[#0a0a0a] border-y border-[#1a1a1a]">
+      <section className="py-16 bg-background border-y border-border-dim">
         <div className="max-w-[var(--container-max)] mx-auto px-6">
           <motion.div
             initial={{ opacity: 0, y: 16 }}
@@ -419,7 +419,7 @@ export default function IntegrationsPage() {
             transition={{ duration: 0.4 }}
           >
             <p className="text-amber-500 text-xs font-semibold uppercase tracking-widest mb-3">Status Guide</p>
-            <h2 className="text-2xl font-black text-white tracking-tight mb-8">What the badges mean</h2>
+            <h2 className="text-2xl font-black text-foreground tracking-tight mb-8">What the badges mean</h2>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
               {STATUS_LEGEND.map(({ status, meaning }, i) => {
@@ -431,10 +431,10 @@ export default function IntegrationsPage() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.35, delay: i * 0.07 }}
-                    className="bg-[#0f0f0f] border border-[#1f1f1f] rounded-xl p-5 space-y-3"
+                    className="bg-surface border border-border-dim rounded-xl p-5 space-y-3"
                   >
                     <StatusBadge status={status} />
-                    <p className="text-sm text-zinc-400 leading-relaxed">{meaning}</p>
+                    <p className="text-sm text-text-2 leading-relaxed">{meaning}</p>
                   </motion.div>
                 );
               })}
@@ -444,7 +444,7 @@ export default function IntegrationsPage() {
       </section>
 
       {/* OPEN API SECTION */}
-      <section className="py-20 border-b border-[#1a1a1a]">
+      <section className="py-20 border-b border-border-dim">
         <div className="max-w-[var(--container-max)] mx-auto px-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <motion.div
@@ -454,10 +454,10 @@ export default function IntegrationsPage() {
               transition={{ duration: 0.5 }}
             >
               <p className="text-amber-500 text-xs font-semibold uppercase tracking-widest mb-3">Open API</p>
-              <h2 className="text-4xl md:text-5xl font-black text-white tracking-tight mb-5 leading-tight">
+              <h2 className="text-4xl md:text-5xl font-black text-foreground tracking-tight mb-5 leading-tight">
                 Open API for<br /><span className="amber-text">everything else.</span>
               </h2>
-              <p className="text-zinc-400 text-lg leading-relaxed mb-8">
+              <p className="text-text-2 text-lg leading-relaxed mb-8">
                 Every business event, every entity, every workflow in BPApp is accessible through a
                 documented REST API. Build the integration you need — or use the pre-built connectors
                 and be live in minutes.
@@ -507,14 +507,14 @@ export default function IntegrationsPage() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.35, delay: i * 0.07 }}
-                    className="flex items-start gap-4 bg-[#0f0f0f] border border-[#1f1f1f] hover:border-amber-500/25 rounded-xl p-4 transition-colors"
+                    className="flex items-start gap-4 bg-surface border border-border-dim hover:border-amber-500/25 rounded-xl p-4 transition-colors"
                   >
                     <div className="w-9 h-9 rounded-lg bg-amber-500/10 border border-amber-500/20 flex items-center justify-center flex-shrink-0">
                       <Icon size={16} className="text-amber-400" />
                     </div>
                     <div>
-                      <p className="text-white font-bold text-sm mb-1">{item.title}</p>
-                      <p className="text-xs text-zinc-400 leading-relaxed">{item.description}</p>
+                      <p className="text-foreground font-bold text-sm mb-1">{item.title}</p>
+                      <p className="text-xs text-text-2 leading-relaxed">{item.description}</p>
                     </div>
                   </motion.div>
                 );

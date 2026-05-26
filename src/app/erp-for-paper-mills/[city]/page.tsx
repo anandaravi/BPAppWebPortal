@@ -108,55 +108,55 @@ export default async function Page({ params }: { params: Promise<{ city: string 
         ]}
       />
 
-      <div className="min-h-screen bg-[#080808] pt-28 pb-24">
+      <div className="min-h-screen bg-background pt-28 pb-24">
         <article className="max-w-5xl mx-auto px-6">
           <header className="mb-12">
             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-amber-500/30 bg-amber-500/10 text-amber-400 text-xs font-medium mb-6 tracking-wide uppercase">
               <MapPin size={12} />
               {c.region} India · {c.state}
             </div>
-            <h1 className="text-4xl md:text-5xl font-black text-white tracking-tight mb-4 leading-tight">
+            <h1 className="text-4xl md:text-5xl font-black text-foreground tracking-tight mb-4 leading-tight">
               Paper Mill ERP for <span className="amber-text">{c.name}</span>
             </h1>
-            <p className="text-lg text-zinc-400 leading-relaxed max-w-3xl">
+            <p className="text-lg text-text-2 leading-relaxed max-w-3xl">
               {c.millProfile}
             </p>
           </header>
 
           {/* Cluster snapshot */}
           <section className="grid md:grid-cols-3 gap-4 mb-12">
-            <div className="bg-[#0f0f0f] border border-[#222] rounded-2xl p-5">
-              <p className="text-xs text-zinc-500 uppercase tracking-wider font-semibold mb-2">
+            <div className="bg-surface border border-border rounded-2xl p-5">
+              <p className="text-xs text-text-3 uppercase tracking-wider font-semibold mb-2">
                 Cluster Size
               </p>
-              <p className="text-white font-bold text-base leading-tight">
+              <p className="text-foreground font-bold text-base leading-tight">
                 {c.estimatedMillCount}
               </p>
             </div>
-            <div className="bg-[#0f0f0f] border border-[#222] rounded-2xl p-5">
-              <p className="text-xs text-zinc-500 uppercase tracking-wider font-semibold mb-2">
+            <div className="bg-surface border border-border rounded-2xl p-5">
+              <p className="text-xs text-text-3 uppercase tracking-wider font-semibold mb-2">
                 Primary Grades
               </p>
-              <p className="text-white font-bold text-sm leading-tight">
+              <p className="text-foreground font-bold text-sm leading-tight">
                 {c.primaryGrades.slice(0, 2).join(", ")}
                 {c.primaryGrades.length > 2 && ` +${c.primaryGrades.length - 2}`}
               </p>
             </div>
-            <div className="bg-[#0f0f0f] border border-[#222] rounded-2xl p-5">
-              <p className="text-xs text-zinc-500 uppercase tracking-wider font-semibold mb-2">
+            <div className="bg-surface border border-border rounded-2xl p-5">
+              <p className="text-xs text-text-3 uppercase tracking-wider font-semibold mb-2">
                 State
               </p>
-              <p className="text-white font-bold text-base leading-tight">{c.state}</p>
+              <p className="text-foreground font-bold text-base leading-tight">{c.state}</p>
             </div>
           </section>
 
           {/* Industry context */}
           <section className="mb-12">
-            <h2 className="text-2xl font-bold text-white mb-4">
+            <h2 className="text-2xl font-bold text-foreground mb-4">
               The {c.name} paper industry
             </h2>
-            <p className="text-zinc-300 leading-relaxed mb-4">{c.industryNote}</p>
-            <p className="text-zinc-400 leading-relaxed">
+            <p className="text-text-2 leading-relaxed mb-4">{c.industryNote}</p>
+            <p className="text-text-2 leading-relaxed">
               {c.name} mills face the operational realities every Indian paper manufacturer
               faces: tight margins, GST compliance burden, multi-customer deckle planning,
               quality consistency for FMCG and packaging buyers, payroll for shift workers
@@ -167,7 +167,7 @@ export default async function Page({ params }: { params: Promise<{ city: string 
 
           {/* Why Papyrus BPApp for this city */}
           <section className="mb-12">
-            <h2 className="text-2xl font-bold text-white mb-5">
+            <h2 className="text-2xl font-bold text-foreground mb-5">
               Why Papyrus BPApp fits {c.name} mills
             </h2>
             <div className="grid md:grid-cols-2 gap-4">
@@ -200,7 +200,7 @@ export default async function Page({ params }: { params: Promise<{ city: string 
 
           {/* Trust modules */}
           <section className="mb-12">
-            <h2 className="text-2xl font-bold text-white mb-5">
+            <h2 className="text-2xl font-bold text-foreground mb-5">
               Most-used modules in {c.region} India mills
             </h2>
             <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
@@ -215,9 +215,9 @@ export default async function Page({ params }: { params: Promise<{ city: string 
                 <Link
                   key={m.slug}
                   href={`/product/${m.slug}`}
-                  className="group bg-[#0f0f0f] border border-[#222] hover:border-amber-500/30 rounded-xl p-4 transition-colors"
+                  className="group bg-surface border border-border hover:border-amber-500/30 rounded-xl p-4 transition-colors"
                 >
-                  <p className="text-sm font-bold text-white group-hover:text-amber-300 transition-colors">
+                  <p className="text-sm font-bold text-foreground group-hover:text-amber-300 transition-colors">
                     {m.name}
                   </p>
                 </Link>
@@ -233,22 +233,22 @@ export default async function Page({ params }: { params: Promise<{ city: string 
 
           {/* FAQ */}
           <section className="mb-12">
-            <h2 className="text-2xl font-bold text-white mb-5">
+            <h2 className="text-2xl font-bold text-foreground mb-5">
               Common questions from {c.name} mills
             </h2>
             <div className="space-y-3">
               {faqs.map((f, i) => (
                 <details
                   key={i}
-                  className="group bg-[#0f0f0f] border border-[#222] rounded-xl p-5 open:border-amber-500/30 transition-colors"
+                  className="group bg-surface border border-border rounded-xl p-5 open:border-amber-500/30 transition-colors"
                 >
-                  <summary className="cursor-pointer text-white font-semibold text-base flex items-center justify-between">
+                  <summary className="cursor-pointer text-foreground font-semibold text-base flex items-center justify-between">
                     {f.q}
                     <span className="text-amber-400 text-lg group-open:rotate-45 transition-transform">
                       +
                     </span>
                   </summary>
-                  <p className="mt-3 text-sm text-zinc-300 leading-relaxed">{f.a}</p>
+                  <p className="mt-3 text-sm text-text-2 leading-relaxed">{f.a}</p>
                 </details>
               ))}
             </div>
@@ -256,10 +256,10 @@ export default async function Page({ params }: { params: Promise<{ city: string 
 
           {/* CTA */}
           <section className="bg-gradient-to-br from-amber-500/10 to-transparent border border-amber-500/20 rounded-2xl p-8 text-center">
-            <h2 className="text-2xl font-bold text-white mb-3">
+            <h2 className="text-2xl font-bold text-foreground mb-3">
               See Papyrus BPApp for your {c.name} mill
             </h2>
-            <p className="text-zinc-400 mb-6 max-w-xl mx-auto">
+            <p className="text-text-2 mb-6 max-w-xl mx-auto">
               Book a personalized demo. We'll walk through workflows tailored to{" "}
               {c.primaryGrades[0].toLowerCase()} mills in {c.region} India.
             </p>
@@ -283,8 +283,8 @@ function FitCard({ title, desc }: { title: string; desc: string }) {
       <div className="flex items-start gap-3">
         <Check size={16} className="text-amber-400 mt-1 flex-shrink-0" />
         <div>
-          <h3 className="text-white font-bold mb-1.5 text-base">{title}</h3>
-          <p className="text-sm text-zinc-300 leading-relaxed">{desc}</p>
+          <h3 className="text-foreground font-bold mb-1.5 text-base">{title}</h3>
+          <p className="text-sm text-text-2 leading-relaxed">{desc}</p>
         </div>
       </div>
     </div>

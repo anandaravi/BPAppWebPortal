@@ -70,7 +70,7 @@ export default function ContactPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#080808] pt-32 pb-24">
+    <div className="min-h-screen bg-background pt-32 pb-24">
       <div className="max-w-3xl mx-auto px-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -81,7 +81,7 @@ export default function ContactPage() {
           <p className="text-amber-500 text-xs font-semibold uppercase tracking-widest mb-4">
             Get Started
           </p>
-          <h1 className="text-4xl font-bold text-white mb-4">Request a Demo</h1>
+          <h1 className="text-4xl font-bold text-foreground mb-4">Request a Demo</h1>
           <p className="text-gray-400 text-lg">
             We&apos;ll walk you through the modules relevant to your mill.
             Response within 1 business day.
@@ -92,10 +92,10 @@ export default function ContactPage() {
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="bg-[#0f0f0f] border border-amber-500/20 rounded-2xl p-10 text-center"
+            className="bg-surface border border-amber-500/20 rounded-2xl p-10 text-center"
           >
             <CheckCircle2 size={40} className="text-amber-400 mx-auto mb-4" />
-            <h2 className="text-xl font-semibold text-white mb-2">Thank you!</h2>
+            <h2 className="text-xl font-semibold text-foreground mb-2">Thank you!</h2>
             <p className="text-gray-400">
               We&apos;ll reach out within 1 business day to schedule your demo.
             </p>
@@ -106,7 +106,7 @@ export default function ContactPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
             onSubmit={handleSubmit(onSubmit)}
-            className="bg-[#0f0f0f] border border-[#1f1f1f] rounded-2xl p-8 space-y-5"
+            className="bg-surface border border-border-dim rounded-2xl p-8 space-y-5"
           >
             {/* Honeypot — hidden from humans */}
             <input
@@ -182,7 +182,7 @@ export default function ContactPage() {
               <div className="flex items-baseline justify-between">
                 <label className="text-sm font-medium text-gray-300">
                   Modules you&apos;re interested in{" "}
-                  <span className="text-zinc-500 font-normal">(optional)</span>
+                  <span className="text-text-3 font-normal">(optional)</span>
                 </label>
                 {interests.size > 0 && (
                   <span className="text-xs text-amber-400 font-mono">
@@ -190,7 +190,7 @@ export default function ContactPage() {
                   </span>
                 )}
               </div>
-              <p className="text-xs text-zinc-500 mb-1">
+              <p className="text-xs text-text-3 mb-1">
                 Tap a group to expand. Select all by tapping the group header twice.
               </p>
               <div className="space-y-2">
@@ -202,26 +202,26 @@ export default function ContactPage() {
                   return (
                     <div
                       key={group.title}
-                      className="border border-[#222] rounded-lg overflow-hidden bg-[#080808]"
+                      className="border border-border rounded-lg overflow-hidden bg-background"
                     >
                       <div className="flex items-center">
                         <button
                           type="button"
                           onClick={() => toggleGroup(group.title)}
-                          className="flex-1 flex items-center justify-between px-4 py-3 text-left hover:bg-[#0f0f0f] transition-colors"
+                          className="flex-1 flex items-center justify-between px-4 py-3 text-left hover:bg-surface transition-colors"
                         >
                           <div className="flex items-center gap-3">
                             <ChevronDown
                               size={14}
                               className={cn(
-                                "text-zinc-500 transition-transform",
+                                "text-text-3 transition-transform",
                                 expanded && "rotate-180"
                               )}
                             />
-                            <span className="text-sm font-medium text-white">
+                            <span className="text-sm font-medium text-foreground">
                               {group.title}
                             </span>
-                            <span className="text-xs text-zinc-500 font-mono">
+                            <span className="text-xs text-text-3 font-mono">
                               {groupSlugs.length}
                             </span>
                           </div>
@@ -234,32 +234,32 @@ export default function ContactPage() {
                         <button
                           type="button"
                           onClick={() => toggleAllInGroup(groupSlugs, allSelected)}
-                          className="px-3 py-3 text-xs text-zinc-400 hover:text-amber-400 border-l border-[#222] transition-colors"
+                          className="px-3 py-3 text-xs text-text-2 hover:text-amber-400 border-l border-border transition-colors"
                           title={allSelected ? "Deselect all" : "Select all"}
                         >
                           {allSelected ? "Clear" : "All"}
                         </button>
                       </div>
                       {expanded && (
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-1 p-3 pt-1 border-t border-[#1a1a1a] bg-[#0a0a0a]">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-1 p-3 pt-1 border-t border-border-dim bg-background">
                           {groupSlugs.map((slug) => {
                             const m = ALL_MODULES[slug];
                             const checked = interests.has(slug);
                             return (
                               <label
                                 key={slug}
-                                className="flex items-center gap-2.5 px-2 py-1.5 rounded hover:bg-[#111] cursor-pointer text-sm transition-colors"
+                                className="flex items-center gap-2.5 px-2 py-1.5 rounded hover:bg-surface cursor-pointer text-sm transition-colors"
                               >
                                 <input
                                   type="checkbox"
                                   checked={checked}
                                   onChange={() => toggleInterest(slug)}
-                                  className="w-4 h-4 rounded border-[#333] bg-[#080808] text-amber-500 focus:ring-amber-500/30 focus:ring-offset-0 cursor-pointer"
+                                  className="w-4 h-4 rounded border-border-light bg-background text-amber-500 focus:ring-amber-500/30 focus:ring-offset-0 cursor-pointer"
                                 />
                                 <span
                                   className={cn(
                                     "transition-colors",
-                                    checked ? "text-white" : "text-zinc-400"
+                                    checked ? "text-foreground" : "text-text-2"
                                   )}
                                 >
                                   {m.name}
@@ -309,10 +309,10 @@ export default function ContactPage() {
 
 function inputCls(hasError: boolean) {
   return cn(
-    "w-full bg-[#080808] border rounded-lg px-4 py-2.5 text-sm text-white placeholder:text-zinc-600 outline-none transition-colors",
+    "w-full bg-background border rounded-lg px-4 py-2.5 text-sm text-foreground placeholder:text-text-4 outline-none transition-colors",
     hasError
       ? "border-red-500/50 focus:border-red-500"
-      : "border-[#222] focus:border-amber-500/50"
+      : "border-border focus:border-amber-500/50"
   );
 }
 

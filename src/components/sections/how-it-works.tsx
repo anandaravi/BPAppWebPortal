@@ -45,7 +45,7 @@ const STEPS = [
 
 export function HowItWorks() {
   return (
-    <section className="py-24 bg-[#0a0a0a] border-b border-[#1a1a1a]">
+    <section className="py-24 bg-background border-b border-border-dim">
       <div className="max-w-[var(--container-max)] mx-auto px-6">
         <motion.div
           initial={{ opacity: 0, y: 16 }}
@@ -55,11 +55,11 @@ export function HowItWorks() {
           className="text-center mb-16"
         >
           <p className="text-amber-500 text-xs font-semibold uppercase tracking-widest mb-3">End-to-End Flow</p>
-          <h2 className="text-4xl md:text-5xl font-black text-white tracking-tight mb-4">
+          <h2 className="text-4xl md:text-5xl font-black text-foreground tracking-tight mb-4">
             One order. Five steps.<br />
-            <span className="text-zinc-500">Zero gaps.</span>
+            <span className="text-text-3">Zero gaps.</span>
           </h2>
-          <p className="text-zinc-400 max-w-xl mx-auto leading-relaxed">
+          <p className="text-text-2 max-w-xl mx-auto leading-relaxed">
             Every step connected — no re-keying, no reconciliation fire drills, no compliance surprises.
           </p>
         </motion.div>
@@ -84,7 +84,7 @@ export function HowItWorks() {
                   {/* Arrow between steps — desktop */}
                   {i < STEPS.length - 1 && (
                     <div className="hidden lg:flex absolute top-10 -right-3 z-10 items-center justify-center w-6 h-6">
-                      <ArrowRight size={12} className="text-zinc-600" />
+                      <ArrowRight size={12} className="text-text-4" />
                     </div>
                   )}
 
@@ -105,8 +105,8 @@ export function HowItWorks() {
                     </span>
                   </div>
 
-                  <h3 className="text-white font-bold text-sm mb-2">{s.title}</h3>
-                  <p className="text-zinc-500 text-xs leading-relaxed">{s.desc}</p>
+                  <h3 className="text-foreground font-bold text-sm mb-2">{s.title}</h3>
+                  <p className="text-text-3 text-xs leading-relaxed">{s.desc}</p>
                 </motion.div>
               );
             })}
@@ -124,7 +124,7 @@ export function HowItWorks() {
           {["GST-native", "FEMA compliant", "PF / ESI statutory", "Tamper-proof audit trail", "Mobile-ready"].map((tag) => (
             <span
               key={tag}
-              className="px-3 py-1.5 rounded-full border border-[#333] text-zinc-500 text-xs font-medium"
+              className="px-3 py-1.5 rounded-full border border-border-light text-text-3 text-xs font-medium"
             >
               {tag}
             </span>

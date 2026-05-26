@@ -107,7 +107,7 @@ export default function GlossaryPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#080808] pt-28 pb-24">
+    <div className="min-h-screen bg-background pt-28 pb-24">
       <JsonLd
         data={[
           definedTermSetSchema,
@@ -123,10 +123,10 @@ export default function GlossaryPage() {
           <p className="text-amber-500 text-xs font-semibold uppercase tracking-widest mb-3">
             Glossary
           </p>
-          <h1 className="text-4xl md:text-5xl font-black text-white tracking-tight mb-4">
+          <h1 className="text-4xl md:text-5xl font-black text-foreground tracking-tight mb-4">
             Paper Industry Glossary
           </h1>
-          <p className="text-lg text-zinc-400 max-w-3xl leading-relaxed">
+          <p className="text-lg text-text-2 max-w-3xl leading-relaxed">
             Every term used in this site, defined. Paper terms (GSM, deckle, kraft), production
             (MPS, OEE, Yankee dryer), quality (BF, BS, SPC, LIMS), ERP acronyms (MRP, MES, RBAC),
             Indian compliance (GST, FEMA, PF, ESI), and modern tech (Digital Twin, IoT, IDP).
@@ -141,10 +141,10 @@ export default function GlossaryPage() {
               <a
                 key={cat}
                 href={`#${cat.toLowerCase().replace("/", "-")}`}
-                className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border border-[#222] bg-[#0f0f0f] hover:border-amber-500/30 hover:bg-amber-500/5 text-sm text-zinc-300 transition-colors"
+                className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border border-border bg-surface hover:border-amber-500/30 hover:bg-amber-500/5 text-sm text-text-2 transition-colors"
               >
                 {cat}
-                <span className="text-xs text-zinc-600 font-mono">{count}</span>
+                <span className="text-xs text-text-4 font-mono">{count}</span>
               </a>
             );
           })}
@@ -156,25 +156,25 @@ export default function GlossaryPage() {
             <section key={cat} id={cat.toLowerCase().replace("/", "-")} className="mb-12 scroll-mt-24">
               <div className="flex items-center gap-3 mb-5">
                 <span className="w-1 h-6 bg-amber-500 rounded-full" />
-                <h2 className="text-2xl font-bold text-white">{cat}</h2>
-                <span className="text-zinc-600 font-mono text-sm">{items.length}</span>
+                <h2 className="text-2xl font-bold text-foreground">{cat}</h2>
+                <span className="text-text-4 font-mono text-sm">{items.length}</span>
               </div>
               <div className="grid md:grid-cols-2 gap-3">
                 {items.map((t) => (
                   <div
                     key={t.term}
-                    className="bg-[#0f0f0f] border border-[#222] rounded-2xl p-5"
+                    className="bg-surface border border-border rounded-2xl p-5"
                   >
                     <div className="flex items-baseline justify-between gap-3 mb-1.5">
-                      <h3 className="text-white font-bold text-base">{t.term}</h3>
+                      <h3 className="text-foreground font-bold text-base">{t.term}</h3>
                       {t.acronym && (
-                        <span className="text-xs text-zinc-500 italic flex-shrink-0">
+                        <span className="text-xs text-text-3 italic flex-shrink-0">
                           {t.acronym}
                         </span>
                       )}
                     </div>
                     <p className="text-sm text-amber-400 leading-snug mb-2">{t.short}</p>
-                    <p className="text-sm text-zinc-300 leading-relaxed">{t.long}</p>
+                    <p className="text-sm text-text-2 leading-relaxed">{t.long}</p>
                   </div>
                 ))}
               </div>
@@ -183,10 +183,10 @@ export default function GlossaryPage() {
         })}
 
         <section className="mt-12 bg-gradient-to-br from-amber-500/10 to-transparent border border-amber-500/20 rounded-2xl p-8 text-center">
-          <h2 className="text-2xl font-bold text-white mb-3">
+          <h2 className="text-2xl font-bold text-foreground mb-3">
             See these terms in action
           </h2>
-          <p className="text-zinc-400 mb-6 max-w-xl mx-auto">
+          <p className="text-text-2 mb-6 max-w-xl mx-auto">
             Every concept here is implemented inside Papyrus BPApp. Book a demo to see how.
           </p>
           <Link

@@ -77,9 +77,9 @@ const ROLES = [
 
 export default function SolutionsPage() {
   return (
-    <div className="min-h-screen bg-[#080808]">
+    <div className="min-h-screen bg-background">
       {/* HERO */}
-      <section className="relative overflow-hidden grain">
+      <section className="relative overflow-hidden grain on-photo">
         <div className="absolute inset-0">
           <Image src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1920&q=80"
             alt="Solutions" fill className="object-cover opacity-25" />
@@ -95,12 +95,12 @@ export default function SolutionsPage() {
           </motion.div>
 
           <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.1 }}
-            className="text-5xl md:text-7xl font-black text-white leading-[1.0] tracking-tight mb-6 max-w-4xl">
+            className="text-5xl md:text-7xl font-black text-foreground leading-[1.0] tracking-tight mb-6 max-w-4xl">
             Built for the<br /><span className="amber-text">people who run the mill.</span>
           </motion.h1>
 
           <motion.p initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.2 }}
-            className="text-lg text-zinc-400 max-w-2xl mb-10 leading-relaxed">
+            className="text-lg text-text-2 max-w-2xl mb-10 leading-relaxed">
             Whether you own the P&amp;L, the shop floor, the IT stack, or the people, Papyrus BPApp
             gives you the KPIs, dashboards, and workflows your role actually needs — without the
             ones it doesn&apos;t.
@@ -111,7 +111,7 @@ export default function SolutionsPage() {
             <Link href="/contact" className="group inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-lg bg-amber-500 hover:bg-amber-400 text-black font-bold text-sm transition-all">
               Find your role <ArrowRight size={16} className="group-hover:translate-x-0.5 transition-transform" />
             </Link>
-            <Link href="/customers" className="inline-flex items-center gap-2 px-6 py-3.5 rounded-lg border border-[#333] text-white hover:border-amber-500/40 text-sm font-medium transition-all">
+            <Link href="/customers" className="inline-flex items-center gap-2 px-6 py-3.5 rounded-lg border border-border-light text-foreground hover:border-amber-500/40 text-sm font-medium transition-all">
               ← By company type
             </Link>
           </motion.div>
@@ -119,7 +119,7 @@ export default function SolutionsPage() {
       </section>
 
       {/* ROLES */}
-      <section className="py-20 border-y border-[#1a1a1a]">
+      <section className="py-20 border-y border-border-dim">
         <div className="max-w-[var(--container-max)] mx-auto px-6 space-y-12">
           {ROLES.map((r, i) => (
             <motion.div key={r.id}
@@ -129,7 +129,7 @@ export default function SolutionsPage() {
               transition={{ duration: 0.5, delay: Math.min(i * 0.06, 0.3) }}
               className="grid grid-cols-1 lg:grid-cols-5 gap-6">
               {/* Photo + role */}
-              <div className="lg:col-span-2 relative rounded-2xl overflow-hidden h-72 lg:h-auto border border-[#1f1f1f]">
+              <div className="lg:col-span-2 relative rounded-2xl overflow-hidden h-72 lg:h-auto border border-border-dim">
                 <Image src={r.photo} alt={r.title} fill className="object-cover" />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-[#0a0a0a]/40 to-transparent" />
                 <div className="absolute inset-0 flex flex-col justify-between p-5">
@@ -138,20 +138,20 @@ export default function SolutionsPage() {
                     Role
                   </span>
                   <div>
-                    <h3 className="text-white text-2xl font-black mb-2 drop-shadow leading-tight">{r.title}</h3>
-                    <p className="text-xs text-zinc-300 leading-relaxed">{r.blurb}</p>
+                    <h3 className="text-foreground text-2xl font-black mb-2 drop-shadow leading-tight">{r.title}</h3>
+                    <p className="text-xs text-text-2 leading-relaxed">{r.blurb}</p>
                   </div>
                 </div>
               </div>
 
               {/* Content */}
-              <div className="lg:col-span-3 bg-[#0f0f0f] border border-[#1f1f1f] rounded-2xl p-6 grid grid-cols-1 md:grid-cols-2 gap-5">
+              <div className="lg:col-span-3 bg-surface border border-border-dim rounded-2xl p-6 grid grid-cols-1 md:grid-cols-2 gap-5">
                 <div className="md:col-span-2">
                   <div className="flex items-center gap-2 mb-2">
                     <AlertCircle size={13} className="text-red-400" />
                     <p className="text-[10px] font-semibold uppercase tracking-widest text-red-400">Daily Pain</p>
                   </div>
-                  <p className="text-sm text-zinc-300 leading-relaxed">{r.pain}</p>
+                  <p className="text-sm text-text-2 leading-relaxed">{r.pain}</p>
                 </div>
 
                 <div>
@@ -161,7 +161,7 @@ export default function SolutionsPage() {
                   </div>
                   <ul className="space-y-1">
                     {r.kpis.map((k) => (
-                      <li key={k} className="text-xs text-zinc-300 flex items-start gap-1.5">
+                      <li key={k} className="text-xs text-text-2 flex items-start gap-1.5">
                         <span style={{ color: r.accent }}>·</span> {k}
                       </li>
                     ))}
@@ -184,9 +184,9 @@ export default function SolutionsPage() {
                   </div>
                 </div>
 
-                <div className="md:col-span-2 pt-3 border-t border-[#1f1f1f]">
+                <div className="md:col-span-2 pt-3 border-t border-border-dim">
                   <p className="text-[10px] font-semibold uppercase tracking-widest text-emerald-400 mb-1.5">What changes</p>
-                  <p className="text-xs text-zinc-400 leading-relaxed">{r.outcome}</p>
+                  <p className="text-xs text-text-2 leading-relaxed">{r.outcome}</p>
                 </div>
               </div>
             </motion.div>

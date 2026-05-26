@@ -62,7 +62,7 @@ export default function LeafletMap({ clients }: { clients: Client[] }) {
   }, []);
 
   return (
-    <div className="rounded-2xl overflow-hidden border border-[#1f1f1f]" style={{ height: 840 }}>
+    <div className="rounded-2xl overflow-hidden border border-border-dim" style={{ height: 840 }}>
       <MapContainer
         center={[20, 76]}
         zoom={4}
@@ -97,7 +97,7 @@ export default function LeafletMap({ clients }: { clients: Client[] }) {
 
         {/* HQ marker */}
         <Marker position={HQ} icon={hqIcon}>
-          <Tooltip permanent direction="top" offset={[0, -12]} className="!bg-[#0a0a0a] !border-amber-500/40 !text-amber-300 !shadow-lg">
+          <Tooltip permanent direction="top" offset={[0, -12]} className="!bg-background !border-amber-500/40 !text-amber-300 !shadow-lg">
             <span style={{ fontWeight: 700, fontSize: 11 }}>NETIQUE HQ · Bangalore</span>
           </Tooltip>
         </Marker>
@@ -108,7 +108,7 @@ export default function LeafletMap({ clients }: { clients: Client[] }) {
           const icon = c.country === "India" ? indiaIcon : gulfIcon;
           return (
             <Marker key={key} position={[c.lat, c.lon]} icon={icon}>
-              <Tooltip direction="right" offset={[8, 0]} className="!bg-[#0a0a0a] !border-[#1f1f1f] !text-zinc-300">
+              <Tooltip direction="right" offset={[8, 0]} className="!bg-background !border-border-dim !text-text-2">
                 <div>
                   <p style={{ fontWeight: 700, fontSize: 11, color: "#fff" }}>
                     {c.city}{group.length > 1 ? ` (${group.length} mills)` : ""}
@@ -118,7 +118,7 @@ export default function LeafletMap({ clients }: { clients: Client[] }) {
                   </p>
                 </div>
               </Tooltip>
-              <Popup className="!bg-[#0a0a0a]">
+              <Popup className="!bg-background">
                 <div style={{ minWidth: 200 }}>
                   <p style={{ fontWeight: 800, fontSize: 13, marginBottom: 4 }}>{c.city}</p>
                   <p style={{ fontSize: 11, color: "#666", marginBottom: 8 }}>{c.state}, {c.country}</p>

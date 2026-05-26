@@ -84,9 +84,9 @@ const SCALE_PATH = [
 
 export default function ArchitecturePage() {
   return (
-    <div className="min-h-screen bg-[#080808]">
+    <div className="min-h-screen bg-background">
       {/* HERO */}
-      <section className="relative overflow-hidden grain">
+      <section className="relative overflow-hidden grain on-photo">
         <div className="absolute inset-0">
           <Image src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=1920&q=80"
             alt="Architecture" fill className="object-cover opacity-25" unoptimized />
@@ -102,12 +102,12 @@ export default function ArchitecturePage() {
           </motion.div>
 
           <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.1 }}
-            className="text-5xl md:text-7xl font-black text-white leading-[1.0] tracking-tight mb-6 max-w-4xl">
+            className="text-5xl md:text-7xl font-black text-foreground leading-[1.0] tracking-tight mb-6 max-w-4xl">
             Built modular.<br /><span className="amber-text">Built to scale.</span>
           </motion.h1>
 
           <motion.p initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.2 }}
-            className="text-lg text-zinc-400 max-w-2xl mb-10 leading-relaxed">
+            className="text-lg text-text-2 max-w-2xl mb-10 leading-relaxed">
             Start with the modules you need today. Add more as you grow. No re-implementation,
             no data migration, no consulting weeks. The platform you choose at 50 users is the
             same platform that runs your group at 5000.
@@ -118,7 +118,7 @@ export default function ArchitecturePage() {
             <Link href="/contact" className="group inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-lg bg-amber-500 hover:bg-amber-400 text-black font-bold text-sm transition-all">
               Discuss your scale <ArrowRight size={16} className="group-hover:translate-x-0.5 transition-transform" />
             </Link>
-            <Link href="/customers" className="inline-flex items-center gap-2 px-6 py-3.5 rounded-lg border border-[#333] text-white hover:border-amber-500/40 text-sm font-medium transition-all">
+            <Link href="/customers" className="inline-flex items-center gap-2 px-6 py-3.5 rounded-lg border border-border-light text-foreground hover:border-amber-500/40 text-sm font-medium transition-all">
               See who runs it →
             </Link>
           </motion.div>
@@ -126,11 +126,11 @@ export default function ArchitecturePage() {
       </section>
 
       {/* 3-LAYER ARCHITECTURE DIAGRAM */}
-      <section className="py-24 border-y border-[#1a1a1a] bg-[#0a0a0a]">
+      <section className="py-24 border-y border-border-dim bg-background">
         <div className="max-w-[var(--container-max)] mx-auto px-6">
           <p className="text-amber-500 text-xs font-semibold uppercase tracking-widest mb-3">Architecture</p>
-          <h2 className="text-4xl md:text-5xl font-black text-white tracking-tight mb-4">Three layers. One platform.</h2>
-          <p className="text-zinc-400 text-lg max-w-2xl mb-14">
+          <h2 className="text-4xl md:text-5xl font-black text-foreground tracking-tight mb-4">Three layers. One platform.</h2>
+          <p className="text-text-2 text-lg max-w-2xl mb-14">
             Specialized add-ons sit on top of core operations, which sit on top of platform foundation.
             Each layer independently configurable. Each module independently upgradable.
           </p>
@@ -142,14 +142,14 @@ export default function ArchitecturePage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: i * 0.1 }}
-                className="relative rounded-2xl border bg-[#0f0f0f] overflow-hidden"
+                className="relative rounded-2xl border bg-surface overflow-hidden"
                 style={{ borderColor: `${layer.color}30` }}>
                 <div className="absolute left-0 top-0 bottom-0 w-1" style={{ background: layer.color }} />
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 p-7 pl-9">
                   <div>
                     <p className="text-xs font-mono mb-2" style={{ color: layer.color }}>{layer.tier}</p>
-                    <h3 className="text-2xl font-black text-white mb-2">{layer.title}</h3>
-                    <p className="text-sm text-zinc-400 leading-relaxed">{layer.desc}</p>
+                    <h3 className="text-2xl font-black text-foreground mb-2">{layer.title}</h3>
+                    <p className="text-sm text-text-2 leading-relaxed">{layer.desc}</p>
                   </div>
                   <div className="lg:col-span-2 flex flex-wrap gap-2 items-start">
                     {layer.modules.map((m) => (
@@ -167,7 +167,7 @@ export default function ArchitecturePage() {
 
           <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.4 }}
-            className="mt-10 flex items-center justify-center gap-3 text-xs text-zinc-600 font-mono">
+            className="mt-10 flex items-center justify-center gap-3 text-xs text-text-4 font-mono">
             <span className="w-12 h-px bg-zinc-700" />
             Higher layers depend on lower. Lower layers know nothing of higher.
             <span className="w-12 h-px bg-zinc-700" />
@@ -176,12 +176,12 @@ export default function ArchitecturePage() {
       </section>
 
       {/* PRINCIPLES */}
-      <section className="py-20 border-b border-[#1a1a1a]">
+      <section className="py-20 border-b border-border-dim">
         <div className="max-w-[var(--container-max)] mx-auto px-6">
           <p className="text-amber-500 text-xs font-semibold uppercase tracking-widest mb-3">Core Principles</p>
-          <h2 className="text-4xl font-black text-white tracking-tight mb-12">How modularity actually works.</h2>
+          <h2 className="text-4xl font-black text-foreground tracking-tight mb-12">How modularity actually works.</h2>
 
-          <p className="text-zinc-500 mb-12">Click any principle to drill into the details, diagrams, and real-world examples.</p>
+          <p className="text-text-3 mb-12">Click any principle to drill into the details, diagrams, and real-world examples.</p>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {PRINCIPLES.map((p, i) => {
               const Icon = p.icon;
@@ -192,18 +192,18 @@ export default function ArchitecturePage() {
                   viewport={{ once: true }}
                   transition={{ duration: 0.35, delay: Math.min(i * 0.05, 0.3) }}>
                   <Link href={`/architecture/principles/${p.slug}`}
-                    className="block h-full bg-[#0f0f0f] border border-[#1f1f1f] rounded-2xl p-6 hover:border-amber-500/30 hover:bg-[#121212] transition-all group">
+                    className="block h-full bg-surface border border-border-dim rounded-2xl p-6 hover:border-amber-500/30 hover:bg-[#121212] transition-all group">
                     <div className="flex items-start justify-between mb-4">
                       <div className="w-11 h-11 rounded-xl bg-amber-500/10 border border-amber-500/25 flex items-center justify-center">
                         <Icon size={18} className="text-amber-400" />
                       </div>
-                      <span className="flex items-center gap-1 text-[10px] font-mono text-zinc-600 group-hover:text-amber-400 transition-colors uppercase tracking-wider">
+                      <span className="flex items-center gap-1 text-[10px] font-mono text-text-4 group-hover:text-amber-400 transition-colors uppercase tracking-wider">
                         Drill in
                         <ArrowRight size={11} className="group-hover:translate-x-0.5 transition-transform" />
                       </span>
                     </div>
-                    <h3 className="text-white font-bold mb-2 text-base group-hover:text-amber-400 transition-colors">{p.title}</h3>
-                    <p className="text-zinc-400 text-[13px] leading-relaxed">{p.desc}</p>
+                    <h3 className="text-foreground font-bold mb-2 text-base group-hover:text-amber-400 transition-colors">{p.title}</h3>
+                    <p className="text-text-2 text-[13px] leading-relaxed">{p.desc}</p>
                   </Link>
                 </motion.div>
               );
@@ -213,11 +213,11 @@ export default function ArchitecturePage() {
       </section>
 
       {/* TIERS / BUNDLES */}
-      <section className="py-24 bg-[#0a0a0a] border-b border-[#1a1a1a]">
+      <section className="py-24 bg-background border-b border-border-dim">
         <div className="max-w-[var(--container-max)] mx-auto px-6">
           <p className="text-amber-500 text-xs font-semibold uppercase tracking-widest mb-3">Activation Tiers</p>
-          <h2 className="text-4xl font-black text-white tracking-tight mb-4">Start where you are.</h2>
-          <p className="text-zinc-400 text-lg max-w-2xl mb-14">
+          <h2 className="text-4xl font-black text-foreground tracking-tight mb-4">Start where you are.</h2>
+          <p className="text-text-2 text-lg max-w-2xl mb-14">
             Pick a tier that matches today&apos;s scale. Upgrade in-place when you outgrow it.
             No data migration, no re-training, no implementation re-do.
           </p>
@@ -229,18 +229,18 @@ export default function ArchitecturePage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: i * 0.08 }}
-                className="bg-[#0f0f0f] border rounded-2xl p-6 hover:border-amber-500/30 transition-colors flex flex-col"
+                className="bg-surface border rounded-2xl p-6 hover:border-amber-500/30 transition-colors flex flex-col"
                 style={{ borderColor: `${tier.color}25` }}>
                 <div className="flex items-center gap-3 mb-2">
                   <span className="w-1.5 h-6 rounded-full" style={{ background: tier.color }} />
-                  <h3 className="text-xl font-black text-white">{tier.name}</h3>
+                  <h3 className="text-xl font-black text-foreground">{tier.name}</h3>
                 </div>
-                <p className="text-xs text-zinc-500 mb-5 font-mono">{tier.suited}</p>
+                <p className="text-xs text-text-3 mb-5 font-mono">{tier.suited}</p>
 
                 <p className="text-[10px] font-semibold uppercase tracking-wider text-emerald-400 mb-2">Includes</p>
                 <ul className="space-y-1.5 mb-5 flex-1">
                   {tier.includes.map((inc) => (
-                    <li key={inc} className="text-xs text-zinc-300 flex items-start gap-2">
+                    <li key={inc} className="text-xs text-text-2 flex items-start gap-2">
                       <span className="text-emerald-400 mt-0.5">+</span> {inc}
                     </li>
                   ))}
@@ -248,10 +248,10 @@ export default function ArchitecturePage() {
 
                 {tier.skip[0] !== "—" && (
                   <>
-                    <p className="text-[10px] font-semibold uppercase tracking-wider text-zinc-600 mb-2">Not included (add later)</p>
+                    <p className="text-[10px] font-semibold uppercase tracking-wider text-text-4 mb-2">Not included (add later)</p>
                     <ul className="space-y-1">
                       {tier.skip.map((s) => (
-                        <li key={s} className="text-xs text-zinc-600 flex items-start gap-2">
+                        <li key={s} className="text-xs text-text-4 flex items-start gap-2">
                           <span className="text-zinc-700 mt-0.5">−</span> {s}
                         </li>
                       ))}
@@ -265,11 +265,11 @@ export default function ArchitecturePage() {
       </section>
 
       {/* SCALE PATH */}
-      <section className="py-24 border-b border-[#1a1a1a]">
+      <section className="py-24 border-b border-border-dim">
         <div className="max-w-[var(--container-max)] mx-auto px-6">
           <p className="text-amber-500 text-xs font-semibold uppercase tracking-widest mb-3">Scale Path</p>
-          <h2 className="text-4xl font-black text-white tracking-tight mb-4">From Day 1 to Group Scale.</h2>
-          <p className="text-zinc-400 text-lg max-w-2xl mb-14">
+          <h2 className="text-4xl font-black text-foreground tracking-tight mb-4">From Day 1 to Group Scale.</h2>
+          <p className="text-text-2 text-lg max-w-2xl mb-14">
             One platform. Same data model. Same workflows. Add modules when you need them.
           </p>
 
@@ -284,16 +284,16 @@ export default function ArchitecturePage() {
                   viewport={{ once: true }}
                   transition={{ duration: 0.45, delay: i * 0.08 }}
                   className="flex gap-6 items-start">
-                  <div className="flex-shrink-0 w-14 h-14 rounded-full bg-[#0f0f0f] border border-amber-500/40 flex items-center justify-center font-mono text-xs font-bold text-amber-400">
+                  <div className="flex-shrink-0 w-14 h-14 rounded-full bg-surface border border-amber-500/40 flex items-center justify-center font-mono text-xs font-bold text-amber-400">
                     {String(i + 1).padStart(2, "0")}
                   </div>
-                  <div className="bg-[#0f0f0f] border border-[#1f1f1f] rounded-2xl p-5 flex-1 hover:border-amber-500/25 transition-colors">
+                  <div className="bg-surface border border-border-dim rounded-2xl p-5 flex-1 hover:border-amber-500/25 transition-colors">
                     <div className="flex items-center gap-3 mb-2">
                       <span className="text-xs font-bold text-amber-400 font-mono">{step.stage}</span>
                       <span className="text-zinc-700">·</span>
-                      <h3 className="text-base font-bold text-white">{step.title}</h3>
+                      <h3 className="text-base font-bold text-foreground">{step.title}</h3>
                     </div>
-                    <p className="text-sm text-zinc-400 leading-relaxed">{step.desc}</p>
+                    <p className="text-sm text-text-2 leading-relaxed">{step.desc}</p>
                   </div>
                 </motion.div>
               ))}
@@ -303,26 +303,26 @@ export default function ArchitecturePage() {
       </section>
 
       {/* MODULE DEPENDENCY VISUAL */}
-      <section className="py-24 bg-[#0a0a0a] border-b border-[#1a1a1a]">
+      <section className="py-24 bg-background border-b border-border-dim">
         <div className="max-w-[var(--container-max)] mx-auto px-6">
           <p className="text-amber-500 text-xs font-semibold uppercase tracking-widest mb-3">Module Dependencies</p>
-          <h2 className="text-4xl font-black text-white tracking-tight mb-4">Modules talk through APIs.</h2>
-          <p className="text-zinc-400 text-lg max-w-2xl mb-12">
+          <h2 className="text-4xl font-black text-foreground tracking-tight mb-4">Modules talk through APIs.</h2>
+          <p className="text-text-2 text-lg max-w-2xl mb-12">
             No hidden coupling. Every module call goes through a versioned, audit-logged API.
             Disable one — others keep working.
           </p>
 
-          <div className="bg-[#0f0f0f] border border-[#1f1f1f] rounded-2xl p-8">
+          <div className="bg-surface border border-border-dim rounded-2xl p-8">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
               <div className="text-center">
                 <div className="inline-block px-4 py-3 rounded-xl bg-emerald-500/10 border border-emerald-500/30 mb-2">
                   <Workflow size={22} className="text-emerald-400" />
                 </div>
-                <p className="text-sm font-bold text-white">Sales Module</p>
-                <p className="text-xs text-zinc-500 mt-1 font-mono">creates order</p>
+                <p className="text-sm font-bold text-foreground">Sales Module</p>
+                <p className="text-xs text-text-3 mt-1 font-mono">creates order</p>
               </div>
 
-              <div className="flex flex-col items-center gap-2 text-zinc-600">
+              <div className="flex flex-col items-center gap-2 text-text-4">
                 <span className="text-xs font-mono">→ API call →</span>
                 <div className="w-full h-px bg-gradient-to-r from-transparent via-amber-500/40 to-transparent" />
                 <span className="text-[10px] font-mono">audit logged · versioned · RBAC checked</span>
@@ -332,22 +332,22 @@ export default function ArchitecturePage() {
                 <div className="inline-block px-4 py-3 rounded-xl bg-purple-500/10 border border-purple-500/30 mb-2">
                   <Server size={22} className="text-purple-400" />
                 </div>
-                <p className="text-sm font-bold text-white">Inventory Module</p>
-                <p className="text-xs text-zinc-500 mt-1 font-mono">checks ATP</p>
+                <p className="text-sm font-bold text-foreground">Inventory Module</p>
+                <p className="text-xs text-text-3 mt-1 font-mono">checks ATP</p>
               </div>
             </div>
 
-            <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-4 text-xs text-zinc-500">
-              <div className="bg-[#080808] border border-[#1f1f1f] rounded-lg p-3">
-                <p className="text-white font-semibold mb-1">No direct DB access</p>
+            <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-4 text-xs text-text-3">
+              <div className="bg-background border border-border-dim rounded-lg p-3">
+                <p className="text-foreground font-semibold mb-1">No direct DB access</p>
                 <p>Modules don&apos;t query each other&apos;s tables. Calls go through APIs.</p>
               </div>
-              <div className="bg-[#080808] border border-[#1f1f1f] rounded-lg p-3">
-                <p className="text-white font-semibold mb-1">Versioned contracts</p>
+              <div className="bg-background border border-border-dim rounded-lg p-3">
+                <p className="text-foreground font-semibold mb-1">Versioned contracts</p>
                 <p>Breaking changes require versioned APIs. Old clients keep working.</p>
               </div>
-              <div className="bg-[#080808] border border-[#1f1f1f] rounded-lg p-3">
-                <p className="text-white font-semibold mb-1">Graceful degradation</p>
+              <div className="bg-background border border-border-dim rounded-lg p-3">
+                <p className="text-foreground font-semibold mb-1">Graceful degradation</p>
                 <p>If a module is disabled, callers handle absence cleanly.</p>
               </div>
             </div>

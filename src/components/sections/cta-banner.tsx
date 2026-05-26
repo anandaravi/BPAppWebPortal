@@ -12,7 +12,7 @@ export function CTABanner() {
       <div className="absolute inset-0">
         <Image src="/images/heroes/sales-hero.jpg"
           alt="Paper mill" fill className="object-cover" />
-        <div className="absolute inset-0 bg-[#080808]/88" />
+        <div className="absolute inset-0 bg-background/88" />
         <div className="absolute inset-0 bg-gradient-to-t from-[#080808] via-transparent to-[#080808]" />
       </div>
       <div className="absolute left-0 top-0 bottom-0 w-1 bg-amber-500" />
@@ -21,10 +21,10 @@ export function CTABanner() {
         <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }} transition={{ duration: 0.6 }}>
           <p className="text-amber-500 text-xs font-semibold uppercase tracking-widest mb-5">Ready to modernize your mill?</p>
-          <h2 className="text-5xl md:text-6xl font-black text-white mb-6 leading-tight tracking-tight">
+          <h2 className="text-5xl md:text-6xl font-black text-foreground mb-6 leading-tight tracking-tight">
             See Papyrus BPApp<br />in your mill.
           </h2>
-          <p className="text-zinc-400 text-lg mb-10 max-w-xl mx-auto leading-relaxed">
+          <p className="text-text-2 text-lg mb-10 max-w-xl mx-auto leading-relaxed">
             Book a personalized demo. We&apos;ll walk through every module relevant to your
             operation — from Deckle optimization to GSTR-3B compliance.
           </p>
@@ -35,7 +35,7 @@ export function CTABanner() {
               <ArrowRight size={16} className="group-hover:translate-x-0.5 transition-transform" />
             </Link>
             <a href={`mailto:${SITE.email}`}
-              className="px-8 py-4 rounded-xl border border-[#333] text-white hover:border-amber-500/40 text-sm font-medium transition-all duration-200">
+              className="px-8 py-4 rounded-xl border border-border-light text-foreground hover:border-amber-500/40 text-sm font-medium transition-all duration-200">
               Email us directly
             </a>
           </div>

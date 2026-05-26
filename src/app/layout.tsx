@@ -70,11 +70,11 @@ export const viewport = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${geistSans.variable} ${geistMono.variable} h-full`}>
+    <html lang="en" suppressHydrationWarning className={`${geistSans.variable} ${geistMono.variable} h-full`}>
       <head>
         <JsonLd data={[ORGANIZATION_SCHEMA, SOFTWARE_APPLICATION_SCHEMA]} />
       </head>
-      <body className="min-h-full flex flex-col bg-[#080808] text-white antialiased">
+      <body className="min-h-full flex flex-col bg-background text-foreground antialiased">
         <Providers>
           <Navbar />
           <main className="flex-1">

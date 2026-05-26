@@ -311,17 +311,17 @@ function VideoModal({
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex items-center justify-between mb-3 gap-4">
-          <p className="text-white font-semibold text-sm leading-snug line-clamp-1">
+          <p className="text-foreground font-semibold text-sm leading-snug line-clamp-1">
             {video.title}
           </p>
           <button
             onClick={onClose}
-            className="flex-shrink-0 flex items-center gap-1.5 text-zinc-400 hover:text-white transition-colors text-xs font-semibold"
+            className="flex-shrink-0 flex items-center gap-1.5 text-text-2 hover:text-foreground transition-colors text-xs font-semibold"
           >
             <X size={14} /> Close
           </button>
         </div>
-        <div className="aspect-video w-full bg-black rounded-2xl overflow-hidden border border-[#2a2a2a] shadow-2xl">
+        <div className="aspect-video w-full bg-black rounded-2xl overflow-hidden border border-border-light shadow-2xl">
           <iframe
             src={`https://www.youtube-nocookie.com/embed/${video.youtubeId}?autoplay=1&rel=0&modestbranding=1`}
             title={video.title}
@@ -330,7 +330,7 @@ function VideoModal({
             className="w-full h-full"
           />
         </div>
-        <p className="mt-3 text-xs text-zinc-500 text-center">
+        <p className="mt-3 text-xs text-text-3 text-center">
           Click outside or press Esc to close
         </p>
       </motion.div>
@@ -362,15 +362,15 @@ function VideoCard({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.4, delay: index * 0.06 }}
-      className={`bg-[#0f0f0f] border rounded-2xl overflow-hidden flex flex-col group transition-colors ${
+      className={`bg-surface border rounded-2xl overflow-hidden flex flex-col group transition-colors ${
         isCustomerStory
           ? "border-amber-500/30 hover:border-amber-500/50"
-          : "border-[#1f1f1f] hover:border-amber-500/25"
+          : "border-border-dim hover:border-amber-500/25"
       }`}
     >
       {/* Thumbnail */}
       <div
-        className={`relative bg-[#0a0a0a] border-b border-[#1a1a1a] overflow-hidden ${
+        className={`relative bg-background border-b border-border-dim overflow-hidden ${
           featured ? "h-56 md:h-64" : "h-44"
         } ${hasYoutube ? "cursor-pointer" : ""}`}
         onClick={() => hasYoutube && onPlay(video)}
@@ -418,7 +418,7 @@ function VideoCard({
               Customer Story
             </span>
           ) : (
-            <span className="text-[10px] font-bold uppercase tracking-widest px-2 py-0.5 rounded bg-[#080808]/80 border border-[#2a2a2a] text-zinc-400">
+            <span className="text-[10px] font-bold uppercase tracking-widest px-2 py-0.5 rounded bg-background/80 border border-border-light text-text-2">
               Product
             </span>
           )}
@@ -428,13 +428,13 @@ function VideoCard({
       {/* Content */}
       <div className="p-5 flex flex-col gap-3 flex-1">
         <h3
-          className={`text-white font-bold leading-snug ${
+          className={`text-foreground font-bold leading-snug ${
             featured ? "text-lg" : "text-base"
           }`}
         >
           {video.title}
         </h3>
-        <p className="text-sm text-zinc-400 leading-relaxed flex-1">
+        <p className="text-sm text-text-2 leading-relaxed flex-1">
           {video.description}
         </p>
         {hasYoutube ? (
@@ -448,7 +448,7 @@ function VideoCard({
         ) : (
           <Link
             href="/contact"
-            className="group/btn mt-1 inline-flex items-center gap-1.5 text-zinc-500 hover:text-zinc-300 text-sm font-semibold transition-colors"
+            className="group/btn mt-1 inline-flex items-center gap-1.5 text-text-3 hover:text-text-2 text-sm font-semibold transition-colors"
           >
             Coming Soon
             <ChevronRight
@@ -478,7 +478,7 @@ export default function ResourcesPage() {
   const productVideos = VIDEOS.filter((v) => v.category === "Product");
 
   return (
-    <div className="min-h-screen bg-[#080808]">
+    <div className="min-h-screen bg-background">
       {/* VIDEO MODAL */}
       <AnimatePresence>
         {activeVideo && activeVideo.youtubeId && (
@@ -487,7 +487,7 @@ export default function ResourcesPage() {
       </AnimatePresence>
 
       {/* HERO */}
-      <section className="relative overflow-hidden grain">
+      <section className="relative overflow-hidden grain on-photo">
         <div className="absolute inset-0 bg-gradient-to-br from-amber-500/5 via-transparent to-transparent" />
         <div className="absolute inset-0 bg-gradient-to-t from-[#080808] via-transparent to-transparent" />
         <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-transparent via-amber-500 to-transparent opacity-60" />
@@ -506,7 +506,7 @@ export default function ResourcesPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="text-5xl md:text-7xl font-black text-white leading-[1.05] tracking-tight mb-6 max-w-4xl"
+            className="text-5xl md:text-7xl font-black text-foreground leading-[1.05] tracking-tight mb-6 max-w-4xl"
           >
             Everything you need to{" "}
             <span className="amber-text">get up and running.</span>
@@ -516,7 +516,7 @@ export default function ResourcesPage() {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="text-lg text-zinc-400 max-w-2xl mb-10 leading-relaxed"
+            className="text-lg text-text-2 max-w-2xl mb-10 leading-relaxed"
           >
             Quick links to videos, guides, presentations, and webinars to help
             your team onboard faster and get the most out of every BPApp module.
@@ -542,10 +542,10 @@ export default function ResourcesPage() {
       </section>
 
       {/* TAB NAV + CONTENT */}
-      <section className="py-16 border-t border-[#1a1a1a]">
+      <section className="py-16 border-t border-border-dim">
         <div className="max-w-[var(--container-max)] mx-auto px-6">
           {/* Tabs */}
-          <div className="flex items-center gap-1 mb-12 border-b border-[#1a1a1a] overflow-x-auto">
+          <div className="flex items-center gap-1 mb-12 border-b border-border-dim overflow-x-auto">
             {TABS.map((tab) => (
               <button
                 key={tab.id}
@@ -553,7 +553,7 @@ export default function ResourcesPage() {
                 className={`relative px-6 py-3.5 text-sm font-semibold whitespace-nowrap transition-colors ${
                   activeTab === tab.id
                     ? "text-amber-400"
-                    : "text-zinc-500 hover:text-zinc-300"
+                    : "text-text-3 hover:text-text-2"
                 }`}
               >
                 {tab.label}
@@ -586,7 +586,7 @@ export default function ResourcesPage() {
                       <p className="text-amber-500 text-xs font-semibold uppercase tracking-widest">
                         Customer Story
                       </p>
-                      <div className="h-px flex-1 bg-[#1f1f1f]" />
+                      <div className="h-px flex-1 bg-surface-3" />
                     </div>
                     <VideoCard
                       video={featuredVideo}
@@ -600,10 +600,10 @@ export default function ResourcesPage() {
                 {/* Product videos */}
                 <div>
                   <div className="flex items-center gap-3 mb-6">
-                    <p className="text-zinc-500 text-xs font-semibold uppercase tracking-widest">
+                    <p className="text-text-3 text-xs font-semibold uppercase tracking-widest">
                       Product Videos
                     </p>
-                    <div className="h-px flex-1 bg-[#1f1f1f]" />
+                    <div className="h-px flex-1 bg-surface-3" />
                   </div>
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {productVideos.map((video, i) => (
@@ -635,13 +635,13 @@ export default function ResourcesPage() {
                       whileInView={{ opacity: 1, y: 0 }}
                       viewport={{ once: true }}
                       transition={{ duration: 0.4, delay: i * 0.06 }}
-                      className="bg-[#0f0f0f] border border-[#1f1f1f] rounded-2xl p-5 flex flex-col gap-4 hover:border-amber-500/25 transition-colors"
+                      className="bg-surface border border-border-dim rounded-2xl p-5 flex flex-col gap-4 hover:border-amber-500/25 transition-colors"
                     >
                       <div className="flex items-start justify-between gap-3">
                         <div className="w-11 h-11 rounded-xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center flex-shrink-0">
                           <GuideIcon name={guide.icon} />
                         </div>
-                        <span className="text-[10px] font-semibold text-zinc-500 bg-[#1a1a1a] border border-[#2a2a2a] px-2.5 py-1 rounded-md mt-1">
+                        <span className="text-[10px] font-semibold text-text-3 bg-surface-3 border border-border-light px-2.5 py-1 rounded-md mt-1">
                           {guide.pages}
                         </span>
                       </div>
@@ -653,10 +653,10 @@ export default function ResourcesPage() {
                       </div>
 
                       <div className="flex-1">
-                        <h3 className="text-white font-bold text-base leading-snug mb-2">
+                        <h3 className="text-foreground font-bold text-base leading-snug mb-2">
                           {guide.title}
                         </h3>
-                        <p className="text-sm text-zinc-400 leading-relaxed">
+                        <p className="text-sm text-text-2 leading-relaxed">
                           {guide.description}
                         </p>
                       </div>
@@ -693,13 +693,13 @@ export default function ResourcesPage() {
                       whileInView={{ opacity: 1, y: 0 }}
                       viewport={{ once: true }}
                       transition={{ duration: 0.4, delay: i * 0.06 }}
-                      className="bg-[#0f0f0f] border border-[#1f1f1f] rounded-2xl p-5 flex flex-col gap-4 hover:border-amber-500/25 transition-colors"
+                      className="bg-surface border border-border-dim rounded-2xl p-5 flex flex-col gap-4 hover:border-amber-500/25 transition-colors"
                     >
                       <div className="flex items-start justify-between gap-3">
                         <div className="w-11 h-11 rounded-xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center flex-shrink-0">
                           <Presentation size={22} className="text-amber-400" />
                         </div>
-                        <span className="text-[10px] font-semibold text-zinc-500 bg-[#1a1a1a] border border-[#2a2a2a] px-2.5 py-1 rounded-md mt-1">
+                        <span className="text-[10px] font-semibold text-text-3 bg-surface-3 border border-border-light px-2.5 py-1 rounded-md mt-1">
                           {deck.slides}
                         </span>
                       </div>
@@ -711,10 +711,10 @@ export default function ResourcesPage() {
                       </div>
 
                       <div className="flex-1">
-                        <h3 className="text-white font-bold text-base leading-snug mb-2">
+                        <h3 className="text-foreground font-bold text-base leading-snug mb-2">
                           {deck.title}
                         </h3>
-                        <p className="text-sm text-zinc-400 leading-relaxed">
+                        <p className="text-sm text-text-2 leading-relaxed">
                           {deck.description}
                         </p>
                       </div>
@@ -750,7 +750,7 @@ export default function ResourcesPage() {
                     <p className="text-amber-500 text-xs font-semibold uppercase tracking-widest">
                       Upcoming
                     </p>
-                    <div className="h-px flex-1 bg-[#1f1f1f]" />
+                    <div className="h-px flex-1 bg-surface-3" />
                   </div>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     {WEBINARS_UPCOMING.map((w, i) => (
@@ -760,23 +760,23 @@ export default function ResourcesPage() {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.4, delay: i * 0.08 }}
-                        className="bg-[#0f0f0f] border border-amber-500/20 rounded-2xl p-6 flex flex-col gap-4 hover:border-amber-500/40 transition-colors"
+                        className="bg-surface border border-amber-500/20 rounded-2xl p-6 flex flex-col gap-4 hover:border-amber-500/40 transition-colors"
                       >
                         <div className="flex items-center justify-between gap-3 flex-wrap">
                           <div className="flex items-center gap-2 text-[11px] font-semibold text-amber-400 bg-amber-500/10 border border-amber-500/20 px-2.5 py-1 rounded-md">
                             <Calendar size={11} />
                             {w.dateLabel}
                           </div>
-                          <div className="flex items-center gap-1.5 text-[10px] text-zinc-500 bg-[#1a1a1a] border border-[#2a2a2a] px-2.5 py-1 rounded-md">
+                          <div className="flex items-center gap-1.5 text-[10px] text-text-3 bg-surface-3 border border-border-light px-2.5 py-1 rounded-md">
                             <Clock size={10} />
                             {w.duration}
                           </div>
                         </div>
                         <div>
-                          <h3 className="text-white font-bold text-lg leading-snug mb-1.5">
+                          <h3 className="text-foreground font-bold text-lg leading-snug mb-1.5">
                             {w.title}
                           </h3>
-                          <p className="text-sm text-zinc-400 leading-relaxed">
+                          <p className="text-sm text-text-2 leading-relaxed">
                             {w.description}
                           </p>
                         </div>
@@ -798,10 +798,10 @@ export default function ResourcesPage() {
                 {/* Recorded */}
                 <div>
                   <div className="flex items-center gap-3 mb-6">
-                    <p className="text-zinc-500 text-xs font-semibold uppercase tracking-widest">
+                    <p className="text-text-3 text-xs font-semibold uppercase tracking-widest">
                       Recorded
                     </p>
-                    <div className="h-px flex-1 bg-[#1f1f1f]" />
+                    <div className="h-px flex-1 bg-surface-3" />
                   </div>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     {WEBINARS_RECORDED.map((w, i) => (
@@ -811,23 +811,23 @@ export default function ResourcesPage() {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.4, delay: i * 0.06 }}
-                        className="bg-[#0f0f0f] border border-[#1f1f1f] rounded-2xl p-6 flex flex-col gap-4 hover:border-amber-500/25 transition-colors"
+                        className="bg-surface border border-border-dim rounded-2xl p-6 flex flex-col gap-4 hover:border-amber-500/25 transition-colors"
                       >
                         <div className="flex items-center justify-between gap-3 flex-wrap">
-                          <div className="flex items-center gap-1.5 text-[10px] font-semibold text-zinc-400 bg-[#1a1a1a] border border-[#2a2a2a] px-2.5 py-1 rounded-md">
+                          <div className="flex items-center gap-1.5 text-[10px] font-semibold text-text-2 bg-surface-3 border border-border-light px-2.5 py-1 rounded-md">
                             <Video size={10} />
                             Recorded
                           </div>
-                          <div className="flex items-center gap-1.5 text-[10px] text-zinc-500 bg-[#1a1a1a] border border-[#2a2a2a] px-2.5 py-1 rounded-md">
+                          <div className="flex items-center gap-1.5 text-[10px] text-text-3 bg-surface-3 border border-border-light px-2.5 py-1 rounded-md">
                             <Clock size={10} />
                             {w.duration}
                           </div>
                         </div>
                         <div>
-                          <h3 className="text-white font-bold text-base leading-snug mb-1.5">
+                          <h3 className="text-foreground font-bold text-base leading-snug mb-1.5">
                             {w.title}
                           </h3>
-                          <p className="text-sm text-zinc-400 leading-relaxed">
+                          <p className="text-sm text-text-2 leading-relaxed">
                             {w.description}
                           </p>
                         </div>

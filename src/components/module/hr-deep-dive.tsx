@@ -201,9 +201,9 @@ const TIMELINE = [
 
 export function HRDeepDive({ data }: { data: ModuleData }) {
   return (
-    <div className="min-h-screen bg-[#080808]">
+    <div className="min-h-screen bg-background">
       {/* HERO */}
-      <section className="relative min-h-[88vh] overflow-hidden grain">
+      <section className="relative min-h-[88vh] overflow-hidden grain on-photo">
         <div className="absolute inset-0">
           <Image src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1920&q=80"
             alt="Mill workforce" fill className="object-cover" priority unoptimized />
@@ -219,13 +219,13 @@ export function HRDeepDive({ data }: { data: ModuleData }) {
           </motion.div>
 
           <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-5xl md:text-7xl lg:text-8xl font-black text-white leading-[0.95] tracking-tight mb-6 max-w-5xl">
+            className="text-5xl md:text-7xl lg:text-8xl font-black text-foreground leading-[0.95] tracking-tight mb-6 max-w-5xl">
             Roster to payroll.<br />
             <span style={{ background: "linear-gradient(135deg, #EC4899, #F472B6)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>Statutory by default.</span>
           </motion.h1>
 
           <motion.p initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-xl text-zinc-400 max-w-2xl mb-10 leading-relaxed">
+            className="text-xl text-text-2 max-w-2xl mb-10 leading-relaxed">
             HR + payroll engineered for 500+ employee Indian paper mills. PF, ESI, PT, LWF,
             gratuity, TDS — all native. Multi-shift roster with biometric attendance, Gap 2.1
             compliance, contract labour, ESS/MSS mobile. Audit-ready every day.
@@ -236,7 +236,7 @@ export function HRDeepDive({ data }: { data: ModuleData }) {
             <Link href="/contact" className="group inline-flex items-center justify-center gap-2 px-7 py-4 rounded-lg bg-amber-500 hover:bg-amber-400 text-black font-bold text-sm transition-all">
               Get a live demo <ArrowRight size={16} className="group-hover:translate-x-0.5 transition-transform" />
             </Link>
-            <Link href="/product" className="inline-flex items-center gap-2 px-7 py-4 rounded-lg border border-[#333] text-white hover:border-amber-500/40 text-sm font-medium transition-all">
+            <Link href="/product" className="inline-flex items-center gap-2 px-7 py-4 rounded-lg border border-border-light text-foreground hover:border-amber-500/40 text-sm font-medium transition-all">
               <ArrowLeft size={14} /> All Modules
             </Link>
           </motion.div>
@@ -249,9 +249,9 @@ export function HRDeepDive({ data }: { data: ModuleData }) {
               { value: "500+", label: "employee scale", color: "#F9A8D4" },
               { value: "Gap 2.1", label: "shift compliant", color: "#FBCFE8" },
             ].map((m) => (
-              <div key={m.label} className="bg-[#0f0f0f]/85 backdrop-blur border border-[#1f1f1f] rounded-xl p-4">
+              <div key={m.label} className="bg-surface/85 backdrop-blur border border-border-dim rounded-xl p-4">
                 <p className="text-2xl font-black font-mono mb-1" style={{ color: m.color }}>{m.value}</p>
-                <p className="text-xs text-zinc-500">{m.label}</p>
+                <p className="text-xs text-text-3">{m.label}</p>
               </div>
             ))}
           </motion.div>
@@ -259,7 +259,7 @@ export function HRDeepDive({ data }: { data: ModuleData }) {
       </section>
 
       {/* PROBLEM */}
-      <section className="py-20 border-y border-[#1a1a1a] bg-[#0a0a0a]">
+      <section className="py-20 border-y border-border-dim bg-background">
         <div className="max-w-[var(--container-max)] mx-auto px-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-14 items-center">
             <motion.div initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }}
@@ -267,15 +267,15 @@ export function HRDeepDive({ data }: { data: ModuleData }) {
               <p className="text-pink-300 text-xs font-semibold uppercase tracking-widest mb-3 flex items-center gap-2">
                 <AlertTriangle size={12} /> The HR tax
               </p>
-              <h2 className="text-4xl md:text-5xl font-black text-white tracking-tight mb-6 leading-tight">
+              <h2 className="text-4xl md:text-5xl font-black text-foreground tracking-tight mb-6 leading-tight">
                 Indian mill HR runs on <span className="text-pink-300">three Excel files and hope</span>.
               </h2>
-              <p className="text-zinc-400 text-lg leading-relaxed mb-6">
+              <p className="text-text-2 text-lg leading-relaxed mb-6">
                 Permanent + contract + trainee — 500+ people. PF, ESI, PT, LWF, gratuity rules
                 change by state. Shift gap rules are statutory. Form 16 deadlines don&apos;t move.
                 And then the labour inspector visits.
               </p>
-              <p className="text-zinc-500 text-sm leading-relaxed">
+              <p className="text-text-3 text-sm leading-relaxed">
                 Generic HR systems built for IT services miss most of this. Manufacturing-aware
                 HR isn&apos;t a payroll tool — it&apos;s an integrated workforce + compliance system that
                 ties to the shop floor, the contractor master, and the statutory portals.
@@ -284,8 +284,8 @@ export function HRDeepDive({ data }: { data: ModuleData }) {
 
             <motion.div initial={{ opacity: 0, x: 20 }} whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.1 }}
-              className="bg-[#0f0f0f] border border-[#1f1f1f] rounded-2xl p-6">
-              <p className="text-[10px] uppercase tracking-widest font-mono text-zinc-600 mb-5">HR overhead · 500-employee mill</p>
+              className="bg-surface border border-border-dim rounded-2xl p-6">
+              <p className="text-[10px] uppercase tracking-widest font-mono text-text-4 mb-5">HR overhead · 500-employee mill</p>
               <div className="space-y-4">
                 {[
                   { label: "Payroll cycle (legacy)", value: "4 days", bar: 100, color: "#EF4444" },
@@ -295,10 +295,10 @@ export function HRDeepDive({ data }: { data: ModuleData }) {
                 ].map((row, i) => (
                   <div key={row.label}>
                     <div className="flex justify-between text-xs mb-1.5">
-                      <span className="text-zinc-400">{row.label}</span>
+                      <span className="text-text-2">{row.label}</span>
                       <span className="font-mono font-bold" style={{ color: row.color }}>{row.value}</span>
                     </div>
-                    <div className="h-2.5 bg-[#1a1a1a] rounded-full overflow-hidden">
+                    <div className="h-2.5 bg-surface-3 rounded-full overflow-hidden">
                       <motion.div initial={{ width: 0 }} whileInView={{ width: `${row.bar}%` }}
                         viewport={{ once: true }} transition={{ duration: 1.2, delay: 0.3 + i * 0.15, ease: "easeOut" }}
                         className="h-full rounded-full" style={{ background: row.color }} />
@@ -306,7 +306,7 @@ export function HRDeepDive({ data }: { data: ModuleData }) {
                   </div>
                 ))}
               </div>
-              <p className="text-[10px] text-zinc-600 mt-5 font-mono leading-relaxed">
+              <p className="text-[10px] text-text-4 mt-5 font-mono leading-relaxed">
                 * 500-employee mill, mixed permanent + contract. Numbers from post-deployment baseline.
               </p>
             </motion.div>
@@ -315,13 +315,13 @@ export function HRDeepDive({ data }: { data: ModuleData }) {
       </section>
 
       {/* STATUTORY */}
-      <section className="py-24 border-b border-[#1a1a1a]">
+      <section className="py-24 border-b border-border-dim">
         <div className="max-w-[var(--container-max)] mx-auto px-6">
           <p className="text-pink-300 text-xs font-semibold uppercase tracking-widest mb-3">Statutory Coverage</p>
-          <h2 className="text-4xl md:text-5xl font-black text-white tracking-tight mb-4">
+          <h2 className="text-4xl md:text-5xl font-black text-foreground tracking-tight mb-4">
             Six statutory engines. One payroll run.
           </h2>
-          <p className="text-zinc-400 text-lg max-w-3xl mb-14 leading-relaxed">
+          <p className="text-text-2 text-lg max-w-3xl mb-14 leading-relaxed">
             PF, ESI, PT, LWF, gratuity, TDS — each with its own state rules, formats, deadlines, and portal integrations. All applied per employee, every month, with audit trail.
           </p>
 
@@ -332,7 +332,7 @@ export function HRDeepDive({ data }: { data: ModuleData }) {
                 <motion.div key={p.name}
                   initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }} transition={{ duration: 0.4, delay: Math.min(i * 0.06, 0.3) }}
-                  className="bg-[#0f0f0f] border rounded-2xl p-5 flex flex-col gap-3"
+                  className="bg-surface border rounded-2xl p-5 flex flex-col gap-3"
                   style={{ borderColor: `${p.color}30` }}>
                   <div className="flex items-center justify-between">
                     <div className="w-11 h-11 rounded-xl border flex items-center justify-center"
@@ -342,12 +342,12 @@ export function HRDeepDive({ data }: { data: ModuleData }) {
                     <span className="font-mono text-xs font-bold" style={{ color: p.color }}>{p.name}</span>
                   </div>
                   <div>
-                    <h3 className="text-white font-bold text-base mb-1">{p.title}</h3>
+                    <h3 className="text-foreground font-bold text-base mb-1">{p.title}</h3>
                   </div>
-                  <p className="text-sm text-zinc-400 leading-relaxed">{p.desc}</p>
-                  <div className="pt-2 border-t border-[#1f1f1f]">
+                  <p className="text-sm text-text-2 leading-relaxed">{p.desc}</p>
+                  <div className="pt-2 border-t border-border-dim">
                     <p className="text-[9px] uppercase tracking-widest font-semibold mb-1" style={{ color: p.color }}>Coverage</p>
-                    <p className="text-[10px] text-zinc-400 font-mono leading-relaxed">{p.coverage}</p>
+                    <p className="text-[10px] text-text-2 font-mono leading-relaxed">{p.coverage}</p>
                   </div>
                 </motion.div>
               );
@@ -357,11 +357,11 @@ export function HRDeepDive({ data }: { data: ModuleData }) {
       </section>
 
       {/* SHIFT MODEL */}
-      <section className="py-24 bg-[#0a0a0a] border-b border-[#1a1a1a]">
+      <section className="py-24 bg-background border-b border-border-dim">
         <div className="max-w-[var(--container-max)] mx-auto px-6">
           <p className="text-pink-300 text-xs font-semibold uppercase tracking-widest mb-3">Multi-Shift Workforce</p>
-          <h2 className="text-4xl font-black text-white tracking-tight mb-4">Built for the mill, not the office.</h2>
-          <p className="text-zinc-400 text-lg max-w-2xl mb-12">
+          <h2 className="text-4xl font-black text-foreground tracking-tight mb-4">Built for the mill, not the office.</h2>
+          <p className="text-text-2 text-lg max-w-2xl mb-12">
             Continuous-shift operations need different HR primitives. Six engineered for paper-mill reality.
           </p>
 
@@ -372,12 +372,12 @@ export function HRDeepDive({ data }: { data: ModuleData }) {
                 <motion.div key={s.title}
                   initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }} transition={{ duration: 0.35, delay: i * 0.06 }}
-                  className="bg-[#0f0f0f] border border-[#1f1f1f] rounded-xl p-5 hover:border-pink-500/25 transition-colors">
+                  className="bg-surface border border-border-dim rounded-xl p-5 hover:border-pink-500/25 transition-colors">
                   <div className="w-10 h-10 rounded-lg border border-pink-500/30 bg-pink-500/10 flex items-center justify-center mb-3">
                     <Icon size={16} className="text-pink-300" />
                   </div>
-                  <h3 className="text-white font-bold text-base mb-2">{s.title}</h3>
-                  <p className="text-sm text-zinc-400 leading-relaxed">{s.desc}</p>
+                  <h3 className="text-foreground font-bold text-base mb-2">{s.title}</h3>
+                  <p className="text-sm text-text-2 leading-relaxed">{s.desc}</p>
                 </motion.div>
               );
             })}
@@ -386,26 +386,26 @@ export function HRDeepDive({ data }: { data: ModuleData }) {
       </section>
 
       {/* SAMPLE PAYSLIP */}
-      <section className="py-24 border-b border-[#1a1a1a]">
+      <section className="py-24 border-b border-border-dim">
         <div className="max-w-[var(--container-max)] mx-auto px-6">
           <p className="text-pink-300 text-xs font-semibold uppercase tracking-widest mb-3">Sample Payslip</p>
-          <h2 className="text-4xl font-black text-white tracking-tight mb-4">One run. Every statutory line.</h2>
-          <p className="text-zinc-400 text-lg max-w-2xl mb-12">
+          <h2 className="text-4xl font-black text-foreground tracking-tight mb-4">One run. Every statutory line.</h2>
+          <p className="text-text-2 text-lg max-w-2xl mb-12">
             What the system computes per employee — earnings, deductions, statutory contributions, net pay, audit trail.
           </p>
 
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }} transition={{ duration: 0.6 }}
-            className="bg-[#0f0f0f] border border-[#1f1f1f] rounded-2xl overflow-hidden max-w-4xl mx-auto">
-            <div className="flex items-center justify-between px-6 py-4 border-b border-[#1f1f1f] bg-[#080808]">
+            className="bg-surface border border-border-dim rounded-2xl overflow-hidden max-w-4xl mx-auto">
+            <div className="flex items-center justify-between px-6 py-4 border-b border-border-dim bg-background">
               <div className="flex items-center gap-4">
-                <span className="text-xs font-mono text-zinc-500">PAYSLIP</span>
-                <span className="text-sm font-bold text-white font-mono">EMP-1241 · APR-2026</span>
+                <span className="text-xs font-mono text-text-3">PAYSLIP</span>
+                <span className="text-sm font-bold text-foreground font-mono">EMP-1241 · APR-2026</span>
                 <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-pink-500/15 border border-pink-500/30 text-pink-300">FINALIZED</span>
               </div>
-              <div className="flex items-center gap-5 text-xs text-zinc-500">
-                <span>UAN: <span className="text-white font-mono">100847291</span></span>
-                <span>Regime: <span className="text-white font-mono">New</span></span>
+              <div className="flex items-center gap-5 text-xs text-text-3">
+                <span>UAN: <span className="text-foreground font-mono">100847291</span></span>
+                <span>Regime: <span className="text-foreground font-mono">New</span></span>
               </div>
             </div>
 
@@ -421,12 +421,12 @@ export function HRDeepDive({ data }: { data: ModuleData }) {
                   { label: "Overtime (8 hrs × 1.5x)", value: "₹2,640" },
                 ].map((r) => (
                   <div key={r.label} className="flex justify-between text-xs">
-                    <span className="text-zinc-400">{r.label}</span>
-                    <span className="font-mono text-zinc-200">{r.value}</span>
+                    <span className="text-text-2">{r.label}</span>
+                    <span className="font-mono text-foreground">{r.value}</span>
                   </div>
                 ))}
-                <div className="flex justify-between pt-3 border-t border-[#1f1f1f] text-sm">
-                  <span className="font-bold text-white">Gross</span>
+                <div className="flex justify-between pt-3 border-t border-border-dim text-sm">
+                  <span className="font-bold text-foreground">Gross</span>
                   <span className="font-mono font-bold text-emerald-300">₹59,990</span>
                 </div>
               </div>
@@ -442,27 +442,27 @@ export function HRDeepDive({ data }: { data: ModuleData }) {
                   { label: "Loan EMI", value: "₹1,500" },
                 ].map((r) => (
                   <div key={r.label} className="flex justify-between text-xs">
-                    <span className="text-zinc-400">{r.label}</span>
-                    <span className="font-mono text-zinc-200">{r.value}</span>
+                    <span className="text-text-2">{r.label}</span>
+                    <span className="font-mono text-foreground">{r.value}</span>
                   </div>
                 ))}
-                <div className="flex justify-between pt-3 border-t border-[#1f1f1f] text-sm">
-                  <span className="font-bold text-white">Total deductions</span>
+                <div className="flex justify-between pt-3 border-t border-border-dim text-sm">
+                  <span className="font-bold text-foreground">Total deductions</span>
                   <span className="font-mono font-bold text-red-400">₹8,435</span>
                 </div>
               </div>
             </div>
 
-            <div className="p-6 border-t border-[#1f1f1f] bg-[#0c0c0c] flex items-center justify-between">
+            <div className="p-6 border-t border-border-dim bg-[#0c0c0c] flex items-center justify-between">
               <div>
-                <p className="text-[10px] uppercase tracking-widest text-zinc-500 font-semibold mb-1">Net Pay (credited)</p>
+                <p className="text-[10px] uppercase tracking-widest text-text-3 font-semibold mb-1">Net Pay (credited)</p>
                 <p className="text-3xl font-black font-mono text-pink-300">₹51,555</p>
               </div>
-              <div className="text-right space-y-1 text-[11px] text-zinc-500">
-                <p>Employer PF: <span className="text-zinc-300 font-mono">₹3,420</span></p>
-                <p>Employer ESI: <span className="text-zinc-300 font-mono">₹1,950</span></p>
-                <p>Gratuity accrual: <span className="text-zinc-300 font-mono">₹1,372</span></p>
-                <p>Total CTC for period: <span className="text-zinc-300 font-mono">₹66,732</span></p>
+              <div className="text-right space-y-1 text-[11px] text-text-3">
+                <p>Employer PF: <span className="text-text-2 font-mono">₹3,420</span></p>
+                <p>Employer ESI: <span className="text-text-2 font-mono">₹1,950</span></p>
+                <p>Gratuity accrual: <span className="text-text-2 font-mono">₹1,372</span></p>
+                <p>Total CTC for period: <span className="text-text-2 font-mono">₹66,732</span></p>
               </div>
             </div>
           </motion.div>
@@ -470,13 +470,13 @@ export function HRDeepDive({ data }: { data: ModuleData }) {
       </section>
 
       {/* CAPABILITIES */}
-      <section className="py-24 bg-[#0a0a0a] border-b border-[#1a1a1a]">
+      <section className="py-24 bg-background border-b border-border-dim">
         <div className="max-w-[var(--container-max)] mx-auto px-6">
           <p className="text-pink-300 text-xs font-semibold uppercase tracking-widest mb-3">Capability Catalog</p>
-          <h2 className="text-4xl md:text-5xl font-black text-white tracking-tight mb-4">
+          <h2 className="text-4xl md:text-5xl font-black text-foreground tracking-tight mb-4">
             100+ HR capabilities. Six categories.
           </h2>
-          <p className="text-zinc-400 text-lg max-w-2xl mb-14">
+          <p className="text-text-2 text-lg max-w-2xl mb-14">
             Every workflow that a paper-mill HR + payroll team needs, engineered into the platform.
           </p>
 
@@ -487,7 +487,7 @@ export function HRDeepDive({ data }: { data: ModuleData }) {
                 <motion.div key={cat.category}
                   initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }} transition={{ duration: 0.4, delay: Math.min(i * 0.04, 0.3) }}
-                  className="bg-[#0f0f0f] border border-[#1f1f1f] rounded-2xl p-6 hover:border-pink-500/20 transition-colors">
+                  className="bg-surface border border-border-dim rounded-2xl p-6 hover:border-pink-500/20 transition-colors">
                   <div className="flex items-center justify-between mb-4">
                     <div className="flex items-center gap-3">
                       <div className="w-10 h-10 rounded-xl border flex items-center justify-center"
@@ -495,14 +495,14 @@ export function HRDeepDive({ data }: { data: ModuleData }) {
                         <Icon size={16} style={{ color: cat.color }} />
                       </div>
                       <div>
-                        <h3 className="text-white font-bold text-base">{cat.category}</h3>
+                        <h3 className="text-foreground font-bold text-base">{cat.category}</h3>
                         <p className="text-[10px] font-mono" style={{ color: cat.color }}>{cat.count}</p>
                       </div>
                     </div>
                   </div>
                   <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-3 gap-y-1.5">
                     {cat.items.map((item) => (
-                      <li key={item} className="text-xs text-zinc-400 flex items-start gap-1.5 leading-relaxed">
+                      <li key={item} className="text-xs text-text-2 flex items-start gap-1.5 leading-relaxed">
                         <span style={{ color: cat.color }}>·</span> {item}
                       </li>
                     ))}
@@ -515,11 +515,11 @@ export function HRDeepDive({ data }: { data: ModuleData }) {
       </section>
 
       {/* USE CASES */}
-      <section className="py-24 border-b border-[#1a1a1a]">
+      <section className="py-24 border-b border-border-dim">
         <div className="max-w-[var(--container-max)] mx-auto px-6">
           <p className="text-pink-300 text-xs font-semibold uppercase tracking-widest mb-3">Use Cases</p>
-          <h2 className="text-4xl md:text-5xl font-black text-white tracking-tight mb-4">Real HR team scenarios.</h2>
-          <p className="text-zinc-400 text-lg max-w-2xl mb-12">
+          <h2 className="text-4xl md:text-5xl font-black text-foreground tracking-tight mb-4">Real HR team scenarios.</h2>
+          <p className="text-text-2 text-lg max-w-2xl mb-12">
             Four moments where the HR module proves itself.
           </p>
 
@@ -529,28 +529,28 @@ export function HRDeepDive({ data }: { data: ModuleData }) {
                 initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }} transition={{ duration: 0.5, delay: Math.min(i * 0.06, 0.3) }}
                 className="grid grid-cols-1 lg:grid-cols-5 gap-6 items-stretch">
-                <div className="lg:col-span-2 relative rounded-2xl overflow-hidden h-60 lg:h-auto border border-[#1f1f1f]">
+                <div className="lg:col-span-2 relative rounded-2xl overflow-hidden h-60 lg:h-auto border border-border-dim">
                   <Image src={uc.photo} alt={uc.title} fill className="object-cover" unoptimized />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a]/80 to-transparent" />
                   <div className="absolute bottom-4 left-4 right-4">
                     <p className="text-[10px] font-bold uppercase tracking-widest mb-1 text-pink-300">Case {String(i + 1).padStart(2, "0")}</p>
-                    <h3 className="text-white text-xl font-black drop-shadow leading-tight">{uc.title}</h3>
+                    <h3 className="text-foreground text-xl font-black drop-shadow leading-tight">{uc.title}</h3>
                   </div>
                 </div>
 
-                <div className="lg:col-span-3 bg-[#0f0f0f] border border-[#1f1f1f] rounded-2xl p-6 space-y-5">
+                <div className="lg:col-span-3 bg-surface border border-border-dim rounded-2xl p-6 space-y-5">
                   <div>
                     <p className="text-[10px] font-semibold uppercase tracking-widest text-red-400 mb-2">Scenario</p>
-                    <p className="text-sm text-zinc-300 leading-relaxed">{uc.scenario}</p>
+                    <p className="text-sm text-text-2 leading-relaxed">{uc.scenario}</p>
                   </div>
                   <div>
                     <p className="text-[10px] font-semibold uppercase tracking-widest text-pink-300 mb-2">Module Response</p>
-                    <p className="text-sm text-zinc-300 leading-relaxed">{uc.response}</p>
+                    <p className="text-sm text-text-2 leading-relaxed">{uc.response}</p>
                   </div>
-                  <div className="grid grid-cols-3 gap-3 pt-3 border-t border-[#1f1f1f]">
+                  <div className="grid grid-cols-3 gap-3 pt-3 border-t border-border-dim">
                     {Object.entries(uc.metrics).map(([k, v]) => (
-                      <div key={k} className="bg-[#080808] rounded-lg p-3 border border-[#1f1f1f] text-center">
-                        <p className="text-[9px] uppercase tracking-wider text-zinc-500 mb-0.5 font-mono">{k.replace(/_/g, " ")}</p>
+                      <div key={k} className="bg-background rounded-lg p-3 border border-border-dim text-center">
+                        <p className="text-[9px] uppercase tracking-wider text-text-3 mb-0.5 font-mono">{k.replace(/_/g, " ")}</p>
                         <p className="text-base font-black font-mono text-pink-300">{v}</p>
                       </div>
                     ))}
@@ -563,16 +563,16 @@ export function HRDeepDive({ data }: { data: ModuleData }) {
       </section>
 
       {/* PERFORMANCE */}
-      <section className="py-24 bg-[#0a0a0a] border-b border-[#1a1a1a]">
+      <section className="py-24 bg-background border-b border-border-dim">
         <div className="max-w-[var(--container-max)] mx-auto px-6">
           <p className="text-pink-300 text-xs font-semibold uppercase tracking-widest mb-3">Performance Comparison</p>
-          <h2 className="text-4xl md:text-5xl font-black text-white tracking-tight mb-4">Legacy HR vs Papyrus HR.</h2>
-          <p className="text-zinc-400 text-lg max-w-2xl mb-12">
+          <h2 className="text-4xl md:text-5xl font-black text-foreground tracking-tight mb-4">Legacy HR vs Papyrus HR.</h2>
+          <p className="text-text-2 text-lg max-w-2xl mb-12">
             Before/after on a 500-employee mill with mixed permanent + contract workforce.
           </p>
 
-          <div className="bg-[#0f0f0f] border border-[#1f1f1f] rounded-2xl overflow-hidden">
-            <div className="grid grid-cols-4 px-6 py-4 border-b border-[#1f1f1f] bg-[#080808] text-[10px] uppercase tracking-widest font-semibold text-zinc-500">
+          <div className="bg-surface border border-border-dim rounded-2xl overflow-hidden">
+            <div className="grid grid-cols-4 px-6 py-4 border-b border-border-dim bg-background text-[10px] uppercase tracking-widest font-semibold text-text-3">
               <span>Metric</span>
               <span className="text-center">Legacy / Excel</span>
               <span className="text-center">With Module</span>
@@ -582,9 +582,9 @@ export function HRDeepDive({ data }: { data: ModuleData }) {
               <motion.div key={row.metric}
                 initial={{ opacity: 0, x: -10 }} whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }} transition={{ duration: 0.35, delay: i * 0.06 }}
-                className="grid grid-cols-4 px-6 py-4 border-b border-[#1a1a1a] last:border-0 items-center">
-                <span className="text-sm text-zinc-300">{row.metric}</span>
-                <span className="text-sm text-zinc-500 font-mono text-center">{row.manual}</span>
+                className="grid grid-cols-4 px-6 py-4 border-b border-border-dim last:border-0 items-center">
+                <span className="text-sm text-text-2">{row.metric}</span>
+                <span className="text-sm text-text-3 font-mono text-center">{row.manual}</span>
                 <span className="text-sm text-emerald-400 font-mono text-center font-bold">{row.deckle}</span>
                 <span className="text-xs text-pink-300 font-mono text-right">{row.improvement}</span>
               </motion.div>
@@ -594,11 +594,11 @@ export function HRDeepDive({ data }: { data: ModuleData }) {
       </section>
 
       {/* TIMELINE */}
-      <section className="py-24 border-b border-[#1a1a1a]">
+      <section className="py-24 border-b border-border-dim">
         <div className="max-w-[var(--container-max)] mx-auto px-6">
           <p className="text-pink-300 text-xs font-semibold uppercase tracking-widest mb-3">Implementation</p>
-          <h2 className="text-4xl md:text-5xl font-black text-white tracking-tight mb-4">Cutover in one payroll cycle.</h2>
-          <p className="text-zinc-400 text-lg max-w-2xl mb-12">
+          <h2 className="text-4xl md:text-5xl font-black text-foreground tracking-tight mb-4">Cutover in one payroll cycle.</h2>
+          <p className="text-text-2 text-lg max-w-2xl mb-12">
             Parallel run with legacy for one cycle to validate, then go live. Five-week sequence engineered for paper-mill HR teams.
           </p>
 
@@ -610,18 +610,18 @@ export function HRDeepDive({ data }: { data: ModuleData }) {
                   initial={{ opacity: 0, x: -16 }} whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }} transition={{ duration: 0.4, delay: i * 0.08 }}
                   className="flex gap-5 items-start">
-                  <div className="flex-shrink-0 w-14 h-14 rounded-full bg-[#0f0f0f] border-2 border-pink-500/50 flex items-center justify-center font-mono text-[10px] font-bold text-pink-300">
+                  <div className="flex-shrink-0 w-14 h-14 rounded-full bg-surface border-2 border-pink-500/50 flex items-center justify-center font-mono text-[10px] font-bold text-pink-300">
                     {step.week.replace("Week ", "W")}
                   </div>
-                  <div className="bg-[#0f0f0f] border border-[#1f1f1f] rounded-2xl p-5 flex-1">
+                  <div className="bg-surface border border-border-dim rounded-2xl p-5 flex-1">
                     <div className="flex items-center gap-3 mb-3">
                       <span className="text-xs font-bold text-pink-300 font-mono">{step.week}</span>
                       <span className="text-zinc-700">·</span>
-                      <h3 className="text-base font-bold text-white">{step.title}</h3>
+                      <h3 className="text-base font-bold text-foreground">{step.title}</h3>
                     </div>
                     <ul className="grid grid-cols-1 md:grid-cols-2 gap-1.5">
                       {step.items.map((item) => (
-                        <li key={item} className="text-xs text-zinc-400 flex items-start gap-1.5">
+                        <li key={item} className="text-xs text-text-2 flex items-start gap-1.5">
                           <CheckCircle2 size={11} className="mt-0.5 text-pink-300 flex-shrink-0" /> {item}
                         </li>
                       ))}

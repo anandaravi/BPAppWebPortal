@@ -144,12 +144,12 @@ const INCLUDED = [
 
 export default function ImplementationPage() {
   return (
-    <div className="min-h-screen bg-[#080808]">
+    <div className="min-h-screen bg-background">
       {/* HERO */}
       <section className="relative overflow-hidden grain">
         <div className="absolute inset-0">
           <div className="absolute inset-0 bg-gradient-to-br from-amber-500/5 via-transparent to-transparent" />
-          <div className="absolute inset-0 bg-[#080808]" />
+          <div className="absolute inset-0 bg-background" />
         </div>
         <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-transparent via-amber-500 to-transparent opacity-60" />
 
@@ -167,7 +167,7 @@ export default function ImplementationPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="text-5xl md:text-7xl font-black text-white leading-[1.0] tracking-tight mb-6 max-w-4xl"
+            className="text-5xl md:text-7xl font-black text-foreground leading-[1.0] tracking-tight mb-6 max-w-4xl"
           >
             From contract to<br />
             <span className="amber-text">go-live in 12 weeks.</span>
@@ -177,7 +177,7 @@ export default function ImplementationPage() {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="text-lg text-zinc-400 max-w-2xl mb-10 leading-relaxed"
+            className="text-lg text-text-2 max-w-2xl mb-10 leading-relaxed"
           >
             Structured onboarding with dedicated support. No consultants needed, no big SI bills.
           </motion.p>
@@ -197,7 +197,7 @@ export default function ImplementationPage() {
             </Link>
             <Link
               href="/architecture"
-              className="inline-flex items-center gap-2 px-6 py-3.5 rounded-lg border border-[#333] text-white hover:border-amber-500/40 text-sm font-medium transition-all"
+              className="inline-flex items-center gap-2 px-6 py-3.5 rounded-lg border border-border-light text-foreground hover:border-amber-500/40 text-sm font-medium transition-all"
             >
               See our architecture
             </Link>
@@ -206,15 +206,15 @@ export default function ImplementationPage() {
       </section>
 
       {/* PHASE TIMELINE */}
-      <section className="py-24 border-y border-[#1a1a1a]">
+      <section className="py-24 border-y border-border-dim">
         <div className="max-w-[var(--container-max)] mx-auto px-6">
           <p className="text-amber-500 text-xs font-semibold uppercase tracking-widest mb-3">
             5-Phase Process
           </p>
-          <h2 className="text-4xl md:text-5xl font-black text-white tracking-tight mb-4">
+          <h2 className="text-4xl md:text-5xl font-black text-foreground tracking-tight mb-4">
             A proven path to production.
           </h2>
-          <p className="text-zinc-400 text-lg max-w-2xl mb-16">
+          <p className="text-text-2 text-lg max-w-2xl mb-16">
             Every implementation follows the same disciplined process. No surprises, no scope creep.
           </p>
 
@@ -226,7 +226,7 @@ export default function ImplementationPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: i * 0.07 }}
-                className="grid grid-cols-1 lg:grid-cols-12 gap-0 rounded-2xl border border-[#1f1f1f] overflow-hidden"
+                className="grid grid-cols-1 lg:grid-cols-12 gap-0 rounded-2xl border border-border-dim overflow-hidden"
               >
                 {/* Phase number + name */}
                 <div
@@ -240,7 +240,7 @@ export default function ImplementationPage() {
                     >
                       0{phase.number}
                     </div>
-                    <h3 className="text-xl font-black text-white mb-2">{phase.name}</h3>
+                    <h3 className="text-xl font-black text-foreground mb-2">{phase.name}</h3>
                     <span
                       className="inline-block text-[11px] font-bold px-2.5 py-1 rounded-md border"
                       style={{
@@ -255,13 +255,13 @@ export default function ImplementationPage() {
                 </div>
 
                 {/* Activities */}
-                <div className="lg:col-span-5 p-6 bg-[#0f0f0f] border-r border-[#1f1f1f]">
-                  <p className="text-[10px] font-semibold uppercase tracking-widest text-zinc-500 mb-3">
+                <div className="lg:col-span-5 p-6 bg-surface border-r border-border-dim">
+                  <p className="text-[10px] font-semibold uppercase tracking-widest text-text-3 mb-3">
                     Activities
                   </p>
                   <ul className="space-y-2">
                     {phase.activities.map((activity) => (
-                      <li key={activity} className="flex items-start gap-2 text-sm text-zinc-300">
+                      <li key={activity} className="flex items-start gap-2 text-sm text-text-2">
                         <div
                           className="mt-1.5 w-1.5 h-1.5 rounded-full flex-shrink-0"
                           style={{ background: phase.accent }}
@@ -274,12 +274,12 @@ export default function ImplementationPage() {
 
                 {/* Deliverables */}
                 <div className="lg:col-span-4 p-6 bg-[#0c0c0c]">
-                  <p className="text-[10px] font-semibold uppercase tracking-widest text-zinc-500 mb-3">
+                  <p className="text-[10px] font-semibold uppercase tracking-widest text-text-3 mb-3">
                     Deliverables
                   </p>
                   <ul className="space-y-2">
                     {phase.deliverables.map((d) => (
-                      <li key={d} className="flex items-start gap-2 text-sm text-zinc-300">
+                      <li key={d} className="flex items-start gap-2 text-sm text-text-2">
                         <CheckCircle2
                           size={14}
                           className="mt-0.5 flex-shrink-0"
@@ -297,15 +297,15 @@ export default function ImplementationPage() {
       </section>
 
       {/* WHAT'S INCLUDED */}
-      <section className="py-24 bg-[#0a0a0a] border-b border-[#1a1a1a]">
+      <section className="py-24 bg-background border-b border-border-dim">
         <div className="max-w-[var(--container-max)] mx-auto px-6">
           <p className="text-amber-500 text-xs font-semibold uppercase tracking-widest mb-3">
             Everything You Need
           </p>
-          <h2 className="text-4xl md:text-5xl font-black text-white tracking-tight mb-4">
+          <h2 className="text-4xl md:text-5xl font-black text-foreground tracking-tight mb-4">
             What&apos;s included.
           </h2>
-          <p className="text-zinc-400 text-lg max-w-2xl mb-14">
+          <p className="text-text-2 text-lg max-w-2xl mb-14">
             Implementation is not just software delivery — it is everything needed to make your team
             confident and your mill live.
           </p>
@@ -320,7 +320,7 @@ export default function ImplementationPage() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.4, delay: i * 0.07 }}
-                  className="bg-[#0f0f0f] border border-[#1f1f1f] rounded-2xl p-6 hover:border-amber-500/25 transition-colors"
+                  className="bg-surface border border-border-dim rounded-2xl p-6 hover:border-amber-500/25 transition-colors"
                 >
                   <div
                     className="w-10 h-10 rounded-xl flex items-center justify-center mb-4"
@@ -328,8 +328,8 @@ export default function ImplementationPage() {
                   >
                     <Icon size={20} style={{ color: item.accent }} />
                   </div>
-                  <h3 className="text-lg font-black text-white mb-2">{item.title}</h3>
-                  <p className="text-sm text-zinc-400 leading-relaxed">{item.description}</p>
+                  <h3 className="text-lg font-black text-foreground mb-2">{item.title}</h3>
+                  <p className="text-sm text-text-2 leading-relaxed">{item.description}</p>
                 </motion.div>
               );
             })}
@@ -338,15 +338,15 @@ export default function ImplementationPage() {
       </section>
 
       {/* POST GO-LIVE SUPPORT */}
-      <section className="py-24 border-b border-[#1a1a1a]">
+      <section className="py-24 border-b border-border-dim">
         <div className="max-w-[var(--container-max)] mx-auto px-6">
           <p className="text-amber-500 text-xs font-semibold uppercase tracking-widest mb-3">
             Post Go-Live
           </p>
-          <h2 className="text-4xl md:text-5xl font-black text-white tracking-tight mb-4">
+          <h2 className="text-4xl md:text-5xl font-black text-foreground tracking-tight mb-4">
             Support after go-live.
           </h2>
-          <p className="text-zinc-400 text-lg max-w-2xl mb-14">
+          <p className="text-text-2 text-lg max-w-2xl mb-14">
             Two support tiers. Both cover you — one is for mills that want peace of mind around the
             clock.
           </p>
@@ -358,17 +358,17 @@ export default function ImplementationPage() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5 }}
-              className="bg-[#0f0f0f] border border-[#1f1f1f] rounded-2xl p-8 flex flex-col gap-5"
+              className="bg-surface border border-border-dim rounded-2xl p-8 flex flex-col gap-5"
             >
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-zinc-800 flex items-center justify-center">
-                  <HeadphonesIcon size={20} className="text-zinc-400" />
+                <div className="w-10 h-10 rounded-xl bg-surface-2 flex items-center justify-center">
+                  <HeadphonesIcon size={20} className="text-text-2" />
                 </div>
                 <div>
-                  <p className="text-xs font-semibold uppercase tracking-widest text-zinc-500 mb-0.5">
+                  <p className="text-xs font-semibold uppercase tracking-widest text-text-3 mb-0.5">
                     Standard Support
                   </p>
-                  <h3 className="text-xl font-black text-white">Standard</h3>
+                  <h3 className="text-xl font-black text-foreground">Standard</h3>
                 </div>
               </div>
               <ul className="space-y-3">
@@ -378,8 +378,8 @@ export default function ImplementationPage() {
                   "< 24hr response time",
                   "Monthly status reports",
                 ].map((item) => (
-                  <li key={item} className="flex items-center gap-2 text-sm text-zinc-300">
-                    <CheckCircle2 size={14} className="text-zinc-500 flex-shrink-0" />
+                  <li key={item} className="flex items-center gap-2 text-sm text-text-2">
+                    <CheckCircle2 size={14} className="text-text-3 flex-shrink-0" />
                     {item}
                   </li>
                 ))}
@@ -392,7 +392,7 @@ export default function ImplementationPage() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.08 }}
-              className="bg-[#0f0f0f] border border-amber-500/30 rounded-2xl p-8 flex flex-col gap-5 relative overflow-hidden"
+              className="bg-surface border border-amber-500/30 rounded-2xl p-8 flex flex-col gap-5 relative overflow-hidden"
             >
               <div
                 className="absolute top-0 right-0 text-[10px] font-bold uppercase tracking-widest px-3 py-1.5 rounded-bl-xl"
@@ -408,7 +408,7 @@ export default function ImplementationPage() {
                   <p className="text-xs font-semibold uppercase tracking-widest text-amber-500 mb-0.5">
                     Premium Support
                   </p>
-                  <h3 className="text-xl font-black text-white">Premium</h3>
+                  <h3 className="text-xl font-black text-foreground">Premium</h3>
                 </div>
               </div>
               <ul className="space-y-3">
@@ -418,7 +418,7 @@ export default function ImplementationPage() {
                   "< 2hr response time",
                   "Quarterly business reviews",
                 ].map((item) => (
-                  <li key={item} className="flex items-center gap-2 text-sm text-zinc-300">
+                  <li key={item} className="flex items-center gap-2 text-sm text-text-2">
                     <CheckCircle2 size={14} className="text-amber-500 flex-shrink-0" />
                     {item}
                   </li>
@@ -430,7 +430,7 @@ export default function ImplementationPage() {
       </section>
 
       {/* READY TO START */}
-      <section className="py-24 bg-[#0a0a0a] border-b border-[#1a1a1a]">
+      <section className="py-24 bg-background border-b border-border-dim">
         <div className="max-w-[var(--container-max)] mx-auto px-6">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -443,21 +443,21 @@ export default function ImplementationPage() {
               <p className="text-amber-500 text-xs font-semibold uppercase tracking-widest mb-3">
                 Ready to start?
               </p>
-              <h2 className="text-4xl font-black text-white tracking-tight mb-3">
+              <h2 className="text-4xl font-black text-foreground tracking-tight mb-3">
                 12 weeks to go-live.
               </h2>
-              <p className="text-zinc-400 text-lg max-w-xl leading-relaxed">
+              <p className="text-text-2 text-lg max-w-xl leading-relaxed">
                 Every day you delay is a day your competitors have better data. Let&apos;s set a
                 go-live date.
               </p>
             </div>
 
             <div className="flex flex-col gap-4 flex-shrink-0">
-              <div className="flex items-center gap-4 bg-[#0f0f0f] border border-[#1f1f1f] rounded-2xl px-8 py-5">
+              <div className="flex items-center gap-4 bg-surface border border-border-dim rounded-2xl px-8 py-5">
                 <div className="text-5xl font-black text-amber-400">12</div>
                 <div>
-                  <div className="text-sm font-bold text-white">Weeks</div>
-                  <div className="text-xs text-zinc-500">Typical full go-live</div>
+                  <div className="text-sm font-bold text-foreground">Weeks</div>
+                  <div className="text-xs text-text-3">Typical full go-live</div>
                 </div>
               </div>
               <Link

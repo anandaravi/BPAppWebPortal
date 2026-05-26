@@ -90,17 +90,17 @@ const GROUPS = [
 
 export default function ComparePage() {
   return (
-    <div className="min-h-screen bg-[#080808]">
+    <div className="min-h-screen bg-background">
       {/* HERO */}
       <section className="pt-32 pb-12 px-6 max-w-[var(--container-max)] mx-auto">
         <p className="text-amber-500 text-xs font-semibold uppercase tracking-widest mb-4">Compare</p>
-        <h1 className="text-5xl md:text-7xl font-black text-white tracking-tight leading-[1.0] mb-6">
+        <h1 className="text-5xl md:text-7xl font-black text-foreground tracking-tight leading-[1.0] mb-6">
           13 alternatives.<br />
           <span style={{ background: "linear-gradient(135deg, #F59E0B, #FBBF24)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
             One honest comparison.
           </span>
         </h1>
-        <p className="text-lg text-zinc-400 max-w-2xl leading-relaxed mb-8">
+        <p className="text-lg text-text-2 max-w-2xl leading-relaxed mb-8">
           Side-by-side breakdowns of Papyrus BPApp against paper-mill specialists, Indian SMB ERPs,
           and global enterprise platforms. Feature parity, India-fit, deployment model, pricing
           shape — laid out without spin.
@@ -125,7 +125,7 @@ export default function ComparePage() {
           const Icon = g.icon;
           return (
             <div key={g.title}>
-              <div className="flex items-start gap-4 mb-8 pb-6 border-b border-[#1a1a1a]">
+              <div className="flex items-start gap-4 mb-8 pb-6 border-b border-border-dim">
                 <div className="w-12 h-12 rounded-xl border flex items-center justify-center flex-shrink-0"
                   style={{ background: `${g.accent}12`, borderColor: `${g.accent}40` }}>
                   <Icon size={20} style={{ color: g.accent }} />
@@ -134,8 +134,8 @@ export default function ComparePage() {
                   <p className="text-xs font-semibold uppercase tracking-widest mb-1" style={{ color: g.accent }}>
                     {g.eyebrow}
                   </p>
-                  <h2 className="text-3xl md:text-4xl font-black text-white tracking-tight mb-2">{g.title}</h2>
-                  <p className="text-zinc-400 text-sm leading-relaxed max-w-3xl">{g.desc}</p>
+                  <h2 className="text-3xl md:text-4xl font-black text-foreground tracking-tight mb-2">{g.title}</h2>
+                  <p className="text-text-2 text-sm leading-relaxed max-w-3xl">{g.desc}</p>
                 </div>
               </div>
 
@@ -144,20 +144,20 @@ export default function ComparePage() {
                   <Link
                     key={c.slug}
                     href={`/vs/${c.slug}`}
-                    className="group block bg-[#0f0f0f] border border-[#1f1f1f] rounded-2xl p-5 hover:border-amber-500/30 transition-colors"
+                    className="group block bg-surface border border-border-dim rounded-2xl p-5 hover:border-amber-500/30 transition-colors"
                   >
                     <div className="flex items-start justify-between gap-3 mb-3">
                       <div>
                         <p className="text-[10px] font-mono uppercase tracking-widest mb-1" style={{ color: g.accent }}>
                           vs · /{c.slug}
                         </p>
-                        <h3 className="text-xl font-black text-white group-hover:text-amber-300 transition-colors">
+                        <h3 className="text-xl font-black text-foreground group-hover:text-amber-300 transition-colors">
                           {c.name}
                         </h3>
                       </div>
-                      <ArrowRight size={16} className="text-zinc-600 group-hover:text-amber-400 group-hover:translate-x-0.5 transition-all flex-shrink-0 mt-1" />
+                      <ArrowRight size={16} className="text-text-4 group-hover:text-amber-400 group-hover:translate-x-0.5 transition-all flex-shrink-0 mt-1" />
                     </div>
-                    <p className="text-sm text-zinc-400 leading-relaxed">{c.tagline}</p>
+                    <p className="text-sm text-text-2 leading-relaxed">{c.tagline}</p>
                   </Link>
                 ))}
               </div>

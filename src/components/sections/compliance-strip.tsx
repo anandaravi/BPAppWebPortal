@@ -14,7 +14,7 @@ const BADGES = [
 
 export function ComplianceStrip() {
   return (
-    <section className="py-20 bg-[#080808] border-b border-[#1a1a1a]">
+    <section className="py-20 bg-background border-b border-border-dim">
       <div className="max-w-[var(--container-max)] mx-auto px-6">
         <motion.div
           initial={{ opacity: 0, y: 12 }}
@@ -25,12 +25,12 @@ export function ComplianceStrip() {
         >
           <div>
             <p className="text-amber-500 text-xs font-semibold uppercase tracking-widest mb-3">Indian Compliance</p>
-            <h2 className="text-3xl md:text-4xl font-black text-white tracking-tight leading-tight">
+            <h2 className="text-3xl md:text-4xl font-black text-foreground tracking-tight leading-tight">
               Built for India&apos;s regulatory stack.<br />
-              <span className="text-zinc-500">Not bolted on.</span>
+              <span className="text-text-3">Not bolted on.</span>
             </h2>
           </div>
-          <p className="text-zinc-500 text-sm max-w-sm leading-relaxed">
+          <p className="text-text-3 text-sm max-w-sm leading-relaxed">
             Every statutory obligation — GST, FEMA, PF, ESI, TDS — handled inside the platform
             with no third-party compliance tools required.
           </p>
@@ -44,7 +44,7 @@ export function ComplianceStrip() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: i * 0.07 }}
-              className="bg-[#0f0f0f] border rounded-xl p-5 flex flex-col gap-3 hover:bg-[#111] transition-colors"
+              className="bg-surface border rounded-xl p-5 flex flex-col gap-3 hover:bg-surface transition-colors"
               style={{ borderColor: `${b.color}25` }}
             >
               <div
@@ -54,8 +54,8 @@ export function ComplianceStrip() {
                 <ShieldCheck size={16} style={{ color: b.color }} />
               </div>
               <div>
-                <p className="text-white font-bold text-sm mb-1">{b.label}</p>
-                <p className="text-zinc-500 text-[11px] leading-snug">{b.sub}</p>
+                <p className="text-foreground font-bold text-sm mb-1">{b.label}</p>
+                <p className="text-text-3 text-[11px] leading-snug">{b.sub}</p>
               </div>
             </motion.div>
           ))}

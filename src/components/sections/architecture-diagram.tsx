@@ -47,7 +47,7 @@ const DOMAINS = [
 
 export function ArchitectureDiagram() {
   return (
-    <section className="py-28 bg-[#080808] relative overflow-hidden">
+    <section className="py-28 bg-background relative overflow-hidden">
       {/* subtle grid background */}
       <div
         className="absolute inset-0 pointer-events-none"
@@ -69,11 +69,11 @@ export function ArchitectureDiagram() {
           <p className="text-amber-500 text-xs font-semibold uppercase tracking-widest mb-3">
             Platform Architecture
           </p>
-          <h2 className="text-4xl md:text-5xl font-black text-white tracking-tight">
+          <h2 className="text-4xl md:text-5xl font-black text-foreground tracking-tight">
             44 modules.{" "}
-            <span className="text-zinc-500">One connected platform.</span>
+            <span className="text-text-3">One connected platform.</span>
           </h2>
-          <p className="mt-4 text-zinc-400 text-base max-w-xl">
+          <p className="mt-4 text-text-2 text-base max-w-xl">
             Activate only what you need today. Every module shares the same data
             layer — no integrations, no silos, no duplicate master data.
           </p>
@@ -87,7 +87,7 @@ export function ArchitectureDiagram() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: di * 0.07 }}
-              className="group relative rounded-xl border border-[#1f1f1f] bg-[#0c0c0c] hover:border-[#2a2a2a] transition-colors overflow-hidden"
+              className="group relative rounded-xl border border-border-dim bg-[#0c0c0c] hover:border-border-light transition-colors overflow-hidden"
             >
               {/* left accent bar */}
               <div
@@ -104,7 +104,7 @@ export function ArchitectureDiagram() {
                   >
                     {domain.label}
                   </span>
-                  <div className="text-zinc-600 text-xs mt-0.5 font-mono">
+                  <div className="text-text-4 text-xs mt-0.5 font-mono">
                     {domain.slugs.length} modules
                   </div>
                 </div>
@@ -160,7 +160,7 @@ export function ArchitectureDiagram() {
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.5 }}
-          className="mt-8 flex items-center gap-4 text-xs text-zinc-600"
+          className="mt-8 flex items-center gap-4 text-xs text-text-4"
         >
           <span className="w-1 h-1 rounded-full bg-amber-500" />
           All domains share a unified data layer — no ETL, no sync, no siloed databases.

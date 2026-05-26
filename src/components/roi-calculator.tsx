@@ -43,7 +43,7 @@ export function ROICalculator({ faqs }: { faqs: { q: string; a: string }[] }) {
   }, [tpd, currentTrim, targetTrim, pricePerTon, operatingDays]);
 
   return (
-    <div className="min-h-screen bg-[#080808] pt-28 pb-24">
+    <div className="min-h-screen bg-background pt-28 pb-24">
       <article className="max-w-5xl mx-auto px-6">
         {/* Hero */}
         <header className="mb-12 text-center">
@@ -51,11 +51,11 @@ export function ROICalculator({ faqs }: { faqs: { q: string; a: string }[] }) {
             <Calculator size={12} />
             Free ROI Calculator
           </div>
-          <h1 className="text-4xl md:text-5xl font-black text-white tracking-tight mb-4">
+          <h1 className="text-4xl md:text-5xl font-black text-foreground tracking-tight mb-4">
             How much is trim waste<br />
             <span className="amber-text">costing your paper mill?</span>
           </h1>
-          <p className="text-lg text-zinc-400 max-w-2xl mx-auto leading-relaxed">
+          <p className="text-lg text-text-2 max-w-2xl mx-auto leading-relaxed">
             Adjust the sliders below for your mill. See your annual trim loss — and what
             you'd save with a 3-tier Deckle Optimizer.
           </p>
@@ -68,7 +68,7 @@ export function ROICalculator({ faqs }: { faqs: { q: string; a: string }[] }) {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="bg-[#0f0f0f] border border-[#222] rounded-2xl p-7"
+            className="bg-surface border border-border rounded-2xl p-7"
           >
             <p className="text-amber-500 text-xs font-bold uppercase tracking-widest mb-5">
               Your Mill
@@ -142,37 +142,37 @@ export function ROICalculator({ faqs }: { faqs: { q: string; a: string }[] }) {
               <p className="text-amber-400 text-xs font-bold uppercase tracking-widest mb-2">
                 Annual Saving
               </p>
-              <p className="text-4xl md:text-5xl font-black text-white mb-2">
+              <p className="text-4xl md:text-5xl font-black text-foreground mb-2">
                 {formatINR(calc.annualSaving)}
               </p>
-              <p className="text-sm text-zinc-300">
+              <p className="text-sm text-text-2">
                 {formatTons(calc.tonsSaved)} of paper recovered annually
               </p>
               <div className="mt-5 pt-5 border-t border-amber-500/20 grid grid-cols-2 gap-4">
                 <div>
-                  <p className="text-xs text-zinc-400 mb-1">Per month</p>
-                  <p className="text-xl font-bold text-white">
+                  <p className="text-xs text-text-2 mb-1">Per month</p>
+                  <p className="text-xl font-bold text-foreground">
                     {formatINR(calc.monthlySaving)}
                   </p>
                 </div>
                 <div>
-                  <p className="text-xs text-zinc-400 mb-1">Over 5 years</p>
-                  <p className="text-xl font-bold text-white">
+                  <p className="text-xs text-text-2 mb-1">Over 5 years</p>
+                  <p className="text-xl font-bold text-foreground">
                     {formatINR(calc.fiveYearSaving)}
                   </p>
                 </div>
               </div>
             </div>
 
-            <div className="bg-[#0f0f0f] border border-[#222] rounded-2xl p-6">
+            <div className="bg-surface border border-border rounded-2xl p-6">
               <div className="flex items-start gap-3 mb-4">
                 <TrendingDown size={18} className="text-red-400 mt-0.5 flex-shrink-0" />
                 <div>
-                  <p className="text-zinc-300 text-sm font-semibold mb-1">
+                  <p className="text-text-2 text-sm font-semibold mb-1">
                     Current trim loss
                   </p>
-                  <p className="text-2xl font-bold text-white">{formatINR(calc.lossNow)}/yr</p>
-                  <p className="text-xs text-zinc-500 mt-1">
+                  <p className="text-2xl font-bold text-foreground">{formatINR(calc.lossNow)}/yr</p>
+                  <p className="text-xs text-text-3 mt-1">
                     At {currentTrim.toFixed(1)}% × {formatTons(calc.annualTons)}
                   </p>
                 </div>
@@ -180,13 +180,13 @@ export function ROICalculator({ faqs }: { faqs: { q: string; a: string }[] }) {
               <div className="flex items-start gap-3">
                 <IndianRupee size={18} className="text-emerald-400 mt-0.5 flex-shrink-0" />
                 <div>
-                  <p className="text-zinc-300 text-sm font-semibold mb-1">
+                  <p className="text-text-2 text-sm font-semibold mb-1">
                     Trim loss after optimization
                   </p>
-                  <p className="text-2xl font-bold text-white">
+                  <p className="text-2xl font-bold text-foreground">
                     {formatINR(calc.lossAfter)}/yr
                   </p>
-                  <p className="text-xs text-zinc-500 mt-1">
+                  <p className="text-xs text-text-3 mt-1">
                     At {targetTrim.toFixed(1)}% × {formatTons(calc.annualTons)}
                   </p>
                 </div>
@@ -203,15 +203,15 @@ export function ROICalculator({ faqs }: { faqs: { q: string; a: string }[] }) {
         </div>
 
         {/* Methodology */}
-        <section className="bg-[#0f0f0f] border border-[#222] rounded-2xl p-7 mb-12">
-          <h2 className="text-xl font-bold text-white mb-3">How this calculator works</h2>
-          <p className="text-sm text-zinc-300 leading-relaxed mb-3">
+        <section className="bg-surface border border-border rounded-2xl p-7 mb-12">
+          <h2 className="text-xl font-bold text-foreground mb-3">How this calculator works</h2>
+          <p className="text-sm text-text-2 leading-relaxed mb-3">
             The formula is straightforward:
           </p>
-          <div className="bg-[#080808] border border-[#1a1a1a] rounded-lg p-4 font-mono text-sm text-amber-300 mb-4">
+          <div className="bg-background border border-border-dim rounded-lg p-4 font-mono text-sm text-amber-300 mb-4">
             Annual Saving = (Current Trim % − Target Trim %) × TPD × Operating Days × Price per Ton
           </div>
-          <p className="text-sm text-zinc-400 leading-relaxed">
+          <p className="text-sm text-text-2 leading-relaxed">
             The savings shown here cover deckle/trim only. Full Papyrus BPApp ERP value
             (working capital improvement from faster invoicing, payroll automation, predictive
             maintenance, fewer GST notices, dispatch optimization) typically adds another
@@ -221,7 +221,7 @@ export function ROICalculator({ faqs }: { faqs: { q: string; a: string }[] }) {
 
         {/* Case examples */}
         <section className="mb-12">
-          <h2 className="text-xl font-bold text-white mb-5">
+          <h2 className="text-xl font-bold text-foreground mb-5">
             Real outcomes from Indian paper mills
           </h2>
           <div className="grid md:grid-cols-3 gap-4">
@@ -251,20 +251,20 @@ export function ROICalculator({ faqs }: { faqs: { q: string; a: string }[] }) {
 
         {/* FAQ */}
         <section className="mb-12">
-          <h2 className="text-xl font-bold text-white mb-5">Questions about this calculator</h2>
+          <h2 className="text-xl font-bold text-foreground mb-5">Questions about this calculator</h2>
           <div className="space-y-3">
             {faqs.map((f, i) => (
               <details
                 key={i}
-                className="group bg-[#0f0f0f] border border-[#222] rounded-xl p-5 open:border-amber-500/30 transition-colors"
+                className="group bg-surface border border-border rounded-xl p-5 open:border-amber-500/30 transition-colors"
               >
-                <summary className="cursor-pointer text-white font-semibold text-base flex items-center justify-between">
+                <summary className="cursor-pointer text-foreground font-semibold text-base flex items-center justify-between">
                   {f.q}
                   <span className="text-amber-400 text-lg group-open:rotate-45 transition-transform">
                     +
                   </span>
                 </summary>
-                <p className="mt-3 text-sm text-zinc-300 leading-relaxed">{f.a}</p>
+                <p className="mt-3 text-sm text-text-2 leading-relaxed">{f.a}</p>
               </details>
             ))}
           </div>
@@ -272,10 +272,10 @@ export function ROICalculator({ faqs }: { faqs: { q: string; a: string }[] }) {
 
         {/* CTA */}
         <section className="bg-gradient-to-br from-amber-500/10 to-transparent border border-amber-500/20 rounded-2xl p-8 text-center">
-          <h2 className="text-2xl font-bold text-white mb-3">
+          <h2 className="text-2xl font-bold text-foreground mb-3">
             Get a detailed ROI report for your mill
           </h2>
-          <p className="text-zinc-400 mb-6 max-w-xl mx-auto">
+          <p className="text-text-2 mb-6 max-w-xl mx-auto">
             Share your production data and we'll build a custom business case — including
             deckle, payroll, working capital, and compliance savings.
           </p>
@@ -316,7 +316,7 @@ function Slider({
   return (
     <div className={last ? "" : "mb-6"}>
       <div className="flex items-baseline justify-between mb-2">
-        <label className="text-sm font-medium text-zinc-300">{label}</label>
+        <label className="text-sm font-medium text-text-2">{label}</label>
         <span className="text-base font-bold text-amber-400 font-mono">{display}</span>
       </div>
       <input
@@ -326,9 +326,9 @@ function Slider({
         step={step}
         value={value}
         onChange={(e) => setValue(Number(e.target.value))}
-        className="w-full h-2 bg-[#1a1a1a] rounded-lg appearance-none cursor-pointer accent-amber-500"
+        className="w-full h-2 bg-surface-3 rounded-lg appearance-none cursor-pointer accent-amber-500"
       />
-      {hint && <p className="text-xs text-zinc-500 mt-1.5">{hint}</p>}
+      {hint && <p className="text-xs text-text-3 mt-1.5">{hint}</p>}
     </div>
   );
 }
@@ -347,12 +347,12 @@ function CaseCard({
   saved: string;
 }) {
   return (
-    <div className="bg-[#0f0f0f] border border-[#222] rounded-2xl p-5">
-      <p className="text-white font-bold text-sm">{mill}</p>
-      <p className="text-xs text-zinc-500 mb-4">{location}</p>
+    <div className="bg-surface border border-border rounded-2xl p-5">
+      <p className="text-foreground font-bold text-sm">{mill}</p>
+      <p className="text-xs text-text-3 mb-4">{location}</p>
       <div className="flex items-center gap-3 text-xs mb-3">
-        <span className="text-zinc-500 line-through">{before}</span>
-        <span className="text-zinc-600">→</span>
+        <span className="text-text-3 line-through">{before}</span>
+        <span className="text-text-4">→</span>
         <span className="text-emerald-400 font-bold">{after}</span>
       </div>
       <p className="text-lg font-bold text-amber-400">{saved}</p>

@@ -281,9 +281,9 @@ const INSTALL_STEPS = [
 
 export default function TechnicalPage() {
   return (
-    <div className="min-h-screen bg-[#080808]">
+    <div className="min-h-screen bg-background">
       {/* HERO */}
-      <section className="relative overflow-hidden grain">
+      <section className="relative overflow-hidden grain on-photo">
         <div className="absolute inset-0">
           <Image src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=1920&q=80"
             alt="Technical infrastructure" fill className="object-cover opacity-30" unoptimized />
@@ -299,12 +299,12 @@ export default function TechnicalPage() {
           </motion.div>
 
           <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.1 }}
-            className="text-5xl md:text-7xl font-black text-white leading-[1.0] tracking-tight mb-6 max-w-4xl">
+            className="text-5xl md:text-7xl font-black text-foreground leading-[1.0] tracking-tight mb-6 max-w-4xl">
             Deploy anywhere.<br /><span className="amber-text">Scale everywhere.</span>
           </motion.h1>
 
           <motion.p initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.2 }}
-            className="text-lg text-zinc-400 max-w-2xl mb-10 leading-relaxed">
+            className="text-lg text-text-2 max-w-2xl mb-10 leading-relaxed">
             Cloud SaaS, private cloud, on-premise, or hybrid. Standalone, HA, or HADR.
             Extensible with IoT, GPS, VPN, SSO, MDM. Designed for paper mill IT teams who care about
             uptime, security, and total cost of ownership.
@@ -315,7 +315,7 @@ export default function TechnicalPage() {
             <Link href="/contact" className="group inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-lg bg-amber-500 hover:bg-amber-400 text-black font-bold text-sm transition-all">
               Talk to solutions engineering <ArrowRight size={16} className="group-hover:translate-x-0.5 transition-transform" />
             </Link>
-            <Link href="/architecture" className="inline-flex items-center gap-2 px-6 py-3.5 rounded-lg border border-[#333] text-white hover:border-amber-500/40 text-sm font-medium transition-all">
+            <Link href="/architecture" className="inline-flex items-center gap-2 px-6 py-3.5 rounded-lg border border-border-light text-foreground hover:border-amber-500/40 text-sm font-medium transition-all">
               ← Pluggable architecture
             </Link>
           </motion.div>
@@ -323,11 +323,11 @@ export default function TechnicalPage() {
       </section>
 
       {/* DEPLOYMENT MODELS */}
-      <section className="py-24 border-y border-[#1a1a1a] bg-[#0a0a0a]">
+      <section className="py-24 border-y border-border-dim bg-background">
         <div className="max-w-[var(--container-max)] mx-auto px-6">
           <p className="text-amber-500 text-xs font-semibold uppercase tracking-widest mb-3">Deployment Models</p>
-          <h2 className="text-4xl md:text-5xl font-black text-white tracking-tight mb-4">Four ways to deploy.</h2>
-          <p className="text-zinc-400 text-lg max-w-2xl mb-14">
+          <h2 className="text-4xl md:text-5xl font-black text-foreground tracking-tight mb-4">Four ways to deploy.</h2>
+          <p className="text-text-2 text-lg max-w-2xl mb-14">
             Pick the model that matches your data residency, control, and operating model preferences.
           </p>
 
@@ -340,7 +340,7 @@ export default function TechnicalPage() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: i * 0.08 }}
-                  className="bg-[#0f0f0f] border rounded-2xl p-6 hover:border-amber-500/30 transition-colors"
+                  className="bg-surface border rounded-2xl p-6 hover:border-amber-500/30 transition-colors"
                   style={{ borderColor: `${m.color}25` }}>
                   <div className="flex items-start justify-between mb-5">
                     <div className="w-12 h-12 rounded-xl border flex items-center justify-center"
@@ -352,11 +352,11 @@ export default function TechnicalPage() {
                       {m.tag}
                     </span>
                   </div>
-                  <h3 className="text-white font-black text-xl mb-2">{m.title}</h3>
-                  <p className="text-sm text-zinc-400 leading-relaxed mb-5">{m.desc}</p>
+                  <h3 className="text-foreground font-black text-xl mb-2">{m.title}</h3>
+                  <p className="text-sm text-text-2 leading-relaxed mb-5">{m.desc}</p>
                   <ul className="space-y-1.5">
                     {m.specs.map((s) => (
-                      <li key={s} className="flex items-start gap-2 text-xs text-zinc-300">
+                      <li key={s} className="flex items-start gap-2 text-xs text-text-2">
                         <CheckCircle2 size={11} className="mt-0.5 flex-shrink-0" style={{ color: m.color }} />
                         {s}
                       </li>
@@ -370,11 +370,11 @@ export default function TechnicalPage() {
       </section>
 
       {/* TOPOLOGIES — Standalone / HA / HADR */}
-      <section className="py-24 border-b border-[#1a1a1a]">
+      <section className="py-24 border-b border-border-dim">
         <div className="max-w-[var(--container-max)] mx-auto px-6">
           <p className="text-amber-500 text-xs font-semibold uppercase tracking-widest mb-3">Environment Topologies</p>
-          <h2 className="text-4xl md:text-5xl font-black text-white tracking-tight mb-4">Standalone, HA, HADR.</h2>
-          <p className="text-zinc-400 text-lg max-w-2xl mb-14">
+          <h2 className="text-4xl md:text-5xl font-black text-foreground tracking-tight mb-4">Standalone, HA, HADR.</h2>
+          <p className="text-text-2 text-lg max-w-2xl mb-14">
             Match topology to business criticality. Upgrade later without re-implementation.
           </p>
 
@@ -385,41 +385,41 @@ export default function TechnicalPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: i * 0.1 }}
-                className="bg-[#0f0f0f] border rounded-2xl overflow-hidden"
+                className="bg-surface border rounded-2xl overflow-hidden"
                 style={{ borderColor: `${t.color}30` }}>
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 p-6">
                   {/* Left: Description */}
                   <div className="lg:col-span-1">
                     <div className="flex items-center gap-3 mb-3">
                       <span className="w-1.5 h-6 rounded-full" style={{ background: t.color }} />
-                      <h3 className="text-2xl font-black text-white">{t.name}</h3>
+                      <h3 className="text-2xl font-black text-foreground">{t.name}</h3>
                     </div>
                     <p className="text-xs font-mono mb-4" style={{ color: t.color }}>{t.tag}</p>
-                    <p className="text-sm text-zinc-400 leading-relaxed mb-5">{t.desc}</p>
+                    <p className="text-sm text-text-2 leading-relaxed mb-5">{t.desc}</p>
 
                     <div className="grid grid-cols-2 gap-3">
-                      <div className="bg-[#080808] rounded-lg p-3 border border-[#1f1f1f]">
-                        <p className="text-[10px] uppercase tracking-wider text-zinc-500 mb-1">RTO</p>
+                      <div className="bg-background rounded-lg p-3 border border-border-dim">
+                        <p className="text-[10px] uppercase tracking-wider text-text-3 mb-1">RTO</p>
                         <p className="text-sm font-bold font-mono" style={{ color: t.color }}>{t.rto}</p>
                       </div>
-                      <div className="bg-[#080808] rounded-lg p-3 border border-[#1f1f1f]">
-                        <p className="text-[10px] uppercase tracking-wider text-zinc-500 mb-1">RPO</p>
+                      <div className="bg-background rounded-lg p-3 border border-border-dim">
+                        <p className="text-[10px] uppercase tracking-wider text-text-3 mb-1">RPO</p>
                         <p className="text-sm font-bold font-mono" style={{ color: t.color }}>{t.rpo}</p>
                       </div>
-                      <div className="bg-[#080808] rounded-lg p-3 border border-[#1f1f1f]">
-                        <p className="text-[10px] uppercase tracking-wider text-zinc-500 mb-1">SLA</p>
+                      <div className="bg-background rounded-lg p-3 border border-border-dim">
+                        <p className="text-[10px] uppercase tracking-wider text-text-3 mb-1">SLA</p>
                         <p className="text-sm font-bold font-mono" style={{ color: t.color }}>{t.sla}</p>
                       </div>
-                      <div className="bg-[#080808] rounded-lg p-3 border border-[#1f1f1f]">
-                        <p className="text-[10px] uppercase tracking-wider text-zinc-500 mb-1">Users</p>
+                      <div className="bg-background rounded-lg p-3 border border-border-dim">
+                        <p className="text-[10px] uppercase tracking-wider text-text-3 mb-1">Users</p>
                         <p className="text-sm font-bold font-mono" style={{ color: t.color }}>{t.users}</p>
                       </div>
                     </div>
                   </div>
 
                   {/* Right: Component diagram */}
-                  <div className="lg:col-span-2 bg-[#080808] rounded-xl border border-[#1f1f1f] p-5">
-                    <p className="text-[10px] uppercase tracking-widest font-semibold text-zinc-500 mb-4">Topology Components</p>
+                  <div className="lg:col-span-2 bg-background rounded-xl border border-border-dim p-5">
+                    <p className="text-[10px] uppercase tracking-widest font-semibold text-text-3 mb-4">Topology Components</p>
                     {i === 0 && (
                       // Standalone — single node
                       <div className="flex flex-col items-center">
@@ -428,8 +428,8 @@ export default function TechnicalPage() {
                           <p className="text-xs font-mono mb-2 text-center" style={{ color: t.color }}>Single Server</p>
                           <div className="grid grid-cols-2 gap-2">
                             {t.components.map((c) => (
-                              <div key={c.name} className="bg-[#0f0f0f] border border-[#1f1f1f] rounded p-2 text-center">
-                                <p className="text-[10px] text-zinc-300">{c.name}</p>
+                              <div key={c.name} className="bg-surface border border-border-dim rounded p-2 text-center">
+                                <p className="text-[10px] text-text-2">{c.name}</p>
                                 <p className="text-[9px] font-mono" style={{ color: t.color }}>x{c.count}</p>
                               </div>
                             ))}
@@ -441,11 +441,11 @@ export default function TechnicalPage() {
                       // HA — cluster
                       <div className="space-y-3">
                         <div className="flex items-center gap-3">
-                          <span className="text-[10px] font-mono text-zinc-600 w-20">Load Balancer</span>
-                          <div className="flex-1 px-3 py-1.5 rounded border bg-[#0f0f0f] border-[#1f1f1f] text-center text-[10px] text-zinc-300">HAProxy / NGINX</div>
+                          <span className="text-[10px] font-mono text-text-4 w-20">Load Balancer</span>
+                          <div className="flex-1 px-3 py-1.5 rounded border bg-surface border-border-dim text-center text-[10px] text-text-2">HAProxy / NGINX</div>
                         </div>
                         <div className="flex items-center gap-3">
-                          <span className="text-[10px] font-mono text-zinc-600 w-20">App Tier</span>
+                          <span className="text-[10px] font-mono text-text-4 w-20">App Tier</span>
                           <div className="flex-1 grid grid-cols-3 gap-2">
                             {[1, 2, 3].map((n) => (
                               <div key={n} className="px-2 py-1.5 rounded border text-center text-[10px]"
@@ -456,30 +456,30 @@ export default function TechnicalPage() {
                           </div>
                         </div>
                         <div className="flex items-center gap-3">
-                          <span className="text-[10px] font-mono text-zinc-600 w-20">Database</span>
+                          <span className="text-[10px] font-mono text-text-4 w-20">Database</span>
                           <div className="flex-1 grid grid-cols-2 gap-2">
                             <div className="px-2 py-1.5 rounded border text-center text-[10px]"
                               style={{ background: `${t.color}15`, borderColor: `${t.color}40`, color: t.color }}>
                               Primary
                             </div>
-                            <div className="px-2 py-1.5 rounded border text-center text-[10px] text-zinc-300 bg-[#0f0f0f] border-[#1f1f1f]">
+                            <div className="px-2 py-1.5 rounded border text-center text-[10px] text-text-2 bg-surface border-border-dim">
                               Replica (sync)
                             </div>
                           </div>
                         </div>
                         <div className="flex items-center gap-3">
-                          <span className="text-[10px] font-mono text-zinc-600 w-20">Cache</span>
+                          <span className="text-[10px] font-mono text-text-4 w-20">Cache</span>
                           <div className="flex-1 grid grid-cols-3 gap-2">
                             {["Sentinel-1", "Sentinel-2", "Sentinel-3"].map((s) => (
-                              <div key={s} className="px-2 py-1.5 rounded border text-center text-[10px] text-zinc-300 bg-[#0f0f0f] border-[#1f1f1f]">{s}</div>
+                              <div key={s} className="px-2 py-1.5 rounded border text-center text-[10px] text-text-2 bg-surface border-border-dim">{s}</div>
                             ))}
                           </div>
                         </div>
                         <div className="flex items-center gap-3">
-                          <span className="text-[10px] font-mono text-zinc-600 w-20">Workers</span>
+                          <span className="text-[10px] font-mono text-text-4 w-20">Workers</span>
                           <div className="flex-1 grid grid-cols-2 gap-2">
                             {["Worker Pool A", "Worker Pool B"].map((w) => (
-                              <div key={w} className="px-2 py-1.5 rounded border text-center text-[10px] text-zinc-300 bg-[#0f0f0f] border-[#1f1f1f]">{w}</div>
+                              <div key={w} className="px-2 py-1.5 rounded border text-center text-[10px] text-text-2 bg-surface border-border-dim">{w}</div>
                             ))}
                           </div>
                         </div>
@@ -494,32 +494,32 @@ export default function TechnicalPage() {
                             <p className="text-[10px] font-mono mb-2 text-center" style={{ color: t.color }}>Primary Region (Mumbai)</p>
                             <div className="space-y-1.5">
                               {["LB + App x3", "Postgres HA", "Redis Cluster", "Workers"].map((c) => (
-                                <div key={c} className="px-2 py-1 rounded bg-[#0f0f0f] border border-[#1f1f1f] text-[9px] text-zinc-300 text-center">{c}</div>
+                                <div key={c} className="px-2 py-1 rounded bg-surface border border-border-dim text-[9px] text-text-2 text-center">{c}</div>
                               ))}
                             </div>
                           </div>
                           {/* Region B */}
-                          <div className="p-3 rounded-lg border bg-[#0f0f0f] border-[#1f1f1f]">
-                            <p className="text-[10px] font-mono mb-2 text-center text-zinc-400">DR Region (Hyderabad)</p>
+                          <div className="p-3 rounded-lg border bg-surface border-border-dim">
+                            <p className="text-[10px] font-mono mb-2 text-center text-text-2">DR Region (Hyderabad)</p>
                             <div className="space-y-1.5">
                               {["LB + App x2 (warm)", "Postgres replica", "Redis (async)", "Workers (idle)"].map((c) => (
-                                <div key={c} className="px-2 py-1 rounded bg-[#080808] border border-[#1f1f1f] text-[9px] text-zinc-500 text-center">{c}</div>
+                                <div key={c} className="px-2 py-1 rounded bg-background border border-border-dim text-[9px] text-text-3 text-center">{c}</div>
                               ))}
                             </div>
                           </div>
                         </div>
                         <div className="flex items-center gap-2">
                           <span className="w-2 h-2 rounded-full animate-pulse" style={{ background: t.color }} />
-                          <p className="text-[10px] text-zinc-400 font-mono">↔ Async replication · Global DNS failover · Encrypted vault</p>
+                          <p className="text-[10px] text-text-2 font-mono">↔ Async replication · Global DNS failover · Encrypted vault</p>
                         </div>
-                        <div className="grid grid-cols-3 gap-2 pt-2 border-t border-[#1f1f1f]">
+                        <div className="grid grid-cols-3 gap-2 pt-2 border-t border-border-dim">
                           {[
                             { label: "Failover", value: "Automatic" },
                             { label: "Drill", value: "Quarterly" },
                             { label: "Backup", value: "Multi-region" },
                           ].map((m) => (
                             <div key={m.label} className="text-center">
-                              <p className="text-[9px] text-zinc-600 uppercase">{m.label}</p>
+                              <p className="text-[9px] text-text-4 uppercase">{m.label}</p>
                               <p className="text-[10px] font-mono" style={{ color: t.color }}>{m.value}</p>
                             </div>
                           ))}
@@ -535,20 +535,20 @@ export default function TechnicalPage() {
       </section>
 
       {/* SIZING */}
-      <section className="py-24 bg-[#0a0a0a] border-b border-[#1a1a1a]">
+      <section className="py-24 bg-background border-b border-border-dim">
         <div className="max-w-[var(--container-max)] mx-auto px-6">
           <p className="text-amber-500 text-xs font-semibold uppercase tracking-widest mb-3">Sizing Reference</p>
-          <h2 className="text-4xl font-black text-white tracking-tight mb-4">Hardware by scale.</h2>
-          <p className="text-zinc-400 text-lg max-w-2xl mb-12">
+          <h2 className="text-4xl font-black text-foreground tracking-tight mb-4">Hardware by scale.</h2>
+          <p className="text-text-2 text-lg max-w-2xl mb-12">
             Reference sizing for typical paper-mill deployments. Solutions Engineering tailors per actual workload.
           </p>
 
-          <div className="bg-[#0f0f0f] border border-[#1f1f1f] rounded-2xl overflow-hidden overflow-x-auto">
+          <div className="bg-surface border border-border-dim rounded-2xl overflow-hidden overflow-x-auto">
             <table className="w-full text-sm">
-              <thead className="bg-[#080808] border-b border-[#1f1f1f]">
+              <thead className="bg-background border-b border-border-dim">
                 <tr>
                   {["Tier", "vCPU", "RAM", "Storage", "Database", "Cache", "Network"].map((h) => (
-                    <th key={h} className="text-left px-5 py-3 text-[10px] uppercase tracking-widest font-semibold text-zinc-500">{h}</th>
+                    <th key={h} className="text-left px-5 py-3 text-[10px] uppercase tracking-widest font-semibold text-text-3">{h}</th>
                   ))}
                 </tr>
               </thead>
@@ -559,14 +559,14 @@ export default function TechnicalPage() {
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.35, delay: i * 0.08 }}
-                    className="border-b border-[#1a1a1a] last:border-0">
-                    <td className="px-5 py-3 text-white font-semibold">{row.tier}</td>
+                    className="border-b border-border-dim last:border-0">
+                    <td className="px-5 py-3 text-foreground font-semibold">{row.tier}</td>
                     <td className="px-5 py-3 font-mono text-amber-400">{row.cpu}</td>
-                    <td className="px-5 py-3 font-mono text-zinc-300">{row.ram}</td>
-                    <td className="px-5 py-3 font-mono text-zinc-300">{row.storage}</td>
-                    <td className="px-5 py-3 font-mono text-zinc-400 text-xs">{row.db}</td>
-                    <td className="px-5 py-3 font-mono text-zinc-400 text-xs">{row.cache}</td>
-                    <td className="px-5 py-3 font-mono text-zinc-400 text-xs">{row.network}</td>
+                    <td className="px-5 py-3 font-mono text-text-2">{row.ram}</td>
+                    <td className="px-5 py-3 font-mono text-text-2">{row.storage}</td>
+                    <td className="px-5 py-3 font-mono text-text-2 text-xs">{row.db}</td>
+                    <td className="px-5 py-3 font-mono text-text-2 text-xs">{row.cache}</td>
+                    <td className="px-5 py-3 font-mono text-text-2 text-xs">{row.network}</td>
                   </motion.tr>
                 ))}
               </tbody>
@@ -576,11 +576,11 @@ export default function TechnicalPage() {
       </section>
 
       {/* SOFTWARE STACK */}
-      <section className="py-24 border-b border-[#1a1a1a]">
+      <section className="py-24 border-b border-border-dim">
         <div className="max-w-[var(--container-max)] mx-auto px-6">
           <p className="text-amber-500 text-xs font-semibold uppercase tracking-widest mb-3">Software Stack</p>
-          <h2 className="text-4xl font-black text-white tracking-tight mb-4">Open, standard, supported.</h2>
-          <p className="text-zinc-400 text-lg max-w-2xl mb-12">
+          <h2 className="text-4xl font-black text-foreground tracking-tight mb-4">Open, standard, supported.</h2>
+          <p className="text-text-2 text-lg max-w-2xl mb-12">
             Built on proven open-source components. No vendor lock-in on the infrastructure layer.
           </p>
 
@@ -591,11 +591,11 @@ export default function TechnicalPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.35, delay: Math.min(i * 0.05, 0.3) }}
-                className="bg-[#0f0f0f] border border-[#1f1f1f] rounded-2xl p-5 hover:border-amber-500/20 transition-colors">
+                className="bg-surface border border-border-dim rounded-2xl p-5 hover:border-amber-500/20 transition-colors">
                 <p className="text-[10px] uppercase tracking-widest font-semibold text-amber-500 mb-3">{s.layer}</p>
                 <ul className="space-y-1.5">
                   {s.items.map((item) => (
-                    <li key={item} className="text-xs text-zinc-300 flex items-start gap-1.5">
+                    <li key={item} className="text-xs text-text-2 flex items-start gap-1.5">
                       <span className="text-amber-500/60">·</span> {item}
                     </li>
                   ))}
@@ -607,11 +607,11 @@ export default function TechnicalPage() {
       </section>
 
       {/* EXTENSIONS */}
-      <section className="py-24 bg-[#0a0a0a] border-b border-[#1a1a1a]">
+      <section className="py-24 bg-background border-b border-border-dim">
         <div className="max-w-[var(--container-max)] mx-auto px-6">
           <p className="text-amber-500 text-xs font-semibold uppercase tracking-widest mb-3">Extensions & Integrations</p>
-          <h2 className="text-4xl md:text-5xl font-black text-white tracking-tight mb-4">Plugs into your ecosystem.</h2>
-          <p className="text-zinc-400 text-lg max-w-2xl mb-14">
+          <h2 className="text-4xl md:text-5xl font-black text-foreground tracking-tight mb-4">Plugs into your ecosystem.</h2>
+          <p className="text-text-2 text-lg max-w-2xl mb-14">
             IoT, GPS, VPN, SSO, MDM, ERP, statutory portals — Papyrus BPApp connects to what you already run.
           </p>
 
@@ -624,16 +624,16 @@ export default function TechnicalPage() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.4, delay: Math.min(i * 0.05, 0.3) }}
-                  className="bg-[#0f0f0f] border border-[#1f1f1f] rounded-2xl p-6 hover:border-amber-500/25 transition-colors">
+                  className="bg-surface border border-border-dim rounded-2xl p-6 hover:border-amber-500/25 transition-colors">
                   <div className="w-11 h-11 rounded-xl border flex items-center justify-center mb-4"
                     style={{ background: `${ext.color}12`, borderColor: `${ext.color}30` }}>
                     <Icon size={18} style={{ color: ext.color }} />
                   </div>
-                  <h3 className="text-white font-bold text-base mb-2">{ext.title}</h3>
-                  <p className="text-zinc-400 text-[13px] leading-relaxed mb-4">{ext.desc}</p>
+                  <h3 className="text-foreground font-bold text-base mb-2">{ext.title}</h3>
+                  <p className="text-text-2 text-[13px] leading-relaxed mb-4">{ext.desc}</p>
                   <ul className="space-y-1.5">
                     {ext.items.map((item) => (
-                      <li key={item} className="text-xs text-zinc-400 flex items-start gap-1.5">
+                      <li key={item} className="text-xs text-text-2 flex items-start gap-1.5">
                         <span style={{ color: ext.color }}>·</span> {item}
                       </li>
                     ))}
@@ -646,11 +646,11 @@ export default function TechnicalPage() {
       </section>
 
       {/* SECURITY */}
-      <section className="py-24 border-b border-[#1a1a1a]">
+      <section className="py-24 border-b border-border-dim">
         <div className="max-w-[var(--container-max)] mx-auto px-6">
           <p className="text-amber-500 text-xs font-semibold uppercase tracking-widest mb-3">Security & Compliance</p>
-          <h2 className="text-4xl font-black text-white tracking-tight mb-4">Encrypted. Audited. Compliant.</h2>
-          <p className="text-zinc-400 text-lg max-w-2xl mb-12">
+          <h2 className="text-4xl font-black text-foreground tracking-tight mb-4">Encrypted. Audited. Compliant.</h2>
+          <p className="text-text-2 text-lg max-w-2xl mb-12">
             Security built into every layer. Audit-ready evidence trails for SOC 2, ISO 27001, GDPR, and Indian regulatory requirements.
           </p>
 
@@ -663,9 +663,9 @@ export default function TechnicalPage() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.3, delay: Math.min(i * 0.05, 0.3) }}
-                  className="bg-[#0f0f0f] border border-emerald-500/20 rounded-xl p-4 flex items-start gap-3">
+                  className="bg-surface border border-emerald-500/20 rounded-xl p-4 flex items-start gap-3">
                   <Icon size={14} className="text-emerald-400 mt-0.5 flex-shrink-0" />
-                  <p className="text-xs text-zinc-300 leading-snug font-semibold">{s.label}</p>
+                  <p className="text-xs text-text-2 leading-snug font-semibold">{s.label}</p>
                 </motion.div>
               );
             })}
@@ -674,11 +674,11 @@ export default function TechnicalPage() {
       </section>
 
       {/* INSTALLATION TIMELINE */}
-      <section className="py-24 bg-[#0a0a0a] border-b border-[#1a1a1a]">
+      <section className="py-24 bg-background border-b border-border-dim">
         <div className="max-w-[var(--container-max)] mx-auto px-6">
           <p className="text-amber-500 text-xs font-semibold uppercase tracking-widest mb-3">Installation Plan</p>
-          <h2 className="text-4xl font-black text-white tracking-tight mb-4">From kickoff to go-live in 2 weeks.</h2>
-          <p className="text-zinc-400 text-lg max-w-2xl mb-12">
+          <h2 className="text-4xl font-black text-foreground tracking-tight mb-4">From kickoff to go-live in 2 weeks.</h2>
+          <p className="text-text-2 text-lg max-w-2xl mb-12">
             Standard timeline for cloud or on-prem deployment. Solutions engineering tailors based on integration scope.
           </p>
 
@@ -692,18 +692,18 @@ export default function TechnicalPage() {
                   viewport={{ once: true }}
                   transition={{ duration: 0.4, delay: i * 0.08 }}
                   className="flex gap-5 items-start">
-                  <div className="flex-shrink-0 w-14 h-14 rounded-full bg-[#0f0f0f] border-2 border-amber-500/50 flex items-center justify-center font-mono text-[10px] font-bold text-amber-400 text-center">
+                  <div className="flex-shrink-0 w-14 h-14 rounded-full bg-surface border-2 border-amber-500/50 flex items-center justify-center font-mono text-[10px] font-bold text-amber-400 text-center">
                     {step.phase.replace("Day ", "D").replace("Week ", "W")}
                   </div>
-                  <div className="bg-[#0f0f0f] border border-[#1f1f1f] rounded-2xl p-5 flex-1">
+                  <div className="bg-surface border border-border-dim rounded-2xl p-5 flex-1">
                     <div className="flex items-center gap-3 mb-3">
                       <span className="text-xs font-bold text-amber-400 font-mono">{step.phase}</span>
                       <span className="text-zinc-700">·</span>
-                      <h3 className="text-base font-bold text-white">{step.title}</h3>
+                      <h3 className="text-base font-bold text-foreground">{step.title}</h3>
                     </div>
                     <ul className="grid grid-cols-1 md:grid-cols-2 gap-1.5">
                       {step.items.map((item) => (
-                        <li key={item} className="text-xs text-zinc-400 flex items-start gap-1.5">
+                        <li key={item} className="text-xs text-text-2 flex items-start gap-1.5">
                           <CheckCircle2 size={11} className="mt-0.5 text-amber-400 flex-shrink-0" /> {item}
                         </li>
                       ))}

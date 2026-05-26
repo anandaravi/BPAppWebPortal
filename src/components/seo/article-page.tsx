@@ -24,14 +24,14 @@ function renderBody(md: string) {
     const line = lines[i];
     if (line.startsWith("## ")) {
       out.push(
-        <h2 key={key++} className="text-2xl font-bold text-white mt-12 mb-4 leading-tight">
+        <h2 key={key++} className="text-2xl font-bold text-foreground mt-12 mb-4 leading-tight">
           {line.slice(3)}
         </h2>,
       );
       i++;
     } else if (line.startsWith("### ")) {
       out.push(
-        <h3 key={key++} className="text-xl font-bold text-white mt-8 mb-3 leading-tight">
+        <h3 key={key++} className="text-xl font-bold text-foreground mt-8 mb-3 leading-tight">
           {line.slice(4)}
         </h3>,
       );
@@ -40,7 +40,7 @@ function renderBody(md: string) {
       out.push(
         <blockquote
           key={key++}
-          className="border-l-3 border-amber-500/60 pl-5 my-6 text-zinc-300 italic"
+          className="border-l-3 border-amber-500/60 pl-5 my-6 text-text-2 italic"
         >
           {line.slice(2)}
         </blockquote>,
@@ -71,14 +71,14 @@ function renderBody(md: string) {
         i++;
       }
       out.push(
-        <div key={key++} className="my-6 overflow-x-auto rounded-xl border border-[#1f1f1f]">
+        <div key={key++} className="my-6 overflow-x-auto rounded-xl border border-border-dim">
           <table className="w-full text-sm border-collapse">
             <thead>
-              <tr className="bg-[#0f0f0f]">
+              <tr className="bg-surface">
                 {headers.map((h, j) => (
                   <th
                     key={j}
-                    className="text-left text-[11px] font-bold uppercase tracking-widest text-amber-400 px-4 py-3 border-b border-[#1f1f1f]"
+                    className="text-left text-[11px] font-bold uppercase tracking-widest text-amber-400 px-4 py-3 border-b border-border-dim"
                     dangerouslySetInnerHTML={{ __html: renderInline(h) }}
                   />
                 ))}
@@ -90,7 +90,7 @@ function renderBody(md: string) {
                   {r.map((c, ci) => (
                     <td
                       key={ci}
-                      className="px-4 py-2.5 text-zinc-300 border-b border-[#1a1a1a] last:border-b-0 align-top leading-relaxed"
+                      className="px-4 py-2.5 text-text-2 border-b border-border-dim last:border-b-0 align-top leading-relaxed"
                       dangerouslySetInnerHTML={{ __html: renderInline(c) }}
                     />
                   ))}
@@ -109,7 +109,7 @@ function renderBody(md: string) {
       out.push(
         <ul key={key++} className="space-y-2 my-5 ml-2">
           {items.map((it, j) => (
-            <li key={j} className="flex gap-2.5 text-zinc-300 leading-relaxed">
+            <li key={j} className="flex gap-2.5 text-text-2 leading-relaxed">
               <span className="text-amber-500 mt-1">•</span>
               <span dangerouslySetInnerHTML={{ __html: renderInline(it) }} />
             </li>
@@ -122,7 +122,7 @@ function renderBody(md: string) {
       out.push(
         <p
           key={key++}
-          className="text-zinc-300 leading-relaxed my-4"
+          className="text-text-2 leading-relaxed my-4"
           dangerouslySetInnerHTML={{ __html: renderInline(line) }}
         />,
       );
@@ -134,9 +134,9 @@ function renderBody(md: string) {
 
 function renderInline(text: string): string {
   return text
-    .replace(/\*\*(.+?)\*\*/g, '<strong class="text-white font-semibold">$1</strong>')
+    .replace(/\*\*(.+?)\*\*/g, '<strong class="text-foreground font-semibold">$1</strong>')
     .replace(/\*(.+?)\*/g, '<em>$1</em>')
-    .replace(/`(.+?)`/g, '<code class="bg-[#1a1a1a] px-1.5 py-0.5 rounded text-amber-300 text-sm">$1</code>')
+    .replace(/`(.+?)`/g, '<code class="bg-surface-3 px-1.5 py-0.5 rounded text-amber-300 text-sm">$1</code>')
     .replace(/\[(.+?)\]\((.+?)\)/g, '<a href="$2" class="text-amber-400 hover:text-amber-300 underline">$1</a>');
 }
 
@@ -162,7 +162,7 @@ export function ArticlePage({ article }: { article: ArticleData }) {
   };
 
   return (
-    <div className="min-h-screen bg-[#080808] pt-28 pb-24">
+    <div className="min-h-screen bg-background pt-28 pb-24">
       <JsonLd
         data={[
           articleSchema,
@@ -177,7 +177,7 @@ export function ArticlePage({ article }: { article: ArticleData }) {
       <article className="max-w-3xl mx-auto px-6">
         <Link
           href="/blog"
-          className="inline-flex items-center gap-1.5 text-xs text-zinc-500 hover:text-amber-400 mb-6 transition-colors"
+          className="inline-flex items-center gap-1.5 text-xs text-text-3 hover:text-amber-400 mb-6 transition-colors"
         >
           ← Back to Blog
         </Link>
@@ -195,11 +195,11 @@ export function ArticlePage({ article }: { article: ArticleData }) {
               ))}
             </div>
           )}
-          <h1 className="text-3xl md:text-5xl font-black text-white tracking-tight leading-tight mb-4">
+          <h1 className="text-3xl md:text-5xl font-black text-foreground tracking-tight leading-tight mb-4">
             {article.title}
           </h1>
-          <p className="text-lg text-zinc-400 leading-relaxed mb-6">{article.subtitle}</p>
-          <div className="flex items-center gap-4 text-xs text-zinc-500">
+          <p className="text-lg text-text-2 leading-relaxed mb-6">{article.subtitle}</p>
+          <div className="flex items-center gap-4 text-xs text-text-3">
             <span className="inline-flex items-center gap-1.5">
               <Calendar size={12} />
               {new Date(article.publishedAt).toLocaleDateString("en-IN", {
@@ -218,10 +218,10 @@ export function ArticlePage({ article }: { article: ArticleData }) {
         <div className="prose-paper">{renderBody(article.body)}</div>
 
         <section className="mt-16 bg-gradient-to-br from-amber-500/10 to-transparent border border-amber-500/20 rounded-2xl p-8 text-center">
-          <h2 className="text-xl font-bold text-white mb-3">
+          <h2 className="text-xl font-bold text-foreground mb-3">
             See how Papyrus BPApp solves this
           </h2>
-          <p className="text-zinc-400 mb-5 max-w-xl mx-auto">
+          <p className="text-text-2 mb-5 max-w-xl mx-auto">
             Book a demo tailored to your mill — we'll show you exactly the workflows discussed
             in this article.
           </p>

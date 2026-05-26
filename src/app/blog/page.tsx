@@ -29,7 +29,7 @@ export default function BlogPage() {
   );
 
   return (
-    <div className="min-h-screen bg-[#080808] pt-28 pb-24">
+    <div className="min-h-screen bg-background pt-28 pb-24">
       <JsonLd
         data={breadcrumbSchema([
           { name: "Home", url: "/" },
@@ -42,10 +42,10 @@ export default function BlogPage() {
           <p className="text-amber-500 text-xs font-semibold uppercase tracking-widest mb-3">
             Blog
           </p>
-          <h1 className="text-4xl md:text-5xl font-black text-white tracking-tight mb-4">
+          <h1 className="text-4xl md:text-5xl font-black text-foreground tracking-tight mb-4">
             Insights for Indian paper manufacturers
           </h1>
-          <p className="text-lg text-zinc-400 max-w-3xl leading-relaxed">
+          <p className="text-lg text-text-2 max-w-3xl leading-relaxed">
             Practical articles on deckle optimization, GST compliance, production planning,
             ERP selection, and the operational realities of running an Indian paper mill.
           </p>
@@ -56,7 +56,7 @@ export default function BlogPage() {
             <Link
               key={a.slug}
               href={`/blog/${a.slug}`}
-              className="group bg-[#0f0f0f] border border-[#222] hover:border-amber-500/30 rounded-2xl p-6 transition-colors flex flex-col"
+              className="group bg-surface border border-border hover:border-amber-500/30 rounded-2xl p-6 transition-colors flex flex-col"
             >
               {a.tags && (
                 <div className="flex flex-wrap gap-2 mb-3">
@@ -70,11 +70,11 @@ export default function BlogPage() {
                   ))}
                 </div>
               )}
-              <h2 className="text-xl font-bold text-white group-hover:text-amber-300 transition-colors mb-2 leading-tight">
+              <h2 className="text-xl font-bold text-foreground group-hover:text-amber-300 transition-colors mb-2 leading-tight">
                 {a.title}
               </h2>
-              <p className="text-sm text-zinc-400 leading-relaxed mb-4 flex-1">{a.subtitle}</p>
-              <div className="flex items-center justify-between text-xs text-zinc-500">
+              <p className="text-sm text-text-2 leading-relaxed mb-4 flex-1">{a.subtitle}</p>
+              <div className="flex items-center justify-between text-xs text-text-3">
                 <div className="flex items-center gap-3">
                   <span className="inline-flex items-center gap-1.5">
                     <Calendar size={11} />
@@ -89,7 +89,7 @@ export default function BlogPage() {
                     {a.readMinutes} min
                   </span>
                 </div>
-                <ArrowRight size={14} className="text-zinc-600 group-hover:text-amber-400 group-hover:translate-x-0.5 transition-all" />
+                <ArrowRight size={14} className="text-text-4 group-hover:text-amber-400 group-hover:translate-x-0.5 transition-all" />
               </div>
             </Link>
           ))}

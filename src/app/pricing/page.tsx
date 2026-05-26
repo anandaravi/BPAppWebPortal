@@ -98,9 +98,9 @@ const PLUGGABLE_WIN = [
 
 export default function PricingPage() {
   return (
-    <div className="min-h-screen bg-[#080808]">
+    <div className="min-h-screen bg-background">
       {/* HERO */}
-      <section className="relative overflow-hidden grain">
+      <section className="relative overflow-hidden grain on-photo">
         <div className="absolute inset-0">
           <Image
             src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=1920&q=80"
@@ -128,7 +128,7 @@ export default function PricingPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="text-5xl md:text-7xl font-black text-white leading-[1.0] tracking-tight mb-6 max-w-4xl"
+            className="text-5xl md:text-7xl font-black text-foreground leading-[1.0] tracking-tight mb-6 max-w-4xl"
           >
             Pay for what<br />
             <span className="amber-text">you run.</span>
@@ -138,7 +138,7 @@ export default function PricingPage() {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="text-lg text-zinc-400 max-w-2xl mb-10 leading-relaxed"
+            className="text-lg text-text-2 max-w-2xl mb-10 leading-relaxed"
           >
             BPApp uses a pluggable pricing model. There are no fixed tiers, no
             forced bundles. Your quote is built around exactly which modules you
@@ -164,7 +164,7 @@ export default function PricingPage() {
             </Link>
             <Link
               href="/product"
-              className="inline-flex items-center gap-2 px-6 py-3.5 rounded-lg border border-[#333] text-white hover:border-amber-500/40 text-sm font-medium transition-all"
+              className="inline-flex items-center gap-2 px-6 py-3.5 rounded-lg border border-border-light text-foreground hover:border-amber-500/40 text-sm font-medium transition-all"
             >
               See All Modules
             </Link>
@@ -173,15 +173,15 @@ export default function PricingPage() {
       </section>
 
       {/* HOW IT WORKS */}
-      <section className="py-20 border-y border-[#1a1a1a]">
+      <section className="py-20 border-y border-border-dim">
         <div className="max-w-[var(--container-max)] mx-auto px-6">
           <p className="text-amber-500 text-xs font-semibold uppercase tracking-widest mb-3">
             Four Dimensions
           </p>
-          <h2 className="text-4xl md:text-5xl font-black text-white tracking-tight mb-4">
+          <h2 className="text-4xl md:text-5xl font-black text-foreground tracking-tight mb-4">
             How your quote is built.
           </h2>
-          <p className="text-zinc-400 text-lg max-w-2xl mb-14">
+          <p className="text-text-2 text-lg max-w-2xl mb-14">
             Every custom quote is a function of four variables. Change any one
             of them and the price changes accordingly — no surprises.
           </p>
@@ -196,7 +196,7 @@ export default function PricingPage() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.4, delay: i * 0.08 }}
-                  className="bg-[#0f0f0f] border border-[#1f1f1f] rounded-2xl p-7 flex gap-5 hover:border-amber-500/20 transition-colors"
+                  className="bg-surface border border-border-dim rounded-2xl p-7 flex gap-5 hover:border-amber-500/20 transition-colors"
                 >
                   <div
                     className="flex-shrink-0 w-12 h-12 rounded-xl flex items-center justify-center"
@@ -205,10 +205,10 @@ export default function PricingPage() {
                     <Icon size={22} style={{ color: item.accent }} />
                   </div>
                   <div>
-                    <h3 className="text-white text-lg font-black mb-2">
+                    <h3 className="text-foreground text-lg font-black mb-2">
                       {item.title}
                     </h3>
-                    <p className="text-zinc-400 text-sm leading-relaxed">
+                    <p className="text-text-2 text-sm leading-relaxed">
                       {item.description}
                     </p>
                   </div>
@@ -220,12 +220,12 @@ export default function PricingPage() {
       </section>
 
       {/* WHY PLUGGABLE */}
-      <section className="py-20 bg-[#0a0a0a] border-b border-[#1a1a1a]">
+      <section className="py-20 bg-background border-b border-border-dim">
         <div className="max-w-[var(--container-max)] mx-auto px-6">
           <p className="text-amber-500 text-xs font-semibold uppercase tracking-widest mb-3">
             Why Pluggable?
           </p>
-          <h2 className="text-4xl md:text-5xl font-black text-white tracking-tight mb-14">
+          <h2 className="text-4xl md:text-5xl font-black text-foreground tracking-tight mb-14">
             No bloat. No over-billing.
           </h2>
 
@@ -236,7 +236,7 @@ export default function PricingPage() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4 }}
-              className="bg-[#0f0f0f] border border-red-900/40 rounded-2xl p-7"
+              className="bg-surface border border-red-900/40 rounded-2xl p-7"
             >
               <p className="text-xs font-bold uppercase tracking-widest text-red-400 mb-5">
                 Traditional Fixed-Bundle Software
@@ -248,7 +248,7 @@ export default function PricingPage() {
                       size={16}
                       className="flex-shrink-0 mt-0.5 text-red-500"
                     />
-                    <span className="text-sm text-zinc-300 leading-relaxed">
+                    <span className="text-sm text-text-2 leading-relaxed">
                       {point}
                     </span>
                   </li>
@@ -262,7 +262,7 @@ export default function PricingPage() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: 0.1 }}
-              className="bg-[#0f0f0f] border border-amber-500/30 rounded-2xl p-7"
+              className="bg-surface border border-amber-500/30 rounded-2xl p-7"
             >
               <p className="text-xs font-bold uppercase tracking-widest text-amber-400 mb-5">
                 BPApp Pluggable Model
@@ -274,7 +274,7 @@ export default function PricingPage() {
                       size={16}
                       className="flex-shrink-0 mt-0.5 text-amber-500"
                     />
-                    <span className="text-sm text-zinc-200 leading-relaxed">
+                    <span className="text-sm text-foreground leading-relaxed">
                       {point}
                     </span>
                   </li>
@@ -286,15 +286,15 @@ export default function PricingPage() {
       </section>
 
       {/* INDICATIVE PRICING */}
-      <section className="py-20 border-b border-[#1a1a1a]">
+      <section className="py-20 border-b border-border-dim">
         <div className="max-w-[var(--container-max)] mx-auto px-6">
           <p className="text-amber-500 text-xs font-semibold uppercase tracking-widest mb-3">
             Indicative Annual Cost
           </p>
-          <h2 className="text-4xl md:text-5xl font-black text-white tracking-tight mb-4">
+          <h2 className="text-4xl md:text-5xl font-black text-foreground tracking-tight mb-4">
             Ballpark, not bait.
           </h2>
-          <p className="text-zinc-400 text-lg max-w-2xl mb-14 leading-relaxed">
+          <p className="text-text-2 text-lg max-w-2xl mb-14 leading-relaxed">
             Final pricing depends on the four dimensions above. These are realistic
             annual ranges for typical mill profiles to anchor the conversation
             before a custom quote.
@@ -348,7 +348,7 @@ export default function PricingPage() {
             ].map((tier) => (
               <div
                 key={tier.tier}
-                className="bg-[#0f0f0f] border rounded-2xl p-6 flex flex-col"
+                className="bg-surface border rounded-2xl p-6 flex flex-col"
                 style={{
                   borderColor: tier.featured ? `${tier.accent}50` : "#1f1f1f",
                   boxShadow: tier.featured ? `0 0 32px ${tier.accent}15` : "none",
@@ -380,15 +380,15 @@ export default function PricingPage() {
                 >
                   {tier.price}
                 </p>
-                <p className="text-xs text-zinc-500 mb-5 font-mono">{tier.period}</p>
-                <p className="text-sm text-zinc-400 leading-relaxed mb-5">
+                <p className="text-xs text-text-3 mb-5 font-mono">{tier.period}</p>
+                <p className="text-sm text-text-2 leading-relaxed mb-5">
                   {tier.desc}
                 </p>
                 <ul className="space-y-2 mb-6">
                   {tier.items.map((it) => (
                     <li
                       key={it}
-                      className="flex items-start gap-2 text-xs text-zinc-300"
+                      className="flex items-start gap-2 text-xs text-text-2"
                     >
                       <CheckCircle2
                         size={13}
@@ -414,7 +414,7 @@ export default function PricingPage() {
             ))}
           </div>
 
-          <p className="text-[11px] text-zinc-600 mt-8 font-mono leading-relaxed max-w-3xl">
+          <p className="text-[11px] text-text-4 mt-8 font-mono leading-relaxed max-w-3xl">
             * Ranges include software subscription. Implementation (typically 4–12
             weeks), on-site training, and custom integrations are quoted
             separately and depend on scope. On-premise deployments add
@@ -424,15 +424,15 @@ export default function PricingPage() {
       </section>
 
       {/* MODULE GROUPS OVERVIEW */}
-      <section className="py-20 border-b border-[#1a1a1a]">
+      <section className="py-20 border-b border-border-dim">
         <div className="max-w-[var(--container-max)] mx-auto px-6">
           <p className="text-amber-500 text-xs font-semibold uppercase tracking-widest mb-3">
             44 Modules Across 6 Groups
           </p>
-          <h2 className="text-4xl md:text-5xl font-black text-white tracking-tight mb-4">
+          <h2 className="text-4xl md:text-5xl font-black text-foreground tracking-tight mb-4">
             Pick what you need.
           </h2>
-          <p className="text-zinc-400 text-lg max-w-2xl mb-14">
+          <p className="text-text-2 text-lg max-w-2xl mb-14">
             Modules are organised into groups for clarity. You can activate any
             combination — you are never forced to take an entire group.
           </p>
@@ -445,10 +445,10 @@ export default function PricingPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: i * 0.07 }}
-                className="bg-[#0f0f0f] border border-[#1f1f1f] rounded-2xl p-6 hover:border-amber-500/20 transition-colors"
+                className="bg-surface border border-border-dim rounded-2xl p-6 hover:border-amber-500/20 transition-colors"
               >
                 <div className="flex items-center justify-between mb-4">
-                  <h3 className="text-white font-black text-lg">{group.name}</h3>
+                  <h3 className="text-foreground font-black text-lg">{group.name}</h3>
                   <span
                     className="text-xs font-bold px-2.5 py-1 rounded-full"
                     style={{
@@ -460,7 +460,7 @@ export default function PricingPage() {
                     {group.count} modules
                   </span>
                 </div>
-                <p className="text-sm text-zinc-400 leading-relaxed">
+                <p className="text-sm text-text-2 leading-relaxed">
                   {group.description}
                 </p>
                 <div
@@ -476,7 +476,7 @@ export default function PricingPage() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.4 }}
-            className="text-center text-zinc-500 text-sm mt-10"
+            className="text-center text-text-3 text-sm mt-10"
           >
             Want the full breakdown?{" "}
             <Link
@@ -490,7 +490,7 @@ export default function PricingPage() {
       </section>
 
       {/* CTA SECTION */}
-      <section className="py-24 bg-[#0a0a0a] border-b border-[#1a1a1a]">
+      <section className="py-24 bg-background border-b border-border-dim">
         <div className="max-w-4xl mx-auto px-6 text-center">
           <motion.p
             initial={{ opacity: 0, y: 16 }}
@@ -506,7 +506,7 @@ export default function PricingPage() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.4, delay: 0.1 }}
-            className="text-4xl md:text-5xl font-black text-white tracking-tight mb-6 leading-tight"
+            className="text-4xl md:text-5xl font-black text-foreground tracking-tight mb-6 leading-tight"
           >
             No surprises. No bloat.{" "}
             <span className="amber-text">Get a quote sized to your mill.</span>
@@ -516,7 +516,7 @@ export default function PricingPage() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.4, delay: 0.15 }}
-            className="text-zinc-400 text-lg leading-relaxed mb-10 max-w-2xl mx-auto"
+            className="text-text-2 text-lg leading-relaxed mb-10 max-w-2xl mx-auto"
           >
             Tell us about your mill — size, modules of interest, user count, and
             deployment preference — and we will put together a transparent,

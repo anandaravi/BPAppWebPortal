@@ -222,35 +222,35 @@ export function InteractiveMap({ clients }: { clients: Client[] }) {
       </svg>
 
       {/* Zoom controls */}
-      <div className="absolute top-3 right-3 flex flex-col gap-1.5 bg-[#0a0a0a]/90 backdrop-blur border border-[#1f1f1f] rounded-lg p-1.5 shadow-lg">
+      <div className="absolute top-3 right-3 flex flex-col gap-1.5 bg-background/90 backdrop-blur border border-border-dim rounded-lg p-1.5 shadow-lg">
         <button
           onClick={zoomIn}
           disabled={zoom >= ZOOM_MAX}
-          className="w-8 h-8 flex items-center justify-center rounded text-zinc-400 hover:bg-amber-500/10 hover:text-amber-400 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+          className="w-8 h-8 flex items-center justify-center rounded text-text-2 hover:bg-amber-500/10 hover:text-amber-400 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
           aria-label="Zoom in"
         >
           <Plus size={14} />
         </button>
-        <div className="text-[9px] font-mono text-zinc-600 text-center">{zoom.toFixed(1)}×</div>
+        <div className="text-[9px] font-mono text-text-4 text-center">{zoom.toFixed(1)}×</div>
         <button
           onClick={zoomOut}
           disabled={zoom <= ZOOM_MIN}
-          className="w-8 h-8 flex items-center justify-center rounded text-zinc-400 hover:bg-amber-500/10 hover:text-amber-400 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+          className="w-8 h-8 flex items-center justify-center rounded text-text-2 hover:bg-amber-500/10 hover:text-amber-400 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
           aria-label="Zoom out"
         >
           <Minus size={14} />
         </button>
-        <div className="h-px bg-[#1f1f1f] my-0.5" />
+        <div className="h-px bg-surface-3 my-0.5" />
         <button
           onClick={reset}
-          className="w-8 h-8 flex items-center justify-center rounded text-zinc-400 hover:bg-amber-500/10 hover:text-amber-400 transition-colors"
+          className="w-8 h-8 flex items-center justify-center rounded text-text-2 hover:bg-amber-500/10 hover:text-amber-400 transition-colors"
           aria-label="Reset view"
         >
           <RotateCcw size={12} />
         </button>
       </div>
 
-      <p className="text-[10px] text-zinc-600 font-mono mt-2 text-center">
+      <p className="text-[10px] text-text-4 font-mono mt-2 text-center">
         Scroll to zoom · drag to pan · or use buttons ↗
       </p>
     </div>

@@ -36,21 +36,21 @@ const PILLARS = [
 
 export function Pillars() {
   return (
-    <section className="py-24 bg-[#080808] border-b border-[#1a1a1a]">
+    <section className="py-24 bg-background border-b border-border-dim">
       <div className="max-w-[var(--container-max)] mx-auto px-6">
         <motion.div initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }} transition={{ duration: 0.5 }}
           className="mb-14 max-w-3xl">
           <p className="text-amber-500 text-xs font-semibold uppercase tracking-widest mb-3">Why Papyrus BPApp</p>
-          <h2 className="text-4xl md:text-5xl font-black text-white tracking-tight mb-5 leading-tight">
+          <h2 className="text-4xl md:text-5xl font-black text-foreground tracking-tight mb-5 leading-tight">
             Run the entire business on <span className="amber-text">four pillars.</span>
           </h2>
-          <p className="text-zinc-400 text-lg leading-relaxed">
+          <p className="text-text-2 text-lg leading-relaxed">
             Papyrus BPApp is not just an ERP. It&apos;s the operating system for paper mill businesses —
-            built to <span className="text-white font-semibold">streamline</span>,{" "}
-            <span className="text-white font-semibold">automate</span>,{" "}
-            <span className="text-white font-semibold">govern</span>, and{" "}
-            <span className="text-white font-semibold">control</span> every function under one roof.
+            built to <span className="text-foreground font-semibold">streamline</span>,{" "}
+            <span className="text-foreground font-semibold">automate</span>,{" "}
+            <span className="text-foreground font-semibold">govern</span>, and{" "}
+            <span className="text-foreground font-semibold">control</span> every function under one roof.
           </p>
         </motion.div>
 
@@ -63,7 +63,7 @@ export function Pillars() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: i * 0.1 }}
-                className="bg-[#0f0f0f] border rounded-2xl p-6 hover:bg-[#121212] transition-colors group"
+                className="bg-surface border rounded-2xl p-6 hover:bg-[#121212] transition-colors group"
                 style={{ borderColor: `${p.color}30` }}>
                 <div className="flex items-center justify-between mb-5">
                   <div className="w-12 h-12 rounded-xl border flex items-center justify-center"
@@ -75,8 +75,8 @@ export function Pillars() {
                   </span>
                 </div>
                 <h3 className="text-2xl font-black mb-2" style={{ color: p.color }}>{p.word}</h3>
-                <p className="text-white font-bold text-sm mb-2.5 leading-tight">{p.title}</p>
-                <p className="text-zinc-400 text-[13px] leading-relaxed">{p.desc}</p>
+                <p className="text-foreground font-bold text-sm mb-2.5 leading-tight">{p.title}</p>
+                <p className="text-text-2 text-[13px] leading-relaxed">{p.desc}</p>
               </motion.div>
             );
           })}

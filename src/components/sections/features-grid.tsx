@@ -9,15 +9,15 @@ import { getIcon } from "@/lib/icons";
 
 export function FeaturesGrid() {
   return (
-    <section className="py-28 bg-[#080808]">
+    <section className="py-28 bg-background">
       <div className="max-w-[var(--container-max)] mx-auto px-6">
         <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }} transition={{ duration: 0.5 }} className="mb-16 flex flex-col md:flex-row md:items-end md:justify-between gap-6">
           <div>
             <p className="text-amber-500 text-xs font-semibold uppercase tracking-widest mb-3">All 44 Modules</p>
-            <h2 className="text-4xl md:text-5xl font-black text-white tracking-tight">
+            <h2 className="text-4xl md:text-5xl font-black text-foreground tracking-tight">
               Everything a paper mill needs.<br />
-              <span className="text-zinc-500">Nothing it doesn&apos;t.</span>
+              <span className="text-text-3">Nothing it doesn&apos;t.</span>
             </h2>
           </div>
           <Link href="/product" className="group inline-flex items-center gap-2 text-sm text-amber-400 hover:text-amber-300 transition-colors font-medium">
@@ -35,8 +35,8 @@ export function FeaturesGrid() {
                 transition={{ duration: 0.4, delay: gi * 0.05 }}
                 className="flex items-center gap-3 mb-5">
                 <span className="w-1 h-5 bg-amber-500 rounded-full" />
-                <h3 className="text-lg font-bold text-white">{group.title}</h3>
-                <span className="text-zinc-600 font-mono text-xs">{group.slugs.length} modules</span>
+                <h3 className="text-lg font-bold text-foreground">{group.title}</h3>
+                <span className="text-text-4 font-mono text-xs">{group.slugs.length} modules</span>
               </motion.div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -50,7 +50,7 @@ export function FeaturesGrid() {
                       whileInView={{ opacity: 1, y: 0 }}
                       viewport={{ once: true }}
                       transition={{ duration: 0.35, delay: Math.min(i * 0.04, 0.25) }}>
-                      <Link href={`/product/${slug}`} className="group block relative h-44 rounded-xl overflow-hidden border border-[#1f1f1f] bg-[#0f0f0f] amber-card">
+                      <Link href={`/product/${slug}`} className="group block relative h-44 rounded-xl overflow-hidden border border-border-dim bg-surface amber-card">
                         <Image src={m.photo} alt={m.tag} fill sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw" className="object-cover opacity-35 group-hover:opacity-60 group-hover:scale-105 transition-all duration-500" loading="lazy" />
                         <div className="absolute inset-0 bg-gradient-to-t from-[#0f0f0f] via-[#0f0f0f]/70 to-[#0f0f0f]/20 group-hover:to-[#0f0f0f]/10 transition-all duration-500" />
 
@@ -60,12 +60,12 @@ export function FeaturesGrid() {
                               style={{ background: `${m.accent}12`, borderColor: `${m.accent}30` }}>
                               <Icon size={14} style={{ color: m.accent }} />
                             </div>
-                            <ArrowRight size={12} className="text-zinc-600 group-hover:text-amber-400 group-hover:translate-x-0.5 transition-all" />
+                            <ArrowRight size={12} className="text-text-4 group-hover:text-amber-400 group-hover:translate-x-0.5 transition-all" />
                           </div>
 
                           <div>
-                            <h4 className="text-white font-bold text-sm leading-tight mb-1">{m.name}</h4>
-                            <p className="text-zinc-500 text-[11px] leading-snug line-clamp-2">{m.tag}</p>
+                            <h4 className="text-foreground font-bold text-sm leading-tight mb-1">{m.name}</h4>
+                            <p className="text-text-3 text-[11px] leading-snug line-clamp-2">{m.tag}</p>
                           </div>
                         </div>
 

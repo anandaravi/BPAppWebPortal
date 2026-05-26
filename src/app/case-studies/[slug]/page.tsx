@@ -47,7 +47,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
   if (!c || c.status !== "published") notFound();
 
   return (
-    <div className="min-h-screen bg-[#080808] pt-28 pb-24">
+    <div className="min-h-screen bg-background pt-28 pb-24">
       <JsonLd
         data={[
           breadcrumbSchema([
@@ -61,7 +61,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
       <article className="max-w-4xl mx-auto px-6">
         <Link
           href="/case-studies"
-          className="inline-flex items-center gap-1.5 text-xs text-zinc-500 hover:text-amber-400 mb-6 transition-colors"
+          className="inline-flex items-center gap-1.5 text-xs text-text-3 hover:text-amber-400 mb-6 transition-colors"
         >
           ← Back to Case Studies
         </Link>
@@ -77,11 +77,11 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
               </span>
             ))}
           </div>
-          <h1 className="text-3xl md:text-5xl font-black text-white tracking-tight leading-tight mb-4">
+          <h1 className="text-3xl md:text-5xl font-black text-foreground tracking-tight leading-tight mb-4">
             {c.title}
           </h1>
-          <p className="text-lg text-zinc-400 leading-relaxed mb-6">{c.subtitle}</p>
-          <div className="flex items-center gap-4 text-xs text-zinc-500">
+          <p className="text-lg text-text-2 leading-relaxed mb-6">{c.subtitle}</p>
+          <div className="flex items-center gap-4 text-xs text-text-3">
             <span className="inline-flex items-center gap-1.5">
               <Calendar size={12} />
               {new Date(c.publishedAt).toLocaleDateString("en-IN", {
@@ -99,8 +99,8 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
           <p className="text-amber-500 text-xs font-semibold uppercase tracking-widest mb-4">
             Before vs After
           </p>
-          <div className="bg-[#0f0f0f] border border-[#1f1f1f] rounded-2xl overflow-hidden">
-            <div className="grid grid-cols-4 px-5 py-3 border-b border-[#1f1f1f] bg-[#080808] text-[10px] uppercase tracking-widest font-semibold text-zinc-500">
+          <div className="bg-surface border border-border-dim rounded-2xl overflow-hidden">
+            <div className="grid grid-cols-4 px-5 py-3 border-b border-border-dim bg-background text-[10px] uppercase tracking-widest font-semibold text-text-3">
               <span>Metric</span>
               <span className="text-center">Before</span>
               <span className="text-center">After</span>
@@ -109,10 +109,10 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
             {c.metrics.map((m) => (
               <div
                 key={m.label}
-                className="grid grid-cols-4 px-5 py-3 border-b border-[#1a1a1a] last:border-0 items-center text-sm"
+                className="grid grid-cols-4 px-5 py-3 border-b border-border-dim last:border-0 items-center text-sm"
               >
-                <span className="text-zinc-300">{m.label}</span>
-                <span className="text-zinc-500 font-mono text-center">{m.before}</span>
+                <span className="text-text-2">{m.label}</span>
+                <span className="text-text-3 font-mono text-center">{m.before}</span>
                 <span className="text-emerald-400 font-mono text-center font-bold">{m.after}</span>
                 <span className="text-amber-400 font-mono text-right text-xs">{m.delta}</span>
               </div>
@@ -123,30 +123,30 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
         {/* CHALLENGE */}
         <section className="mb-10">
           <p className="text-red-400 text-xs font-semibold uppercase tracking-widest mb-3">Challenge</p>
-          <p className="text-zinc-300 leading-relaxed text-base">{c.challenge}</p>
+          <p className="text-text-2 leading-relaxed text-base">{c.challenge}</p>
         </section>
 
         {/* APPROACH */}
         <section className="mb-10">
           <p className="text-amber-400 text-xs font-semibold uppercase tracking-widest mb-3">Approach</p>
-          <p className="text-zinc-300 leading-relaxed text-base">{c.approach}</p>
+          <p className="text-text-2 leading-relaxed text-base">{c.approach}</p>
         </section>
 
         {/* OUTCOME */}
         <section className="mb-10">
           <p className="text-emerald-400 text-xs font-semibold uppercase tracking-widest mb-3">Outcome</p>
-          <p className="text-zinc-300 leading-relaxed text-base">{c.outcome}</p>
+          <p className="text-text-2 leading-relaxed text-base">{c.outcome}</p>
         </section>
 
         {/* QUOTE */}
         {c.quote && (
-          <section className="mb-12 bg-[#0f0f0f] border-l-4 border-amber-500/60 rounded-r-2xl p-6 flex gap-4">
+          <section className="mb-12 bg-surface border-l-4 border-amber-500/60 rounded-r-2xl p-6 flex gap-4">
             <Quote size={20} className="text-amber-400 flex-shrink-0 mt-1" />
             <div>
-              <p className="text-lg text-white italic leading-relaxed mb-3">
+              <p className="text-lg text-foreground italic leading-relaxed mb-3">
                 &ldquo;{c.quote.text}&rdquo;
               </p>
-              <p className="text-sm text-zinc-500 font-mono">— {c.quote.role}</p>
+              <p className="text-sm text-text-3 font-mono">— {c.quote.role}</p>
             </div>
           </section>
         )}
@@ -159,12 +159,12 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
           <div className="space-y-3">
             {c.timeline.map((t, i) => (
               <div key={t.week} className="flex gap-4 items-start">
-                <div className="flex-shrink-0 w-12 h-12 rounded-full bg-[#0f0f0f] border-2 border-amber-500/50 flex items-center justify-center font-mono text-[10px] font-bold text-amber-400">
+                <div className="flex-shrink-0 w-12 h-12 rounded-full bg-surface border-2 border-amber-500/50 flex items-center justify-center font-mono text-[10px] font-bold text-amber-400">
                   {String(i + 1).padStart(2, "0")}
                 </div>
-                <div className="bg-[#0f0f0f] border border-[#1f1f1f] rounded-xl p-4 flex-1">
+                <div className="bg-surface border border-border-dim rounded-xl p-4 flex-1">
                   <p className="text-xs font-bold text-amber-400 font-mono mb-1">{t.week}</p>
-                  <p className="text-sm text-zinc-300 leading-relaxed">{t.milestone}</p>
+                  <p className="text-sm text-text-2 leading-relaxed">{t.milestone}</p>
                 </div>
               </div>
             ))}
@@ -180,7 +180,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
             {c.modules.map((m) => (
               <span
                 key={m}
-                className="text-sm px-3 py-1.5 rounded-full border border-[#1f1f1f] bg-[#0f0f0f] text-zinc-300"
+                className="text-sm px-3 py-1.5 rounded-full border border-border-dim bg-surface text-text-2"
               >
                 {m}
               </span>
@@ -189,10 +189,10 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
         </section>
 
         <section className="mt-16 bg-gradient-to-br from-amber-500/10 to-transparent border border-amber-500/20 rounded-2xl p-8 text-center">
-          <h2 className="text-xl font-bold text-white mb-3">
+          <h2 className="text-xl font-bold text-foreground mb-3">
             See similar outcomes for your mill
           </h2>
-          <p className="text-zinc-400 mb-5 max-w-xl mx-auto">
+          <p className="text-text-2 mb-5 max-w-xl mx-auto">
             Book a demo tailored to your mill profile — we&apos;ll show you the exact modules used
             in this case study.
           </p>

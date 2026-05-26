@@ -112,16 +112,16 @@ export function SearchDialog() {
     <>
       <button
         onClick={() => setOpen(true)}
-        className="hidden md:inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border border-[#222] bg-[#0f0f0f]/80 hover:border-amber-500/30 hover:bg-amber-500/5 text-zinc-500 hover:text-zinc-300 text-xs transition-colors"
+        className="hidden md:inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border border-border bg-surface/80 hover:border-amber-500/30 hover:bg-amber-500/5 text-text-3 hover:text-text-2 text-xs transition-colors"
         aria-label="Search site"
       >
         <Search size={13} />
         <span>Search…</span>
-        <span className="ml-2 px-1.5 py-0.5 rounded border border-[#262626] text-[10px] font-mono text-zinc-600">⌘K</span>
+        <span className="ml-2 px-1.5 py-0.5 rounded border border-[#262626] text-[10px] font-mono text-text-4">⌘K</span>
       </button>
       <button
         onClick={() => setOpen(true)}
-        className="md:hidden inline-flex items-center justify-center w-9 h-9 rounded-lg border border-[#222] bg-[#0f0f0f]/80 text-zinc-400"
+        className="md:hidden inline-flex items-center justify-center w-9 h-9 rounded-lg border border-border bg-surface/80 text-text-2"
         aria-label="Search site"
       >
         <Search size={15} />
@@ -134,10 +134,10 @@ export function SearchDialog() {
         >
           <div className="absolute inset-0 bg-black/70 backdrop-blur-sm" />
           <div
-            className="relative w-full max-w-2xl bg-[#0a0a0a] border border-[#1f1f1f] rounded-2xl shadow-2xl shadow-black/80 overflow-hidden"
+            className="relative w-full max-w-2xl bg-background border border-border-dim rounded-2xl shadow-2xl shadow-black/80 overflow-hidden"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="flex items-center gap-3 px-5 py-4 border-b border-[#1f1f1f]">
+            <div className="flex items-center gap-3 px-5 py-4 border-b border-border-dim">
               <Search size={18} className="text-amber-400 flex-shrink-0" />
               <input
                 ref={inputRef}
@@ -149,14 +149,14 @@ export function SearchDialog() {
                 }}
                 onKeyDown={handleKeyDown}
                 placeholder="Search modules, capabilities, blog, cities, comparisons…"
-                className="flex-1 bg-transparent text-base text-white placeholder:text-zinc-600 outline-none"
+                className="flex-1 bg-transparent text-base text-foreground placeholder:text-text-4 outline-none"
               />
-              <kbd className="hidden sm:inline-block px-2 py-0.5 rounded border border-[#262626] text-[10px] font-mono text-zinc-500">
+              <kbd className="hidden sm:inline-block px-2 py-0.5 rounded border border-[#262626] text-[10px] font-mono text-text-3">
                 ESC
               </kbd>
               <button
                 onClick={close}
-                className="sm:hidden text-zinc-500 hover:text-white"
+                className="sm:hidden text-text-3 hover:text-foreground"
                 aria-label="Close"
               >
                 <X size={18} />
@@ -165,14 +165,14 @@ export function SearchDialog() {
 
             <div ref={listRef} className="max-h-[60vh] overflow-y-auto">
               {!query && (
-                <p className="px-5 py-3 text-[10px] uppercase tracking-widest font-semibold text-zinc-600 font-mono border-b border-[#1f1f1f]">
+                <p className="px-5 py-3 text-[10px] uppercase tracking-widest font-semibold text-text-4 font-mono border-b border-border-dim">
                   Suggested
                 </p>
               )}
               {displayed.length === 0 ? (
                 <div className="px-5 py-10 text-center">
-                  <p className="text-sm text-zinc-500">No results for &ldquo;{query}&rdquo;</p>
-                  <p className="text-xs text-zinc-600 mt-2">
+                  <p className="text-sm text-text-3">No results for &ldquo;{query}&rdquo;</p>
+                  <p className="text-xs text-text-4 mt-2">
                     Try: deckle, GST, kraft, Vapi, Greycon, payroll
                   </p>
                 </div>
@@ -187,7 +187,7 @@ export function SearchDialog() {
                       className={`flex items-center gap-3 px-5 py-2.5 transition-colors ${
                         highlight === i
                           ? "bg-amber-500/10 border-l-2 border-amber-500"
-                          : "border-l-2 border-transparent hover:bg-[#0f0f0f]"
+                          : "border-l-2 border-transparent hover:bg-surface"
                       }`}
                       onMouseEnter={() => setHighlight(i)}
                     >
@@ -204,14 +204,14 @@ export function SearchDialog() {
                       <div className="flex-1 min-w-0">
                         <p
                           className={`text-sm font-semibold truncate ${
-                            highlight === i ? "text-amber-300" : "text-white"
+                            highlight === i ? "text-amber-300" : "text-foreground"
                           }`}
                         >
                           {e.title}
                         </p>
-                        <p className="text-xs text-zinc-500 truncate">{e.subtitle}</p>
+                        <p className="text-xs text-text-3 truncate">{e.subtitle}</p>
                       </div>
-                      <span className="text-[10px] text-zinc-600 font-mono truncate hidden sm:inline max-w-[160px]">
+                      <span className="text-[10px] text-text-4 font-mono truncate hidden sm:inline max-w-[160px]">
                         {e.url}
                       </span>
                       {highlight === i ? (
@@ -225,7 +225,7 @@ export function SearchDialog() {
               )}
             </div>
 
-            <div className="border-t border-[#1f1f1f] px-5 py-3 flex items-center justify-between text-[10px] font-mono text-zinc-600">
+            <div className="border-t border-border-dim px-5 py-3 flex items-center justify-between text-[10px] font-mono text-text-4">
               <div className="flex items-center gap-3">
                 <span>
                   <kbd className="px-1 py-0.5 rounded border border-[#262626] mr-1">↑↓</kbd> navigate

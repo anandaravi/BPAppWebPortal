@@ -183,9 +183,9 @@ const TIMELINE = [
 
 export function AIDeepDive({ data }: { data: ModuleData }) {
   return (
-    <div className="min-h-screen bg-[#080808]">
+    <div className="min-h-screen bg-background">
       {/* HERO */}
-      <section className="relative min-h-[88vh] overflow-hidden grain">
+      <section className="relative min-h-[88vh] overflow-hidden grain on-photo">
         <div className="absolute inset-0">
           <Image src="https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=1920&q=80"
             alt="AI for paper manufacturing" fill className="object-cover" priority unoptimized />
@@ -201,13 +201,13 @@ export function AIDeepDive({ data }: { data: ModuleData }) {
           </motion.div>
 
           <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-5xl md:text-7xl lg:text-8xl font-black text-white leading-[0.95] tracking-tight mb-6 max-w-5xl">
+            className="text-5xl md:text-7xl lg:text-8xl font-black text-foreground leading-[0.95] tracking-tight mb-6 max-w-5xl">
             Ask the ERP.<br />
             <span style={{ background: "linear-gradient(135deg, #A78BFA, #60A5FA)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>Act in seconds.</span>
           </motion.h1>
 
           <motion.p initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-xl text-zinc-400 max-w-2xl mb-10 leading-relaxed">
+            className="text-xl text-text-2 max-w-2xl mb-10 leading-relaxed">
             Conversational AI across all 44 modules. Claude, Gemini or GPT — configurable per
             deployment. Predictive maintenance with 24–72 hour warning. Bulk actions with
             human-in-loop preview. Citations on every answer.
@@ -218,7 +218,7 @@ export function AIDeepDive({ data }: { data: ModuleData }) {
             <Link href="/contact" className="group inline-flex items-center justify-center gap-2 px-7 py-4 rounded-lg bg-amber-500 hover:bg-amber-400 text-black font-bold text-sm transition-all">
               Get a live demo <ArrowRight size={16} className="group-hover:translate-x-0.5 transition-transform" />
             </Link>
-            <Link href="/product" className="inline-flex items-center gap-2 px-7 py-4 rounded-lg border border-[#333] text-white hover:border-amber-500/40 text-sm font-medium transition-all">
+            <Link href="/product" className="inline-flex items-center gap-2 px-7 py-4 rounded-lg border border-border-light text-foreground hover:border-amber-500/40 text-sm font-medium transition-all">
               <ArrowLeft size={14} /> All Modules
             </Link>
           </motion.div>
@@ -231,9 +231,9 @@ export function AIDeepDive({ data }: { data: ModuleData }) {
               { value: "44", label: "Modules covered", color: "#34D399" },
               { value: "0.4%", label: "Hallucination rate", color: "#60A5FA" },
             ].map((m) => (
-              <div key={m.label} className="bg-[#0f0f0f]/85 backdrop-blur border border-[#1f1f1f] rounded-xl p-4">
+              <div key={m.label} className="bg-surface/85 backdrop-blur border border-border-dim rounded-xl p-4">
                 <p className="text-2xl font-black font-mono mb-1" style={{ color: m.color }}>{m.value}</p>
-                <p className="text-xs text-zinc-500">{m.label}</p>
+                <p className="text-xs text-text-3">{m.label}</p>
               </div>
             ))}
           </motion.div>
@@ -241,7 +241,7 @@ export function AIDeepDive({ data }: { data: ModuleData }) {
       </section>
 
       {/* PROBLEM */}
-      <section className="py-20 border-y border-[#1a1a1a] bg-[#0a0a0a]">
+      <section className="py-20 border-y border-border-dim bg-background">
         <div className="max-w-[var(--container-max)] mx-auto px-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-14 items-center">
             <motion.div initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }}
@@ -249,15 +249,15 @@ export function AIDeepDive({ data }: { data: ModuleData }) {
               <p className="text-violet-300 text-xs font-semibold uppercase tracking-widest mb-3 flex items-center gap-2">
                 <AlertTriangle size={12} /> The reporting tax
               </p>
-              <h2 className="text-4xl md:text-5xl font-black text-white tracking-tight mb-6 leading-tight">
+              <h2 className="text-4xl md:text-5xl font-black text-foreground tracking-tight mb-6 leading-tight">
                 Decisions wait on <span className="text-violet-300">someone pulling a report</span>.
               </h2>
-              <p className="text-zinc-400 text-lg leading-relaxed mb-6">
+              <p className="text-text-2 text-lg leading-relaxed mb-6">
                 A mill produces data 24×7 but answers crawl. Plant manager wants a margin breakdown
                 — analyst takes a day. CFO wants working capital trajectory — finance team takes a week.
                 Maintenance head wants impending failure list — there isn&apos;t one until something breaks.
               </p>
-              <p className="text-zinc-500 text-sm leading-relaxed">
+              <p className="text-text-3 text-sm leading-relaxed">
                 Every delay between question and answer is a decision deferred. AI isn&apos;t a chatbot —
                 it&apos;s removing the analyst bottleneck between operational data and operational action.
               </p>
@@ -265,8 +265,8 @@ export function AIDeepDive({ data }: { data: ModuleData }) {
 
             <motion.div initial={{ opacity: 0, x: 20 }} whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.1 }}
-              className="bg-[#0f0f0f] border border-[#1f1f1f] rounded-2xl p-6">
-              <p className="text-[10px] uppercase tracking-widest font-mono text-zinc-600 mb-5">Question → answer lag · before vs after</p>
+              className="bg-surface border border-border-dim rounded-2xl p-6">
+              <p className="text-[10px] uppercase tracking-widest font-mono text-text-4 mb-5">Question → answer lag · before vs after</p>
               <div className="space-y-4">
                 {[
                   { label: "'Why is margin down?'", before: "Half day", after: "15 sec", bar: 99, color: "#A78BFA" },
@@ -276,10 +276,10 @@ export function AIDeepDive({ data }: { data: ModuleData }) {
                 ].map((row, i) => (
                   <div key={row.label}>
                     <div className="flex justify-between text-xs mb-1.5">
-                      <span className="text-zinc-400">{row.label}</span>
-                      <span className="font-mono"><span className="text-zinc-600">{row.before}</span> <span className="text-zinc-600">→</span> <span className="font-bold" style={{ color: row.color }}>{row.after}</span></span>
+                      <span className="text-text-2">{row.label}</span>
+                      <span className="font-mono"><span className="text-text-4">{row.before}</span> <span className="text-text-4">→</span> <span className="font-bold" style={{ color: row.color }}>{row.after}</span></span>
                     </div>
-                    <div className="h-2.5 bg-[#1a1a1a] rounded-full overflow-hidden">
+                    <div className="h-2.5 bg-surface-3 rounded-full overflow-hidden">
                       <motion.div initial={{ width: 0 }} whileInView={{ width: `${row.bar}%` }}
                         viewport={{ once: true }} transition={{ duration: 1.2, delay: 0.3 + i * 0.15, ease: "easeOut" }}
                         className="h-full rounded-full" style={{ background: row.color }} />
@@ -287,7 +287,7 @@ export function AIDeepDive({ data }: { data: ModuleData }) {
                   </div>
                 ))}
               </div>
-              <p className="text-[10px] text-zinc-600 mt-5 font-mono leading-relaxed">
+              <p className="text-[10px] text-text-4 mt-5 font-mono leading-relaxed">
                 * Production deployment, 90-day rolling baseline.
               </p>
             </motion.div>
@@ -296,13 +296,13 @@ export function AIDeepDive({ data }: { data: ModuleData }) {
       </section>
 
       {/* PROVIDERS */}
-      <section className="py-24 border-b border-[#1a1a1a]">
+      <section className="py-24 border-b border-border-dim">
         <div className="max-w-[var(--container-max)] mx-auto px-6">
           <p className="text-violet-300 text-xs font-semibold uppercase tracking-widest mb-3">LLM Providers</p>
-          <h2 className="text-4xl md:text-5xl font-black text-white tracking-tight mb-4">
+          <h2 className="text-4xl md:text-5xl font-black text-foreground tracking-tight mb-4">
             Pick your engine. Lock your region.
           </h2>
-          <p className="text-zinc-400 text-lg max-w-3xl mb-14 leading-relaxed">
+          <p className="text-text-2 text-lg max-w-3xl mb-14 leading-relaxed">
             Claude, Gemini and GPT — all wired in. Customer chooses based on residency, cost,
             and capability profile. Switch providers without re-doing your integration.
           </p>
@@ -314,7 +314,7 @@ export function AIDeepDive({ data }: { data: ModuleData }) {
                 <motion.div key={t.name}
                   initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }} transition={{ duration: 0.5, delay: i * 0.1 }}
-                  className="bg-[#0f0f0f] border rounded-2xl p-6 flex flex-col gap-4"
+                  className="bg-surface border rounded-2xl p-6 flex flex-col gap-4"
                   style={{ borderColor: `${t.color}30` }}>
                   <div className="flex items-center justify-between">
                     <div className="w-12 h-12 rounded-xl border flex items-center justify-center"
@@ -323,18 +323,18 @@ export function AIDeepDive({ data }: { data: ModuleData }) {
                     </div>
                   </div>
                   <div>
-                    <h3 className="text-white font-black text-xl mb-1">{t.name}</h3>
-                    <p className="text-xs text-zinc-500 font-mono">{t.use}</p>
+                    <h3 className="text-foreground font-black text-xl mb-1">{t.name}</h3>
+                    <p className="text-xs text-text-3 font-mono">{t.use}</p>
                   </div>
-                  <p className="text-sm text-zinc-300 leading-relaxed">{t.strengths}</p>
-                  <div className="pt-3 border-t border-[#1f1f1f] space-y-2">
+                  <p className="text-sm text-text-2 leading-relaxed">{t.strengths}</p>
+                  <div className="pt-3 border-t border-border-dim space-y-2">
                     <div>
                       <p className="text-[10px] uppercase tracking-widest font-semibold mb-0.5" style={{ color: t.color }}>Models available</p>
-                      <p className="text-[11px] text-zinc-300 font-mono">{t.models}</p>
+                      <p className="text-[11px] text-text-2 font-mono">{t.models}</p>
                     </div>
                     <div>
                       <p className="text-[10px] uppercase tracking-widest font-semibold mb-0.5" style={{ color: t.color }}>Data residency</p>
-                      <p className="text-[11px] text-zinc-300 font-mono">{t.residency}</p>
+                      <p className="text-[11px] text-text-2 font-mono">{t.residency}</p>
                     </div>
                   </div>
                 </motion.div>
@@ -345,20 +345,20 @@ export function AIDeepDive({ data }: { data: ModuleData }) {
       </section>
 
       {/* CHAT MOCKUP */}
-      <section className="py-24 bg-[#0a0a0a] border-b border-[#1a1a1a]">
+      <section className="py-24 bg-background border-b border-border-dim">
         <div className="max-w-[var(--container-max)] mx-auto px-6">
           <p className="text-violet-300 text-xs font-semibold uppercase tracking-widest mb-3">Conversational Example</p>
-          <h2 className="text-4xl font-black text-white tracking-tight mb-4">A real query, end to end.</h2>
-          <p className="text-zinc-400 text-lg max-w-2xl mb-12">
+          <h2 className="text-4xl font-black text-foreground tracking-tight mb-4">A real query, end to end.</h2>
+          <p className="text-text-2 text-lg max-w-2xl mb-12">
             What the plant manager sees when asking a question that cuts across Production, Finance, Procurement and Sales.
           </p>
 
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }} transition={{ duration: 0.6 }}
-            className="bg-[#0f0f0f] border border-[#1f1f1f] rounded-2xl overflow-hidden max-w-3xl mx-auto">
-            <div className="flex items-center gap-3 px-5 py-3 border-b border-[#1f1f1f] bg-[#080808]">
+            className="bg-surface border border-border-dim rounded-2xl overflow-hidden max-w-3xl mx-auto">
+            <div className="flex items-center gap-3 px-5 py-3 border-b border-border-dim bg-background">
               <Sparkles size={14} className="text-violet-300" />
-              <span className="text-xs text-zinc-500 font-mono">BPApp Chat · Claude Opus · Mumbai</span>
+              <span className="text-xs text-text-3 font-mono">BPApp Chat · Claude Opus · Mumbai</span>
               <span className="ml-auto flex items-center gap-1.5 text-xs text-emerald-400">
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" /> Streaming
               </span>
@@ -367,32 +367,32 @@ export function AIDeepDive({ data }: { data: ModuleData }) {
             <div className="p-6 space-y-4">
               <div className="flex justify-end">
                 <div className="bg-violet-500/10 border border-violet-500/30 rounded-2xl rounded-br-sm px-4 py-3 max-w-md">
-                  <p className="text-sm text-white">Why is margin per tonne on KR-100 GSM kraft down 6.2% vs last quarter?</p>
+                  <p className="text-sm text-foreground">Why is margin per tonne on KR-100 GSM kraft down 6.2% vs last quarter?</p>
                 </div>
               </div>
 
               <div className="flex justify-start">
-                <div className="bg-[#080808] border border-[#1f1f1f] rounded-2xl rounded-bl-sm px-4 py-3 max-w-2xl space-y-3">
-                  <p className="text-sm text-zinc-300 leading-relaxed">
+                <div className="bg-background border border-border-dim rounded-2xl rounded-bl-sm px-4 py-3 max-w-2xl space-y-3">
+                  <p className="text-sm text-text-2 leading-relaxed">
                     Three drivers, ranked by impact:
                   </p>
-                  <ol className="space-y-2 text-sm text-zinc-300 list-decimal list-inside">
-                    <li><span className="font-semibold text-white">Pulp cost up 4.1%</span> — supplier batch BAT-9821 priced ₹2,847/t higher than contract. <span className="text-violet-300 underline">PO-4471 ↗</span></li>
-                    <li><span className="font-semibold text-white">Broke rate up 1.8 pts</span> — PM-2 calendar bearing showed thermal drift starting 14-Nov. <span className="text-violet-300 underline">Maint-2391 ↗</span></li>
-                    <li><span className="font-semibold text-white">Price renegotiated</span> — customer ABC dropped from ₹68,400/t to ₹66,820/t. <span className="text-violet-300 underline">SO-2847 ↗</span></li>
+                  <ol className="space-y-2 text-sm text-text-2 list-decimal list-inside">
+                    <li><span className="font-semibold text-foreground">Pulp cost up 4.1%</span> — supplier batch BAT-9821 priced ₹2,847/t higher than contract. <span className="text-violet-300 underline">PO-4471 ↗</span></li>
+                    <li><span className="font-semibold text-foreground">Broke rate up 1.8 pts</span> — PM-2 calendar bearing showed thermal drift starting 14-Nov. <span className="text-violet-300 underline">Maint-2391 ↗</span></li>
+                    <li><span className="font-semibold text-foreground">Price renegotiated</span> — customer ABC dropped from ₹68,400/t to ₹66,820/t. <span className="text-violet-300 underline">SO-2847 ↗</span></li>
                   </ol>
-                  <p className="text-xs text-zinc-500 leading-relaxed pt-2 border-t border-[#1f1f1f]">
+                  <p className="text-xs text-text-3 leading-relaxed pt-2 border-t border-border-dim">
                     Total reconciled: -6.2% (≈ -₹4,140/t). Sources: Production OEE, Procurement PO ledger, Finance margin report, Sales price log.
                   </p>
                   <div className="flex flex-wrap gap-2 pt-1">
                     <button className="text-[10px] px-2 py-1 rounded bg-violet-500/10 border border-violet-500/30 text-violet-300 font-semibold">Raise action</button>
-                    <button className="text-[10px] px-2 py-1 rounded bg-[#0f0f0f] border border-[#1f1f1f] text-zinc-400">Show full reasoning</button>
-                    <button className="text-[10px] px-2 py-1 rounded bg-[#0f0f0f] border border-[#1f1f1f] text-zinc-400">Export to deck</button>
+                    <button className="text-[10px] px-2 py-1 rounded bg-surface border border-border-dim text-text-2">Show full reasoning</button>
+                    <button className="text-[10px] px-2 py-1 rounded bg-surface border border-border-dim text-text-2">Export to deck</button>
                   </div>
                 </div>
               </div>
 
-              <div className="flex items-center gap-2 text-[10px] text-zinc-600 font-mono">
+              <div className="flex items-center gap-2 text-[10px] text-text-4 font-mono">
                 <CheckCircle2 size={11} className="text-emerald-400" /> 4 modules joined · 14s · 3 citations · confidence 0.92
               </div>
             </div>
@@ -401,13 +401,13 @@ export function AIDeepDive({ data }: { data: ModuleData }) {
       </section>
 
       {/* CAPABILITIES GRID */}
-      <section className="py-24 border-b border-[#1a1a1a]">
+      <section className="py-24 border-b border-border-dim">
         <div className="max-w-[var(--container-max)] mx-auto px-6">
           <p className="text-violet-300 text-xs font-semibold uppercase tracking-widest mb-3">Capability Catalog</p>
-          <h2 className="text-4xl md:text-5xl font-black text-white tracking-tight mb-4">
+          <h2 className="text-4xl md:text-5xl font-black text-foreground tracking-tight mb-4">
             90+ AI capabilities. Six categories.
           </h2>
-          <p className="text-zinc-400 text-lg max-w-2xl mb-14">
+          <p className="text-text-2 text-lg max-w-2xl mb-14">
             Conversation. Prediction. Anomaly. Bulk action. Insight. Safety. Every category gated by human review where it matters.
           </p>
 
@@ -418,7 +418,7 @@ export function AIDeepDive({ data }: { data: ModuleData }) {
                 <motion.div key={cat.category}
                   initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }} transition={{ duration: 0.4, delay: Math.min(i * 0.04, 0.3) }}
-                  className="bg-[#0f0f0f] border border-[#1f1f1f] rounded-2xl p-6 hover:border-violet-500/20 transition-colors">
+                  className="bg-surface border border-border-dim rounded-2xl p-6 hover:border-violet-500/20 transition-colors">
                   <div className="flex items-center justify-between mb-4">
                     <div className="flex items-center gap-3">
                       <div className="w-10 h-10 rounded-xl border flex items-center justify-center"
@@ -426,14 +426,14 @@ export function AIDeepDive({ data }: { data: ModuleData }) {
                         <Icon size={16} style={{ color: cat.color }} />
                       </div>
                       <div>
-                        <h3 className="text-white font-bold text-base">{cat.category}</h3>
+                        <h3 className="text-foreground font-bold text-base">{cat.category}</h3>
                         <p className="text-[10px] font-mono" style={{ color: cat.color }}>{cat.count}</p>
                       </div>
                     </div>
                   </div>
                   <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-3 gap-y-1.5">
                     {cat.items.map((item) => (
-                      <li key={item} className="text-xs text-zinc-400 flex items-start gap-1.5 leading-relaxed">
+                      <li key={item} className="text-xs text-text-2 flex items-start gap-1.5 leading-relaxed">
                         <span style={{ color: cat.color }}>·</span> {item}
                       </li>
                     ))}
@@ -446,11 +446,11 @@ export function AIDeepDive({ data }: { data: ModuleData }) {
       </section>
 
       {/* SAFETY PILLARS */}
-      <section className="py-24 bg-[#0a0a0a] border-b border-[#1a1a1a]">
+      <section className="py-24 bg-background border-b border-border-dim">
         <div className="max-w-[var(--container-max)] mx-auto px-6">
           <p className="text-violet-300 text-xs font-semibold uppercase tracking-widest mb-3">Safety & Governance</p>
-          <h2 className="text-4xl font-black text-white tracking-tight mb-4">Six pillars. No surprises.</h2>
-          <p className="text-zinc-400 text-lg max-w-2xl mb-12">
+          <h2 className="text-4xl font-black text-foreground tracking-tight mb-4">Six pillars. No surprises.</h2>
+          <p className="text-text-2 text-lg max-w-2xl mb-12">
             Enterprise AI fails when it&apos;s too autonomous. We engineer for trust — preview, citation, redaction, residency, rate limit, audit.
           </p>
 
@@ -461,12 +461,12 @@ export function AIDeepDive({ data }: { data: ModuleData }) {
                 <motion.div key={p.title}
                   initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }} transition={{ duration: 0.35, delay: i * 0.06 }}
-                  className="bg-[#0f0f0f] border border-[#1f1f1f] rounded-xl p-5 hover:border-violet-500/25 transition-colors">
+                  className="bg-surface border border-border-dim rounded-xl p-5 hover:border-violet-500/25 transition-colors">
                   <div className="w-10 h-10 rounded-lg border border-violet-500/30 bg-violet-500/10 flex items-center justify-center mb-3">
                     <Icon size={16} className="text-violet-300" />
                   </div>
-                  <h3 className="text-white font-bold text-base mb-2">{p.title}</h3>
-                  <p className="text-sm text-zinc-400 leading-relaxed">{p.desc}</p>
+                  <h3 className="text-foreground font-bold text-base mb-2">{p.title}</h3>
+                  <p className="text-sm text-text-2 leading-relaxed">{p.desc}</p>
                 </motion.div>
               );
             })}
@@ -475,11 +475,11 @@ export function AIDeepDive({ data }: { data: ModuleData }) {
       </section>
 
       {/* USE CASES */}
-      <section className="py-24 border-b border-[#1a1a1a]">
+      <section className="py-24 border-b border-border-dim">
         <div className="max-w-[var(--container-max)] mx-auto px-6">
           <p className="text-violet-300 text-xs font-semibold uppercase tracking-widest mb-3">Use Cases</p>
-          <h2 className="text-4xl md:text-5xl font-black text-white tracking-tight mb-4">Real mill scenarios.</h2>
-          <p className="text-zinc-400 text-lg max-w-2xl mb-12">
+          <h2 className="text-4xl md:text-5xl font-black text-foreground tracking-tight mb-4">Real mill scenarios.</h2>
+          <p className="text-text-2 text-lg max-w-2xl mb-12">
             Four operational moments where AI saves hours, money, or both.
           </p>
 
@@ -489,28 +489,28 @@ export function AIDeepDive({ data }: { data: ModuleData }) {
                 initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }} transition={{ duration: 0.5, delay: Math.min(i * 0.06, 0.3) }}
                 className="grid grid-cols-1 lg:grid-cols-5 gap-6 items-stretch">
-                <div className="lg:col-span-2 relative rounded-2xl overflow-hidden h-60 lg:h-auto border border-[#1f1f1f]">
+                <div className="lg:col-span-2 relative rounded-2xl overflow-hidden h-60 lg:h-auto border border-border-dim">
                   <Image src={uc.photo} alt={uc.title} fill className="object-cover" unoptimized />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a]/80 to-transparent" />
                   <div className="absolute bottom-4 left-4 right-4">
                     <p className="text-[10px] font-bold uppercase tracking-widest mb-1 text-violet-300">Case {String(i + 1).padStart(2, "0")}</p>
-                    <h3 className="text-white text-xl font-black drop-shadow leading-tight">{uc.title}</h3>
+                    <h3 className="text-foreground text-xl font-black drop-shadow leading-tight">{uc.title}</h3>
                   </div>
                 </div>
 
-                <div className="lg:col-span-3 bg-[#0f0f0f] border border-[#1f1f1f] rounded-2xl p-6 space-y-5">
+                <div className="lg:col-span-3 bg-surface border border-border-dim rounded-2xl p-6 space-y-5">
                   <div>
                     <p className="text-[10px] font-semibold uppercase tracking-widest text-red-400 mb-2">Scenario</p>
-                    <p className="text-sm text-zinc-300 leading-relaxed">{uc.scenario}</p>
+                    <p className="text-sm text-text-2 leading-relaxed">{uc.scenario}</p>
                   </div>
                   <div>
                     <p className="text-[10px] font-semibold uppercase tracking-widest text-violet-300 mb-2">AI Response</p>
-                    <p className="text-sm text-zinc-300 leading-relaxed">{uc.response}</p>
+                    <p className="text-sm text-text-2 leading-relaxed">{uc.response}</p>
                   </div>
-                  <div className="grid grid-cols-3 gap-3 pt-3 border-t border-[#1f1f1f]">
+                  <div className="grid grid-cols-3 gap-3 pt-3 border-t border-border-dim">
                     {Object.entries(uc.metrics).map(([k, v]) => (
-                      <div key={k} className="bg-[#080808] rounded-lg p-3 border border-[#1f1f1f] text-center">
-                        <p className="text-[9px] uppercase tracking-wider text-zinc-500 mb-0.5 font-mono">{k.replace(/_/g, " ")}</p>
+                      <div key={k} className="bg-background rounded-lg p-3 border border-border-dim text-center">
+                        <p className="text-[9px] uppercase tracking-wider text-text-3 mb-0.5 font-mono">{k.replace(/_/g, " ")}</p>
                         <p className="text-base font-black font-mono text-violet-300">{v}</p>
                       </div>
                     ))}
@@ -523,16 +523,16 @@ export function AIDeepDive({ data }: { data: ModuleData }) {
       </section>
 
       {/* PERFORMANCE TABLE */}
-      <section className="py-24 bg-[#0a0a0a] border-b border-[#1a1a1a]">
+      <section className="py-24 bg-background border-b border-border-dim">
         <div className="max-w-[var(--container-max)] mx-auto px-6">
           <p className="text-violet-300 text-xs font-semibold uppercase tracking-widest mb-3">Performance Comparison</p>
-          <h2 className="text-4xl md:text-5xl font-black text-white tracking-tight mb-4">Analyst-led vs AI-augmented.</h2>
-          <p className="text-zinc-400 text-lg max-w-2xl mb-12">
+          <h2 className="text-4xl md:text-5xl font-black text-foreground tracking-tight mb-4">Analyst-led vs AI-augmented.</h2>
+          <p className="text-text-2 text-lg max-w-2xl mb-12">
             Before/after numbers from a 90-day production deployment.
           </p>
 
-          <div className="bg-[#0f0f0f] border border-[#1f1f1f] rounded-2xl overflow-hidden">
-            <div className="grid grid-cols-4 px-6 py-4 border-b border-[#1f1f1f] bg-[#080808] text-[10px] uppercase tracking-widest font-semibold text-zinc-500">
+          <div className="bg-surface border border-border-dim rounded-2xl overflow-hidden">
+            <div className="grid grid-cols-4 px-6 py-4 border-b border-border-dim bg-background text-[10px] uppercase tracking-widest font-semibold text-text-3">
               <span>Metric</span>
               <span className="text-center">Analyst-led</span>
               <span className="text-center">AI-augmented</span>
@@ -542,9 +542,9 @@ export function AIDeepDive({ data }: { data: ModuleData }) {
               <motion.div key={row.metric}
                 initial={{ opacity: 0, x: -10 }} whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }} transition={{ duration: 0.35, delay: i * 0.06 }}
-                className="grid grid-cols-4 px-6 py-4 border-b border-[#1a1a1a] last:border-0 items-center">
-                <span className="text-sm text-zinc-300">{row.metric}</span>
-                <span className="text-sm text-zinc-500 font-mono text-center">{row.manual}</span>
+                className="grid grid-cols-4 px-6 py-4 border-b border-border-dim last:border-0 items-center">
+                <span className="text-sm text-text-2">{row.metric}</span>
+                <span className="text-sm text-text-3 font-mono text-center">{row.manual}</span>
                 <span className="text-sm text-emerald-400 font-mono text-center font-bold">{row.deckle}</span>
                 <span className="text-xs text-violet-300 font-mono text-right">{row.improvement}</span>
               </motion.div>
@@ -554,11 +554,11 @@ export function AIDeepDive({ data }: { data: ModuleData }) {
       </section>
 
       {/* TIMELINE */}
-      <section className="py-24 border-b border-[#1a1a1a]">
+      <section className="py-24 border-b border-border-dim">
         <div className="max-w-[var(--container-max)] mx-auto px-6">
           <p className="text-violet-300 text-xs font-semibold uppercase tracking-widest mb-3">Implementation</p>
-          <h2 className="text-4xl md:text-5xl font-black text-white tracking-tight mb-4">Live in 30 days. Expand cautiously.</h2>
-          <p className="text-zinc-400 text-lg max-w-2xl mb-12">
+          <h2 className="text-4xl md:text-5xl font-black text-foreground tracking-tight mb-4">Live in 30 days. Expand cautiously.</h2>
+          <p className="text-text-2 text-lg max-w-2xl mb-12">
             AI rollout sequenced for trust. Start with read-only chat; promote bulk actions only after proven confidence.
           </p>
 
@@ -570,18 +570,18 @@ export function AIDeepDive({ data }: { data: ModuleData }) {
                   initial={{ opacity: 0, x: -16 }} whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }} transition={{ duration: 0.4, delay: i * 0.08 }}
                   className="flex gap-5 items-start">
-                  <div className="flex-shrink-0 w-14 h-14 rounded-full bg-[#0f0f0f] border-2 border-violet-500/50 flex items-center justify-center font-mono text-[10px] font-bold text-violet-300">
+                  <div className="flex-shrink-0 w-14 h-14 rounded-full bg-surface border-2 border-violet-500/50 flex items-center justify-center font-mono text-[10px] font-bold text-violet-300">
                     {step.week.replace("Week ", "W")}
                   </div>
-                  <div className="bg-[#0f0f0f] border border-[#1f1f1f] rounded-2xl p-5 flex-1">
+                  <div className="bg-surface border border-border-dim rounded-2xl p-5 flex-1">
                     <div className="flex items-center gap-3 mb-3">
                       <span className="text-xs font-bold text-violet-300 font-mono">{step.week}</span>
                       <span className="text-zinc-700">·</span>
-                      <h3 className="text-base font-bold text-white">{step.title}</h3>
+                      <h3 className="text-base font-bold text-foreground">{step.title}</h3>
                     </div>
                     <ul className="grid grid-cols-1 md:grid-cols-2 gap-1.5">
                       {step.items.map((item) => (
-                        <li key={item} className="text-xs text-zinc-400 flex items-start gap-1.5">
+                        <li key={item} className="text-xs text-text-2 flex items-start gap-1.5">
                           <CheckCircle2 size={11} className="mt-0.5 text-violet-300 flex-shrink-0" /> {item}
                         </li>
                       ))}

@@ -262,9 +262,9 @@ const TIMELINE = [
 
 export function DeckleDeepDive({ data }: { data: ModuleData }) {
   return (
-    <div className="min-h-screen bg-[#080808]">
+    <div className="min-h-screen bg-background">
       {/* HERO */}
-      <section className="relative min-h-[88vh] overflow-hidden grain">
+      <section className="relative min-h-[88vh] overflow-hidden grain on-photo">
         <div className="absolute inset-0">
           <Image src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=1920&q=80"
             alt="Paper reels" fill className="object-cover" priority unoptimized />
@@ -280,13 +280,13 @@ export function DeckleDeepDive({ data }: { data: ModuleData }) {
           </motion.div>
 
           <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-5xl md:text-7xl lg:text-8xl font-black text-white leading-[0.95] tracking-tight mb-6 max-w-5xl">
+            className="text-5xl md:text-7xl lg:text-8xl font-black text-foreground leading-[0.95] tracking-tight mb-6 max-w-5xl">
             Slit smarter.<br />
             <span style={{ background: "linear-gradient(135deg, #EF4444, #F59E0B)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>Recover everything.</span>
           </motion.h1>
 
           <motion.p initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-xl text-zinc-400 max-w-2xl mb-10 leading-relaxed">
+            className="text-xl text-text-2 max-w-2xl mb-10 leading-relaxed">
             The most advanced deckle and slitting optimization engine built for paper mills.
             Three intelligent tiers. 180+ constraints. Continuous pattern learning.
             Saves ₹100K+ per month at the winder.
@@ -297,7 +297,7 @@ export function DeckleDeepDive({ data }: { data: ModuleData }) {
             <Link href="/contact" className="group inline-flex items-center justify-center gap-2 px-7 py-4 rounded-lg bg-amber-500 hover:bg-amber-400 text-black font-bold text-sm transition-all">
               Get a live demo <ArrowRight size={16} className="group-hover:translate-x-0.5 transition-transform" />
             </Link>
-            <Link href="/product" className="inline-flex items-center gap-2 px-7 py-4 rounded-lg border border-[#333] text-white hover:border-amber-500/40 text-sm font-medium transition-all">
+            <Link href="/product" className="inline-flex items-center gap-2 px-7 py-4 rounded-lg border border-border-light text-foreground hover:border-amber-500/40 text-sm font-medium transition-all">
               <ArrowLeft size={14} /> All Modules
             </Link>
           </motion.div>
@@ -311,9 +311,9 @@ export function DeckleDeepDive({ data }: { data: ModuleData }) {
               { value: "<2s", label: "Instant Mode", color: "#FBBF24" },
               { value: "₹100K+", label: "Saved / month", color: "#34D399" },
             ].map((m) => (
-              <div key={m.label} className="bg-[#0f0f0f]/85 backdrop-blur border border-[#1f1f1f] rounded-xl p-4">
+              <div key={m.label} className="bg-surface/85 backdrop-blur border border-border-dim rounded-xl p-4">
                 <p className="text-2xl font-black font-mono mb-1" style={{ color: m.color }}>{m.value}</p>
-                <p className="text-xs text-zinc-500">{m.label}</p>
+                <p className="text-xs text-text-3">{m.label}</p>
               </div>
             ))}
           </motion.div>
@@ -321,7 +321,7 @@ export function DeckleDeepDive({ data }: { data: ModuleData }) {
       </section>
 
       {/* PROBLEM / CRISIS */}
-      <section className="py-20 border-y border-[#1a1a1a] bg-[#0a0a0a]">
+      <section className="py-20 border-y border-border-dim bg-background">
         <div className="max-w-[var(--container-max)] mx-auto px-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-14 items-center">
             <motion.div initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }}
@@ -329,16 +329,16 @@ export function DeckleDeepDive({ data }: { data: ModuleData }) {
               <p className="text-red-400 text-xs font-semibold uppercase tracking-widest mb-3 flex items-center gap-2">
                 <AlertTriangle size={12} /> The hidden cost
               </p>
-              <h2 className="text-4xl md:text-5xl font-black text-white tracking-tight mb-6 leading-tight">
+              <h2 className="text-4xl md:text-5xl font-black text-foreground tracking-tight mb-6 leading-tight">
                 Every kilo of trim is a kilo of <span className="text-red-400">money in the bin</span>.
               </h2>
-              <p className="text-zinc-400 text-lg leading-relaxed mb-6">
+              <p className="text-text-2 text-lg leading-relaxed mb-6">
                 A typical paper mill loses 4–6% of production to trim waste at the winder.
                 For a 2,000 TPD mill at ₹70,000/tonne pulp + conversion cost, that&apos;s
                 <span className="text-amber-400 font-semibold"> ₹56–84 crore burned every year</span>
                 — turning premium paper into recycled fiber at a fraction of value.
               </p>
-              <p className="text-zinc-500 text-sm leading-relaxed">
+              <p className="text-text-3 text-sm leading-relaxed">
                 Manual deckle planning makes it worse: planners hand-build cut patterns using
                 spreadsheets, can&apos;t evaluate alternatives, and re-plan takes 30–45 minutes
                 whenever an order changes.
@@ -347,8 +347,8 @@ export function DeckleDeepDive({ data }: { data: ModuleData }) {
 
             <motion.div initial={{ opacity: 0, x: 20 }} whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.1 }}
-              className="bg-[#0f0f0f] border border-[#1f1f1f] rounded-2xl p-6">
-              <p className="text-[10px] uppercase tracking-widest font-mono text-zinc-600 mb-5">Trim waste impact · 2000 TPD mill</p>
+              className="bg-surface border border-border-dim rounded-2xl p-6">
+              <p className="text-[10px] uppercase tracking-widest font-mono text-text-4 mb-5">Trim waste impact · 2000 TPD mill</p>
               <div className="space-y-4">
                 {[
                   { label: "Wasted production", value: "82,000 t/yr", bar: 100, color: "#EF4444" },
@@ -358,10 +358,10 @@ export function DeckleDeepDive({ data }: { data: ModuleData }) {
                 ].map((row, i) => (
                   <div key={row.label}>
                     <div className="flex justify-between text-xs mb-1.5">
-                      <span className="text-zinc-400">{row.label}</span>
+                      <span className="text-text-2">{row.label}</span>
                       <span className="font-mono font-bold" style={{ color: row.color }}>{row.value}</span>
                     </div>
-                    <div className="h-2.5 bg-[#1a1a1a] rounded-full overflow-hidden">
+                    <div className="h-2.5 bg-surface-3 rounded-full overflow-hidden">
                       <motion.div
                         initial={{ width: 0 }}
                         whileInView={{ width: `${row.bar}%` }}
@@ -373,7 +373,7 @@ export function DeckleDeepDive({ data }: { data: ModuleData }) {
                   </div>
                 ))}
               </div>
-              <p className="text-[10px] text-zinc-600 mt-5 font-mono leading-relaxed">
+              <p className="text-[10px] text-text-4 mt-5 font-mono leading-relaxed">
                 * Based on ₹70K/t pulp+conversion, 5% trim, 95% recovery improvement target. Actual savings depend on mill configuration.
               </p>
             </motion.div>
@@ -382,13 +382,13 @@ export function DeckleDeepDive({ data }: { data: ModuleData }) {
       </section>
 
       {/* 3-TIER COMPARISON */}
-      <section className="py-24 border-b border-[#1a1a1a]">
+      <section className="py-24 border-b border-border-dim">
         <div className="max-w-[var(--container-max)] mx-auto px-6">
           <p className="text-amber-500 text-xs font-semibold uppercase tracking-widest mb-3">The 3-Tier Engine</p>
-          <h2 className="text-4xl md:text-5xl font-black text-white tracking-tight mb-4">
+          <h2 className="text-4xl md:text-5xl font-black text-foreground tracking-tight mb-4">
             Right algorithm. Right time budget.
           </h2>
-          <p className="text-zinc-400 text-lg max-w-3xl mb-14 leading-relaxed">
+          <p className="text-text-2 text-lg max-w-3xl mb-14 leading-relaxed">
             Three modes for three planning horizons. The engine auto-selects based on problem
             complexity and available time, or you can force a mode for specific scenarios.
           </p>
@@ -402,7 +402,7 @@ export function DeckleDeepDive({ data }: { data: ModuleData }) {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: i * 0.1 }}
-                  className="bg-[#0f0f0f] border rounded-2xl p-6 flex flex-col gap-5"
+                  className="bg-surface border rounded-2xl p-6 flex flex-col gap-5"
                   style={{ borderColor: `${t.color}30` }}>
                   <div className="flex items-center justify-between">
                     <div className="w-12 h-12 rounded-xl border flex items-center justify-center"
@@ -413,27 +413,27 @@ export function DeckleDeepDive({ data }: { data: ModuleData }) {
                   </div>
 
                   <div>
-                    <h3 className="text-white font-black text-xl mb-1">{t.name}</h3>
-                    <p className="text-xs text-zinc-500 font-mono">{t.use}</p>
+                    <h3 className="text-foreground font-black text-xl mb-1">{t.name}</h3>
+                    <p className="text-xs text-text-3 font-mono">{t.use}</p>
                   </div>
 
                   <div className="space-y-3 text-sm">
                     <div>
                       <p className="text-[10px] uppercase tracking-widest font-semibold mb-1" style={{ color: t.color }}>When to use</p>
-                      <p className="text-zinc-300 text-[13px] leading-relaxed">{t.when}</p>
+                      <p className="text-text-2 text-[13px] leading-relaxed">{t.when}</p>
                     </div>
                     <div>
                       <p className="text-[10px] uppercase tracking-widest font-semibold mb-1" style={{ color: t.color }}>Method</p>
-                      <p className="text-zinc-400 text-[12px] leading-relaxed">{t.method}</p>
+                      <p className="text-text-2 text-[12px] leading-relaxed">{t.method}</p>
                     </div>
-                    <div className="grid grid-cols-2 gap-3 pt-2 border-t border-[#1f1f1f]">
+                    <div className="grid grid-cols-2 gap-3 pt-2 border-t border-border-dim">
                       <div>
-                        <p className="text-[10px] text-zinc-600 font-mono">QUALITY</p>
-                        <p className="text-xs text-zinc-300">{t.quality}</p>
+                        <p className="text-[10px] text-text-4 font-mono">QUALITY</p>
+                        <p className="text-xs text-text-2">{t.quality}</p>
                       </div>
                       <div>
-                        <p className="text-[10px] text-zinc-600 font-mono">CONSTRAINTS</p>
-                        <p className="text-xs text-zinc-300">{t.constraints}</p>
+                        <p className="text-[10px] text-text-4 font-mono">CONSTRAINTS</p>
+                        <p className="text-xs text-text-2">{t.constraints}</p>
                       </div>
                     </div>
                   </div>
@@ -445,33 +445,33 @@ export function DeckleDeepDive({ data }: { data: ModuleData }) {
       </section>
 
       {/* SAMPLE PLAN VISUAL */}
-      <section className="py-24 bg-[#0a0a0a] border-b border-[#1a1a1a]">
+      <section className="py-24 bg-background border-b border-border-dim">
         <div className="max-w-[var(--container-max)] mx-auto px-6">
           <p className="text-amber-500 text-xs font-semibold uppercase tracking-widest mb-3">Sample Output</p>
-          <h2 className="text-4xl font-black text-white tracking-tight mb-4">A real optimization plan.</h2>
-          <p className="text-zinc-400 text-lg max-w-2xl mb-12">
+          <h2 className="text-4xl font-black text-foreground tracking-tight mb-4">A real optimization plan.</h2>
+          <p className="text-text-2 text-lg max-w-2xl mb-12">
             What you actually see after a Full Optimization run. Every slit, every position, every reel — with reasoning.
           </p>
 
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }} transition={{ duration: 0.6 }}
-            className="bg-[#0f0f0f] border border-[#1f1f1f] rounded-2xl overflow-hidden">
+            className="bg-surface border border-border-dim rounded-2xl overflow-hidden">
             {/* Plan header */}
-            <div className="flex items-center justify-between px-6 py-4 border-b border-[#1f1f1f] bg-[#080808]">
+            <div className="flex items-center justify-between px-6 py-4 border-b border-border-dim bg-background">
               <div className="flex items-center gap-4">
-                <span className="text-xs font-mono text-zinc-500">PLAN ID</span>
-                <span className="text-sm font-bold text-white font-mono">PLN-2026-0124-MC2</span>
+                <span className="text-xs font-mono text-text-3">PLAN ID</span>
+                <span className="text-sm font-bold text-foreground font-mono">PLN-2026-0124-MC2</span>
                 <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-500/15 border border-emerald-500/30 text-emerald-300">APPROVED</span>
               </div>
-              <div className="flex items-center gap-5 text-xs text-zinc-500">
-                <span>Machine: <span className="text-white font-mono">PM-2</span></span>
-                <span>Shift: <span className="text-white font-mono">A</span></span>
-                <span>Date: <span className="text-white font-mono">24-Jan-2026</span></span>
+              <div className="flex items-center gap-5 text-xs text-text-3">
+                <span>Machine: <span className="text-foreground font-mono">PM-2</span></span>
+                <span>Shift: <span className="text-foreground font-mono">A</span></span>
+                <span>Date: <span className="text-foreground font-mono">24-Jan-2026</span></span>
               </div>
             </div>
 
             {/* Plan summary */}
-            <div className="grid grid-cols-2 md:grid-cols-5 gap-3 p-6 border-b border-[#1f1f1f] bg-[#0c0c0c]">
+            <div className="grid grid-cols-2 md:grid-cols-5 gap-3 p-6 border-b border-border-dim bg-[#0c0c0c]">
               {[
                 { label: "Deckle width", value: "5,260 mm", color: "#F59E0B" },
                 { label: "Trim", value: "1.4%", color: "#34D399" },
@@ -479,8 +479,8 @@ export function DeckleDeepDive({ data }: { data: ModuleData }) {
                 { label: "SWO value", value: "₹4.2L", color: "#FBBF24" },
                 { label: "Solver", value: "MILP · 3m42s", color: "#60A5FA" },
               ].map((s) => (
-                <div key={s.label} className="bg-[#080808] rounded-lg p-3 border border-[#1f1f1f]">
-                  <p className="text-[10px] text-zinc-500 uppercase tracking-wider mb-1 font-semibold">{s.label}</p>
+                <div key={s.label} className="bg-background rounded-lg p-3 border border-border-dim">
+                  <p className="text-[10px] text-text-3 uppercase tracking-wider mb-1 font-semibold">{s.label}</p>
                   <p className="text-lg font-black font-mono" style={{ color: s.color }}>{s.value}</p>
                 </div>
               ))}
@@ -488,7 +488,7 @@ export function DeckleDeepDive({ data }: { data: ModuleData }) {
 
             {/* Slit pattern visualization */}
             <div className="p-6">
-              <p className="text-[10px] uppercase tracking-widest font-semibold text-zinc-500 mb-4">Slitting Pattern — Deckle 5,260 mm</p>
+              <p className="text-[10px] uppercase tracking-widest font-semibold text-text-3 mb-4">Slitting Pattern — Deckle 5,260 mm</p>
 
               <div className="relative h-20 rounded-lg overflow-hidden flex items-stretch font-mono">
                 {[
@@ -508,21 +508,21 @@ export function DeckleDeepDive({ data }: { data: ModuleData }) {
                     transition={{ duration: 0.6, delay: 0.4 + i * 0.08 }}
                     className="flex flex-col items-center justify-center border-r border-black/40 px-1 overflow-hidden"
                     style={{ background: `linear-gradient(180deg, ${slit.color}30, ${slit.color}15)` }}>
-                    <span className="text-[10px] font-bold text-white truncate">{slit.label}</span>
-                    <span className="text-[9px] text-zinc-400 truncate">{slit.customer}</span>
+                    <span className="text-[10px] font-bold text-foreground truncate">{slit.label}</span>
+                    <span className="text-[9px] text-text-2 truncate">{slit.customer}</span>
                   </motion.div>
                 ))}
               </div>
 
               <div className="grid grid-cols-7 gap-1 mt-3 text-center">
                 {["Pos 1", "Pos 2", "Pos 3", "Pos 4", "Pos 5", "Pos 6", "Edge"].map((p, i) => (
-                  <span key={p} className="text-[9px] text-zinc-600 font-mono">{p}</span>
+                  <span key={p} className="text-[9px] text-text-4 font-mono">{p}</span>
                 ))}
               </div>
 
               {/* Active constraints */}
-              <div className="mt-6 pt-5 border-t border-[#1f1f1f]">
-                <p className="text-[10px] uppercase tracking-widest font-semibold text-zinc-500 mb-3">Active constraints honored (12 of 180+)</p>
+              <div className="mt-6 pt-5 border-t border-border-dim">
+                <p className="text-[10px] uppercase tracking-widest font-semibold text-text-3 mb-3">Active constraints honored (12 of 180+)</p>
                 <div className="flex flex-wrap gap-2">
                   {[
                     "Deckle ≤ 5260mm", "ABC order priority", "FEFO batch C-4821",
@@ -542,13 +542,13 @@ export function DeckleDeepDive({ data }: { data: ModuleData }) {
       </section>
 
       {/* 180+ CONSTRAINTS CATALOG */}
-      <section className="py-24 border-b border-[#1a1a1a]">
+      <section className="py-24 border-b border-border-dim">
         <div className="max-w-[var(--container-max)] mx-auto px-6">
           <p className="text-amber-500 text-xs font-semibold uppercase tracking-widest mb-3">Constraints Catalog</p>
-          <h2 className="text-4xl md:text-5xl font-black text-white tracking-tight mb-4">
+          <h2 className="text-4xl md:text-5xl font-black text-foreground tracking-tight mb-4">
             180+ constraints. Eight categories.
           </h2>
-          <p className="text-zinc-400 text-lg max-w-2xl mb-14">
+          <p className="text-text-2 text-lg max-w-2xl mb-14">
             Every rule of your mill — hard limits and soft preferences — codified, configurable, and honored on every plan.
           </p>
 
@@ -561,7 +561,7 @@ export function DeckleDeepDive({ data }: { data: ModuleData }) {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.4, delay: Math.min(i * 0.04, 0.3) }}
-                  className="bg-[#0f0f0f] border border-[#1f1f1f] rounded-2xl p-6 hover:border-amber-500/20 transition-colors">
+                  className="bg-surface border border-border-dim rounded-2xl p-6 hover:border-amber-500/20 transition-colors">
                   <div className="flex items-center justify-between mb-4">
                     <div className="flex items-center gap-3">
                       <div className="w-10 h-10 rounded-xl border flex items-center justify-center"
@@ -569,14 +569,14 @@ export function DeckleDeepDive({ data }: { data: ModuleData }) {
                         <Icon size={16} style={{ color: cat.color }} />
                       </div>
                       <div>
-                        <h3 className="text-white font-bold text-base">{cat.category}</h3>
+                        <h3 className="text-foreground font-bold text-base">{cat.category}</h3>
                         <p className="text-[10px] font-mono" style={{ color: cat.color }}>{cat.count}</p>
                       </div>
                     </div>
                   </div>
                   <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-3 gap-y-1.5">
                     {cat.items.map((item) => (
-                      <li key={item} className="text-xs text-zinc-400 flex items-start gap-1.5 leading-relaxed">
+                      <li key={item} className="text-xs text-text-2 flex items-start gap-1.5 leading-relaxed">
                         <span style={{ color: cat.color }}>·</span> {item}
                       </li>
                     ))}
@@ -589,11 +589,11 @@ export function DeckleDeepDive({ data }: { data: ModuleData }) {
       </section>
 
       {/* CONFIG AREAS */}
-      <section className="py-24 bg-[#0a0a0a] border-b border-[#1a1a1a]">
+      <section className="py-24 bg-background border-b border-border-dim">
         <div className="max-w-[var(--container-max)] mx-auto px-6">
           <p className="text-amber-500 text-xs font-semibold uppercase tracking-widest mb-3">Configuration</p>
-          <h2 className="text-4xl font-black text-white tracking-tight mb-4">15+ tunable areas.</h2>
-          <p className="text-zinc-400 text-lg max-w-2xl mb-12">
+          <h2 className="text-4xl font-black text-foreground tracking-tight mb-4">15+ tunable areas.</h2>
+          <p className="text-text-2 text-lg max-w-2xl mb-12">
             Configure once, then keep refining. Every knob exposed through admin UI, all changes versioned and audit-logged.
           </p>
 
@@ -604,12 +604,12 @@ export function DeckleDeepDive({ data }: { data: ModuleData }) {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.3, delay: Math.min(i * 0.03, 0.3) }}
-                className="bg-[#0f0f0f] border border-[#1f1f1f] rounded-xl p-4 hover:border-amber-500/25 transition-colors">
+                className="bg-surface border border-border-dim rounded-xl p-4 hover:border-amber-500/25 transition-colors">
                 <div className="flex items-center gap-2 mb-2">
                   <span className="text-[10px] font-mono font-bold text-amber-400 px-1.5 py-0.5 bg-amber-500/10 border border-amber-500/30 rounded">{c.code}</span>
-                  <h3 className="text-white font-bold text-sm">{c.title}</h3>
+                  <h3 className="text-foreground font-bold text-sm">{c.title}</h3>
                 </div>
-                <p className="text-xs text-zinc-500 leading-relaxed">{c.desc}</p>
+                <p className="text-xs text-text-3 leading-relaxed">{c.desc}</p>
               </motion.div>
             ))}
           </div>
@@ -617,11 +617,11 @@ export function DeckleDeepDive({ data }: { data: ModuleData }) {
       </section>
 
       {/* USE CASES */}
-      <section className="py-24 border-b border-[#1a1a1a]">
+      <section className="py-24 border-b border-border-dim">
         <div className="max-w-[var(--container-max)] mx-auto px-6">
           <p className="text-amber-500 text-xs font-semibold uppercase tracking-widest mb-3">Use Cases</p>
-          <h2 className="text-4xl md:text-5xl font-black text-white tracking-tight mb-4">Real mill scenarios.</h2>
-          <p className="text-zinc-400 text-lg max-w-2xl mb-12">
+          <h2 className="text-4xl md:text-5xl font-black text-foreground tracking-tight mb-4">Real mill scenarios.</h2>
+          <p className="text-text-2 text-lg max-w-2xl mb-12">
             Four typical situations where Deckle Optimizer changes the outcome.
           </p>
 
@@ -633,28 +633,28 @@ export function DeckleDeepDive({ data }: { data: ModuleData }) {
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: Math.min(i * 0.06, 0.3) }}
                 className="grid grid-cols-1 lg:grid-cols-5 gap-6 items-stretch">
-                <div className="lg:col-span-2 relative rounded-2xl overflow-hidden h-60 lg:h-auto border border-[#1f1f1f]">
+                <div className="lg:col-span-2 relative rounded-2xl overflow-hidden h-60 lg:h-auto border border-border-dim">
                   <Image src={uc.photo} alt={uc.title} fill className="object-cover" unoptimized />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a]/80 to-transparent" />
                   <div className="absolute bottom-4 left-4 right-4">
                     <p className="text-[10px] font-bold uppercase tracking-widest mb-1" style={{ color: uc.accent }}>Case {String(i + 1).padStart(2, "0")}</p>
-                    <h3 className="text-white text-xl font-black drop-shadow leading-tight">{uc.title}</h3>
+                    <h3 className="text-foreground text-xl font-black drop-shadow leading-tight">{uc.title}</h3>
                   </div>
                 </div>
 
-                <div className="lg:col-span-3 bg-[#0f0f0f] border border-[#1f1f1f] rounded-2xl p-6 space-y-5">
+                <div className="lg:col-span-3 bg-surface border border-border-dim rounded-2xl p-6 space-y-5">
                   <div>
                     <p className="text-[10px] font-semibold uppercase tracking-widest text-red-400 mb-2">Scenario</p>
-                    <p className="text-sm text-zinc-300 leading-relaxed">{uc.scenario}</p>
+                    <p className="text-sm text-text-2 leading-relaxed">{uc.scenario}</p>
                   </div>
                   <div>
                     <p className="text-[10px] font-semibold uppercase tracking-widest mb-2" style={{ color: uc.accent }}>Deckle Response</p>
-                    <p className="text-sm text-zinc-300 leading-relaxed">{uc.response}</p>
+                    <p className="text-sm text-text-2 leading-relaxed">{uc.response}</p>
                   </div>
-                  <div className="grid grid-cols-3 gap-3 pt-3 border-t border-[#1f1f1f]">
+                  <div className="grid grid-cols-3 gap-3 pt-3 border-t border-border-dim">
                     {Object.entries(uc.metrics).map(([k, v]) => (
-                      <div key={k} className="bg-[#080808] rounded-lg p-3 border border-[#1f1f1f] text-center">
-                        <p className="text-[9px] uppercase tracking-wider text-zinc-500 mb-0.5 font-mono">{k.replace(/_/g, " ")}</p>
+                      <div key={k} className="bg-background rounded-lg p-3 border border-border-dim text-center">
+                        <p className="text-[9px] uppercase tracking-wider text-text-3 mb-0.5 font-mono">{k.replace(/_/g, " ")}</p>
                         <p className="text-base font-black font-mono" style={{ color: uc.accent }}>{v}</p>
                       </div>
                     ))}
@@ -667,16 +667,16 @@ export function DeckleDeepDive({ data }: { data: ModuleData }) {
       </section>
 
       {/* PERFORMANCE COMPARISON */}
-      <section className="py-24 bg-[#0a0a0a] border-b border-[#1a1a1a]">
+      <section className="py-24 bg-background border-b border-border-dim">
         <div className="max-w-[var(--container-max)] mx-auto px-6">
           <p className="text-amber-500 text-xs font-semibold uppercase tracking-widest mb-3">Performance Comparison</p>
-          <h2 className="text-4xl md:text-5xl font-black text-white tracking-tight mb-4">Manual vs Deckle.</h2>
-          <p className="text-zinc-400 text-lg max-w-2xl mb-12">
+          <h2 className="text-4xl md:text-5xl font-black text-foreground tracking-tight mb-4">Manual vs Deckle.</h2>
+          <p className="text-text-2 text-lg max-w-2xl mb-12">
             Before/after numbers from a representative 2,000 TPD mill running Deckle for 90 days.
           </p>
 
-          <div className="bg-[#0f0f0f] border border-[#1f1f1f] rounded-2xl overflow-hidden">
-            <div className="grid grid-cols-4 px-6 py-4 border-b border-[#1f1f1f] bg-[#080808] text-[10px] uppercase tracking-widest font-semibold text-zinc-500">
+          <div className="bg-surface border border-border-dim rounded-2xl overflow-hidden">
+            <div className="grid grid-cols-4 px-6 py-4 border-b border-border-dim bg-background text-[10px] uppercase tracking-widest font-semibold text-text-3">
               <span>Metric</span>
               <span className="text-center">Manual Planning</span>
               <span className="text-center">With Deckle</span>
@@ -688,9 +688,9 @@ export function DeckleDeepDive({ data }: { data: ModuleData }) {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.35, delay: i * 0.06 }}
-                className="grid grid-cols-4 px-6 py-4 border-b border-[#1a1a1a] last:border-0 items-center">
-                <span className="text-sm text-zinc-300">{row.metric}</span>
-                <span className="text-sm text-zinc-500 font-mono text-center">{row.manual}</span>
+                className="grid grid-cols-4 px-6 py-4 border-b border-border-dim last:border-0 items-center">
+                <span className="text-sm text-text-2">{row.metric}</span>
+                <span className="text-sm text-text-3 font-mono text-center">{row.manual}</span>
                 <span className="text-sm text-emerald-400 font-mono text-center font-bold">{row.deckle}</span>
                 <span className="text-xs text-amber-400 font-mono text-right">{row.improvement}</span>
               </motion.div>
@@ -700,19 +700,19 @@ export function DeckleDeepDive({ data }: { data: ModuleData }) {
       </section>
 
       {/* SAMPLE REPORTS */}
-      <section className="py-24 border-b border-[#1a1a1a]">
+      <section className="py-24 border-b border-border-dim">
         <div className="max-w-[var(--container-max)] mx-auto px-6">
           <p className="text-amber-500 text-xs font-semibold uppercase tracking-widest mb-3">Reports & Analytics</p>
-          <h2 className="text-4xl font-black text-white tracking-tight mb-4">What you get out.</h2>
-          <p className="text-zinc-400 text-lg max-w-2xl mb-12">
+          <h2 className="text-4xl font-black text-foreground tracking-tight mb-4">What you get out.</h2>
+          <p className="text-text-2 text-lg max-w-2xl mb-12">
             Recovery analysis, pattern effectiveness, plan-vs-actual reconciliation, trim trends. Reports that turn data into decisions.
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
             {/* Report 1: Trim trend */}
-            <div className="bg-[#0f0f0f] border border-[#1f1f1f] rounded-2xl p-5">
+            <div className="bg-surface border border-border-dim rounded-2xl p-5">
               <div className="flex items-center justify-between mb-4">
-                <p className="text-white font-bold text-sm">Trim % Trend</p>
+                <p className="text-foreground font-bold text-sm">Trim % Trend</p>
                 <BarChart3 size={14} className="text-amber-400" />
               </div>
               <div className="h-32 flex items-end gap-1.5">
@@ -726,18 +726,18 @@ export function DeckleDeepDive({ data }: { data: ModuleData }) {
                     style={{ background: i >= 7 ? "#34D399" : "#EF4444" }} />
                 ))}
               </div>
-              <div className="flex justify-between text-[10px] text-zinc-600 font-mono mt-2">
+              <div className="flex justify-between text-[10px] text-text-4 font-mono mt-2">
                 <span>Wk1</span><span>Wk12</span>
               </div>
-              <p className="text-xs text-zinc-500 mt-3 leading-relaxed">
+              <p className="text-xs text-text-3 mt-3 leading-relaxed">
                 Trim % dropped from 5.2% to 1.6% over 12 weeks after Deckle go-live.
               </p>
             </div>
 
             {/* Report 2: Recovery breakdown */}
-            <div className="bg-[#0f0f0f] border border-[#1f1f1f] rounded-2xl p-5">
+            <div className="bg-surface border border-border-dim rounded-2xl p-5">
               <div className="flex items-center justify-between mb-4">
-                <p className="text-white font-bold text-sm">Recovery Breakdown</p>
+                <p className="text-foreground font-bold text-sm">Recovery Breakdown</p>
                 <Activity size={14} className="text-emerald-400" />
               </div>
               <div className="space-y-3">
@@ -748,10 +748,10 @@ export function DeckleDeepDive({ data }: { data: ModuleData }) {
                 ].map((r) => (
                   <div key={r.label}>
                     <div className="flex justify-between text-xs mb-1">
-                      <span className="text-zinc-400">{r.label}</span>
+                      <span className="text-text-2">{r.label}</span>
                       <span className="font-mono font-bold" style={{ color: r.color }}>{r.pct}%</span>
                     </div>
-                    <div className="h-2 bg-[#1a1a1a] rounded overflow-hidden">
+                    <div className="h-2 bg-surface-3 rounded overflow-hidden">
                       <motion.div initial={{ width: 0 }} whileInView={{ width: `${r.pct}%` }}
                         viewport={{ once: true }} transition={{ duration: 1, delay: 0.2 }}
                         className="h-full rounded" style={{ background: r.color }} />
@@ -759,15 +759,15 @@ export function DeckleDeepDive({ data }: { data: ModuleData }) {
                   </div>
                 ))}
               </div>
-              <p className="text-xs text-zinc-500 mt-4 leading-relaxed">
+              <p className="text-xs text-text-3 mt-4 leading-relaxed">
                 SWO valued at 20× waste. Highly tuned recovery drops trim near theoretical minimum.
               </p>
             </div>
 
             {/* Report 3: Pattern effectiveness */}
-            <div className="bg-[#0f0f0f] border border-[#1f1f1f] rounded-2xl p-5">
+            <div className="bg-surface border border-border-dim rounded-2xl p-5">
               <div className="flex items-center justify-between mb-4">
-                <p className="text-white font-bold text-sm">Pattern Library</p>
+                <p className="text-foreground font-bold text-sm">Pattern Library</p>
                 <Layers size={14} className="text-blue-400" />
               </div>
               <div className="space-y-2 font-mono text-[11px]">
@@ -778,22 +778,22 @@ export function DeckleDeepDive({ data }: { data: ModuleData }) {
                   { id: "PT-228", uses: 54, score: 88 },
                   { id: "PT-661", uses: 31, score: 82 },
                 ].map((p) => (
-                  <div key={p.id} className="flex items-center gap-3 py-1 border-b border-[#1f1f1f] last:border-0">
+                  <div key={p.id} className="flex items-center gap-3 py-1 border-b border-border-dim last:border-0">
                     <span className="text-blue-400 font-bold">{p.id}</span>
-                    <span className="text-zinc-500 text-[10px] flex-1">{p.uses} uses</span>
+                    <span className="text-text-3 text-[10px] flex-1">{p.uses} uses</span>
                     <span className="text-emerald-400 font-bold">{p.score}/100</span>
                   </div>
                 ))}
               </div>
-              <p className="text-xs text-zinc-500 mt-3 leading-relaxed">
+              <p className="text-xs text-text-3 mt-3 leading-relaxed">
                 Top 5 learned patterns. Engine biases toward high-score patterns when demand matches.
               </p>
             </div>
 
             {/* Report 4: Solver time */}
-            <div className="bg-[#0f0f0f] border border-[#1f1f1f] rounded-2xl p-5">
+            <div className="bg-surface border border-border-dim rounded-2xl p-5">
               <div className="flex items-center justify-between mb-4">
-                <p className="text-white font-bold text-sm">Solver Time Distribution</p>
+                <p className="text-foreground font-bold text-sm">Solver Time Distribution</p>
                 <Clock size={14} className="text-purple-400" />
               </div>
               <div className="space-y-3 text-xs">
@@ -804,21 +804,21 @@ export function DeckleDeepDive({ data }: { data: ModuleData }) {
                 ].map((s) => (
                   <div key={s.mode} className="flex items-center gap-3">
                     <span className="w-2 h-2 rounded-full" style={{ background: s.color }} />
-                    <span className="text-zinc-300 flex-1">{s.mode}</span>
-                    <span className="font-mono text-zinc-500">{s.count}</span>
+                    <span className="text-text-2 flex-1">{s.mode}</span>
+                    <span className="font-mono text-text-3">{s.count}</span>
                     <span className="font-mono" style={{ color: s.color }}>{s.time}</span>
                   </div>
                 ))}
               </div>
-              <p className="text-xs text-zinc-500 mt-3 leading-relaxed">
+              <p className="text-xs text-text-3 mt-3 leading-relaxed">
                 Last 30 days. 96% of optimizations are Instant or Planning mode — 4% need Full.
               </p>
             </div>
 
             {/* Report 5: Plan vs actual */}
-            <div className="bg-[#0f0f0f] border border-[#1f1f1f] rounded-2xl p-5">
+            <div className="bg-surface border border-border-dim rounded-2xl p-5">
               <div className="flex items-center justify-between mb-4">
-                <p className="text-white font-bold text-sm">Plan vs Actual (last 7 days)</p>
+                <p className="text-foreground font-bold text-sm">Plan vs Actual (last 7 days)</p>
                 <RefreshCw size={14} className="text-pink-400" />
               </div>
               <div className="space-y-2 text-xs font-mono">
@@ -831,34 +831,34 @@ export function DeckleDeepDive({ data }: { data: ModuleData }) {
                   { day: "Sat", planned: "97.8%", actual: "97.5%", delta: "-0.3", ok: true },
                   { day: "Sun", planned: "98.1%", actual: "98.0%", delta: "-0.1", ok: true },
                 ].map((row) => (
-                  <div key={row.day} className="grid grid-cols-4 gap-2 items-center py-1 border-b border-[#1f1f1f] last:border-0">
-                    <span className="text-zinc-400">{row.day}</span>
-                    <span className="text-zinc-500 text-right">{row.planned}</span>
-                    <span className="text-white text-right">{row.actual}</span>
+                  <div key={row.day} className="grid grid-cols-4 gap-2 items-center py-1 border-b border-border-dim last:border-0">
+                    <span className="text-text-2">{row.day}</span>
+                    <span className="text-text-3 text-right">{row.planned}</span>
+                    <span className="text-foreground text-right">{row.actual}</span>
                     <span className={`text-right ${row.ok ? "text-emerald-400" : "text-amber-400"}`}>{row.delta}</span>
                   </div>
                 ))}
               </div>
-              <p className="text-xs text-zinc-500 mt-3 leading-relaxed">
+              <p className="text-xs text-text-3 mt-3 leading-relaxed">
                 Plan accuracy &gt; ±1% on 6 of 7 days. Thursday investigated and root cause identified.
               </p>
             </div>
 
             {/* Report 6: Savings */}
-            <div className="bg-[#0f0f0f] border border-emerald-500/25 rounded-2xl p-5">
+            <div className="bg-surface border border-emerald-500/25 rounded-2xl p-5">
               <div className="flex items-center justify-between mb-4">
-                <p className="text-white font-bold text-sm">Monthly Savings</p>
+                <p className="text-foreground font-bold text-sm">Monthly Savings</p>
                 <TrendingDown size={14} className="text-emerald-400" />
               </div>
               <p className="text-3xl font-black font-mono text-emerald-400 mb-1">₹4.82 Cr</p>
-              <p className="text-xs text-zinc-500 mb-4">Last 6 months, cumulative</p>
+              <p className="text-xs text-text-3 mb-4">Last 6 months, cumulative</p>
               <div className="space-y-2 text-xs">
-                <div className="flex justify-between"><span className="text-zinc-400">Reduced trim</span><span className="font-mono text-emerald-300">₹3.21 Cr</span></div>
-                <div className="flex justify-between"><span className="text-zinc-400">SWO recovery uplift</span><span className="font-mono text-emerald-300">₹1.18 Cr</span></div>
-                <div className="flex justify-between"><span className="text-zinc-400">Planning time saved</span><span className="font-mono text-emerald-300">₹0.28 Cr</span></div>
-                <div className="flex justify-between"><span className="text-zinc-400">Faster re-plans</span><span className="font-mono text-emerald-300">₹0.15 Cr</span></div>
+                <div className="flex justify-between"><span className="text-text-2">Reduced trim</span><span className="font-mono text-emerald-300">₹3.21 Cr</span></div>
+                <div className="flex justify-between"><span className="text-text-2">SWO recovery uplift</span><span className="font-mono text-emerald-300">₹1.18 Cr</span></div>
+                <div className="flex justify-between"><span className="text-text-2">Planning time saved</span><span className="font-mono text-emerald-300">₹0.28 Cr</span></div>
+                <div className="flex justify-between"><span className="text-text-2">Faster re-plans</span><span className="font-mono text-emerald-300">₹0.15 Cr</span></div>
               </div>
-              <p className="text-xs text-zinc-500 mt-3 leading-relaxed">
+              <p className="text-xs text-text-3 mt-3 leading-relaxed">
                 Realized savings ROI: 9.2× annualized.
               </p>
             </div>
@@ -867,11 +867,11 @@ export function DeckleDeepDive({ data }: { data: ModuleData }) {
       </section>
 
       {/* INTEGRATION MODES */}
-      <section className="py-24 bg-[#0a0a0a] border-b border-[#1a1a1a]">
+      <section className="py-24 bg-background border-b border-border-dim">
         <div className="max-w-[var(--container-max)] mx-auto px-6">
           <p className="text-amber-500 text-xs font-semibold uppercase tracking-widest mb-3">Integration Modes</p>
-          <h2 className="text-4xl font-black text-white tracking-tight mb-4">Embedded. Standalone. API.</h2>
-          <p className="text-zinc-400 text-lg max-w-2xl mb-14">
+          <h2 className="text-4xl font-black text-foreground tracking-tight mb-4">Embedded. Standalone. API.</h2>
+          <p className="text-text-2 text-lg max-w-2xl mb-14">
             Choose how Deckle fits into your stack. Use it embedded in Papyrus BPApp, plug it into your existing ERP, or call it API-only.
           </p>
 
@@ -884,14 +884,14 @@ export function DeckleDeepDive({ data }: { data: ModuleData }) {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.4, delay: i * 0.1 }}
-                  className="bg-[#0f0f0f] border rounded-2xl p-6"
+                  className="bg-surface border rounded-2xl p-6"
                   style={{ borderColor: `${d.accent}30` }}>
                   <div className="w-11 h-11 rounded-xl border flex items-center justify-center mb-4"
                     style={{ background: `${d.accent}12`, borderColor: `${d.accent}30` }}>
                     <Icon size={18} style={{ color: d.accent }} />
                   </div>
-                  <h3 className="text-white font-black text-lg mb-2">{d.mode}</h3>
-                  <p className="text-sm text-zinc-400 leading-relaxed">{d.desc}</p>
+                  <h3 className="text-foreground font-black text-lg mb-2">{d.mode}</h3>
+                  <p className="text-sm text-text-2 leading-relaxed">{d.desc}</p>
                 </motion.div>
               );
             })}
@@ -900,19 +900,19 @@ export function DeckleDeepDive({ data }: { data: ModuleData }) {
           <p className="text-[10px] uppercase tracking-widest font-semibold text-amber-500 mb-4">Hosting Options</p>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
             {HOSTING.map((h) => (
-              <div key={h.type} className="bg-[#0f0f0f] border border-[#1f1f1f] rounded-xl p-4">
-                <p className="text-white font-bold text-sm mb-1.5">{h.type}</p>
-                <p className="text-xs text-zinc-500 leading-relaxed">{h.desc}</p>
+              <div key={h.type} className="bg-surface border border-border-dim rounded-xl p-4">
+                <p className="text-foreground font-bold text-sm mb-1.5">{h.type}</p>
+                <p className="text-xs text-text-3 leading-relaxed">{h.desc}</p>
               </div>
             ))}
           </div>
 
-          <div className="mt-10 bg-[#0f0f0f] border border-amber-500/20 rounded-2xl p-6">
+          <div className="mt-10 bg-surface border border-amber-500/20 rounded-2xl p-6">
             <div className="flex items-start gap-4">
               <Lock size={18} className="text-amber-400 mt-1 flex-shrink-0" />
               <div>
-                <p className="text-white font-bold text-base mb-1">Pre-built ERP Connectors</p>
-                <p className="text-sm text-zinc-400 leading-relaxed mb-3">
+                <p className="text-foreground font-bold text-base mb-1">Pre-built ERP Connectors</p>
+                <p className="text-sm text-text-2 leading-relaxed mb-3">
                   Connect to your existing ERP in days — not months. Standard connectors ship with mapping templates for paper-industry data models.
                 </p>
                 <div className="flex flex-wrap gap-2">
@@ -929,11 +929,11 @@ export function DeckleDeepDive({ data }: { data: ModuleData }) {
       </section>
 
       {/* IMPLEMENTATION TIMELINE */}
-      <section className="py-24 border-b border-[#1a1a1a]">
+      <section className="py-24 border-b border-border-dim">
         <div className="max-w-[var(--container-max)] mx-auto px-6">
           <p className="text-amber-500 text-xs font-semibold uppercase tracking-widest mb-3">Implementation</p>
-          <h2 className="text-4xl md:text-5xl font-black text-white tracking-tight mb-4">From contract to ROI in 30 days.</h2>
-          <p className="text-zinc-400 text-lg max-w-2xl mb-12">
+          <h2 className="text-4xl md:text-5xl font-black text-foreground tracking-tight mb-4">From contract to ROI in 30 days.</h2>
+          <p className="text-text-2 text-lg max-w-2xl mb-12">
             Typical rollout. Faster for API-only integration, longer for full embedded with custom integrations.
           </p>
 
@@ -948,18 +948,18 @@ export function DeckleDeepDive({ data }: { data: ModuleData }) {
                   viewport={{ once: true }}
                   transition={{ duration: 0.4, delay: i * 0.08 }}
                   className="flex gap-5 items-start">
-                  <div className="flex-shrink-0 w-14 h-14 rounded-full bg-[#0f0f0f] border-2 border-amber-500/50 flex items-center justify-center font-mono text-[10px] font-bold text-amber-400">
+                  <div className="flex-shrink-0 w-14 h-14 rounded-full bg-surface border-2 border-amber-500/50 flex items-center justify-center font-mono text-[10px] font-bold text-amber-400">
                     {step.week.replace("Week ", "W").replace("+", "+")}
                   </div>
-                  <div className="bg-[#0f0f0f] border border-[#1f1f1f] rounded-2xl p-5 flex-1">
+                  <div className="bg-surface border border-border-dim rounded-2xl p-5 flex-1">
                     <div className="flex items-center gap-3 mb-3">
                       <span className="text-xs font-bold text-amber-400 font-mono">{step.week}</span>
                       <span className="text-zinc-700">·</span>
-                      <h3 className="text-base font-bold text-white">{step.title}</h3>
+                      <h3 className="text-base font-bold text-foreground">{step.title}</h3>
                     </div>
                     <ul className="grid grid-cols-1 md:grid-cols-2 gap-1.5">
                       {step.items.map((item) => (
-                        <li key={item} className="text-xs text-zinc-400 flex items-start gap-1.5">
+                        <li key={item} className="text-xs text-text-2 flex items-start gap-1.5">
                           <CheckCircle2 size={11} className="mt-0.5 text-amber-400 flex-shrink-0" /> {item}
                         </li>
                       ))}
@@ -973,24 +973,24 @@ export function DeckleDeepDive({ data }: { data: ModuleData }) {
       </section>
 
       {/* PLANNER UI MOCKUP */}
-      <section className="py-24 bg-[#0a0a0a] border-b border-[#1a1a1a]">
+      <section className="py-24 bg-background border-b border-border-dim">
         <div className="max-w-[var(--container-max)] mx-auto px-6">
           <p className="text-amber-500 text-xs font-semibold uppercase tracking-widest mb-3">Planner Workspace</p>
-          <h2 className="text-4xl font-black text-white tracking-tight mb-4">Built for planners, not data scientists.</h2>
-          <p className="text-zinc-400 text-lg max-w-2xl mb-12">
+          <h2 className="text-4xl font-black text-foreground tracking-tight mb-4">Built for planners, not data scientists.</h2>
+          <p className="text-text-2 text-lg max-w-2xl mb-12">
             Interactive planner UI with drag-drop adjustments, live constraint feedback, alternative pattern explorer, and one-click approval.
           </p>
 
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }} transition={{ duration: 0.6 }}
-            className="bg-[#0f0f0f] border border-[#1f1f1f] rounded-2xl overflow-hidden">
-            <div className="flex items-center gap-3 px-5 py-3 border-b border-[#1f1f1f] bg-[#080808]">
+            className="bg-surface border border-border-dim rounded-2xl overflow-hidden">
+            <div className="flex items-center gap-3 px-5 py-3 border-b border-border-dim bg-background">
               <div className="flex gap-1.5">
                 <span className="w-2.5 h-2.5 rounded-full bg-red-500/70" />
                 <span className="w-2.5 h-2.5 rounded-full bg-amber-500/70" />
                 <span className="w-2.5 h-2.5 rounded-full bg-emerald-500/70" />
               </div>
-              <span className="text-xs text-zinc-500 font-mono">Deckle Planner · PM-2 · Shift A</span>
+              <span className="text-xs text-text-3 font-mono">Deckle Planner · PM-2 · Shift A</span>
               <span className="ml-auto flex items-center gap-1.5 text-xs text-emerald-400">
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" /> Auto-saving
               </span>
@@ -998,8 +998,8 @@ export function DeckleDeepDive({ data }: { data: ModuleData }) {
 
             <div className="grid grid-cols-12 gap-3 p-4 text-xs">
               {/* Left: Demand pool */}
-              <div className="col-span-3 bg-[#080808] rounded-lg border border-[#1f1f1f] p-3 max-h-96 overflow-hidden">
-                <p className="text-[10px] uppercase tracking-wider text-zinc-500 mb-3 font-semibold">Demand Pool</p>
+              <div className="col-span-3 bg-background rounded-lg border border-border-dim p-3 max-h-96 overflow-hidden">
+                <p className="text-[10px] uppercase tracking-wider text-text-3 mb-3 font-semibold">Demand Pool</p>
                 <div className="space-y-1.5">
                   {[
                     { order: "SO-2847", customer: "ABC Paper", width: "1200mm", qty: "4.2t" },
@@ -1008,19 +1008,19 @@ export function DeckleDeepDive({ data }: { data: ModuleData }) {
                     { order: "SO-2861", customer: "ABC Paper", width: "950mm", qty: "1.9t" },
                     { order: "SO-2867", customer: "GHI Mills", width: "850mm", qty: "2.1t" },
                   ].map((o) => (
-                    <div key={o.order} className="bg-[#0f0f0f] border border-[#1f1f1f] rounded p-2 text-[10px]">
+                    <div key={o.order} className="bg-surface border border-border-dim rounded p-2 text-[10px]">
                       <p className="font-mono text-blue-400">{o.order}</p>
-                      <p className="text-zinc-400 truncate">{o.customer}</p>
-                      <p className="text-zinc-500 font-mono mt-0.5">{o.width} · {o.qty}</p>
+                      <p className="text-text-2 truncate">{o.customer}</p>
+                      <p className="text-text-3 font-mono mt-0.5">{o.width} · {o.qty}</p>
                     </div>
                   ))}
                 </div>
               </div>
 
               {/* Center: Slit canvas */}
-              <div className="col-span-6 bg-[#080808] rounded-lg border border-[#1f1f1f] p-4">
+              <div className="col-span-6 bg-background rounded-lg border border-border-dim p-4">
                 <div className="flex items-center justify-between mb-4">
-                  <p className="text-[10px] uppercase tracking-wider text-zinc-500 font-semibold">Slitting Canvas · 5260mm deckle</p>
+                  <p className="text-[10px] uppercase tracking-wider text-text-3 font-semibold">Slitting Canvas · 5260mm deckle</p>
                   <span className="text-[10px] font-mono text-emerald-400">Trim 1.4% · Recovery 98.6%</span>
                 </div>
 
@@ -1034,7 +1034,7 @@ export function DeckleDeepDive({ data }: { data: ModuleData }) {
                     { w: 285, color: "#F59E0B", label: "SWO" },
                     { w: 75, color: "#EF4444", label: "T" },
                   ].map((s, i) => (
-                    <div key={i} className="flex items-center justify-center border-r border-black/40 text-[10px] font-bold text-white"
+                    <div key={i} className="flex items-center justify-center border-r border-black/40 text-[10px] font-bold text-foreground"
                       style={{ width: `${(s.w / 5260) * 100}%`, background: `linear-gradient(180deg, ${s.color}40, ${s.color}20)` }}>
                       {s.label}
                     </div>
@@ -1043,8 +1043,8 @@ export function DeckleDeepDive({ data }: { data: ModuleData }) {
 
                 <div className="flex gap-2 mb-3">
                   <button className="text-[10px] px-2 py-1 rounded bg-amber-500/10 border border-amber-500/30 text-amber-300 font-semibold">Drag positions</button>
-                  <button className="text-[10px] px-2 py-1 rounded bg-[#0f0f0f] border border-[#1f1f1f] text-zinc-400">Try alternative</button>
-                  <button className="text-[10px] px-2 py-1 rounded bg-[#0f0f0f] border border-[#1f1f1f] text-zinc-400">Lock slit</button>
+                  <button className="text-[10px] px-2 py-1 rounded bg-surface border border-border-dim text-text-2">Try alternative</button>
+                  <button className="text-[10px] px-2 py-1 rounded bg-surface border border-border-dim text-text-2">Lock slit</button>
                   <button className="text-[10px] px-2 py-1 rounded bg-emerald-500 text-black font-bold ml-auto">Approve</button>
                 </div>
 
@@ -1052,8 +1052,8 @@ export function DeckleDeepDive({ data }: { data: ModuleData }) {
               </div>
 
               {/* Right: Constraints panel */}
-              <div className="col-span-3 bg-[#080808] rounded-lg border border-[#1f1f1f] p-3 max-h-96 overflow-hidden">
-                <p className="text-[10px] uppercase tracking-wider text-zinc-500 mb-3 font-semibold">Live Constraints</p>
+              <div className="col-span-3 bg-background rounded-lg border border-border-dim p-3 max-h-96 overflow-hidden">
+                <p className="text-[10px] uppercase tracking-wider text-text-3 mb-3 font-semibold">Live Constraints</p>
                 <div className="space-y-1.5">
                   {[
                     "Deckle width", "Trim limit", "Knife count", "FEFO honor",
@@ -1062,7 +1062,7 @@ export function DeckleDeepDive({ data }: { data: ModuleData }) {
                   ].map((c) => (
                     <div key={c} className="flex items-center gap-1.5 text-[10px]">
                       <CheckCircle2 size={10} className="text-emerald-400 flex-shrink-0" />
-                      <span className="text-zinc-400 truncate">{c}</span>
+                      <span className="text-text-2 truncate">{c}</span>
                     </div>
                   ))}
                 </div>

@@ -210,9 +210,9 @@ const TIMELINE = [
 
 export function FinanceDeepDive({ data }: { data: ModuleData }) {
   return (
-    <div className="min-h-screen bg-[#080808]">
+    <div className="min-h-screen bg-background">
       {/* HERO */}
-      <section className="relative min-h-[88vh] overflow-hidden grain">
+      <section className="relative min-h-[88vh] overflow-hidden grain on-photo">
         <div className="absolute inset-0">
           <Image src="https://images.unsplash.com/photo-1554224154-22dec7ec8818?auto=format&fit=crop&w=1920&q=80"
             alt="Finance and GST compliance" fill className="object-cover" priority unoptimized />
@@ -228,13 +228,13 @@ export function FinanceDeepDive({ data }: { data: ModuleData }) {
           </motion.div>
 
           <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-5xl md:text-7xl lg:text-8xl font-black text-white leading-[0.95] tracking-tight mb-6 max-w-5xl">
+            className="text-5xl md:text-7xl lg:text-8xl font-black text-foreground leading-[0.95] tracking-tight mb-6 max-w-5xl">
             Indian compliance.<br />
             <span style={{ background: "linear-gradient(135deg, #10B981, #6EE7B7)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>Native, not bolted on.</span>
           </motion.h1>
 
           <motion.p initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-xl text-zinc-400 max-w-2xl mb-10 leading-relaxed">
+            className="text-xl text-text-2 max-w-2xl mb-10 leading-relaxed">
             GST e-invoice, GSTR-1 / 3B / 9 / 2B reconciliation, ITC ledger, RCM. Multi-stage
             costing for paper mills. FEMA + trade finance. Multi-company, multi-currency,
             multi-GSTIN. Real-time margin per customer × grade. Built for Indian paper manufacturing.
@@ -245,7 +245,7 @@ export function FinanceDeepDive({ data }: { data: ModuleData }) {
             <Link href="/contact" className="group inline-flex items-center justify-center gap-2 px-7 py-4 rounded-lg bg-amber-500 hover:bg-amber-400 text-black font-bold text-sm transition-all">
               Get a live demo <ArrowRight size={16} className="group-hover:translate-x-0.5 transition-transform" />
             </Link>
-            <Link href="/product" className="inline-flex items-center gap-2 px-7 py-4 rounded-lg border border-[#333] text-white hover:border-amber-500/40 text-sm font-medium transition-all">
+            <Link href="/product" className="inline-flex items-center gap-2 px-7 py-4 rounded-lg border border-border-light text-foreground hover:border-amber-500/40 text-sm font-medium transition-all">
               <ArrowLeft size={14} /> All Modules
             </Link>
           </motion.div>
@@ -258,9 +258,9 @@ export function FinanceDeepDive({ data }: { data: ModuleData }) {
               { value: "FEMA", label: "+ trade finance", color: "#6EE7B7" },
               { value: "Live", label: "margin per SKU", color: "#A7F3D0" },
             ].map((m) => (
-              <div key={m.label} className="bg-[#0f0f0f]/85 backdrop-blur border border-[#1f1f1f] rounded-xl p-4">
+              <div key={m.label} className="bg-surface/85 backdrop-blur border border-border-dim rounded-xl p-4">
                 <p className="text-2xl font-black font-mono mb-1" style={{ color: m.color }}>{m.value}</p>
-                <p className="text-xs text-zinc-500">{m.label}</p>
+                <p className="text-xs text-text-3">{m.label}</p>
               </div>
             ))}
           </motion.div>
@@ -268,7 +268,7 @@ export function FinanceDeepDive({ data }: { data: ModuleData }) {
       </section>
 
       {/* PROBLEM */}
-      <section className="py-20 border-y border-[#1a1a1a] bg-[#0a0a0a]">
+      <section className="py-20 border-y border-border-dim bg-background">
         <div className="max-w-[var(--container-max)] mx-auto px-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-14 items-center">
             <motion.div initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }}
@@ -276,15 +276,15 @@ export function FinanceDeepDive({ data }: { data: ModuleData }) {
               <p className="text-emerald-300 text-xs font-semibold uppercase tracking-widest mb-3 flex items-center gap-2">
                 <AlertTriangle size={12} /> Generic ERPs underdeliver here
               </p>
-              <h2 className="text-4xl md:text-5xl font-black text-white tracking-tight mb-6 leading-tight">
+              <h2 className="text-4xl md:text-5xl font-black text-foreground tracking-tight mb-6 leading-tight">
                 Indian GST is <span className="text-emerald-300">not a configuration</span>. It&apos;s a system.
               </h2>
-              <p className="text-zinc-400 text-lg leading-relaxed mb-6">
+              <p className="text-text-2 text-lg leading-relaxed mb-6">
                 Most global ERPs bolt GST on top — separate filing tool, IRN add-on, GSTR
                 reconciliation as an after-thought. Result: five-day month-ends, frequent
                 ITC mismatches, FEMA stress on every export.
               </p>
-              <p className="text-zinc-500 text-sm leading-relaxed">
+              <p className="text-text-3 text-sm leading-relaxed">
                 Paper mills layer additional complexity — multi-stage costing, RCM on transport,
                 fibre import via LC, multi-GSTIN across plants. The Finance module is engineered
                 around these realities, not adapted to them.
@@ -293,8 +293,8 @@ export function FinanceDeepDive({ data }: { data: ModuleData }) {
 
             <motion.div initial={{ opacity: 0, x: 20 }} whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.1 }}
-              className="bg-[#0f0f0f] border border-[#1f1f1f] rounded-2xl p-6">
-              <p className="text-[10px] uppercase tracking-widest font-mono text-zinc-600 mb-5">Compliance overhead · 3-entity group</p>
+              className="bg-surface border border-border-dim rounded-2xl p-6">
+              <p className="text-[10px] uppercase tracking-widest font-mono text-text-4 mb-5">Compliance overhead · 3-entity group</p>
               <div className="space-y-4">
                 {[
                   { label: "Month-end close (legacy)", value: "5 days", bar: 100, color: "#EF4444" },
@@ -304,10 +304,10 @@ export function FinanceDeepDive({ data }: { data: ModuleData }) {
                 ].map((row, i) => (
                   <div key={row.label}>
                     <div className="flex justify-between text-xs mb-1.5">
-                      <span className="text-zinc-400">{row.label}</span>
+                      <span className="text-text-2">{row.label}</span>
                       <span className="font-mono font-bold" style={{ color: row.color }}>{row.value}</span>
                     </div>
-                    <div className="h-2.5 bg-[#1a1a1a] rounded-full overflow-hidden">
+                    <div className="h-2.5 bg-surface-3 rounded-full overflow-hidden">
                       <motion.div initial={{ width: 0 }} whileInView={{ width: `${row.bar}%` }}
                         viewport={{ once: true }} transition={{ duration: 1.2, delay: 0.3 + i * 0.15, ease: "easeOut" }}
                         className="h-full rounded-full" style={{ background: row.color }} />
@@ -315,7 +315,7 @@ export function FinanceDeepDive({ data }: { data: ModuleData }) {
                   </div>
                 ))}
               </div>
-              <p className="text-[10px] text-zinc-600 mt-5 font-mono leading-relaxed">
+              <p className="text-[10px] text-text-4 mt-5 font-mono leading-relaxed">
                 * 3-entity paper group, 5 GSTINs, post-6 month deployment baseline.
               </p>
             </motion.div>
@@ -324,13 +324,13 @@ export function FinanceDeepDive({ data }: { data: ModuleData }) {
       </section>
 
       {/* GST PILLARS */}
-      <section className="py-24 border-b border-[#1a1a1a]">
+      <section className="py-24 border-b border-border-dim">
         <div className="max-w-[var(--container-max)] mx-auto px-6">
           <p className="text-emerald-300 text-xs font-semibold uppercase tracking-widest mb-3">GST Stack</p>
-          <h2 className="text-4xl md:text-5xl font-black text-white tracking-tight mb-4">
+          <h2 className="text-4xl md:text-5xl font-black text-foreground tracking-tight mb-4">
             Four pillars. End-to-end GST.
           </h2>
-          <p className="text-zinc-400 text-lg max-w-3xl mb-14 leading-relaxed">
+          <p className="text-text-2 text-lg max-w-3xl mb-14 leading-relaxed">
             From IRN at the point of invoice to annual GSTR-9 reconciliation — every step is
             engineered, integrated, and audit-ready.
           </p>
@@ -342,7 +342,7 @@ export function FinanceDeepDive({ data }: { data: ModuleData }) {
                 <motion.div key={p.name}
                   initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }} transition={{ duration: 0.5, delay: i * 0.1 }}
-                  className="bg-[#0f0f0f] border rounded-2xl p-6 flex flex-col gap-4"
+                  className="bg-surface border rounded-2xl p-6 flex flex-col gap-4"
                   style={{ borderColor: `${p.color}30` }}>
                   <div className="flex items-center justify-between">
                     <div className="w-12 h-12 rounded-xl border flex items-center justify-center"
@@ -352,12 +352,12 @@ export function FinanceDeepDive({ data }: { data: ModuleData }) {
                     <span className="font-mono text-sm font-bold" style={{ color: p.color }}>{p.name}</span>
                   </div>
                   <div>
-                    <h3 className="text-white font-black text-xl mb-1">{p.title}</h3>
+                    <h3 className="text-foreground font-black text-xl mb-1">{p.title}</h3>
                   </div>
-                  <p className="text-sm text-zinc-300 leading-relaxed">{p.desc}</p>
-                  <div className="pt-3 border-t border-[#1f1f1f]">
+                  <p className="text-sm text-text-2 leading-relaxed">{p.desc}</p>
+                  <div className="pt-3 border-t border-border-dim">
                     <p className="text-[10px] uppercase tracking-widest font-semibold mb-1" style={{ color: p.color }}>Coverage</p>
-                    <p className="text-[11px] text-zinc-400 font-mono">{p.coverage}</p>
+                    <p className="text-[11px] text-text-2 font-mono">{p.coverage}</p>
                   </div>
                 </motion.div>
               );
@@ -367,11 +367,11 @@ export function FinanceDeepDive({ data }: { data: ModuleData }) {
       </section>
 
       {/* COSTING STAGES */}
-      <section className="py-24 bg-[#0a0a0a] border-b border-[#1a1a1a]">
+      <section className="py-24 bg-background border-b border-border-dim">
         <div className="max-w-[var(--container-max)] mx-auto px-6">
           <p className="text-emerald-300 text-xs font-semibold uppercase tracking-widest mb-3">Multi-Stage Costing</p>
-          <h2 className="text-4xl font-black text-white tracking-tight mb-4">Cost the way a paper mill actually runs.</h2>
-          <p className="text-zinc-400 text-lg max-w-2xl mb-12">
+          <h2 className="text-4xl font-black text-foreground tracking-tight mb-4">Cost the way a paper mill actually runs.</h2>
+          <p className="text-text-2 text-lg max-w-2xl mb-12">
             Four costing stages from pulp to finished reel. Standard vs actual tracked at each stage with variance posted automatically.
           </p>
 
@@ -382,17 +382,17 @@ export function FinanceDeepDive({ data }: { data: ModuleData }) {
                 <motion.div key={l.stage}
                   initial={{ opacity: 0, y: 14 }} whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }} transition={{ duration: 0.4, delay: i * 0.08 }}
-                  className="bg-[#0f0f0f] border rounded-2xl p-5 flex flex-col gap-3"
+                  className="bg-surface border rounded-2xl p-5 flex flex-col gap-3"
                   style={{ borderColor: `${l.color}30` }}>
                   <div className="w-10 h-10 rounded-lg border flex items-center justify-center"
                     style={{ background: `${l.color}12`, borderColor: `${l.color}30` }}>
                     <Icon size={16} style={{ color: l.color }} />
                   </div>
-                  <h3 className="text-white font-bold text-sm">{l.stage}</h3>
-                  <p className="text-xs text-zinc-400 leading-relaxed">{l.desc}</p>
-                  <div className="pt-2 border-t border-[#1f1f1f]">
+                  <h3 className="text-foreground font-bold text-sm">{l.stage}</h3>
+                  <p className="text-xs text-text-2 leading-relaxed">{l.desc}</p>
+                  <div className="pt-2 border-t border-border-dim">
                     <p className="text-[9px] uppercase tracking-widest font-semibold mb-1" style={{ color: l.color }}>Captures</p>
-                    <p className="text-[10px] text-zinc-400 font-mono leading-relaxed">{l.captures}</p>
+                    <p className="text-[10px] text-text-2 font-mono leading-relaxed">{l.captures}</p>
                   </div>
                 </motion.div>
               );
@@ -402,30 +402,30 @@ export function FinanceDeepDive({ data }: { data: ModuleData }) {
       </section>
 
       {/* SAMPLE INVOICE */}
-      <section className="py-24 border-b border-[#1a1a1a]">
+      <section className="py-24 border-b border-border-dim">
         <div className="max-w-[var(--container-max)] mx-auto px-6">
           <p className="text-emerald-300 text-xs font-semibold uppercase tracking-widest mb-3">Sample Invoice</p>
-          <h2 className="text-4xl font-black text-white tracking-tight mb-4">From SO to IRN to GSTR-1.</h2>
-          <p className="text-zinc-400 text-lg max-w-2xl mb-12">
+          <h2 className="text-4xl font-black text-foreground tracking-tight mb-4">From SO to IRN to GSTR-1.</h2>
+          <p className="text-text-2 text-lg max-w-2xl mb-12">
             A real invoice flow — sales order → invoice → IRN → e-Way bill → GSTR-1 register entry. Zero re-keying.
           </p>
 
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }} transition={{ duration: 0.6 }}
-            className="bg-[#0f0f0f] border border-[#1f1f1f] rounded-2xl overflow-hidden">
-            <div className="flex items-center justify-between px-6 py-4 border-b border-[#1f1f1f] bg-[#080808]">
+            className="bg-surface border border-border-dim rounded-2xl overflow-hidden">
+            <div className="flex items-center justify-between px-6 py-4 border-b border-border-dim bg-background">
               <div className="flex items-center gap-4">
-                <span className="text-xs font-mono text-zinc-500">INVOICE</span>
-                <span className="text-sm font-bold text-white font-mono">INV-2026-04-2871</span>
+                <span className="text-xs font-mono text-text-3">INVOICE</span>
+                <span className="text-sm font-bold text-foreground font-mono">INV-2026-04-2871</span>
                 <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-500/15 border border-emerald-500/30 text-emerald-300">IRN GENERATED</span>
               </div>
-              <div className="flex items-center gap-5 text-xs text-zinc-500">
-                <span>GSTIN: <span className="text-white font-mono">29ABCDE1234F1Z5</span></span>
-                <span>Date: <span className="text-white font-mono">12-Apr-2026</span></span>
+              <div className="flex items-center gap-5 text-xs text-text-3">
+                <span>GSTIN: <span className="text-foreground font-mono">29ABCDE1234F1Z5</span></span>
+                <span>Date: <span className="text-foreground font-mono">12-Apr-2026</span></span>
               </div>
             </div>
 
-            <div className="grid grid-cols-2 md:grid-cols-5 gap-3 p-6 border-b border-[#1f1f1f] bg-[#0c0c0c]">
+            <div className="grid grid-cols-2 md:grid-cols-5 gap-3 p-6 border-b border-border-dim bg-[#0c0c0c]">
               {[
                 { label: "Taxable value", value: "₹14,28,400", color: "#10B981" },
                 { label: "CGST 9%", value: "₹1,28,556", color: "#34D399" },
@@ -433,15 +433,15 @@ export function FinanceDeepDive({ data }: { data: ModuleData }) {
                 { label: "Total invoice", value: "₹16,85,512", color: "#6EE7B7" },
                 { label: "IRN status", value: "ACK 14:21", color: "#A7F3D0" },
               ].map((s) => (
-                <div key={s.label} className="bg-[#080808] rounded-lg p-3 border border-[#1f1f1f]">
-                  <p className="text-[10px] text-zinc-500 uppercase tracking-wider mb-1 font-semibold">{s.label}</p>
+                <div key={s.label} className="bg-background rounded-lg p-3 border border-border-dim">
+                  <p className="text-[10px] text-text-3 uppercase tracking-wider mb-1 font-semibold">{s.label}</p>
                   <p className="text-base font-black font-mono" style={{ color: s.color }}>{s.value}</p>
                 </div>
               ))}
             </div>
 
             <div className="p-6">
-              <p className="text-[10px] uppercase tracking-widest font-semibold text-zinc-500 mb-4">Document chain</p>
+              <p className="text-[10px] uppercase tracking-widest font-semibold text-text-3 mb-4">Document chain</p>
               <div className="flex flex-wrap items-center gap-2 text-xs font-mono">
                 {[
                   { label: "SO-2847", color: "#3B82F6" },
@@ -459,16 +459,16 @@ export function FinanceDeepDive({ data }: { data: ModuleData }) {
                 ))}
               </div>
 
-              <div className="mt-6 pt-5 border-t border-[#1f1f1f] grid grid-cols-1 md:grid-cols-3 gap-3">
+              <div className="mt-6 pt-5 border-t border-border-dim grid grid-cols-1 md:grid-cols-3 gap-3">
                 {[
                   { title: "Real-time margin", value: "+18.4%", desc: "Cost rolled up from pulp batch BAT-9817, PM-2 shift A, conversion stage." },
                   { title: "ITC implication", value: "₹84,256", desc: "Buyer's eligible ITC. Will appear in their GSTR-2B for April." },
                   { title: "FEMA flag", value: "N/A", desc: "Domestic invoice. No FEMA tracking required." },
                 ].map((c) => (
-                  <div key={c.title} className="bg-[#080808] rounded-lg p-3 border border-[#1f1f1f]">
-                    <p className="text-[10px] text-zinc-500 uppercase tracking-wider mb-0.5 font-semibold">{c.title}</p>
+                  <div key={c.title} className="bg-background rounded-lg p-3 border border-border-dim">
+                    <p className="text-[10px] text-text-3 uppercase tracking-wider mb-0.5 font-semibold">{c.title}</p>
                     <p className="text-lg font-black font-mono text-emerald-300 mb-1">{c.value}</p>
-                    <p className="text-[11px] text-zinc-500 leading-relaxed">{c.desc}</p>
+                    <p className="text-[11px] text-text-3 leading-relaxed">{c.desc}</p>
                   </div>
                 ))}
               </div>
@@ -478,13 +478,13 @@ export function FinanceDeepDive({ data }: { data: ModuleData }) {
       </section>
 
       {/* CAPABILITIES GRID */}
-      <section className="py-24 bg-[#0a0a0a] border-b border-[#1a1a1a]">
+      <section className="py-24 bg-background border-b border-border-dim">
         <div className="max-w-[var(--container-max)] mx-auto px-6">
           <p className="text-emerald-300 text-xs font-semibold uppercase tracking-widest mb-3">Capability Catalog</p>
-          <h2 className="text-4xl md:text-5xl font-black text-white tracking-tight mb-4">
+          <h2 className="text-4xl md:text-5xl font-black text-foreground tracking-tight mb-4">
             100+ capabilities. Six categories.
           </h2>
-          <p className="text-zinc-400 text-lg max-w-2xl mb-14">
+          <p className="text-text-2 text-lg max-w-2xl mb-14">
             Every screen built around Indian compliance reality — not patched in via configuration.
           </p>
 
@@ -495,7 +495,7 @@ export function FinanceDeepDive({ data }: { data: ModuleData }) {
                 <motion.div key={cat.category}
                   initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }} transition={{ duration: 0.4, delay: Math.min(i * 0.04, 0.3) }}
-                  className="bg-[#0f0f0f] border border-[#1f1f1f] rounded-2xl p-6 hover:border-emerald-500/20 transition-colors">
+                  className="bg-surface border border-border-dim rounded-2xl p-6 hover:border-emerald-500/20 transition-colors">
                   <div className="flex items-center justify-between mb-4">
                     <div className="flex items-center gap-3">
                       <div className="w-10 h-10 rounded-xl border flex items-center justify-center"
@@ -503,14 +503,14 @@ export function FinanceDeepDive({ data }: { data: ModuleData }) {
                         <Icon size={16} style={{ color: cat.color }} />
                       </div>
                       <div>
-                        <h3 className="text-white font-bold text-base">{cat.category}</h3>
+                        <h3 className="text-foreground font-bold text-base">{cat.category}</h3>
                         <p className="text-[10px] font-mono" style={{ color: cat.color }}>{cat.count}</p>
                       </div>
                     </div>
                   </div>
                   <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-3 gap-y-1.5">
                     {cat.items.map((item) => (
-                      <li key={item} className="text-xs text-zinc-400 flex items-start gap-1.5 leading-relaxed">
+                      <li key={item} className="text-xs text-text-2 flex items-start gap-1.5 leading-relaxed">
                         <span style={{ color: cat.color }}>·</span> {item}
                       </li>
                     ))}
@@ -523,11 +523,11 @@ export function FinanceDeepDive({ data }: { data: ModuleData }) {
       </section>
 
       {/* USE CASES */}
-      <section className="py-24 border-b border-[#1a1a1a]">
+      <section className="py-24 border-b border-border-dim">
         <div className="max-w-[var(--container-max)] mx-auto px-6">
           <p className="text-emerald-300 text-xs font-semibold uppercase tracking-widest mb-3">Use Cases</p>
-          <h2 className="text-4xl md:text-5xl font-black text-white tracking-tight mb-4">Real finance team scenarios.</h2>
-          <p className="text-zinc-400 text-lg max-w-2xl mb-12">
+          <h2 className="text-4xl md:text-5xl font-black text-foreground tracking-tight mb-4">Real finance team scenarios.</h2>
+          <p className="text-text-2 text-lg max-w-2xl mb-12">
             Four moments where the Finance module pays for itself.
           </p>
 
@@ -537,28 +537,28 @@ export function FinanceDeepDive({ data }: { data: ModuleData }) {
                 initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }} transition={{ duration: 0.5, delay: Math.min(i * 0.06, 0.3) }}
                 className="grid grid-cols-1 lg:grid-cols-5 gap-6 items-stretch">
-                <div className="lg:col-span-2 relative rounded-2xl overflow-hidden h-60 lg:h-auto border border-[#1f1f1f]">
+                <div className="lg:col-span-2 relative rounded-2xl overflow-hidden h-60 lg:h-auto border border-border-dim">
                   <Image src={uc.photo} alt={uc.title} fill className="object-cover" unoptimized />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a]/80 to-transparent" />
                   <div className="absolute bottom-4 left-4 right-4">
                     <p className="text-[10px] font-bold uppercase tracking-widest mb-1 text-emerald-300">Case {String(i + 1).padStart(2, "0")}</p>
-                    <h3 className="text-white text-xl font-black drop-shadow leading-tight">{uc.title}</h3>
+                    <h3 className="text-foreground text-xl font-black drop-shadow leading-tight">{uc.title}</h3>
                   </div>
                 </div>
 
-                <div className="lg:col-span-3 bg-[#0f0f0f] border border-[#1f1f1f] rounded-2xl p-6 space-y-5">
+                <div className="lg:col-span-3 bg-surface border border-border-dim rounded-2xl p-6 space-y-5">
                   <div>
                     <p className="text-[10px] font-semibold uppercase tracking-widest text-red-400 mb-2">Scenario</p>
-                    <p className="text-sm text-zinc-300 leading-relaxed">{uc.scenario}</p>
+                    <p className="text-sm text-text-2 leading-relaxed">{uc.scenario}</p>
                   </div>
                   <div>
                     <p className="text-[10px] font-semibold uppercase tracking-widest text-emerald-300 mb-2">Module Response</p>
-                    <p className="text-sm text-zinc-300 leading-relaxed">{uc.response}</p>
+                    <p className="text-sm text-text-2 leading-relaxed">{uc.response}</p>
                   </div>
-                  <div className="grid grid-cols-3 gap-3 pt-3 border-t border-[#1f1f1f]">
+                  <div className="grid grid-cols-3 gap-3 pt-3 border-t border-border-dim">
                     {Object.entries(uc.metrics).map(([k, v]) => (
-                      <div key={k} className="bg-[#080808] rounded-lg p-3 border border-[#1f1f1f] text-center">
-                        <p className="text-[9px] uppercase tracking-wider text-zinc-500 mb-0.5 font-mono">{k.replace(/_/g, " ")}</p>
+                      <div key={k} className="bg-background rounded-lg p-3 border border-border-dim text-center">
+                        <p className="text-[9px] uppercase tracking-wider text-text-3 mb-0.5 font-mono">{k.replace(/_/g, " ")}</p>
                         <p className="text-base font-black font-mono text-emerald-300">{v}</p>
                       </div>
                     ))}
@@ -571,16 +571,16 @@ export function FinanceDeepDive({ data }: { data: ModuleData }) {
       </section>
 
       {/* PERFORMANCE */}
-      <section className="py-24 bg-[#0a0a0a] border-b border-[#1a1a1a]">
+      <section className="py-24 bg-background border-b border-border-dim">
         <div className="max-w-[var(--container-max)] mx-auto px-6">
           <p className="text-emerald-300 text-xs font-semibold uppercase tracking-widest mb-3">Performance Comparison</p>
-          <h2 className="text-4xl md:text-5xl font-black text-white tracking-tight mb-4">Legacy ERP vs Papyrus Finance.</h2>
-          <p className="text-zinc-400 text-lg max-w-2xl mb-12">
+          <h2 className="text-4xl md:text-5xl font-black text-foreground tracking-tight mb-4">Legacy ERP vs Papyrus Finance.</h2>
+          <p className="text-text-2 text-lg max-w-2xl mb-12">
             Before/after on a 3-entity paper group, 6 months post-go-live.
           </p>
 
-          <div className="bg-[#0f0f0f] border border-[#1f1f1f] rounded-2xl overflow-hidden">
-            <div className="grid grid-cols-4 px-6 py-4 border-b border-[#1f1f1f] bg-[#080808] text-[10px] uppercase tracking-widest font-semibold text-zinc-500">
+          <div className="bg-surface border border-border-dim rounded-2xl overflow-hidden">
+            <div className="grid grid-cols-4 px-6 py-4 border-b border-border-dim bg-background text-[10px] uppercase tracking-widest font-semibold text-text-3">
               <span>Metric</span>
               <span className="text-center">Legacy / Generic ERP</span>
               <span className="text-center">With Module</span>
@@ -590,9 +590,9 @@ export function FinanceDeepDive({ data }: { data: ModuleData }) {
               <motion.div key={row.metric}
                 initial={{ opacity: 0, x: -10 }} whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }} transition={{ duration: 0.35, delay: i * 0.06 }}
-                className="grid grid-cols-4 px-6 py-4 border-b border-[#1a1a1a] last:border-0 items-center">
-                <span className="text-sm text-zinc-300">{row.metric}</span>
-                <span className="text-sm text-zinc-500 font-mono text-center">{row.manual}</span>
+                className="grid grid-cols-4 px-6 py-4 border-b border-border-dim last:border-0 items-center">
+                <span className="text-sm text-text-2">{row.metric}</span>
+                <span className="text-sm text-text-3 font-mono text-center">{row.manual}</span>
                 <span className="text-sm text-emerald-400 font-mono text-center font-bold">{row.deckle}</span>
                 <span className="text-xs text-emerald-300 font-mono text-right">{row.improvement}</span>
               </motion.div>
@@ -602,11 +602,11 @@ export function FinanceDeepDive({ data }: { data: ModuleData }) {
       </section>
 
       {/* TIMELINE */}
-      <section className="py-24 border-b border-[#1a1a1a]">
+      <section className="py-24 border-b border-border-dim">
         <div className="max-w-[var(--container-max)] mx-auto px-6">
           <p className="text-emerald-300 text-xs font-semibold uppercase tracking-widest mb-3">Implementation</p>
-          <h2 className="text-4xl md:text-5xl font-black text-white tracking-tight mb-4">Live in one fiscal month.</h2>
-          <p className="text-zinc-400 text-lg max-w-2xl mb-12">
+          <h2 className="text-4xl md:text-5xl font-black text-foreground tracking-tight mb-4">Live in one fiscal month.</h2>
+          <p className="text-text-2 text-lg max-w-2xl mb-12">
             Sequenced so the next GSTR-1 cycle runs on the module. Parallel run with legacy for one cycle, then cutover.
           </p>
 
@@ -618,18 +618,18 @@ export function FinanceDeepDive({ data }: { data: ModuleData }) {
                   initial={{ opacity: 0, x: -16 }} whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }} transition={{ duration: 0.4, delay: i * 0.08 }}
                   className="flex gap-5 items-start">
-                  <div className="flex-shrink-0 w-14 h-14 rounded-full bg-[#0f0f0f] border-2 border-emerald-500/50 flex items-center justify-center font-mono text-[10px] font-bold text-emerald-300">
+                  <div className="flex-shrink-0 w-14 h-14 rounded-full bg-surface border-2 border-emerald-500/50 flex items-center justify-center font-mono text-[10px] font-bold text-emerald-300">
                     {step.week.replace("Week ", "W")}
                   </div>
-                  <div className="bg-[#0f0f0f] border border-[#1f1f1f] rounded-2xl p-5 flex-1">
+                  <div className="bg-surface border border-border-dim rounded-2xl p-5 flex-1">
                     <div className="flex items-center gap-3 mb-3">
                       <span className="text-xs font-bold text-emerald-300 font-mono">{step.week}</span>
                       <span className="text-zinc-700">·</span>
-                      <h3 className="text-base font-bold text-white">{step.title}</h3>
+                      <h3 className="text-base font-bold text-foreground">{step.title}</h3>
                     </div>
                     <ul className="grid grid-cols-1 md:grid-cols-2 gap-1.5">
                       {step.items.map((item) => (
-                        <li key={item} className="text-xs text-zinc-400 flex items-start gap-1.5">
+                        <li key={item} className="text-xs text-text-2 flex items-start gap-1.5">
                           <CheckCircle2 size={11} className="mt-0.5 text-emerald-300 flex-shrink-0" /> {item}
                         </li>
                       ))}

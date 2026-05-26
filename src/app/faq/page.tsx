@@ -130,7 +130,7 @@ function FAQAccordion({ group }: { group: FAQGroup }) {
   }
 
   return (
-    <div className="rounded-2xl border border-[#1f1f1f] overflow-hidden">
+    <div className="rounded-2xl border border-border-dim overflow-hidden">
       {/* Group header */}
       <div
         className="px-6 py-4 flex items-center gap-3"
@@ -147,17 +147,17 @@ function FAQAccordion({ group }: { group: FAQGroup }) {
         {group.items.map((item, i) => {
           const isOpen = openIndex === i;
           return (
-            <div key={i} className="bg-[#0f0f0f]">
+            <div key={i} className="bg-surface">
               <button
                 onClick={() => toggle(i)}
                 className="w-full flex items-center justify-between gap-4 px-6 py-5 text-left group"
               >
-                <span className="text-sm font-semibold text-white group-hover:text-amber-300 transition-colors leading-snug">
+                <span className="text-sm font-semibold text-foreground group-hover:text-amber-300 transition-colors leading-snug">
                   {item.q}
                 </span>
                 <ChevronDown
                   size={16}
-                  className="flex-shrink-0 transition-transform duration-200 text-zinc-500"
+                  className="flex-shrink-0 transition-transform duration-200 text-text-3"
                   style={{
                     transform: isOpen ? "rotate(180deg)" : "rotate(0deg)",
                     color: isOpen ? group.accent : undefined,
@@ -175,7 +175,7 @@ function FAQAccordion({ group }: { group: FAQGroup }) {
                     className="overflow-hidden"
                   >
                     <div className="px-6 pb-5">
-                      <p className="text-sm text-zinc-400 leading-relaxed">{item.a}</p>
+                      <p className="text-sm text-text-2 leading-relaxed">{item.a}</p>
                     </div>
                   </motion.div>
                 )}
@@ -190,12 +190,12 @@ function FAQAccordion({ group }: { group: FAQGroup }) {
 
 export default function FAQPage() {
   return (
-    <div className="min-h-screen bg-[#080808]">
+    <div className="min-h-screen bg-background">
       {/* HERO */}
       <section className="relative overflow-hidden grain">
         <div className="absolute inset-0">
           <div className="absolute inset-0 bg-gradient-to-br from-amber-500/5 via-transparent to-transparent" />
-          <div className="absolute inset-0 bg-[#080808]" />
+          <div className="absolute inset-0 bg-background" />
         </div>
         <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-transparent via-amber-500 to-transparent opacity-60" />
 
@@ -213,7 +213,7 @@ export default function FAQPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="text-5xl md:text-7xl font-black text-white leading-[1.0] tracking-tight mb-6 max-w-4xl"
+            className="text-5xl md:text-7xl font-black text-foreground leading-[1.0] tracking-tight mb-6 max-w-4xl"
           >
             Questions before<br />
             <span className="amber-text">you commit.</span>
@@ -223,7 +223,7 @@ export default function FAQPage() {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="text-lg text-zinc-400 max-w-2xl mb-10 leading-relaxed"
+            className="text-lg text-text-2 max-w-2xl mb-10 leading-relaxed"
           >
             Honest answers to what every mill asks before going live.
           </motion.p>
@@ -243,7 +243,7 @@ export default function FAQPage() {
             </Link>
             <Link
               href="/implementation"
-              className="inline-flex items-center gap-2 px-6 py-3.5 rounded-lg border border-[#333] text-white hover:border-amber-500/40 text-sm font-medium transition-all"
+              className="inline-flex items-center gap-2 px-6 py-3.5 rounded-lg border border-border-light text-foreground hover:border-amber-500/40 text-sm font-medium transition-all"
             >
               How implementation works
             </Link>
@@ -252,7 +252,7 @@ export default function FAQPage() {
       </section>
 
       {/* FAQ ACCORDIONS */}
-      <section className="py-24 border-y border-[#1a1a1a]">
+      <section className="py-24 border-y border-border-dim">
         <div className="max-w-4xl mx-auto px-6">
           <div className="space-y-6">
             {FAQ_GROUPS.map((group, i) => (
@@ -271,7 +271,7 @@ export default function FAQPage() {
       </section>
 
       {/* STILL HAVE QUESTIONS */}
-      <section className="py-24 bg-[#0a0a0a] border-b border-[#1a1a1a]">
+      <section className="py-24 bg-background border-b border-border-dim">
         <div className="max-w-[var(--container-max)] mx-auto px-6 text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -282,10 +282,10 @@ export default function FAQPage() {
             <p className="text-amber-500 text-xs font-semibold uppercase tracking-widest mb-3">
               Not finding what you need?
             </p>
-            <h2 className="text-4xl font-black text-white tracking-tight mb-4 max-w-2xl mx-auto">
+            <h2 className="text-4xl font-black text-foreground tracking-tight mb-4 max-w-2xl mx-auto">
               Talk to someone who knows paper mills.
             </h2>
-            <p className="text-zinc-400 text-lg max-w-xl mx-auto leading-relaxed mb-10">
+            <p className="text-text-2 text-lg max-w-xl mx-auto leading-relaxed mb-10">
               Our team has worked inside paper mills. Ask any question — about process, compliance,
               data migration, or integration.
             </p>

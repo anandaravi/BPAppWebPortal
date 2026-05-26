@@ -32,18 +32,18 @@ export default function ClientsPage() {
   const intlClients = CLIENTS.filter((c) => c.country !== "India");
 
   return (
-    <div className="min-h-screen bg-[#080808]">
+    <div className="min-h-screen bg-background">
       <section className="pt-32 pb-12 px-6 max-w-[var(--container-max)] mx-auto">
         <p className="text-emerald-400 text-xs font-semibold uppercase tracking-widest mb-4">
           Clients
         </p>
-        <h1 className="text-5xl md:text-7xl font-black text-white tracking-tight leading-[1.0] mb-6">
+        <h1 className="text-5xl md:text-7xl font-black text-foreground tracking-tight leading-[1.0] mb-6">
           Trusted by paper mills<br />
           <span style={{ background: "linear-gradient(135deg, #10B981, #34D399)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
             since 2000.
           </span>
         </h1>
-        <p className="text-lg text-zinc-400 max-w-2xl leading-relaxed mb-10">
+        <p className="text-lg text-text-2 max-w-2xl leading-relaxed mb-10">
           {indianClients.length}+ Indian paper mills and {intlClients.length} international
           customer{intlClients.length !== 1 ? "s" : ""} run Netique / Papyrus360 software —
           spanning kraft, board, newsprint, tissue, and writing &amp; printing grades.
@@ -56,11 +56,11 @@ export default function ClientsPage() {
             { value: "Multi", label: "Country footprint", color: "#6EE7B7" },
             { value: "0.5–1.7%", label: "Typical trim saved", color: "#A7F3D0" },
           ].map((m) => (
-            <div key={m.label} className="bg-[#0f0f0f] border border-[#1f1f1f] rounded-xl p-4">
+            <div key={m.label} className="bg-surface border border-border-dim rounded-xl p-4">
               <p className="text-2xl font-black font-mono mb-1" style={{ color: m.color }}>
                 {m.value}
               </p>
-              <p className="text-xs text-zinc-500">{m.label}</p>
+              <p className="text-xs text-text-3">{m.label}</p>
             </div>
           ))}
         </div>
@@ -69,7 +69,7 @@ export default function ClientsPage() {
       {/* MAP + LEGEND */}
       <section className="pb-20 px-6 max-w-[var(--container-max)] mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-8 items-start">
-          <div className="bg-[#0f0f0f] border border-[#1f1f1f] rounded-2xl p-6 relative">
+          <div className="bg-surface border border-border-dim rounded-2xl p-6 relative">
             <p className="text-[10px] uppercase tracking-widest font-semibold text-emerald-400 mb-4">
               India + Gulf · {CLIENTS.length} mill deployments
             </p>
@@ -79,18 +79,18 @@ export default function ClientsPage() {
             <div className="flex flex-wrap items-center gap-4 mt-3 text-[11px] font-mono">
               <span className="flex items-center gap-1.5">
                 <span className="w-2.5 h-2.5 rounded-full bg-amber-500 ring-2 ring-amber-500/20" />
-                <span className="text-zinc-400 font-semibold">Bangalore HQ</span>
+                <span className="text-text-2 font-semibold">Bangalore HQ</span>
               </span>
               <span className="flex items-center gap-1.5">
                 <span className="w-2.5 h-2.5 rounded-full bg-emerald-500" />
-                <span className="text-zinc-500">India · {indianClients.length}</span>
+                <span className="text-text-3">India · {indianClients.length}</span>
               </span>
               <span className="flex items-center gap-1.5">
                 <span className="w-2.5 h-2.5 rounded-full bg-amber-400" />
-                <span className="text-zinc-500">Gulf · {intlClients.length}</span>
+                <span className="text-text-3">Gulf · {intlClients.length}</span>
               </span>
               <span className="text-zinc-700">·</span>
-              <span className="text-zinc-600">
+              <span className="text-text-4">
                 dotted lines = HQ to client cities
               </span>
             </div>
@@ -98,7 +98,7 @@ export default function ClientsPage() {
 
           {/* Side legend */}
           <div className="space-y-4">
-            <div className="bg-[#0f0f0f] border border-[#1f1f1f] rounded-2xl p-6">
+            <div className="bg-surface border border-border-dim rounded-2xl p-6">
               <div className="flex items-center gap-2 mb-4">
                 <Globe size={14} className="text-amber-400" />
                 <p className="text-[10px] uppercase tracking-widest font-semibold text-amber-400">
@@ -110,10 +110,10 @@ export default function ClientsPage() {
                   <li key={c.slug} className="flex items-start gap-3">
                     <MapPin size={14} className="text-amber-400 mt-0.5 flex-shrink-0" />
                     <div>
-                      <p className="text-sm font-semibold text-white leading-tight">
+                      <p className="text-sm font-semibold text-foreground leading-tight">
                         {c.short}
                       </p>
-                      <p className="text-xs text-zinc-500">
+                      <p className="text-xs text-text-3">
                         {c.city}, {c.country}
                       </p>
                     </div>
@@ -122,8 +122,8 @@ export default function ClientsPage() {
               </ul>
             </div>
 
-            <div className="bg-[#0f0f0f] border border-[#1f1f1f] rounded-2xl p-5">
-              <p className="text-[10px] uppercase tracking-widest font-semibold text-zinc-500 mb-3">
+            <div className="bg-surface border border-border-dim rounded-2xl p-5">
+              <p className="text-[10px] uppercase tracking-widest font-semibold text-text-3 mb-3">
                 Coverage by Region
               </p>
               <div className="space-y-2 text-xs">
@@ -145,9 +145,9 @@ export default function ClientsPage() {
                           className="w-2 h-2 rounded-full"
                           style={{ background: r.color }}
                         />
-                        <span className="text-zinc-300">{r.region}</span>
+                        <span className="text-text-2">{r.region}</span>
                       </div>
-                      <span className="font-mono text-zinc-500">{count}</span>
+                      <span className="font-mono text-text-3">{count}</span>
                     </div>
                   );
                 })}
@@ -162,7 +162,7 @@ export default function ClientsPage() {
         <p className="text-emerald-400 text-xs font-semibold uppercase tracking-widest mb-3">
           The Roster
         </p>
-        <h2 className="text-3xl md:text-4xl font-black text-white tracking-tight mb-10">
+        <h2 className="text-3xl md:text-4xl font-black text-foreground tracking-tight mb-10">
           {CLIENTS.length} mills. One platform partner.
         </h2>
 
@@ -170,14 +170,14 @@ export default function ClientsPage() {
           {CLIENTS.map((c) => (
             <div
               key={c.slug}
-              className="bg-[#0f0f0f] border border-[#1f1f1f] rounded-2xl p-5"
+              className="bg-surface border border-border-dim rounded-2xl p-5"
             >
               <div className="flex items-start justify-between mb-3">
                 <div>
-                  <h3 className="text-base font-bold text-white leading-tight">
+                  <h3 className="text-base font-bold text-foreground leading-tight">
                     {c.name}
                   </h3>
-                  <p className="text-xs text-zinc-500 mt-1 flex items-center gap-1.5">
+                  <p className="text-xs text-text-3 mt-1 flex items-center gap-1.5">
                     <MapPin size={11} />
                     {c.city}, {c.state}
                     {c.country !== "India" && ` · ${c.country}`}
@@ -193,7 +193,7 @@ export default function ClientsPage() {
                 </p>
               )}
               {c.testimonial && (
-                <blockquote className="text-xs text-zinc-400 italic leading-relaxed border-l-2 border-emerald-500/40 pl-3 mb-2">
+                <blockquote className="text-xs text-text-2 italic leading-relaxed border-l-2 border-emerald-500/40 pl-3 mb-2">
                   <Quote size={10} className="inline text-emerald-400 mr-1" />
                   {c.testimonial.length > 180
                     ? c.testimonial.slice(0, 178).trimEnd() + "…"
@@ -204,7 +204,7 @@ export default function ClientsPage() {
           ))}
         </div>
 
-        <p className="text-[11px] text-zinc-600 mt-8 font-mono">
+        <p className="text-[11px] text-text-4 mt-8 font-mono">
           * Some locations approximated, Products may vary for each clients
         </p>
       </section>

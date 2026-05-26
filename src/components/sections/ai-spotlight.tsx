@@ -12,15 +12,15 @@ const CHAT = [
 
 export function AISpotlight() {
   return (
-    <section className="py-24 bg-[#080808]">
+    <section className="py-24 bg-background">
       <div className="max-w-[var(--container-max)] mx-auto px-6">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           <motion.div initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }} transition={{ duration: 0.6 }}
-            className="bg-[#0f0f0f] rounded-2xl border border-[#222] overflow-hidden">
-            <div className="flex items-center gap-2 px-5 py-4 border-b border-[#1f1f1f] bg-[#0a0a0a]">
+            className="bg-surface rounded-2xl border border-border overflow-hidden">
+            <div className="flex items-center gap-2 px-5 py-4 border-b border-border-dim bg-background">
               <Sparkles size={14} className="text-amber-400" />
-              <span className="text-sm text-white font-semibold">AI Assistant</span>
+              <span className="text-sm text-foreground font-semibold">AI Assistant</span>
               <span className="ml-auto flex items-center gap-1 text-xs text-emerald-400">
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" /> Online
               </span>
@@ -34,7 +34,7 @@ export function AISpotlight() {
                   <div className={`max-w-[85%] rounded-xl px-4 py-2.5 text-sm whitespace-pre-line ${
                     m.role === "user"
                       ? "bg-amber-500/15 border border-amber-500/20 text-amber-100 rounded-br-sm"
-                      : "bg-[#1a1a1a] border border-[#222] text-zinc-300 rounded-bl-sm"
+                      : "bg-surface-3 border border-border text-text-2 rounded-bl-sm"
                   }`}>{m.text}</div>
                 </motion.div>
               ))}
@@ -44,10 +44,10 @@ export function AISpotlight() {
           <motion.div initial={{ opacity: 0, x: 20 }} whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.1 }}>
             <p className="text-amber-500 text-xs font-semibold uppercase tracking-widest mb-4">AI & Analytics</p>
-            <h2 className="text-4xl md:text-5xl font-black text-white leading-tight mb-5">
+            <h2 className="text-4xl md:text-5xl font-black text-foreground leading-tight mb-5">
               Ask your ERP anything.<br /><span className="amber-text">Act instantly.</span>
             </h2>
-            <p className="text-zinc-400 text-lg mb-8 leading-relaxed">
+            <p className="text-text-2 text-lg mb-8 leading-relaxed">
               Natural language chat across all 44 modules. Query sales, production,
               finance, and HR in one conversation — then act with full audit trails.
             </p>
@@ -65,8 +65,8 @@ export function AISpotlight() {
                       <Icon size={14} className="text-amber-400" />
                     </div>
                     <div>
-                      <p className="text-sm font-semibold text-white">{item.title}</p>
-                      <p className="text-xs text-zinc-500 mt-0.5">{item.desc}</p>
+                      <p className="text-sm font-semibold text-foreground">{item.title}</p>
+                      <p className="text-xs text-text-3 mt-0.5">{item.desc}</p>
                     </div>
                   </div>
                 );

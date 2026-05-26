@@ -10,16 +10,16 @@ const HIGHLIGHTED = ["administration", "rbac", "automations", "mobile", "notific
 
 export function PlatformStrip() {
   return (
-    <section className="py-24 bg-[#0a0a0a] border-y border-[#1a1a1a]">
+    <section className="py-24 bg-background border-y border-border-dim">
       <div className="max-w-[var(--container-max)] mx-auto px-6">
         <motion.div initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }} transition={{ duration: 0.5 }}
           className="text-center mb-14">
           <p className="text-xs font-semibold text-amber-500 uppercase tracking-widest mb-3">Platform Power</p>
-          <h2 className="text-3xl md:text-4xl font-black text-white tracking-tight mb-3">
+          <h2 className="text-3xl md:text-4xl font-black text-foreground tracking-tight mb-3">
             Operations sit on a serious platform.
           </h2>
-          <p className="text-zinc-500 max-w-2xl mx-auto">
+          <p className="text-text-3 max-w-2xl mx-auto">
             Enterprise-grade infrastructure — security, automation, mobile, monitoring — so your business modules just work.
           </p>
         </motion.div>
@@ -36,13 +36,13 @@ export function PlatformStrip() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.35, delay: i * 0.06 }}>
                 <Link href={`/product/${slug}`}
-                  className="block bg-[#0f0f0f] border border-[#1f1f1f] rounded-xl p-5 hover:border-amber-500/30 transition-colors group h-full">
+                  className="block bg-surface border border-border-dim rounded-xl p-5 hover:border-amber-500/30 transition-colors group h-full">
                   <div className="w-9 h-9 rounded-lg flex items-center justify-center mb-3 border"
                     style={{ background: `${m.accent}12`, borderColor: `${m.accent}30` }}>
                     <Icon size={14} style={{ color: m.accent }} />
                   </div>
-                  <p className="text-white text-sm font-bold mb-1 leading-tight">{m.name}</p>
-                  <p className="text-zinc-500 text-[11px] leading-snug">{m.tag}</p>
+                  <p className="text-foreground text-sm font-bold mb-1 leading-tight">{m.name}</p>
+                  <p className="text-text-3 text-[11px] leading-snug">{m.tag}</p>
                 </Link>
               </motion.div>
             );

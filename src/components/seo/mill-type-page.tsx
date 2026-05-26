@@ -16,7 +16,7 @@ export type MillTypePageData = {
 
 export function MillTypePage({ data }: { data: MillTypePageData }) {
   return (
-    <div className="min-h-screen bg-[#080808] pt-28 pb-24">
+    <div className="min-h-screen bg-background pt-28 pb-24">
       <JsonLd
         data={[
           breadcrumbSchema([
@@ -34,23 +34,23 @@ export function MillTypePage({ data }: { data: MillTypePageData }) {
           <p className="text-amber-500 text-xs font-semibold uppercase tracking-widest mb-3">
             ERP for {data.millType}
           </p>
-          <h1 className="text-4xl md:text-5xl font-black text-white tracking-tight mb-5 leading-tight">
+          <h1 className="text-4xl md:text-5xl font-black text-foreground tracking-tight mb-5 leading-tight">
             {data.hook}
           </h1>
-          <p className="text-lg text-zinc-400 leading-relaxed max-w-3xl">{data.intro}</p>
+          <p className="text-lg text-text-2 leading-relaxed max-w-3xl">{data.intro}</p>
         </header>
 
         {/* Pain points */}
         <section className="mb-14">
-          <h2 className="text-2xl font-bold text-white mb-6">
+          <h2 className="text-2xl font-bold text-foreground mb-6">
             The daily pain in {data.millType.toLowerCase()}s
           </h2>
           <div className="grid md:grid-cols-2 gap-4">
             {data.pains.map((p, i) => (
-              <div key={i} className="bg-[#0f0f0f] border border-[#222] rounded-2xl p-6">
+              <div key={i} className="bg-surface border border-border rounded-2xl p-6">
                 <AlertTriangle size={18} className="text-amber-400 mb-3" />
-                <h3 className="text-white font-bold mb-2">{p.title}</h3>
-                <p className="text-sm text-zinc-400 leading-relaxed">{p.desc}</p>
+                <h3 className="text-foreground font-bold mb-2">{p.title}</h3>
+                <p className="text-sm text-text-2 leading-relaxed">{p.desc}</p>
               </div>
             ))}
           </div>
@@ -58,7 +58,7 @@ export function MillTypePage({ data }: { data: MillTypePageData }) {
 
         {/* Solutions */}
         <section className="mb-14">
-          <h2 className="text-2xl font-bold text-white mb-6">
+          <h2 className="text-2xl font-bold text-foreground mb-6">
             How Papyrus BPApp solves it
           </h2>
           <div className="space-y-3">
@@ -67,8 +67,8 @@ export function MillTypePage({ data }: { data: MillTypePageData }) {
                 <div className="flex items-start gap-3">
                   <Check size={18} className="text-amber-400 mt-1 flex-shrink-0" />
                   <div className="flex-1">
-                    <h3 className="text-white font-bold mb-1.5">{s.title}</h3>
-                    <p className="text-sm text-zinc-300 leading-relaxed">{s.desc}</p>
+                    <h3 className="text-foreground font-bold mb-1.5">{s.title}</h3>
+                    <p className="text-sm text-text-2 leading-relaxed">{s.desc}</p>
                     {s.module && (
                       <Link
                         href={`/product/${s.module}`}
@@ -90,17 +90,17 @@ export function MillTypePage({ data }: { data: MillTypePageData }) {
             <p className="text-amber-400 text-xs font-bold uppercase tracking-wider mb-3">
               Real outcome
             </p>
-            <p className="text-3xl md:text-4xl font-black text-white mb-3">
+            <p className="text-3xl md:text-4xl font-black text-foreground mb-3">
               {data.caseSnapshot.metric}
             </p>
-            <p className="text-white font-semibold mb-2">{data.caseSnapshot.headline}</p>
-            <p className="text-sm text-zinc-400 leading-relaxed">{data.caseSnapshot.desc}</p>
+            <p className="text-foreground font-semibold mb-2">{data.caseSnapshot.headline}</p>
+            <p className="text-sm text-text-2 leading-relaxed">{data.caseSnapshot.desc}</p>
           </section>
         )}
 
         {/* Relevant modules */}
         <section className="mb-14">
-          <h2 className="text-2xl font-bold text-white mb-6">
+          <h2 className="text-2xl font-bold text-foreground mb-6">
             Most relevant modules for {data.millType.toLowerCase()}s
           </h2>
           <div className="grid md:grid-cols-2 gap-3">
@@ -108,15 +108,15 @@ export function MillTypePage({ data }: { data: MillTypePageData }) {
               <Link
                 key={i}
                 href={`/product/${m.slug}`}
-                className="group bg-[#0f0f0f] border border-[#222] hover:border-amber-500/30 rounded-2xl p-5 transition-colors"
+                className="group bg-surface border border-border hover:border-amber-500/30 rounded-2xl p-5 transition-colors"
               >
                 <div className="flex items-center justify-between mb-2">
-                  <h3 className="text-white font-bold group-hover:text-amber-300 transition-colors">
+                  <h3 className="text-foreground font-bold group-hover:text-amber-300 transition-colors">
                     {m.name}
                   </h3>
-                  <ArrowRight size={14} className="text-zinc-600 group-hover:text-amber-400 group-hover:translate-x-0.5 transition-all" />
+                  <ArrowRight size={14} className="text-text-4 group-hover:text-amber-400 group-hover:translate-x-0.5 transition-all" />
                 </div>
-                <p className="text-sm text-zinc-400 leading-relaxed">{m.why}</p>
+                <p className="text-sm text-text-2 leading-relaxed">{m.why}</p>
               </Link>
             ))}
           </div>
@@ -124,20 +124,20 @@ export function MillTypePage({ data }: { data: MillTypePageData }) {
 
         {/* FAQ */}
         <section className="mb-14">
-          <h2 className="text-2xl font-bold text-white mb-6">Frequently asked questions</h2>
+          <h2 className="text-2xl font-bold text-foreground mb-6">Frequently asked questions</h2>
           <div className="space-y-3">
             {data.faqs.map((f, i) => (
               <details
                 key={i}
-                className="group bg-[#0f0f0f] border border-[#222] rounded-xl p-5 open:border-amber-500/30 transition-colors"
+                className="group bg-surface border border-border rounded-xl p-5 open:border-amber-500/30 transition-colors"
               >
-                <summary className="cursor-pointer text-white font-semibold text-base flex items-center justify-between">
+                <summary className="cursor-pointer text-foreground font-semibold text-base flex items-center justify-between">
                   {f.q}
                   <span className="text-amber-400 text-lg group-open:rotate-45 transition-transform">
                     +
                   </span>
                 </summary>
-                <p className="mt-3 text-sm text-zinc-300 leading-relaxed">{f.a}</p>
+                <p className="mt-3 text-sm text-text-2 leading-relaxed">{f.a}</p>
               </details>
             ))}
           </div>
@@ -145,10 +145,10 @@ export function MillTypePage({ data }: { data: MillTypePageData }) {
 
         {/* CTA */}
         <section className="bg-gradient-to-br from-amber-500/10 to-transparent border border-amber-500/20 rounded-2xl p-8 text-center">
-          <h2 className="text-2xl font-bold text-white mb-3">
+          <h2 className="text-2xl font-bold text-foreground mb-3">
             Built specifically for {data.millType.toLowerCase()}s
           </h2>
-          <p className="text-zinc-400 mb-6 max-w-xl mx-auto">
+          <p className="text-text-2 mb-6 max-w-xl mx-auto">
             Book a demo tailored to your mill type. We'll show you the exact workflows
             and modules that match your operations.
           </p>

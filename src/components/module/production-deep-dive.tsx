@@ -191,9 +191,9 @@ const TIMELINE = [
 
 export function ProductionDeepDive({ data }: { data: ModuleData }) {
   return (
-    <div className="min-h-screen bg-[#080808]">
+    <div className="min-h-screen bg-background">
       {/* HERO */}
-      <section className="relative min-h-[88vh] overflow-hidden grain">
+      <section className="relative min-h-[88vh] overflow-hidden grain on-photo">
         <div className="absolute inset-0">
           <Image src="https://images.unsplash.com/photo-1565618722293-d3a51b3c5430?auto=format&fit=crop&w=1920&q=80"
             alt="Paper mill production floor" fill className="object-cover" priority unoptimized />
@@ -209,13 +209,13 @@ export function ProductionDeepDive({ data }: { data: ModuleData }) {
           </motion.div>
 
           <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-5xl md:text-7xl lg:text-8xl font-black text-white leading-[0.95] tracking-tight mb-6 max-w-5xl">
+            className="text-5xl md:text-7xl lg:text-8xl font-black text-foreground leading-[0.95] tracking-tight mb-6 max-w-5xl">
             Plan the mill.<br />
             <span style={{ background: "linear-gradient(135deg, #F97316, #FBBF24)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>Run every reel.</span>
           </motion.h1>
 
           <motion.p initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-xl text-zinc-400 max-w-2xl mb-10 leading-relaxed">
+            className="text-xl text-text-2 max-w-2xl mb-10 leading-relaxed">
             Full production stack for Indian paper mills. MPS, MRP, CRP planning. 7-state work
             order lifecycle. Live OEE per machine. Shop floor mobile. Multi-PM scheduling for
             integrated mills. Every reel accounted for, every shift settled.
@@ -226,7 +226,7 @@ export function ProductionDeepDive({ data }: { data: ModuleData }) {
             <Link href="/contact" className="group inline-flex items-center justify-center gap-2 px-7 py-4 rounded-lg bg-amber-500 hover:bg-amber-400 text-black font-bold text-sm transition-all">
               Get a live demo <ArrowRight size={16} className="group-hover:translate-x-0.5 transition-transform" />
             </Link>
-            <Link href="/product" className="inline-flex items-center gap-2 px-7 py-4 rounded-lg border border-[#333] text-white hover:border-amber-500/40 text-sm font-medium transition-all">
+            <Link href="/product" className="inline-flex items-center gap-2 px-7 py-4 rounded-lg border border-border-light text-foreground hover:border-amber-500/40 text-sm font-medium transition-all">
               <ArrowLeft size={14} /> All Modules
             </Link>
           </motion.div>
@@ -239,9 +239,9 @@ export function ProductionDeepDive({ data }: { data: ModuleData }) {
               { value: "Live", label: "OEE per machine", color: "#34D399" },
               { value: "Multi-PM", label: "integrated mills", color: "#60A5FA" },
             ].map((m) => (
-              <div key={m.label} className="bg-[#0f0f0f]/85 backdrop-blur border border-[#1f1f1f] rounded-xl p-4">
+              <div key={m.label} className="bg-surface/85 backdrop-blur border border-border-dim rounded-xl p-4">
                 <p className="text-2xl font-black font-mono mb-1" style={{ color: m.color }}>{m.value}</p>
-                <p className="text-xs text-zinc-500">{m.label}</p>
+                <p className="text-xs text-text-3">{m.label}</p>
               </div>
             ))}
           </motion.div>
@@ -249,7 +249,7 @@ export function ProductionDeepDive({ data }: { data: ModuleData }) {
       </section>
 
       {/* PROBLEM */}
-      <section className="py-20 border-y border-[#1a1a1a] bg-[#0a0a0a]">
+      <section className="py-20 border-y border-border-dim bg-background">
         <div className="max-w-[var(--container-max)] mx-auto px-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-14 items-center">
             <motion.div initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }}
@@ -257,16 +257,16 @@ export function ProductionDeepDive({ data }: { data: ModuleData }) {
               <p className="text-orange-400 text-xs font-semibold uppercase tracking-widest mb-3 flex items-center gap-2">
                 <AlertTriangle size={12} /> Mills run blind
               </p>
-              <h2 className="text-4xl md:text-5xl font-black text-white tracking-tight mb-6 leading-tight">
+              <h2 className="text-4xl md:text-5xl font-black text-foreground tracking-tight mb-6 leading-tight">
                 Spreadsheet planning is <span className="text-orange-400">8% hidden cost</span>.
               </h2>
-              <p className="text-zinc-400 text-lg leading-relaxed mb-6">
+              <p className="text-text-2 text-lg leading-relaxed mb-6">
                 Most Indian paper mills still plan in Excel — schedules built shift by shift,
                 grade changes guessed, OEE calculated days later, work orders settled a week
                 in arrears. The cost shows up everywhere:
                 <span className="text-amber-400 font-semibold"> excess broke, missed deliveries, untracked downtime, surprise variances</span>.
               </p>
-              <p className="text-zinc-500 text-sm leading-relaxed">
+              <p className="text-text-3 text-sm leading-relaxed">
                 On a 200 TPD mill, an 8% gap between plan and actual is ₹4–6 crore/year of margin
                 eroded by problems no one can pinpoint. Production deserves the same rigour as
                 Finance — and the same tooling.
@@ -275,8 +275,8 @@ export function ProductionDeepDive({ data }: { data: ModuleData }) {
 
             <motion.div initial={{ opacity: 0, x: 20 }} whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.1 }}
-              className="bg-[#0f0f0f] border border-[#1f1f1f] rounded-2xl p-6">
-              <p className="text-[10px] uppercase tracking-widest font-mono text-zinc-600 mb-5">Where the 8% goes · 200 TPD mill</p>
+              className="bg-surface border border-border-dim rounded-2xl p-6">
+              <p className="text-[10px] uppercase tracking-widest font-mono text-text-4 mb-5">Where the 8% goes · 200 TPD mill</p>
               <div className="space-y-4">
                 {[
                   { label: "Excess grade-change waste", value: "₹1.4 Cr/yr", bar: 95, color: "#EF4444" },
@@ -287,10 +287,10 @@ export function ProductionDeepDive({ data }: { data: ModuleData }) {
                 ].map((row, i) => (
                   <div key={row.label}>
                     <div className="flex justify-between text-xs mb-1.5">
-                      <span className="text-zinc-400">{row.label}</span>
+                      <span className="text-text-2">{row.label}</span>
                       <span className="font-mono font-bold" style={{ color: row.color }}>{row.value}</span>
                     </div>
-                    <div className="h-2.5 bg-[#1a1a1a] rounded-full overflow-hidden">
+                    <div className="h-2.5 bg-surface-3 rounded-full overflow-hidden">
                       <motion.div initial={{ width: 0 }} whileInView={{ width: `${row.bar}%` }}
                         viewport={{ once: true }} transition={{ duration: 1.2, delay: 0.3 + i * 0.15, ease: "easeOut" }}
                         className="h-full rounded-full" style={{ background: row.color }} />
@@ -298,7 +298,7 @@ export function ProductionDeepDive({ data }: { data: ModuleData }) {
                   </div>
                 ))}
               </div>
-              <p className="text-[10px] text-zinc-600 mt-5 font-mono leading-relaxed">
+              <p className="text-[10px] text-text-4 mt-5 font-mono leading-relaxed">
                 * Indicative figures, 200 TPD kraft mill at ₹70K/t. Realized savings vary with maturity.
               </p>
             </motion.div>
@@ -307,13 +307,13 @@ export function ProductionDeepDive({ data }: { data: ModuleData }) {
       </section>
 
       {/* 3 PLANNING LAYERS */}
-      <section className="py-24 border-b border-[#1a1a1a]">
+      <section className="py-24 border-b border-border-dim">
         <div className="max-w-[var(--container-max)] mx-auto px-6">
           <p className="text-orange-500 text-xs font-semibold uppercase tracking-widest mb-3">Planning Stack</p>
-          <h2 className="text-4xl md:text-5xl font-black text-white tracking-tight mb-4">
+          <h2 className="text-4xl md:text-5xl font-black text-foreground tracking-tight mb-4">
             MPS. MRP. CRP. Connected.
           </h2>
-          <p className="text-zinc-400 text-lg max-w-3xl mb-14 leading-relaxed">
+          <p className="text-text-2 text-lg max-w-3xl mb-14 leading-relaxed">
             Three planning layers that talk to each other. Change demand in MPS and MRP re-explodes,
             CRP re-validates capacity. No siloed spreadsheets, no reconciliation pain.
           </p>
@@ -325,7 +325,7 @@ export function ProductionDeepDive({ data }: { data: ModuleData }) {
                 <motion.div key={t.name}
                   initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }} transition={{ duration: 0.5, delay: i * 0.1 }}
-                  className="bg-[#0f0f0f] border rounded-2xl p-6 flex flex-col gap-4"
+                  className="bg-surface border rounded-2xl p-6 flex flex-col gap-4"
                   style={{ borderColor: `${t.color}30` }}>
                   <div className="flex items-center justify-between">
                     <div className="w-12 h-12 rounded-xl border flex items-center justify-center"
@@ -335,19 +335,19 @@ export function ProductionDeepDive({ data }: { data: ModuleData }) {
                     <span className="font-mono text-sm font-bold" style={{ color: t.color }}>{t.name}</span>
                   </div>
                   <div>
-                    <h3 className="text-white font-black text-xl mb-1">{t.title}</h3>
-                    <p className="text-xs text-zinc-500 font-mono">{t.horizon}</p>
+                    <h3 className="text-foreground font-black text-xl mb-1">{t.title}</h3>
+                    <p className="text-xs text-text-3 font-mono">{t.horizon}</p>
                   </div>
-                  <p className="text-sm text-zinc-300 leading-relaxed">{t.purpose}</p>
-                  <p className="text-xs text-zinc-400 leading-relaxed">{t.method}</p>
-                  <div className="pt-3 border-t border-[#1f1f1f] space-y-2">
+                  <p className="text-sm text-text-2 leading-relaxed">{t.purpose}</p>
+                  <p className="text-xs text-text-2 leading-relaxed">{t.method}</p>
+                  <div className="pt-3 border-t border-border-dim space-y-2">
                     <div>
                       <p className="text-[10px] uppercase tracking-widest font-semibold mb-0.5" style={{ color: t.color }}>Inputs</p>
-                      <p className="text-[11px] text-zinc-400">{t.inputs}</p>
+                      <p className="text-[11px] text-text-2">{t.inputs}</p>
                     </div>
                     <div>
                       <p className="text-[10px] uppercase tracking-widest font-semibold mb-0.5" style={{ color: t.color }}>Outputs</p>
-                      <p className="text-[11px] text-zinc-300">{t.outputs}</p>
+                      <p className="text-[11px] text-text-2">{t.outputs}</p>
                     </div>
                   </div>
                 </motion.div>
@@ -358,11 +358,11 @@ export function ProductionDeepDive({ data }: { data: ModuleData }) {
       </section>
 
       {/* WO LIFECYCLE */}
-      <section className="py-24 bg-[#0a0a0a] border-b border-[#1a1a1a]">
+      <section className="py-24 bg-background border-b border-border-dim">
         <div className="max-w-[var(--container-max)] mx-auto px-6">
           <p className="text-orange-500 text-xs font-semibold uppercase tracking-widest mb-3">Work Order Lifecycle</p>
-          <h2 className="text-4xl font-black text-white tracking-tight mb-4">Seven states. Zero gaps.</h2>
-          <p className="text-zinc-400 text-lg max-w-2xl mb-12">
+          <h2 className="text-4xl font-black text-foreground tracking-tight mb-4">Seven states. Zero gaps.</h2>
+          <p className="text-text-2 text-lg max-w-2xl mb-12">
             Every WO moves through a defined state machine with audit-grade transitions. BOM, material, labour, QC, cost — all hang off this lifecycle.
           </p>
 
@@ -374,15 +374,15 @@ export function ProductionDeepDive({ data }: { data: ModuleData }) {
                   initial={{ opacity: 0, x: -16 }} whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }} transition={{ duration: 0.4, delay: i * 0.06 }}
                   className="flex gap-5 items-start">
-                  <div className="flex-shrink-0 w-14 h-14 rounded-full bg-[#0f0f0f] border-2 flex items-center justify-center font-mono text-[10px] font-bold"
+                  <div className="flex-shrink-0 w-14 h-14 rounded-full bg-surface border-2 flex items-center justify-center font-mono text-[10px] font-bold"
                     style={{ borderColor: `${s.color}80`, color: s.color }}>
                     {String(i + 1).padStart(2, "0")}
                   </div>
-                  <div className="bg-[#0f0f0f] border border-[#1f1f1f] rounded-2xl p-5 flex-1">
+                  <div className="bg-surface border border-border-dim rounded-2xl p-5 flex-1">
                     <div className="flex items-center gap-3 mb-2">
                       <span className="font-mono text-xs font-bold px-2 py-0.5 rounded" style={{ background: `${s.color}15`, color: s.color, border: `1px solid ${s.color}40` }}>{s.state}</span>
                     </div>
-                    <p className="text-sm text-zinc-300 leading-relaxed">{s.desc}</p>
+                    <p className="text-sm text-text-2 leading-relaxed">{s.desc}</p>
                   </div>
                 </motion.div>
               ))}
@@ -392,46 +392,46 @@ export function ProductionDeepDive({ data }: { data: ModuleData }) {
       </section>
 
       {/* OEE EXAMPLE */}
-      <section className="py-24 border-b border-[#1a1a1a]">
+      <section className="py-24 border-b border-border-dim">
         <div className="max-w-[var(--container-max)] mx-auto px-6">
           <p className="text-orange-500 text-xs font-semibold uppercase tracking-widest mb-3">Live OEE — Real Example</p>
-          <h2 className="text-4xl font-black text-white tracking-tight mb-4">PM-2, Shift A, today.</h2>
-          <p className="text-zinc-400 text-lg max-w-2xl mb-12">
+          <h2 className="text-4xl font-black text-foreground tracking-tight mb-4">PM-2, Shift A, today.</h2>
+          <p className="text-text-2 text-lg max-w-2xl mb-12">
             What you actually see on the floor dashboard. Live components, live losses, live actions.
           </p>
 
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }} transition={{ duration: 0.6 }}
-            className="bg-[#0f0f0f] border border-[#1f1f1f] rounded-2xl overflow-hidden">
-            <div className="flex items-center justify-between px-6 py-4 border-b border-[#1f1f1f] bg-[#080808]">
+            className="bg-surface border border-border-dim rounded-2xl overflow-hidden">
+            <div className="flex items-center justify-between px-6 py-4 border-b border-border-dim bg-background">
               <div className="flex items-center gap-4">
-                <span className="text-xs font-mono text-zinc-500">MACHINE</span>
-                <span className="text-sm font-bold text-white font-mono">PM-2</span>
+                <span className="text-xs font-mono text-text-3">MACHINE</span>
+                <span className="text-sm font-bold text-foreground font-mono">PM-2</span>
                 <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-orange-500/15 border border-orange-500/30 text-orange-300">RUNNING</span>
               </div>
-              <div className="flex items-center gap-5 text-xs text-zinc-500">
-                <span>Grade: <span className="text-white font-mono">KR-100GSM</span></span>
-                <span>Crew: <span className="text-white font-mono">Shift A</span></span>
-                <span>Updated: <span className="text-white font-mono">14:32</span></span>
+              <div className="flex items-center gap-5 text-xs text-text-3">
+                <span>Grade: <span className="text-foreground font-mono">KR-100GSM</span></span>
+                <span>Crew: <span className="text-foreground font-mono">Shift A</span></span>
+                <span>Updated: <span className="text-foreground font-mono">14:32</span></span>
               </div>
             </div>
 
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-3 p-6 border-b border-[#1f1f1f] bg-[#0c0c0c]">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-3 p-6 border-b border-border-dim bg-[#0c0c0c]">
               {[
                 { label: "OEE", value: "78.4%", color: "#FBBF24" },
                 { label: "Availability", value: "92.1%", color: "#34D399" },
                 { label: "Performance", value: "89.3%", color: "#34D399" },
                 { label: "Quality", value: "95.4%", color: "#34D399" },
               ].map((s) => (
-                <div key={s.label} className="bg-[#080808] rounded-lg p-3 border border-[#1f1f1f]">
-                  <p className="text-[10px] text-zinc-500 uppercase tracking-wider mb-1 font-semibold">{s.label}</p>
+                <div key={s.label} className="bg-background rounded-lg p-3 border border-border-dim">
+                  <p className="text-[10px] text-text-3 uppercase tracking-wider mb-1 font-semibold">{s.label}</p>
                   <p className="text-2xl font-black font-mono" style={{ color: s.color }}>{s.value}</p>
                 </div>
               ))}
             </div>
 
             <div className="p-6">
-              <p className="text-[10px] uppercase tracking-widest font-semibold text-zinc-500 mb-4">OEE Loss Waterfall · 480 min shift</p>
+              <p className="text-[10px] uppercase tracking-widest font-semibold text-text-3 mb-4">OEE Loss Waterfall · 480 min shift</p>
               <div className="space-y-2.5">
                 {[
                   { label: "Available time", value: 480, bar: 100, color: "#0EA5E9", note: "Planned shift" },
@@ -444,20 +444,20 @@ export function ProductionDeepDive({ data }: { data: ModuleData }) {
                   { label: "= Productive time", value: 377, bar: 78.5, color: "#34D399", note: "OEE 78.4%" },
                 ].map((row, i) => (
                   <div key={row.label} className="grid grid-cols-12 gap-3 items-center text-xs">
-                    <span className="col-span-3 text-zinc-300 font-mono">{row.label}</span>
+                    <span className="col-span-3 text-text-2 font-mono">{row.label}</span>
                     <span className="col-span-1 font-mono font-bold text-right" style={{ color: row.color }}>{row.value}m</span>
-                    <div className="col-span-5 h-2 bg-[#1a1a1a] rounded overflow-hidden">
+                    <div className="col-span-5 h-2 bg-surface-3 rounded overflow-hidden">
                       <motion.div initial={{ width: 0 }} whileInView={{ width: `${row.bar}%` }}
                         viewport={{ once: true }} transition={{ duration: 0.8, delay: i * 0.07 }}
                         className="h-full rounded" style={{ background: row.color }} />
                     </div>
-                    <span className="col-span-3 text-[10px] text-zinc-500 font-mono">{row.note}</span>
+                    <span className="col-span-3 text-[10px] text-text-3 font-mono">{row.note}</span>
                   </div>
                 ))}
               </div>
 
-              <div className="mt-6 pt-5 border-t border-[#1f1f1f]">
-                <p className="text-[10px] uppercase tracking-widest font-semibold text-zinc-500 mb-3">Auto-actions raised this shift</p>
+              <div className="mt-6 pt-5 border-t border-border-dim">
+                <p className="text-[10px] uppercase tracking-widest font-semibold text-text-3 mb-3">Auto-actions raised this shift</p>
                 <div className="flex flex-wrap gap-2">
                   {[
                     "RCA: edge crack on R4823-R4828", "Speed drift > 7% on KR-100", "Wire change overran by 4m",
@@ -475,13 +475,13 @@ export function ProductionDeepDive({ data }: { data: ModuleData }) {
       </section>
 
       {/* CAPABILITY CATEGORIES */}
-      <section className="py-24 bg-[#0a0a0a] border-b border-[#1a1a1a]">
+      <section className="py-24 bg-background border-b border-border-dim">
         <div className="max-w-[var(--container-max)] mx-auto px-6">
           <p className="text-orange-500 text-xs font-semibold uppercase tracking-widest mb-3">Capability Catalog</p>
-          <h2 className="text-4xl md:text-5xl font-black text-white tracking-tight mb-4">
+          <h2 className="text-4xl md:text-5xl font-black text-foreground tracking-tight mb-4">
             90+ capabilities. Six categories.
           </h2>
-          <p className="text-zinc-400 text-lg max-w-2xl mb-14">
+          <p className="text-text-2 text-lg max-w-2xl mb-14">
             Every screen, every workflow, every report — engineered for paper mill operations.
           </p>
 
@@ -492,7 +492,7 @@ export function ProductionDeepDive({ data }: { data: ModuleData }) {
                 <motion.div key={cat.category}
                   initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }} transition={{ duration: 0.4, delay: Math.min(i * 0.04, 0.3) }}
-                  className="bg-[#0f0f0f] border border-[#1f1f1f] rounded-2xl p-6 hover:border-orange-500/20 transition-colors">
+                  className="bg-surface border border-border-dim rounded-2xl p-6 hover:border-orange-500/20 transition-colors">
                   <div className="flex items-center justify-between mb-4">
                     <div className="flex items-center gap-3">
                       <div className="w-10 h-10 rounded-xl border flex items-center justify-center"
@@ -500,14 +500,14 @@ export function ProductionDeepDive({ data }: { data: ModuleData }) {
                         <Icon size={16} style={{ color: cat.color }} />
                       </div>
                       <div>
-                        <h3 className="text-white font-bold text-base">{cat.category}</h3>
+                        <h3 className="text-foreground font-bold text-base">{cat.category}</h3>
                         <p className="text-[10px] font-mono" style={{ color: cat.color }}>{cat.count}</p>
                       </div>
                     </div>
                   </div>
                   <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-3 gap-y-1.5">
                     {cat.items.map((item) => (
-                      <li key={item} className="text-xs text-zinc-400 flex items-start gap-1.5 leading-relaxed">
+                      <li key={item} className="text-xs text-text-2 flex items-start gap-1.5 leading-relaxed">
                         <span style={{ color: cat.color }}>·</span> {item}
                       </li>
                     ))}
@@ -520,11 +520,11 @@ export function ProductionDeepDive({ data }: { data: ModuleData }) {
       </section>
 
       {/* USE CASES */}
-      <section className="py-24 border-b border-[#1a1a1a]">
+      <section className="py-24 border-b border-border-dim">
         <div className="max-w-[var(--container-max)] mx-auto px-6">
           <p className="text-orange-500 text-xs font-semibold uppercase tracking-widest mb-3">Use Cases</p>
-          <h2 className="text-4xl md:text-5xl font-black text-white tracking-tight mb-4">Real shop floor scenarios.</h2>
-          <p className="text-zinc-400 text-lg max-w-2xl mb-12">
+          <h2 className="text-4xl md:text-5xl font-black text-foreground tracking-tight mb-4">Real shop floor scenarios.</h2>
+          <p className="text-text-2 text-lg max-w-2xl mb-12">
             Four typical mill situations where the Production module changes the outcome.
           </p>
 
@@ -534,28 +534,28 @@ export function ProductionDeepDive({ data }: { data: ModuleData }) {
                 initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }} transition={{ duration: 0.5, delay: Math.min(i * 0.06, 0.3) }}
                 className="grid grid-cols-1 lg:grid-cols-5 gap-6 items-stretch">
-                <div className="lg:col-span-2 relative rounded-2xl overflow-hidden h-60 lg:h-auto border border-[#1f1f1f]">
+                <div className="lg:col-span-2 relative rounded-2xl overflow-hidden h-60 lg:h-auto border border-border-dim">
                   <Image src={uc.photo} alt={uc.title} fill className="object-cover" unoptimized />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a]/80 to-transparent" />
                   <div className="absolute bottom-4 left-4 right-4">
                     <p className="text-[10px] font-bold uppercase tracking-widest mb-1 text-orange-400">Case {String(i + 1).padStart(2, "0")}</p>
-                    <h3 className="text-white text-xl font-black drop-shadow leading-tight">{uc.title}</h3>
+                    <h3 className="text-foreground text-xl font-black drop-shadow leading-tight">{uc.title}</h3>
                   </div>
                 </div>
 
-                <div className="lg:col-span-3 bg-[#0f0f0f] border border-[#1f1f1f] rounded-2xl p-6 space-y-5">
+                <div className="lg:col-span-3 bg-surface border border-border-dim rounded-2xl p-6 space-y-5">
                   <div>
                     <p className="text-[10px] font-semibold uppercase tracking-widest text-red-400 mb-2">Scenario</p>
-                    <p className="text-sm text-zinc-300 leading-relaxed">{uc.scenario}</p>
+                    <p className="text-sm text-text-2 leading-relaxed">{uc.scenario}</p>
                   </div>
                   <div>
                     <p className="text-[10px] font-semibold uppercase tracking-widest text-orange-400 mb-2">Module Response</p>
-                    <p className="text-sm text-zinc-300 leading-relaxed">{uc.response}</p>
+                    <p className="text-sm text-text-2 leading-relaxed">{uc.response}</p>
                   </div>
-                  <div className="grid grid-cols-3 gap-3 pt-3 border-t border-[#1f1f1f]">
+                  <div className="grid grid-cols-3 gap-3 pt-3 border-t border-border-dim">
                     {Object.entries(uc.metrics).map(([k, v]) => (
-                      <div key={k} className="bg-[#080808] rounded-lg p-3 border border-[#1f1f1f] text-center">
-                        <p className="text-[9px] uppercase tracking-wider text-zinc-500 mb-0.5 font-mono">{k.replace(/_/g, " ")}</p>
+                      <div key={k} className="bg-background rounded-lg p-3 border border-border-dim text-center">
+                        <p className="text-[9px] uppercase tracking-wider text-text-3 mb-0.5 font-mono">{k.replace(/_/g, " ")}</p>
                         <p className="text-base font-black font-mono text-orange-400">{v}</p>
                       </div>
                     ))}
@@ -568,16 +568,16 @@ export function ProductionDeepDive({ data }: { data: ModuleData }) {
       </section>
 
       {/* PERFORMANCE TABLE */}
-      <section className="py-24 bg-[#0a0a0a] border-b border-[#1a1a1a]">
+      <section className="py-24 bg-background border-b border-border-dim">
         <div className="max-w-[var(--container-max)] mx-auto px-6">
           <p className="text-orange-500 text-xs font-semibold uppercase tracking-widest mb-3">Performance Comparison</p>
-          <h2 className="text-4xl md:text-5xl font-black text-white tracking-tight mb-4">Manual vs Production module.</h2>
-          <p className="text-zinc-400 text-lg max-w-2xl mb-12">
+          <h2 className="text-4xl md:text-5xl font-black text-foreground tracking-tight mb-4">Manual vs Production module.</h2>
+          <p className="text-text-2 text-lg max-w-2xl mb-12">
             Before/after numbers from a representative 200 TPD mill running 90 days post go-live.
           </p>
 
-          <div className="bg-[#0f0f0f] border border-[#1f1f1f] rounded-2xl overflow-hidden">
-            <div className="grid grid-cols-4 px-6 py-4 border-b border-[#1f1f1f] bg-[#080808] text-[10px] uppercase tracking-widest font-semibold text-zinc-500">
+          <div className="bg-surface border border-border-dim rounded-2xl overflow-hidden">
+            <div className="grid grid-cols-4 px-6 py-4 border-b border-border-dim bg-background text-[10px] uppercase tracking-widest font-semibold text-text-3">
               <span>Metric</span>
               <span className="text-center">Manual / Excel</span>
               <span className="text-center">With Module</span>
@@ -587,9 +587,9 @@ export function ProductionDeepDive({ data }: { data: ModuleData }) {
               <motion.div key={row.metric}
                 initial={{ opacity: 0, x: -10 }} whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }} transition={{ duration: 0.35, delay: i * 0.06 }}
-                className="grid grid-cols-4 px-6 py-4 border-b border-[#1a1a1a] last:border-0 items-center">
-                <span className="text-sm text-zinc-300">{row.metric}</span>
-                <span className="text-sm text-zinc-500 font-mono text-center">{row.manual}</span>
+                className="grid grid-cols-4 px-6 py-4 border-b border-border-dim last:border-0 items-center">
+                <span className="text-sm text-text-2">{row.metric}</span>
+                <span className="text-sm text-text-3 font-mono text-center">{row.manual}</span>
                 <span className="text-sm text-emerald-400 font-mono text-center font-bold">{row.deckle}</span>
                 <span className="text-xs text-orange-400 font-mono text-right">{row.improvement}</span>
               </motion.div>
@@ -599,11 +599,11 @@ export function ProductionDeepDive({ data }: { data: ModuleData }) {
       </section>
 
       {/* TIMELINE */}
-      <section className="py-24 border-b border-[#1a1a1a]">
+      <section className="py-24 border-b border-border-dim">
         <div className="max-w-[var(--container-max)] mx-auto px-6">
           <p className="text-orange-500 text-xs font-semibold uppercase tracking-widest mb-3">Implementation</p>
-          <h2 className="text-4xl md:text-5xl font-black text-white tracking-tight mb-4">Live in 30 days.</h2>
-          <p className="text-zinc-400 text-lg max-w-2xl mb-12">
+          <h2 className="text-4xl md:text-5xl font-black text-foreground tracking-tight mb-4">Live in 30 days.</h2>
+          <p className="text-text-2 text-lg max-w-2xl mb-12">
             Typical paper mill rollout. Longer for greenfield integrated mills, shorter for single-PM units.
           </p>
 
@@ -615,18 +615,18 @@ export function ProductionDeepDive({ data }: { data: ModuleData }) {
                   initial={{ opacity: 0, x: -16 }} whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }} transition={{ duration: 0.4, delay: i * 0.08 }}
                   className="flex gap-5 items-start">
-                  <div className="flex-shrink-0 w-14 h-14 rounded-full bg-[#0f0f0f] border-2 border-orange-500/50 flex items-center justify-center font-mono text-[10px] font-bold text-orange-400">
+                  <div className="flex-shrink-0 w-14 h-14 rounded-full bg-surface border-2 border-orange-500/50 flex items-center justify-center font-mono text-[10px] font-bold text-orange-400">
                     {step.week.replace("Week ", "W")}
                   </div>
-                  <div className="bg-[#0f0f0f] border border-[#1f1f1f] rounded-2xl p-5 flex-1">
+                  <div className="bg-surface border border-border-dim rounded-2xl p-5 flex-1">
                     <div className="flex items-center gap-3 mb-3">
                       <span className="text-xs font-bold text-orange-400 font-mono">{step.week}</span>
                       <span className="text-zinc-700">·</span>
-                      <h3 className="text-base font-bold text-white">{step.title}</h3>
+                      <h3 className="text-base font-bold text-foreground">{step.title}</h3>
                     </div>
                     <ul className="grid grid-cols-1 md:grid-cols-2 gap-1.5">
                       {step.items.map((item) => (
-                        <li key={item} className="text-xs text-zinc-400 flex items-start gap-1.5">
+                        <li key={item} className="text-xs text-text-2 flex items-start gap-1.5">
                           <CheckCircle2 size={11} className="mt-0.5 text-orange-400 flex-shrink-0" /> {item}
                         </li>
                       ))}

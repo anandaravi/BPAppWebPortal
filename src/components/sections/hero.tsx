@@ -9,7 +9,7 @@ const PHOTO = "/images/heroes/production-hero.jpg";
 
 export function Hero() {
   return (
-    <section className="relative min-h-screen overflow-hidden grain">
+    <section className="relative min-h-screen overflow-hidden grain on-photo">
       {/* Background photo */}
       <div className="absolute inset-0">
         <Image src={PHOTO} alt="Paper mill operations" fill className="object-cover object-center" priority loading="eager" unoptimized />
@@ -32,13 +32,13 @@ export function Hero() {
             </motion.div>
 
             <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.1 }}
-              className="text-5xl md:text-6xl lg:text-7xl font-black text-white leading-[1.0] tracking-tight mb-6">
+              className="text-5xl md:text-6xl lg:text-7xl font-black text-foreground leading-[1.0] tracking-tight mb-6">
               Run your mill.<br />
               <span className="amber-text">Not workarounds.</span>
             </motion.h1>
 
             <motion.p initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.2 }}
-              className="text-lg text-zinc-400 max-w-lg mb-10 leading-relaxed">
+              className="text-lg text-text-2 max-w-lg mb-10 leading-relaxed">
               44 integrated modules to streamline, automate, govern, and control your entire mill —
               from order intake and reel optimization to GST filing, payroll, maintenance, and audit. One platform.
             </motion.p>
@@ -51,14 +51,14 @@ export function Hero() {
                 <ArrowRight size={16} className="group-hover:translate-x-0.5 transition-transform" />
               </Link>
               <Link href="/features"
-                className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-lg border border-[#333] text-white hover:border-amber-500/40 hover:bg-amber-500/5 text-sm font-medium transition-all duration-200">
+                className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-lg border border-border-light text-foreground hover:border-amber-500/40 hover:bg-amber-500/5 text-sm font-medium transition-all duration-200">
                 Explore Features
               </Link>
             </motion.div>
 
             {/* Trust line */}
             <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.6, delay: 0.5 }}
-              className="mt-8 text-xs text-zinc-600 flex items-center gap-2">
+              className="mt-8 text-xs text-text-4 flex items-center gap-2">
               <span className="w-8 h-px bg-zinc-700" />
               GST · FEMA · PF/ESI · Aadhaar Act compliant
             </motion.p>
@@ -69,14 +69,14 @@ export function Hero() {
             className="hidden lg:flex flex-col gap-4">
 
             {/* Main dashboard card */}
-            <div className="bg-[#0f0f0f]/90 backdrop-blur-xl border border-[#222] rounded-2xl overflow-hidden">
-              <div className="flex items-center gap-2 px-5 py-3 border-b border-[#222] bg-[#0a0a0a]">
+            <div className="bg-surface/90 backdrop-blur-xl border border-border rounded-2xl overflow-hidden">
+              <div className="flex items-center gap-2 px-5 py-3 border-b border-border bg-background">
                 <div className="flex gap-1.5">
                   <span className="w-2.5 h-2.5 rounded-full bg-red-500/70" />
                   <span className="w-2.5 h-2.5 rounded-full bg-amber-500/70" />
                   <span className="w-2.5 h-2.5 rounded-full bg-emerald-500/70" />
                 </div>
-                <span className="text-xs text-zinc-600 ml-2 font-mono">Mill Dashboard</span>
+                <span className="text-xs text-text-4 ml-2 font-mono">Mill Dashboard</span>
                 <span className="ml-auto flex items-center gap-1 text-xs text-emerald-400">
                   <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" /> Live
                 </span>
@@ -85,11 +85,11 @@ export function Hero() {
                 {[
                   { label: "Active Orders", value: "142", delta: "+12%", color: "text-amber-400" },
                   { label: "OEE Today", value: "87.4%", delta: "+2.1%", color: "text-emerald-400" },
-                  { label: "Pending GST", value: "₹4.2L", delta: "Due 20th", color: "text-zinc-400" },
+                  { label: "Pending GST", value: "₹4.2L", delta: "Due 20th", color: "text-text-2" },
                 ].map((s) => (
-                  <div key={s.label} className="bg-[#141414] rounded-xl p-3 border border-[#1f1f1f]">
-                    <p className="text-[10px] text-zinc-500 mb-1">{s.label}</p>
-                    <p className="text-lg font-bold text-white font-mono">{s.value}</p>
+                  <div key={s.label} className="bg-surface-2 rounded-xl p-3 border border-border-dim">
+                    <p className="text-[10px] text-text-3 mb-1">{s.label}</p>
+                    <p className="text-lg font-bold text-foreground font-mono">{s.value}</p>
                     <p className={`text-[10px] mt-0.5 ${s.color}`}>{s.delta}</p>
                   </div>
                 ))}
@@ -102,10 +102,10 @@ export function Hero() {
                 ].map((b) => (
                   <div key={b.label}>
                     <div className="flex justify-between mb-1">
-                      <span className="text-[10px] text-zinc-500">{b.label}</span>
-                      <span className="text-[10px] text-zinc-400 font-mono">{b.pct}%</span>
+                      <span className="text-[10px] text-text-3">{b.label}</span>
+                      <span className="text-[10px] text-text-2 font-mono">{b.pct}%</span>
                     </div>
-                    <div className="h-1.5 bg-[#1f1f1f] rounded-full overflow-hidden">
+                    <div className="h-1.5 bg-surface-3 rounded-full overflow-hidden">
                       <motion.div className={`h-full ${b.color} rounded-full`}
                         initial={{ width: 0 }}
                         animate={{ width: `${b.pct}%` }}
@@ -118,24 +118,24 @@ export function Hero() {
 
             {/* Bottom two mini cards */}
             <div className="grid grid-cols-2 gap-4">
-              <div className="bg-[#0f0f0f]/90 backdrop-blur-xl border border-[#222] rounded-xl p-4 flex items-start gap-3">
+              <div className="bg-surface/90 backdrop-blur-xl border border-border rounded-xl p-4 flex items-start gap-3">
                 <div className="w-8 h-8 rounded-lg bg-amber-500/10 border border-amber-500/20 flex items-center justify-center flex-shrink-0">
                   <Activity size={14} className="text-amber-400" />
                 </div>
                 <div>
-                  <p className="text-[10px] text-zinc-500 mb-0.5">Deckle Plan</p>
-                  <p className="text-sm font-bold text-white">Optimized</p>
+                  <p className="text-[10px] text-text-3 mb-0.5">Deckle Plan</p>
+                  <p className="text-sm font-bold text-foreground">Optimized</p>
                   <p className="text-[10px] text-emerald-400">3.2% trim saved</p>
                 </div>
               </div>
-              <div className="bg-[#0f0f0f]/90 backdrop-blur-xl border border-[#222] rounded-xl p-4 flex items-start gap-3">
+              <div className="bg-surface/90 backdrop-blur-xl border border-border rounded-xl p-4 flex items-start gap-3">
                 <div className="w-8 h-8 rounded-lg bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center flex-shrink-0">
                   <Package size={14} className="text-emerald-400" />
                 </div>
                 <div>
-                  <p className="text-[10px] text-zinc-500 mb-0.5">GSTR-1</p>
-                  <p className="text-sm font-bold text-white">Auto-filed</p>
-                  <p className="text-[10px] text-zinc-500">₹28.4L this month</p>
+                  <p className="text-[10px] text-text-3 mb-0.5">GSTR-1</p>
+                  <p className="text-sm font-bold text-foreground">Auto-filed</p>
+                  <p className="text-[10px] text-text-3">₹28.4L this month</p>
                 </div>
               </div>
             </div>

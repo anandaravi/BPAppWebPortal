@@ -42,7 +42,7 @@ export function WidthToggle() {
     <>
       <button
         onClick={() => setOpen((o) => !o)}
-        className="fixed bottom-5 right-5 z-[90] w-11 h-11 rounded-full bg-[#0f0f0f] border border-[#222] hover:border-amber-500/40 text-zinc-400 hover:text-amber-400 flex items-center justify-center shadow-xl shadow-black/60 transition-colors"
+        className="fixed bottom-5 right-5 z-[90] w-11 h-11 rounded-full bg-surface border border-border hover:border-amber-500/40 text-text-2 hover:text-amber-400 flex items-center justify-center shadow-xl shadow-black/60 transition-colors"
         aria-label="Toggle layout width"
         title="Layout width"
       >
@@ -50,14 +50,14 @@ export function WidthToggle() {
       </button>
 
       {open && (
-        <div className="fixed bottom-20 right-5 z-[91] w-64 bg-[#0a0a0a] border border-[#1f1f1f] rounded-xl shadow-2xl shadow-black/70 overflow-hidden">
-          <div className="flex items-center justify-between px-4 py-3 border-b border-[#1f1f1f]">
+        <div className="fixed bottom-20 right-5 z-[91] w-64 bg-background border border-border-dim rounded-xl shadow-2xl shadow-black/70 overflow-hidden">
+          <div className="flex items-center justify-between px-4 py-3 border-b border-border-dim">
             <p className="text-[10px] font-bold uppercase tracking-widest text-amber-400">
               Layout Width
             </p>
             <button
               onClick={() => setOpen(false)}
-              className="text-zinc-600 hover:text-white"
+              className="text-text-4 hover:text-foreground"
               aria-label="Close"
             >
               <X size={14} />
@@ -73,7 +73,7 @@ export function WidthToggle() {
                   className={`w-full flex items-center justify-between px-3 py-2 rounded-lg text-sm transition-colors ${
                     active
                       ? "bg-amber-500/15 border border-amber-500/40 text-amber-300"
-                      : "border border-transparent text-zinc-300 hover:bg-[#0f0f0f]"
+                      : "border border-transparent text-text-2 hover:bg-surface"
                   }`}
                 >
                   <div className="flex items-center gap-3">
@@ -84,22 +84,22 @@ export function WidthToggle() {
                     />
                     <div className="text-left">
                       <p className="font-semibold leading-tight">{p.label}</p>
-                      <p className="text-[10px] text-zinc-600 font-mono leading-tight">
+                      <p className="text-[10px] text-text-4 font-mono leading-tight">
                         {p.hint}
                       </p>
                     </div>
                   </div>
-                  <span className="text-[10px] font-mono text-zinc-500">
+                  <span className="text-[10px] font-mono text-text-3">
                     {p.value}
                   </span>
                 </button>
               );
             })}
           </div>
-          <div className="px-4 py-2.5 border-t border-[#1f1f1f] flex items-center justify-between">
+          <div className="px-4 py-2.5 border-t border-border-dim flex items-center justify-between">
             <button
               onClick={reset}
-              className="text-[10px] text-zinc-500 hover:text-amber-400 font-mono"
+              className="text-[10px] text-text-3 hover:text-amber-400 font-mono"
             >
               Reset
             </button>
