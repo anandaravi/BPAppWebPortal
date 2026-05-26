@@ -8,7 +8,7 @@ const LeafletMap = dynamic(() => import("./leaflet-map"), {
   loading: () => (
     <div
       className="rounded-2xl border border-[#1f1f1f] bg-[#0a0a0a] flex items-center justify-center"
-      style={{ height: 560 }}
+      style={{ height: 840 }}
     >
       <p className="text-zinc-500 text-sm font-mono">Loading map…</p>
     </div>

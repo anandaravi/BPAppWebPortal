@@ -205,7 +205,7 @@ export default function ClientsPage() {
         </div>
 
         <p className="text-[11px] text-zinc-600 mt-8 font-mono">
-          Some locations approximated.
+          * Some locations approximated, Products may vary for each clients
         </p>
       </section>
 

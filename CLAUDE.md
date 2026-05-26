@@ -43,6 +43,30 @@ Requirements doc: `docs/infographics/requirements.md`
 - Tools: Figma (mockups), Excalidraw (diagrams), Canva (infographics), BPApp screenshots (UI mockups)
 - For UI mockups: run BPApp locally at `~/development/PapyrusBPApp` and capture actual screens
 
+### AI Image Generation (Cloudflare Workers AI)
+
+Credentials in `.env` (two accounts, each 10k neurons/day free):
+- `CLOUDFLARE_ACCOUNT_ID` + `CLOUDFLARE_API_TOKEN` (primary)
+- `CLOUDFLARE_ACCOUNT_ID2` + `CLOUDFLARE_API_TOKEN2` (fallback)
+
+Endpoint:
+```
+POST https://api.cloudflare.com/client/v4/accounts/$ACCOUNT_ID/ai/run/@cf/black-forest-labs/flux-1-schnell
+Authorization: Bearer $API_TOKEN
+Content-Type: application/json
+Body: {"prompt":"<prompt>","steps":4}
+```
+Response: binary PNG. Save direct to `public/images/<module>/<asset>.png`.
+
+Other available models: `@cf/stabilityai/stable-diffusion-xl-base-1.0`, `@cf/lykon/dreamshaper-8-lcm`.
+
+Workflow:
+1. Pick next `[ ]` asset from `docs/infographics/requirements.md`
+2. Generate with flux-1-schnell (fastest, 4 steps)
+3. If account1 returns HTTP 429 (quota), retry account2
+4. Save to target path, mark `[x]` in requirements doc
+5. Never overwrite `public/bp_app.png` or `public/papyrus360.png`
+
 ## Vercel Project
 
 - Project name: `papyrusbpapp`

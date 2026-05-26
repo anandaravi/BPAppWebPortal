@@ -62,7 +62,7 @@ export default function LeafletMap({ clients }: { clients: Client[] }) {
   }, []);
 
   return (
-    <div className="rounded-2xl overflow-hidden border border-[#1f1f1f]" style={{ height: 560 }}>
+    <div className="rounded-2xl overflow-hidden border border-[#1f1f1f]" style={{ height: 840 }}>
       <MapContainer
         center={[20, 76]}
         zoom={4}
