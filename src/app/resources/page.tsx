@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useCallback } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import {
@@ -13,10 +14,21 @@ import {
   Clock,
   Video,
   ChevronRight,
+  X,
+  Users,
 } from "lucide-react";
 import { CTABanner } from "@/components/sections/cta-banner";
 
 type Tab = "videos" | "guides" | "presentations" | "webinars";
+
+interface VideoItem {
+  id: string;
+  youtubeId?: string;
+  title: string;
+  duration: string;
+  description: string;
+  category: "Customer Story" | "Product";
+}
 
 const TABS: { id: Tab; label: string }[] = [
   { id: "videos", label: "Videos" },
@@ -25,42 +37,67 @@ const TABS: { id: Tab; label: string }[] = [
   { id: "webinars", label: "Webinars" },
 ];
 
-const VIDEOS = [
+const VIDEOS: VideoItem[] = [
   {
-    id: "platform-overview",
-    title: "BPApp Platform Overview",
-    duration: "18 min",
-    description: "Full walkthrough of the platform from login to reports.",
+    id: "chaos-to-control",
+    youtubeId: "gqEkPQKPIX0",
+    title: "From Chaos to Control: A 50 MT Paper Mill's Digital Journey",
+    duration: "Watch",
+    description:
+      "How a 50 MT paper mill transformed operations with Papyrus BPApp — from scattered spreadsheets to a unified ERP across production, finance, and compliance.",
+    category: "Customer Story",
   },
   {
-    id: "deckle-deep-dive",
-    title: "Deckle Optimizer Deep Dive",
-    duration: "14 min",
-    description: "How the 3-tier optimization engine plans trim patterns.",
+    id: "ai-engine",
+    youtubeId: "MgMQ6hb3mWc",
+    title: "AI-Powered Paper Mill ERP — Predict, Detect & Automate",
+    duration: "Watch",
+    description:
+      "BPApp's AI engine predicts machine failures, detects quality anomalies, and automates production scheduling end-to-end.",
+    category: "Product",
+  },
+  {
+    id: "deckle-optimizer",
+    youtubeId: "3ap2joVrCyc",
+    title: "Stop Wasting ₹3 Crore/Year on Paper Trim",
+    duration: "Watch",
+    description:
+      "The Deckle Optimizer cuts trim waste using a proprietary optimization engine — live demo for Indian paper mills.",
+    category: "Product",
   },
   {
     id: "production-planning",
-    title: "Production Planning: MPS to Shop Floor",
-    duration: "22 min",
-    description: "From master production schedule to shift orders.",
+    youtubeId: "3RNCZiXB30E",
+    title: "Paper Mill Production Planning End-to-End",
+    duration: "Watch",
+    description:
+      "Schedule, capacity planning, and shop-floor orders — from master production plan to shift execution.",
+    category: "Product",
+  },
+  {
+    id: "order-to-cash",
+    youtubeId: "mqfprm6OFMY",
+    title: "Order to Cash for Indian Paper Mills",
+    duration: "Watch",
+    description:
+      "Sales order to e-invoice in one system — inquiry, order, dispatch, GST compliance, and collection.",
+    category: "Product",
+  },
+  {
+    id: "hr-payroll",
+    youtubeId: "LX-lT7caC4s",
+    title: "HR & Payroll for Indian Paper Mills",
+    duration: "Watch",
+    description:
+      "Attendance to statutory compliance — PF, ESI, PT, LWF, and payroll automation built for the paper industry.",
+    category: "Product",
   },
   {
     id: "gst-compliance",
     title: "GST Compliance Workflow",
     duration: "11 min",
     description: "E-invoice, GSTR-1, GSTR-3B auto-population walkthrough.",
-  },
-  {
-    id: "mobile-apps",
-    title: "Mobile Apps for Shop Floor",
-    duration: "8 min",
-    description: "Field sync, offline mode, quality checks on mobile.",
-  },
-  {
-    id: "hr-payroll",
-    title: "HR & Payroll: India Compliance",
-    duration: "16 min",
-    description: "PF, ESI, PT, LWF setup and monthly processing.",
+    category: "Product",
   },
 ];
 
@@ -144,7 +181,8 @@ const PRESENTATIONS = [
     id: "roi-framework",
     title: "ROI Framework",
     slides: "20 slides",
-    description: "How to calculate ROI from trim savings, reduced waste, automation.",
+    description:
+      "How to calculate ROI from trim savings, reduced waste, automation.",
   },
 ];
 
@@ -193,15 +231,223 @@ const WEBINARS_RECORDED = [
 ];
 
 function GuideIcon({ name }: { name: "FileText" | "BookOpen" }) {
-  if (name === "BookOpen") return <BookOpen size={22} className="text-amber-400" />;
+  if (name === "BookOpen")
+    return <BookOpen size={22} className="text-amber-400" />;
   return <FileText size={22} className="text-amber-400" />;
+}
+
+function VideoModal({
+  video,
+  onClose,
+}: {
+  video: VideoItem;
+  onClose: () => void;
+}) {
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+    };
+    document.addEventListener("keydown", handler);
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.removeEventListener("keydown", handler);
+      document.body.style.overflow = "";
+    };
+  }, [onClose]);
+
+  return (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.2 }}
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 md:p-8 bg-black/92"
+      onClick={onClose}
+    >
+      <motion.div
+        initial={{ scale: 0.95, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        exit={{ scale: 0.95, opacity: 0 }}
+        transition={{ duration: 0.2 }}
+        className="relative w-full max-w-4xl"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <div className="flex items-center justify-between mb-3 gap-4">
+          <p className="text-white font-semibold text-sm leading-snug line-clamp-1">
+            {video.title}
+          </p>
+          <button
+            onClick={onClose}
+            className="flex-shrink-0 flex items-center gap-1.5 text-zinc-400 hover:text-white transition-colors text-xs font-semibold"
+          >
+            <X size={14} /> Close
+          </button>
+        </div>
+        <div className="aspect-video w-full bg-black rounded-2xl overflow-hidden border border-[#2a2a2a] shadow-2xl">
+          <iframe
+            src={`https://www.youtube-nocookie.com/embed/${video.youtubeId}?autoplay=1&rel=0&modestbranding=1`}
+            title={video.title}
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+            className="w-full h-full"
+          />
+        </div>
+        <p className="mt-3 text-xs text-zinc-500 text-center">
+          Click outside or press Esc to close
+        </p>
+      </motion.div>
+    </motion.div>
+  );
+}
+
+function VideoCard({
+  video,
+  index,
+  onPlay,
+  featured,
+}: {
+  video: VideoItem;
+  index: number;
+  onPlay: (v: VideoItem) => void;
+  featured?: boolean;
+}) {
+  const hasYoutube = !!video.youtubeId;
+  const thumbUrl = hasYoutube
+    ? `https://img.youtube.com/vi/${video.youtubeId}/maxresdefault.jpg`
+    : null;
+
+  const isCustomerStory = video.category === "Customer Story";
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 16 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.4, delay: index * 0.06 }}
+      className={`bg-[#0f0f0f] border rounded-2xl overflow-hidden flex flex-col group transition-colors ${
+        isCustomerStory
+          ? "border-amber-500/30 hover:border-amber-500/50"
+          : "border-[#1f1f1f] hover:border-amber-500/25"
+      }`}
+    >
+      {/* Thumbnail */}
+      <div
+        className={`relative bg-[#0a0a0a] border-b border-[#1a1a1a] overflow-hidden ${
+          featured ? "h-56 md:h-64" : "h-44"
+        } ${hasYoutube ? "cursor-pointer" : ""}`}
+        onClick={() => hasYoutube && onPlay(video)}
+      >
+        {thumbUrl ? (
+          <>
+            <Image
+              src={thumbUrl}
+              alt={video.title}
+              fill
+              className="object-cover transition-transform duration-500 group-hover:scale-105"
+              sizes={featured ? "100vw" : "(max-width: 768px) 100vw, 33vw"}
+            />
+            <div className="absolute inset-0 bg-black/30 group-hover:bg-black/20 transition-colors" />
+            <div className="absolute inset-0 flex items-center justify-center">
+              <div className="w-14 h-14 rounded-full bg-amber-500/90 hover:bg-amber-400 transition-colors flex items-center justify-center shadow-xl backdrop-blur-sm">
+                <Play
+                  size={22}
+                  className="text-black translate-x-0.5"
+                  fill="currentColor"
+                />
+              </div>
+            </div>
+          </>
+        ) : (
+          <>
+            <div className="absolute inset-0 bg-gradient-to-br from-amber-500/5 to-transparent" />
+            <div className="absolute inset-0 flex items-center justify-center">
+              <div className="w-14 h-14 rounded-full bg-amber-500/15 border border-amber-500/30 flex items-center justify-center">
+                <Play
+                  size={22}
+                  className="text-amber-400 translate-x-0.5"
+                  fill="currentColor"
+                />
+              </div>
+            </div>
+          </>
+        )}
+
+        {/* Category badge */}
+        <div className="absolute top-3 left-3">
+          {isCustomerStory ? (
+            <span className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-md bg-amber-500 text-black">
+              <Users size={10} />
+              Customer Story
+            </span>
+          ) : (
+            <span className="text-[10px] font-bold uppercase tracking-widest px-2 py-0.5 rounded bg-[#080808]/80 border border-[#2a2a2a] text-zinc-400">
+              Product
+            </span>
+          )}
+        </div>
+      </div>
+
+      {/* Content */}
+      <div className="p-5 flex flex-col gap-3 flex-1">
+        <h3
+          className={`text-white font-bold leading-snug ${
+            featured ? "text-lg" : "text-base"
+          }`}
+        >
+          {video.title}
+        </h3>
+        <p className="text-sm text-zinc-400 leading-relaxed flex-1">
+          {video.description}
+        </p>
+        {hasYoutube ? (
+          <button
+            onClick={() => onPlay(video)}
+            className="group/btn mt-1 inline-flex items-center gap-1.5 text-amber-400 hover:text-amber-300 text-sm font-semibold transition-colors"
+          >
+            <Play size={13} fill="currentColor" />
+            Watch Now
+          </button>
+        ) : (
+          <Link
+            href="/contact"
+            className="group/btn mt-1 inline-flex items-center gap-1.5 text-zinc-500 hover:text-zinc-300 text-sm font-semibold transition-colors"
+          >
+            Coming Soon
+            <ChevronRight
+              size={14}
+              className="group-hover/btn:translate-x-0.5 transition-transform"
+            />
+          </Link>
+        )}
+      </div>
+    </motion.div>
+  );
 }
 
 export default function ResourcesPage() {
   const [activeTab, setActiveTab] = useState<Tab>("videos");
+  const [activeVideo, setActiveVideo] = useState<VideoItem | null>(null);
+
+  const handlePlay = useCallback((video: VideoItem) => {
+    setActiveVideo(video);
+  }, []);
+
+  const handleClose = useCallback(() => {
+    setActiveVideo(null);
+  }, []);
+
+  const featuredVideo = VIDEOS.find((v) => v.category === "Customer Story");
+  const productVideos = VIDEOS.filter((v) => v.category === "Product");
 
   return (
     <div className="min-h-screen bg-[#080808]">
+      {/* VIDEO MODAL */}
+      <AnimatePresence>
+        {activeVideo && activeVideo.youtubeId && (
+          <VideoModal video={activeVideo} onClose={handleClose} />
+        )}
+      </AnimatePresence>
+
       {/* HERO */}
       <section className="relative overflow-hidden grain">
         <div className="absolute inset-0 bg-gradient-to-br from-amber-500/5 via-transparent to-transparent" />
@@ -293,59 +539,44 @@ export default function ResourcesPage() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -8 }}
                 transition={{ duration: 0.25 }}
+                className="space-y-10"
               >
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {VIDEOS.map((video, i) => (
-                    <motion.div
-                      key={video.id}
-                      initial={{ opacity: 0, y: 16 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 0.4, delay: i * 0.06 }}
-                      className="bg-[#0f0f0f] border border-[#1f1f1f] rounded-2xl overflow-hidden hover:border-amber-500/25 transition-colors flex flex-col"
-                    >
-                      {/* Thumbnail */}
-                      <div className="relative h-44 bg-[#0a0a0a] flex items-center justify-center border-b border-[#1a1a1a]">
-                        <div className="absolute inset-0 bg-gradient-to-br from-amber-500/5 to-transparent" />
-                        <div className="w-14 h-14 rounded-full bg-amber-500/15 border border-amber-500/30 flex items-center justify-center">
-                          <Play
-                            size={22}
-                            className="text-amber-400 translate-x-0.5"
-                            fill="currentColor"
-                          />
-                        </div>
-                        <div className="absolute top-3 right-3 flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-[#080808]/80 border border-[#2a2a2a] text-[10px] font-semibold text-zinc-400">
-                          <Clock size={10} />
-                          {video.duration}
-                        </div>
-                      </div>
+                {/* Featured customer story */}
+                {featuredVideo && (
+                  <div>
+                    <div className="flex items-center gap-3 mb-6">
+                      <p className="text-amber-500 text-xs font-semibold uppercase tracking-widest">
+                        Customer Story
+                      </p>
+                      <div className="h-px flex-1 bg-[#1f1f1f]" />
+                    </div>
+                    <VideoCard
+                      video={featuredVideo}
+                      index={0}
+                      onPlay={handlePlay}
+                      featured
+                    />
+                  </div>
+                )}
 
-                      {/* Content */}
-                      <div className="p-5 flex flex-col gap-3 flex-1">
-                        <div className="flex items-center gap-2">
-                          <span className="text-[10px] font-bold uppercase tracking-widest px-2 py-0.5 rounded bg-amber-500/10 border border-amber-500/20 text-amber-400">
-                            Video
-                          </span>
-                        </div>
-                        <h3 className="text-white font-bold text-base leading-snug">
-                          {video.title}
-                        </h3>
-                        <p className="text-sm text-zinc-400 leading-relaxed flex-1">
-                          {video.description}
-                        </p>
-                        <Link
-                          href="/contact"
-                          className="group mt-1 inline-flex items-center gap-1.5 text-amber-400 hover:text-amber-300 text-sm font-semibold transition-colors"
-                        >
-                          Watch Now
-                          <ChevronRight
-                            size={14}
-                            className="group-hover:translate-x-0.5 transition-transform"
-                          />
-                        </Link>
-                      </div>
-                    </motion.div>
-                  ))}
+                {/* Product videos */}
+                <div>
+                  <div className="flex items-center gap-3 mb-6">
+                    <p className="text-zinc-500 text-xs font-semibold uppercase tracking-widest">
+                      Product Videos
+                    </p>
+                    <div className="h-px flex-1 bg-[#1f1f1f]" />
+                  </div>
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {productVideos.map((video, i) => (
+                      <VideoCard
+                        key={video.id}
+                        video={video}
+                        index={i}
+                        onPlay={handlePlay}
+                      />
+                    ))}
+                  </div>
                 </div>
               </motion.div>
             )}

@@ -250,13 +250,13 @@ All visuals must be specific to Indian paper manufacturing, dark-theme compatibl
 | Category | Count | Done | Remaining | Notes |
 |----------|-------|------|-----------|-------|
 | Site-wide assets | 11 | 3 | 8 | SW-01 logo, SW-03 OG image, SW-07 arch diagram done |
-| Module hero banners | 44 | 27 | 17 | 17 platform module heroes still Unsplash (w=1920) |
+| Module hero banners | 44 | 44 | 0 | All 44 module heroes generated (27 CF flux-1-schnell + 17 Pollinations.ai flux) |
 | UI mockups | 22 | 0 | 22 | |
 | Flow / architecture diagrams | 20 | 0 | 20 | |
 | Feature section photos (tracked) | 45 | 45 | 0 | All 157 feature photos generated — data.ts + extra-data.ts + platform-data.ts complete |
 | Infographic charts | 8 | 0 | 8 | |
 | Icons / badges | 3 | 0 | 3 | |
-| **Total (tracked)** | **153** | **75** | **78** | 201 total images in public/images/ (157 feature + 44 hero) |
+| **Total (tracked)** | **153** | **92** | **61** | 218 total images in public/images/ (157 feature + 44 hero + 17 new platform heroes) |
 
 ---
 

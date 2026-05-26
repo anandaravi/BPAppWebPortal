@@ -8,7 +8,7 @@ export const PLATFORM_MODULES: Record<string, ModuleData> = {
     title: "One platform.",
     highlight: "Many companies, plants, branches.",
     blurb: "Centralized configuration for multi-company, multi-plant operations. Manage companies, branches, departments, cost centers, fiscal periods, feature toggles, integrations, document templates, and regulatory profiles — all without code changes.",
-    photo: "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1920&q=80",
+    photo: "/images/heroes/administration-hero.jpg",
     accent: "#06B6D4",
     icon: "Building",
     metrics: [
@@ -114,7 +114,7 @@ export const PLATFORM_MODULES: Record<string, ModuleData> = {
     title: "Who can do what.",
     highlight: "Down to the field level.",
     blurb: "Enterprise authentication and authorization — SSO/LDAP/MFA, role-based + attribute-based access control, row-level security, granular permissions per module/action/field, encrypted token rotation, and complete audit trail per Aadhaar Act §29 and IT Act §43A.",
-    photo: "https://images.unsplash.com/photo-1614064641938-3bbee52942c7?auto=format&fit=crop&w=1920&q=80",
+    photo: "/images/heroes/rbac-hero.jpg",
     accent: "#A855F7",
     icon: "Shield",
     metrics: [
@@ -205,7 +205,7 @@ export const PLATFORM_MODULES: Record<string, ModuleData> = {
     title: "Every touchpoint.",
     highlight: "One inbox.",
     blurb: "Centralized communication hub for transactional emails, batch campaigns, customer statements, supplier acknowledgements, and approval notifications. Templates with Handlebars personalization, multi-channel routing (Email/SMS/WhatsApp/Push), and bounce handling.",
-    photo: "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?auto=format&fit=crop&w=1920&q=80",
+    photo: "/images/heroes/email-hub-hero.jpg",
     accent: "#6366F1",
     icon: "Mail",
     metrics: [
@@ -297,7 +297,7 @@ export const PLATFORM_MODULES: Record<string, ModuleData> = {
     title: "Right alert.",
     highlight: "Right person. Right time.",
     blurb: "Intelligent alerting engine — stock-level alerts, quality deviations, approval deadlines, downtime alarms, and ML-based predictive warnings. Auto-escalation with hierarchical routing, frequency capping, and self-learning prioritization.",
-    photo: "https://images.unsplash.com/photo-1611532736597-de2d4265fba3?auto=format&fit=crop&w=1920&q=80",
+    photo: "/images/heroes/notifications-hero.jpg",
     accent: "#F43F5E",
     icon: "Bell",
     metrics: [
@@ -389,7 +389,7 @@ export const PLATFORM_MODULES: Record<string, ModuleData> = {
     title: "Know your system.",
     highlight: "Before users complain.",
     blurb: "Real-time monitoring of system health — API response times, database performance, memory/CPU, queue depth, error rates, frontend Core Web Vitals, and SLA breach detection. Predictive capacity warnings + auto-remediation hooks.",
-    photo: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1920&q=80",
+    photo: "/images/heroes/monitoring-hero.jpg",
     accent: "#14B8A6",
     icon: "Activity",
     metrics: [
@@ -691,7 +691,7 @@ export const PLATFORM_MODULES: Record<string, ModuleData> = {
     title: "Plan. Execute. Deliver.",
     highlight: "On time. On budget.",
     blurb: "Project planning and execution with Work Breakdown Structure (WBS), Gantt charts, resource allocation, milestone tracking, risk management, change orders, and ROI tracking. Paper mill-specific templates for new machine installation, expansion, and CAPEX projects.",
-    photo: "https://images.unsplash.com/photo-1606857521015-7f9fcf423740?auto=format&fit=crop&w=1920&q=80",
+    photo: "/images/heroes/projects-hero.jpg",
     accent: "#D946EF",
     icon: "Briefcase",
     metrics: [
@@ -781,7 +781,7 @@ export const PLATFORM_MODULES: Record<string, ModuleData> = {
     title: "If this. Then that.",
     highlight: "Across every module.",
     blurb: "Low-code visual workflow designer with RPA capabilities — drag-and-drop builder, conditional logic, parallel execution, triggers (time, event, manual), 50+ pre-built templates for paper industry (P2P, O2C, hire-to-retire), SLA monitoring, and AI-assisted optimization.",
-    photo: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1920&q=80",
+    photo: "/images/heroes/automations-hero.jpg",
     accent: "#EAB308",
     icon: "Workflow",
     metrics: [
@@ -889,7 +889,7 @@ export const PLATFORM_MODULES: Record<string, ModuleData> = {
     title: "The web platform's field arm.",
     highlight: "Where mobility matters.",
     blurb: "Native iOS and Android companion apps with offline-first sync — for the workflows that need to happen on the shop floor, in the field, or on the road. Not a replacement for the full web platform, but a focused tool for production entries, quality testing, attendance, approvals, GPS tracking, and live updates where mobility matters.",
-    photo: "https://images.unsplash.com/photo-1556656793-08538906a9f8?auto=format&fit=crop&w=1920&q=80",
+    photo: "/images/heroes/mobile-hero.jpg",
     accent: "#7C3AED",
     icon: "Smartphone",
     metrics: [
@@ -996,7 +996,7 @@ export const PLATFORM_MODULES: Record<string, ModuleData> = {
     title: "Every PDF. Every contract.",
     highlight: "Searchable. Signed.",
     blurb: "Centralized document storage with version control, folder structures, role-based access, digital signatures, PDF generation, OCR-based classification, retention policies, archival workflow, and deep linking to transactions (PO, invoice, CoA).",
-    photo: "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=1920&q=80",
+    photo: "/images/heroes/documents-hero.jpg",
     accent: "#0891B2",
     icon: "Files",
     metrics: [
@@ -1103,7 +1103,7 @@ export const PLATFORM_MODULES: Record<string, ModuleData> = {
     title: "Every grade. Every spec.",
     highlight: "Single source of truth.",
     blurb: "Master data for every product, grade, BOM, customer specification, and finish type the mill produces. The reference every other module pulls from — Sales for quoting, Production for BOM explosion, Inventory for batch creation, Quality for spec validation.",
-    photo: "https://images.unsplash.com/photo-1572297870735-fa6dde0fa8ce?auto=format&fit=crop&w=1920&q=80",
+    photo: "/images/heroes/product-catalog-hero.jpg",
     accent: "#0EA5E9",
     icon: "Package",
     metrics: [
@@ -1195,7 +1195,7 @@ export const PLATFORM_MODULES: Record<string, ModuleData> = {
     title: "Right price. Right customer.",
     highlight: "Right time.",
     blurb: "Centralized pricing engine — base price lists, customer-specific rates, volume tiers, promotional pricing, FX-aware export pricing. Quote in seconds, defend margin every time.",
-    photo: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=1920&q=80",
+    photo: "/images/heroes/pricing-hero.jpg",
     accent: "#F472B6",
     icon: "Tags",
     metrics: [
@@ -1288,7 +1288,7 @@ export const PLATFORM_MODULES: Record<string, ModuleData> = {
     title: "Every dropdown.",
     highlight: "Every code. Maintained.",
     blurb: "The quiet workhorse master — HSN codes, GST rates, TDS sections, countries, states, currencies, UOMs, payment terms, transport modes. The single source for every dropdown, every lookup, every reference in every module.",
-    photo: "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=1920&q=80",
+    photo: "/images/heroes/lookups-hero.jpg",
     accent: "#94A3B8",
     icon: "BookOpen",
     metrics: [
@@ -1378,7 +1378,7 @@ export const PLATFORM_MODULES: Record<string, ModuleData> = {
     title: "Every document.",
     highlight: "Numbered correctly.",
     blurb: "Configurable numbering for every document type — invoice prefixes per fiscal year, PO sequences per branch, GRN numbers per warehouse, SO numbers per business unit. Statutory-compliant, gap-free, audit-ready.",
-    photo: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=1920&q=80",
+    photo: "/images/heroes/number-series-hero.jpg",
     accent: "#A78BFA",
     icon: "Hash",
     metrics: [
@@ -1469,7 +1469,7 @@ export const PLATFORM_MODULES: Record<string, ModuleData> = {
     title: "Tell us your mill.",
     highlight: "We'll configure the rest.",
     blurb: "Guided onboarding wizard that captures your mill's profile, machine setup, shift patterns, regulatory framework, and operating preferences — then auto-configures the right modules, settings, and templates. From contract to first transaction in 2 weeks.",
-    photo: "https://images.unsplash.com/photo-1581094271901-8022df4466f9?auto=format&fit=crop&w=1920&q=80",
+    photo: "/images/heroes/business-profile-hero.jpg",
     accent: "#22D3EE",
     icon: "ClipboardList",
     metrics: [
@@ -1561,7 +1561,7 @@ export const PLATFORM_MODULES: Record<string, ModuleData> = {
     title: "Right person.",
     highlight: "Right approval. Always.",
     blurb: "Standalone workflow engine for every approval — purchase orders, sales orders, leave, expenses, journal entries, price overrides. Dynamic routing by amount, type, department. SLA-tracked, escalation-enabled, audit-logged.",
-    photo: "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=1920&q=80",
+    photo: "/images/heroes/approvals-hero.jpg",
     accent: "#FB7185",
     icon: "ClipboardCheck",
     metrics: [
@@ -1653,7 +1653,7 @@ export const PLATFORM_MODULES: Record<string, ModuleData> = {
     title: "Every action. Logged.",
     highlight: "Every audit. Ready.",
     blurb: "Centralized audit trail across every module, every action, every state transition. Compliance calendar tracking regulatory filings. Statutory return tracker. Evidence exports ready for SOC 2, ISO 27001, GST, Aadhaar Act, GDPR audits.",
-    photo: "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=1920&q=80",
+    photo: "/images/heroes/audit-hero.jpg",
     accent: "#64748B",
     icon: "ScrollText",
     metrics: [
@@ -1760,7 +1760,7 @@ export const PLATFORM_MODULES: Record<string, ModuleData> = {
     title: "Every test.",
     highlight: "Every spec. Calibrated.",
     blurb: "Laboratory master data for quality control — test procedures, equipment master, calibration schedules, sampling plans, acceptance criteria. The reference Quality module uses to validate every batch.",
-    photo: "https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?auto=format&fit=crop&w=1920&q=80",
+    photo: "/images/heroes/lab-master-hero.jpg",
     accent: "#22C55E",
     icon: "FlaskConical",
     metrics: [
