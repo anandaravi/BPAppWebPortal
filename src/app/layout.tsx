@@ -5,6 +5,7 @@ import { Navbar } from "@/components/layout/navbar";
 import { Footer } from "@/components/layout/footer";
 import { Providers } from "@/components/providers";
 import { PageTransition } from "@/components/page-transition";
+import { WidthToggle } from "@/components/dev/width-toggle";
 import { SITE } from "@/lib/constants";
 import { JsonLd, ORGANIZATION_SCHEMA, SOFTWARE_APPLICATION_SCHEMA } from "@/components/seo/json-ld";
 
@@ -80,6 +81,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
             <PageTransition>{children}</PageTransition>
           </main>
           <Footer />
+          <WidthToggle />
         </Providers>
       </body>
     </html>

@@ -46,7 +46,7 @@ const STEPS = [
 export function HowItWorks() {
   return (
     <section className="py-24 bg-[#0a0a0a] border-b border-[#1a1a1a]">
-      <div className="max-w-[1440px] mx-auto px-6">
+      <div className="max-w-[var(--container-max)] mx-auto px-6">
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}

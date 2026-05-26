@@ -11,7 +11,7 @@ export default function ProductOverview() {
   return (
     <div className="min-h-screen bg-[#080808]">
       {/* Hero */}
-      <section className="pt-32 pb-12 px-6 max-w-[1440px] mx-auto">
+      <section className="pt-32 pb-12 px-6 max-w-[var(--container-max)] mx-auto">
         <motion.p
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
@@ -36,7 +36,7 @@ export default function ProductOverview() {
       </section>
 
       {/* Groups */}
-      <section className="px-6 max-w-[1440px] mx-auto pb-24 space-y-16">
+      <section className="px-6 max-w-[var(--container-max)] mx-auto pb-24 space-y-16">
         {MODULE_GROUPS.map((group, gi) => (
           <div key={group.title} id={group.slug} className="scroll-mt-24">
             <motion.h2

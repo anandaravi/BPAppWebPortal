@@ -95,7 +95,7 @@ export default function AboutPage() {
         </div>
         <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-transparent via-amber-500 to-transparent opacity-60" />
 
-        <div className="relative max-w-[1440px] mx-auto px-6 pt-36 pb-20">
+        <div className="relative max-w-[var(--container-max)] mx-auto px-6 pt-36 pb-20">
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
@@ -148,7 +148,7 @@ export default function AboutPage() {
 
       {/* OUR STORY */}
       <section className="py-20 border-y border-[#1a1a1a]">
-        <div className="max-w-[1440px] mx-auto px-6">
+        <div className="max-w-[var(--container-max)] mx-auto px-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             {/* Story text */}
             <motion.div
@@ -229,7 +229,7 @@ export default function AboutPage() {
 
       {/* HERITAGE */}
       <section className="py-20 border-b border-[#1a1a1a]">
-        <div className="max-w-[1440px] mx-auto px-6">
+        <div className="max-w-[var(--container-max)] mx-auto px-6">
           <p className="text-amber-500 text-xs font-semibold uppercase tracking-widest mb-3">
             Heritage · Netique Infotech
           </p>
@@ -330,7 +330,7 @@ export default function AboutPage() {
 
       {/* WHAT MAKES IT DIFFERENT */}
       <section className="py-20 bg-[#0a0a0a] border-b border-[#1a1a1a]">
-        <div className="max-w-[1440px] mx-auto px-6">
+        <div className="max-w-[var(--container-max)] mx-auto px-6">
           <p className="text-amber-500 text-xs font-semibold uppercase tracking-widest mb-3">
             What Makes It Different
           </p>
@@ -376,7 +376,7 @@ export default function AboutPage() {
 
       {/* OUR APPROACH */}
       <section className="py-20 border-b border-[#1a1a1a]">
-        <div className="max-w-[1440px] mx-auto px-6">
+        <div className="max-w-[var(--container-max)] mx-auto px-6">
           <p className="text-amber-500 text-xs font-semibold uppercase tracking-widest mb-3">
             Our Approach
           </p>
@@ -420,7 +420,7 @@ export default function AboutPage() {
 
       {/* COMPLIANCE STRIP */}
       <section className="py-14 bg-[#0a0a0a] border-b border-[#1a1a1a]">
-        <div className="max-w-[1440px] mx-auto px-6">
+        <div className="max-w-[var(--container-max)] mx-auto px-6">
           <p className="text-center text-zinc-500 text-xs font-semibold uppercase tracking-widest mb-8">
             Compliance &amp; Certifications
           </p>

@@ -153,7 +153,7 @@ export default function ImplementationPage() {
         </div>
         <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-transparent via-amber-500 to-transparent opacity-60" />
 
-        <div className="relative max-w-[1440px] mx-auto px-6 pt-36 pb-24">
+        <div className="relative max-w-[var(--container-max)] mx-auto px-6 pt-36 pb-24">
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
@@ -207,7 +207,7 @@ export default function ImplementationPage() {
 
       {/* PHASE TIMELINE */}
       <section className="py-24 border-y border-[#1a1a1a]">
-        <div className="max-w-[1440px] mx-auto px-6">
+        <div className="max-w-[var(--container-max)] mx-auto px-6">
           <p className="text-amber-500 text-xs font-semibold uppercase tracking-widest mb-3">
             5-Phase Process
           </p>
@@ -298,7 +298,7 @@ export default function ImplementationPage() {
 
       {/* WHAT'S INCLUDED */}
       <section className="py-24 bg-[#0a0a0a] border-b border-[#1a1a1a]">
-        <div className="max-w-[1440px] mx-auto px-6">
+        <div className="max-w-[var(--container-max)] mx-auto px-6">
           <p className="text-amber-500 text-xs font-semibold uppercase tracking-widest mb-3">
             Everything You Need
           </p>
@@ -339,7 +339,7 @@ export default function ImplementationPage() {
 
       {/* POST GO-LIVE SUPPORT */}
       <section className="py-24 border-b border-[#1a1a1a]">
-        <div className="max-w-[1440px] mx-auto px-6">
+        <div className="max-w-[var(--container-max)] mx-auto px-6">
           <p className="text-amber-500 text-xs font-semibold uppercase tracking-widest mb-3">
             Post Go-Live
           </p>
@@ -431,7 +431,7 @@ export default function ImplementationPage() {
 
       {/* READY TO START */}
       <section className="py-24 bg-[#0a0a0a] border-b border-[#1a1a1a]">
-        <div className="max-w-[1440px] mx-auto px-6">
+        <div className="max-w-[var(--container-max)] mx-auto px-6">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}

@@ -18,7 +18,7 @@ export type FeatureSectionProps = {
 export function FeatureSection({ tag, title, body, points, photo, visual, accent, flip }: FeatureSectionProps) {
   return (
     <div className="border-b border-[#1a1a1a]">
-      <div className="max-w-[1440px] mx-auto px-6 py-20">
+      <div className="max-w-[var(--container-max)] mx-auto px-6 py-20">
         <div className={`grid grid-cols-1 lg:grid-cols-2 gap-12 items-center ${flip ? "lg:[&>*:first-child]:order-2" : ""}`}>
           {/* Visual side */}
           <motion.div

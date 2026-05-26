@@ -48,7 +48,7 @@ export function ModuleShowcase() {
     <section className="bg-[#0a0a0a]">
       {SHOWCASES.map((s, i) => (
         <div key={s.tag} className="relative overflow-hidden border-b border-[#1a1a1a]">
-          <div className="max-w-[1440px] mx-auto px-6 py-20">
+          <div className="max-w-[var(--container-max)] mx-auto px-6 py-20">
             <div className={`grid grid-cols-1 lg:grid-cols-2 gap-12 items-center ${s.flip ? "lg:flex lg:flex-row-reverse" : ""}`}>
               {/* Photo side */}
               <motion.div initial={{ opacity: 0, x: s.flip ? 30 : -30 }}

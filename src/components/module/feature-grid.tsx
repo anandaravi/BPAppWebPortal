@@ -16,7 +16,7 @@ export type FeatureCard = {
 export function FeatureCardGrid({ title, eyebrow, cards, accent, moduleSlug }: { title: string; eyebrow?: string; cards: FeatureCard[]; accent: string; moduleSlug?: string }) {
   return (
     <section className="py-20 border-b border-[#1a1a1a]">
-      <div className="max-w-[1440px] mx-auto px-6">
+      <div className="max-w-[var(--container-max)] mx-auto px-6">
         {eyebrow && <p className="text-xs font-semibold uppercase tracking-widest mb-3" style={{ color: accent }}>{eyebrow}</p>}
         <h2 className="text-3xl md:text-4xl font-black text-white tracking-tight mb-3">{title}</h2>
         {moduleSlug && (

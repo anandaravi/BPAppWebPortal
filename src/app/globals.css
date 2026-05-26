@@ -18,6 +18,8 @@
   --text:         #FAFAFA;
   --text-2:       #A1A1AA;
   --text-3:       #52525B;
+
+  --container-max: 1440px;
 }
 
 @theme inline {

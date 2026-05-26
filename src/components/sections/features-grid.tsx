@@ -10,7 +10,7 @@ import { getIcon } from "@/lib/icons";
 export function FeaturesGrid() {
   return (
     <section className="py-28 bg-[#080808]">
-      <div className="max-w-[1440px] mx-auto px-6">
+      <div className="max-w-[var(--container-max)] mx-auto px-6">
         <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }} transition={{ duration: 0.5 }} className="mb-16 flex flex-col md:flex-row md:items-end md:justify-between gap-6">
           <div>

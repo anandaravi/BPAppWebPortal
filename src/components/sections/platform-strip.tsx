@@ -11,7 +11,7 @@ const HIGHLIGHTED = ["administration", "rbac", "automations", "mobile", "notific
 export function PlatformStrip() {
   return (
     <section className="py-24 bg-[#0a0a0a] border-y border-[#1a1a1a]">
-      <div className="max-w-[1440px] mx-auto px-6">
+      <div className="max-w-[var(--container-max)] mx-auto px-6">
         <motion.div initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }} transition={{ duration: 0.5 }}
           className="text-center mb-14">

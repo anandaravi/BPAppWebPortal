@@ -273,7 +273,7 @@ export function DeckleDeepDive({ data }: { data: ModuleData }) {
         </div>
         <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-transparent via-red-500 to-transparent opacity-60" />
 
-        <div className="relative max-w-[1440px] mx-auto px-6 pt-36 pb-20 min-h-[88vh] flex flex-col justify-center">
+        <div className="relative max-w-[var(--container-max)] mx-auto px-6 pt-36 pb-20 min-h-[88vh] flex flex-col justify-center">
           <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}
             className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-red-500/30 bg-red-500/10 text-red-400 text-xs font-semibold uppercase tracking-widest mb-8 max-w-max">
             <Scissors size={12} /> Flagship · Deckle Optimizer
@@ -322,7 +322,7 @@ export function DeckleDeepDive({ data }: { data: ModuleData }) {
 
       {/* PROBLEM / CRISIS */}
       <section className="py-20 border-y border-[#1a1a1a] bg-[#0a0a0a]">
-        <div className="max-w-[1440px] mx-auto px-6">
+        <div className="max-w-[var(--container-max)] mx-auto px-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-14 items-center">
             <motion.div initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }} transition={{ duration: 0.6 }}>
@@ -383,7 +383,7 @@ export function DeckleDeepDive({ data }: { data: ModuleData }) {
 
       {/* 3-TIER COMPARISON */}
       <section className="py-24 border-b border-[#1a1a1a]">
-        <div className="max-w-[1440px] mx-auto px-6">
+        <div className="max-w-[var(--container-max)] mx-auto px-6">
           <p className="text-amber-500 text-xs font-semibold uppercase tracking-widest mb-3">The 3-Tier Engine</p>
           <h2 className="text-4xl md:text-5xl font-black text-white tracking-tight mb-4">
             Right algorithm. Right time budget.
@@ -446,7 +446,7 @@ export function DeckleDeepDive({ data }: { data: ModuleData }) {
 
       {/* SAMPLE PLAN VISUAL */}
       <section className="py-24 bg-[#0a0a0a] border-b border-[#1a1a1a]">
-        <div className="max-w-[1440px] mx-auto px-6">
+        <div className="max-w-[var(--container-max)] mx-auto px-6">
           <p className="text-amber-500 text-xs font-semibold uppercase tracking-widest mb-3">Sample Output</p>
           <h2 className="text-4xl font-black text-white tracking-tight mb-4">A real optimization plan.</h2>
           <p className="text-zinc-400 text-lg max-w-2xl mb-12">
@@ -543,7 +543,7 @@ export function DeckleDeepDive({ data }: { data: ModuleData }) {
 
       {/* 180+ CONSTRAINTS CATALOG */}
       <section className="py-24 border-b border-[#1a1a1a]">
-        <div className="max-w-[1440px] mx-auto px-6">
+        <div className="max-w-[var(--container-max)] mx-auto px-6">
           <p className="text-amber-500 text-xs font-semibold uppercase tracking-widest mb-3">Constraints Catalog</p>
           <h2 className="text-4xl md:text-5xl font-black text-white tracking-tight mb-4">
             180+ constraints. Eight categories.
@@ -590,7 +590,7 @@ export function DeckleDeepDive({ data }: { data: ModuleData }) {
 
       {/* CONFIG AREAS */}
       <section className="py-24 bg-[#0a0a0a] border-b border-[#1a1a1a]">
-        <div className="max-w-[1440px] mx-auto px-6">
+        <div className="max-w-[var(--container-max)] mx-auto px-6">
           <p className="text-amber-500 text-xs font-semibold uppercase tracking-widest mb-3">Configuration</p>
           <h2 className="text-4xl font-black text-white tracking-tight mb-4">15+ tunable areas.</h2>
           <p className="text-zinc-400 text-lg max-w-2xl mb-12">
@@ -618,7 +618,7 @@ export function DeckleDeepDive({ data }: { data: ModuleData }) {
 
       {/* USE CASES */}
       <section className="py-24 border-b border-[#1a1a1a]">
-        <div className="max-w-[1440px] mx-auto px-6">
+        <div className="max-w-[var(--container-max)] mx-auto px-6">
           <p className="text-amber-500 text-xs font-semibold uppercase tracking-widest mb-3">Use Cases</p>
           <h2 className="text-4xl md:text-5xl font-black text-white tracking-tight mb-4">Real mill scenarios.</h2>
           <p className="text-zinc-400 text-lg max-w-2xl mb-12">
@@ -668,7 +668,7 @@ export function DeckleDeepDive({ data }: { data: ModuleData }) {
 
       {/* PERFORMANCE COMPARISON */}
       <section className="py-24 bg-[#0a0a0a] border-b border-[#1a1a1a]">
-        <div className="max-w-[1440px] mx-auto px-6">
+        <div className="max-w-[var(--container-max)] mx-auto px-6">
           <p className="text-amber-500 text-xs font-semibold uppercase tracking-widest mb-3">Performance Comparison</p>
           <h2 className="text-4xl md:text-5xl font-black text-white tracking-tight mb-4">Manual vs Deckle.</h2>
           <p className="text-zinc-400 text-lg max-w-2xl mb-12">
@@ -701,7 +701,7 @@ export function DeckleDeepDive({ data }: { data: ModuleData }) {
 
       {/* SAMPLE REPORTS */}
       <section className="py-24 border-b border-[#1a1a1a]">
-        <div className="max-w-[1440px] mx-auto px-6">
+        <div className="max-w-[var(--container-max)] mx-auto px-6">
           <p className="text-amber-500 text-xs font-semibold uppercase tracking-widest mb-3">Reports & Analytics</p>
           <h2 className="text-4xl font-black text-white tracking-tight mb-4">What you get out.</h2>
           <p className="text-zinc-400 text-lg max-w-2xl mb-12">
@@ -868,7 +868,7 @@ export function DeckleDeepDive({ data }: { data: ModuleData }) {
 
       {/* INTEGRATION MODES */}
       <section className="py-24 bg-[#0a0a0a] border-b border-[#1a1a1a]">
-        <div className="max-w-[1440px] mx-auto px-6">
+        <div className="max-w-[var(--container-max)] mx-auto px-6">
           <p className="text-amber-500 text-xs font-semibold uppercase tracking-widest mb-3">Integration Modes</p>
           <h2 className="text-4xl font-black text-white tracking-tight mb-4">Embedded. Standalone. API.</h2>
           <p className="text-zinc-400 text-lg max-w-2xl mb-14">
@@ -930,7 +930,7 @@ export function DeckleDeepDive({ data }: { data: ModuleData }) {
 
       {/* IMPLEMENTATION TIMELINE */}
       <section className="py-24 border-b border-[#1a1a1a]">
-        <div className="max-w-[1440px] mx-auto px-6">
+        <div className="max-w-[var(--container-max)] mx-auto px-6">
           <p className="text-amber-500 text-xs font-semibold uppercase tracking-widest mb-3">Implementation</p>
           <h2 className="text-4xl md:text-5xl font-black text-white tracking-tight mb-4">From contract to ROI in 30 days.</h2>
           <p className="text-zinc-400 text-lg max-w-2xl mb-12">
@@ -974,7 +974,7 @@ export function DeckleDeepDive({ data }: { data: ModuleData }) {
 
       {/* PLANNER UI MOCKUP */}
       <section className="py-24 bg-[#0a0a0a] border-b border-[#1a1a1a]">
-        <div className="max-w-[1440px] mx-auto px-6">
+        <div className="max-w-[var(--container-max)] mx-auto px-6">
           <p className="text-amber-500 text-xs font-semibold uppercase tracking-widest mb-3">Planner Workspace</p>
           <h2 className="text-4xl font-black text-white tracking-tight mb-4">Built for planners, not data scientists.</h2>
           <p className="text-zinc-400 text-lg max-w-2xl mb-12">

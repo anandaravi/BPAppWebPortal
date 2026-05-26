@@ -95,7 +95,7 @@ export default function ArchitecturePage() {
         </div>
         <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-transparent via-amber-500 to-transparent opacity-60" />
 
-        <div className="relative max-w-[1440px] mx-auto px-6 pt-36 pb-20">
+        <div className="relative max-w-[var(--container-max)] mx-auto px-6 pt-36 pb-20">
           <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}
             className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-amber-500/30 bg-amber-500/10 text-amber-400 text-xs font-semibold uppercase tracking-widest mb-8">
             <Layers size={12} /> Pluggable Architecture
@@ -127,7 +127,7 @@ export default function ArchitecturePage() {
 
       {/* 3-LAYER ARCHITECTURE DIAGRAM */}
       <section className="py-24 border-y border-[#1a1a1a] bg-[#0a0a0a]">
-        <div className="max-w-[1440px] mx-auto px-6">
+        <div className="max-w-[var(--container-max)] mx-auto px-6">
           <p className="text-amber-500 text-xs font-semibold uppercase tracking-widest mb-3">Architecture</p>
           <h2 className="text-4xl md:text-5xl font-black text-white tracking-tight mb-4">Three layers. One platform.</h2>
           <p className="text-zinc-400 text-lg max-w-2xl mb-14">
@@ -177,7 +177,7 @@ export default function ArchitecturePage() {
 
       {/* PRINCIPLES */}
       <section className="py-20 border-b border-[#1a1a1a]">
-        <div className="max-w-[1440px] mx-auto px-6">
+        <div className="max-w-[var(--container-max)] mx-auto px-6">
           <p className="text-amber-500 text-xs font-semibold uppercase tracking-widest mb-3">Core Principles</p>
           <h2 className="text-4xl font-black text-white tracking-tight mb-12">How modularity actually works.</h2>
 
@@ -214,7 +214,7 @@ export default function ArchitecturePage() {
 
       {/* TIERS / BUNDLES */}
       <section className="py-24 bg-[#0a0a0a] border-b border-[#1a1a1a]">
-        <div className="max-w-[1440px] mx-auto px-6">
+        <div className="max-w-[var(--container-max)] mx-auto px-6">
           <p className="text-amber-500 text-xs font-semibold uppercase tracking-widest mb-3">Activation Tiers</p>
           <h2 className="text-4xl font-black text-white tracking-tight mb-4">Start where you are.</h2>
           <p className="text-zinc-400 text-lg max-w-2xl mb-14">
@@ -266,7 +266,7 @@ export default function ArchitecturePage() {
 
       {/* SCALE PATH */}
       <section className="py-24 border-b border-[#1a1a1a]">
-        <div className="max-w-[1440px] mx-auto px-6">
+        <div className="max-w-[var(--container-max)] mx-auto px-6">
           <p className="text-amber-500 text-xs font-semibold uppercase tracking-widest mb-3">Scale Path</p>
           <h2 className="text-4xl font-black text-white tracking-tight mb-4">From Day 1 to Group Scale.</h2>
           <p className="text-zinc-400 text-lg max-w-2xl mb-14">
@@ -304,7 +304,7 @@ export default function ArchitecturePage() {
 
       {/* MODULE DEPENDENCY VISUAL */}
       <section className="py-24 bg-[#0a0a0a] border-b border-[#1a1a1a]">
-        <div className="max-w-[1440px] mx-auto px-6">
+        <div className="max-w-[var(--container-max)] mx-auto px-6">
           <p className="text-amber-500 text-xs font-semibold uppercase tracking-widest mb-3">Module Dependencies</p>
           <h2 className="text-4xl font-black text-white tracking-tight mb-4">Modules talk through APIs.</h2>
           <p className="text-zinc-400 text-lg max-w-2xl mb-12">

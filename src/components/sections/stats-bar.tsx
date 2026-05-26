@@ -14,7 +14,7 @@ export function StatsBar() {
   return (
     <section className="relative border-y border-[#1f1f1f] bg-[#0a0a0a] overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-r from-amber-500/5 via-transparent to-amber-500/5" />
-      <div className="max-w-[1440px] mx-auto px-6 py-8">
+      <div className="max-w-[var(--container-max)] mx-auto px-6 py-8">
         <div className="grid grid-cols-2 md:grid-cols-5 gap-y-8 gap-x-4">
           {STATS.map((s, i) => (
             <motion.div key={s.label}

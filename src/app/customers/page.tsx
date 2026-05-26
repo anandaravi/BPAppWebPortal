@@ -198,7 +198,7 @@ export default function CustomersPage() {
         </div>
         <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-transparent via-amber-500 to-transparent opacity-60" />
 
-        <div className="relative max-w-[1440px] mx-auto px-6 pt-36 pb-20">
+        <div className="relative max-w-[var(--container-max)] mx-auto px-6 pt-36 pb-20">
           <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}
             className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-amber-500/30 bg-amber-500/10 text-amber-400 text-xs font-semibold uppercase tracking-widest mb-8">
             Who Uses Papyrus BPApp
@@ -230,7 +230,7 @@ export default function CustomersPage() {
 
       {/* SIZE-BASED PERSONAS */}
       <section className="py-20 border-y border-[#1a1a1a]">
-        <div className="max-w-[1440px] mx-auto px-6">
+        <div className="max-w-[var(--container-max)] mx-auto px-6">
           <p className="text-amber-500 text-xs font-semibold uppercase tracking-widest mb-3">By Size</p>
           <h2 className="text-4xl md:text-5xl font-black text-white tracking-tight mb-4">From small to group scale.</h2>
           <p className="text-zinc-400 text-lg max-w-2xl mb-14">
@@ -292,7 +292,7 @@ export default function CustomersPage() {
 
       {/* SPECIALTY MILLS */}
       <section className="py-20 bg-[#0a0a0a] border-b border-[#1a1a1a]">
-        <div className="max-w-[1440px] mx-auto px-6">
+        <div className="max-w-[var(--container-max)] mx-auto px-6">
           <p className="text-amber-500 text-xs font-semibold uppercase tracking-widest mb-3">By Specialty & Complexity</p>
           <h2 className="text-4xl font-black text-white tracking-tight mb-4">Built for every mill type.</h2>
           <p className="text-zinc-400 text-lg max-w-2xl mb-12">
@@ -338,7 +338,7 @@ export default function CustomersPage() {
 
       {/* TRADERS + CONVERTERS */}
       <section className="py-20 border-b border-[#1a1a1a]">
-        <div className="max-w-[1440px] mx-auto px-6">
+        <div className="max-w-[var(--container-max)] mx-auto px-6">
           <p className="text-amber-500 text-xs font-semibold uppercase tracking-widest mb-3">Beyond Mills</p>
           <h2 className="text-4xl font-black text-white tracking-tight mb-4">The entire paper value chain.</h2>
           <p className="text-zinc-400 text-lg max-w-2xl mb-12">
@@ -388,7 +388,7 @@ export default function CustomersPage() {
 
       {/* WHY PAPYRUS */}
       <section className="py-20 bg-[#0a0a0a] border-b border-[#1a1a1a]">
-        <div className="max-w-[1440px] mx-auto px-6 text-center">
+        <div className="max-w-[var(--container-max)] mx-auto px-6 text-center">
           <p className="text-amber-500 text-xs font-semibold uppercase tracking-widest mb-3">One Platform. Every Stage.</p>
           <h2 className="text-4xl font-black text-white tracking-tight mb-6 max-w-3xl mx-auto">
             The system that fits today is the same system that fits at 10× your scale.

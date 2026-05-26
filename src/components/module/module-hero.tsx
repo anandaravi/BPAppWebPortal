@@ -26,7 +26,7 @@ export function ModuleHero({ tag, title, highlight, blurb, photo, accent, metric
 
       <div className="absolute left-0 top-0 bottom-0 w-1" style={{ background: `linear-gradient(to bottom, transparent, ${accent}, transparent)` }} />
 
-      <div className="relative max-w-[1440px] mx-auto px-6 pt-40 pb-24">
+      <div className="relative max-w-[var(--container-max)] mx-auto px-6 pt-40 pb-24">
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
           <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border text-xs font-semibold uppercase tracking-widest mb-6"
             style={{ borderColor: `${accent}40`, background: `${accent}10`, color: accent }}>

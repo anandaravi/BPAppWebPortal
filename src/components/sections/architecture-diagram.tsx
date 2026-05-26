@@ -58,7 +58,7 @@ export function ArchitectureDiagram() {
         }}
       />
 
-      <div className="max-w-[1440px] mx-auto px-6 relative">
+      <div className="max-w-[var(--container-max)] mx-auto px-6 relative">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}

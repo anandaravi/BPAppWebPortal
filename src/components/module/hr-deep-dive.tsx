@@ -212,7 +212,7 @@ export function HRDeepDive({ data }: { data: ModuleData }) {
         </div>
         <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-transparent via-pink-500 to-transparent opacity-60" />
 
-        <div className="relative max-w-[1440px] mx-auto px-6 pt-36 pb-20 min-h-[88vh] flex flex-col justify-center">
+        <div className="relative max-w-[var(--container-max)] mx-auto px-6 pt-36 pb-20 min-h-[88vh] flex flex-col justify-center">
           <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}
             className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-pink-500/30 bg-pink-500/10 text-pink-300 text-xs font-semibold uppercase tracking-widest mb-8 max-w-max">
             <Users size={12} /> People Core · HR & Payroll
@@ -260,7 +260,7 @@ export function HRDeepDive({ data }: { data: ModuleData }) {
 
       {/* PROBLEM */}
       <section className="py-20 border-y border-[#1a1a1a] bg-[#0a0a0a]">
-        <div className="max-w-[1440px] mx-auto px-6">
+        <div className="max-w-[var(--container-max)] mx-auto px-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-14 items-center">
             <motion.div initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }} transition={{ duration: 0.6 }}>
@@ -316,7 +316,7 @@ export function HRDeepDive({ data }: { data: ModuleData }) {
 
       {/* STATUTORY */}
       <section className="py-24 border-b border-[#1a1a1a]">
-        <div className="max-w-[1440px] mx-auto px-6">
+        <div className="max-w-[var(--container-max)] mx-auto px-6">
           <p className="text-pink-300 text-xs font-semibold uppercase tracking-widest mb-3">Statutory Coverage</p>
           <h2 className="text-4xl md:text-5xl font-black text-white tracking-tight mb-4">
             Six statutory engines. One payroll run.
@@ -358,7 +358,7 @@ export function HRDeepDive({ data }: { data: ModuleData }) {
 
       {/* SHIFT MODEL */}
       <section className="py-24 bg-[#0a0a0a] border-b border-[#1a1a1a]">
-        <div className="max-w-[1440px] mx-auto px-6">
+        <div className="max-w-[var(--container-max)] mx-auto px-6">
           <p className="text-pink-300 text-xs font-semibold uppercase tracking-widest mb-3">Multi-Shift Workforce</p>
           <h2 className="text-4xl font-black text-white tracking-tight mb-4">Built for the mill, not the office.</h2>
           <p className="text-zinc-400 text-lg max-w-2xl mb-12">
@@ -387,7 +387,7 @@ export function HRDeepDive({ data }: { data: ModuleData }) {
 
       {/* SAMPLE PAYSLIP */}
       <section className="py-24 border-b border-[#1a1a1a]">
-        <div className="max-w-[1440px] mx-auto px-6">
+        <div className="max-w-[var(--container-max)] mx-auto px-6">
           <p className="text-pink-300 text-xs font-semibold uppercase tracking-widest mb-3">Sample Payslip</p>
           <h2 className="text-4xl font-black text-white tracking-tight mb-4">One run. Every statutory line.</h2>
           <p className="text-zinc-400 text-lg max-w-2xl mb-12">
@@ -471,7 +471,7 @@ export function HRDeepDive({ data }: { data: ModuleData }) {
 
       {/* CAPABILITIES */}
       <section className="py-24 bg-[#0a0a0a] border-b border-[#1a1a1a]">
-        <div className="max-w-[1440px] mx-auto px-6">
+        <div className="max-w-[var(--container-max)] mx-auto px-6">
           <p className="text-pink-300 text-xs font-semibold uppercase tracking-widest mb-3">Capability Catalog</p>
           <h2 className="text-4xl md:text-5xl font-black text-white tracking-tight mb-4">
             100+ HR capabilities. Six categories.
@@ -516,7 +516,7 @@ export function HRDeepDive({ data }: { data: ModuleData }) {
 
       {/* USE CASES */}
       <section className="py-24 border-b border-[#1a1a1a]">
-        <div className="max-w-[1440px] mx-auto px-6">
+        <div className="max-w-[var(--container-max)] mx-auto px-6">
           <p className="text-pink-300 text-xs font-semibold uppercase tracking-widest mb-3">Use Cases</p>
           <h2 className="text-4xl md:text-5xl font-black text-white tracking-tight mb-4">Real HR team scenarios.</h2>
           <p className="text-zinc-400 text-lg max-w-2xl mb-12">
@@ -564,7 +564,7 @@ export function HRDeepDive({ data }: { data: ModuleData }) {
 
       {/* PERFORMANCE */}
       <section className="py-24 bg-[#0a0a0a] border-b border-[#1a1a1a]">
-        <div className="max-w-[1440px] mx-auto px-6">
+        <div className="max-w-[var(--container-max)] mx-auto px-6">
           <p className="text-pink-300 text-xs font-semibold uppercase tracking-widest mb-3">Performance Comparison</p>
           <h2 className="text-4xl md:text-5xl font-black text-white tracking-tight mb-4">Legacy HR vs Papyrus HR.</h2>
           <p className="text-zinc-400 text-lg max-w-2xl mb-12">
@@ -595,7 +595,7 @@ export function HRDeepDive({ data }: { data: ModuleData }) {
 
       {/* TIMELINE */}
       <section className="py-24 border-b border-[#1a1a1a]">
-        <div className="max-w-[1440px] mx-auto px-6">
+        <div className="max-w-[var(--container-max)] mx-auto px-6">
           <p className="text-pink-300 text-xs font-semibold uppercase tracking-widest mb-3">Implementation</p>
           <h2 className="text-4xl md:text-5xl font-black text-white tracking-tight mb-4">Cutover in one payroll cycle.</h2>
           <p className="text-zinc-400 text-lg max-w-2xl mb-12">

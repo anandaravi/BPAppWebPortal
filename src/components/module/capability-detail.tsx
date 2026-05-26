@@ -24,7 +24,7 @@ export function CapabilityDetailTemplate({ detail }: { detail: CapabilityDetail 
         </div>
         <div className="absolute left-0 top-0 bottom-0 w-1" style={{ background: `linear-gradient(to bottom, transparent, ${accent}, transparent)` }} />
 
-        <div className="relative max-w-[1440px] mx-auto px-6 pt-32 pb-16">
+        <div className="relative max-w-[var(--container-max)] mx-auto px-6 pt-32 pb-16">
           <nav className="flex items-center gap-2 text-xs text-zinc-500 mb-8">
             <Link href="/product" className="hover:text-amber-400 transition-colors">Product</Link>
             <ChevronRight size={12} />
@@ -65,7 +65,7 @@ export function CapabilityDetailTemplate({ detail }: { detail: CapabilityDetail 
 
       {/* PROCESS FLOW */}
       <section className="py-16 border-y border-[#1a1a1a] bg-[#0a0a0a]">
-        <div className="max-w-[1440px] mx-auto px-6">
+        <div className="max-w-[var(--container-max)] mx-auto px-6">
           <p className="text-xs font-semibold uppercase tracking-widest mb-3" style={{ color: accent }}>Process Flow</p>
           <h2 className="text-3xl font-black text-white tracking-tight mb-10">How it works.</h2>
 
@@ -97,7 +97,7 @@ export function CapabilityDetailTemplate({ detail }: { detail: CapabilityDetail 
 
       {/* KEY FEATURES */}
       <section className="py-20 border-b border-[#1a1a1a]">
-        <div className="max-w-[1440px] mx-auto px-6">
+        <div className="max-w-[var(--container-max)] mx-auto px-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
             <div>
               <p className="text-xs font-semibold uppercase tracking-widest mb-3" style={{ color: accent }}>Key Features</p>
@@ -122,7 +122,7 @@ export function CapabilityDetailTemplate({ detail }: { detail: CapabilityDetail 
 
       {/* VISUAL MOCKUP */}
       <section className="py-20 bg-[#0a0a0a] border-b border-[#1a1a1a]">
-        <div className="max-w-[1440px] mx-auto px-6">
+        <div className="max-w-[var(--container-max)] mx-auto px-6">
           <p className="text-xs font-semibold uppercase tracking-widest mb-3" style={{ color: accent }}>In the Product</p>
           <h2 className="text-3xl font-black text-white tracking-tight mb-10">How it looks.</h2>
 
@@ -184,7 +184,7 @@ export function CapabilityDetailTemplate({ detail }: { detail: CapabilityDetail 
       {/* RELATED CAPABILITIES */}
       {related.length > 0 && (
         <section className="py-20 border-b border-[#1a1a1a]">
-          <div className="max-w-[1440px] mx-auto px-6">
+          <div className="max-w-[var(--container-max)] mx-auto px-6">
             <p className="text-xs font-semibold uppercase tracking-widest mb-3" style={{ color: accent }}>Related in {module.name}</p>
             <h2 className="text-3xl font-black text-white tracking-tight mb-10">More capabilities.</h2>
 

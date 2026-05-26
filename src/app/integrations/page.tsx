@@ -317,7 +317,7 @@ export default function IntegrationsPage() {
         </div>
         <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-transparent via-amber-500 to-transparent opacity-60" />
 
-        <div className="relative max-w-[1440px] mx-auto px-6 pt-36 pb-20">
+        <div className="relative max-w-[var(--container-max)] mx-auto px-6 pt-36 pb-20">
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
@@ -372,7 +372,7 @@ export default function IntegrationsPage() {
 
       {/* INTEGRATION CATEGORIES */}
       <section className="py-20 border-t border-[#1a1a1a]">
-        <div className="max-w-[1440px] mx-auto px-6 space-y-20">
+        <div className="max-w-[var(--container-max)] mx-auto px-6 space-y-20">
           {CATEGORIES.map((cat, catIndex) => (
             <motion.div
               key={cat.id}
@@ -411,7 +411,7 @@ export default function IntegrationsPage() {
 
       {/* STATUS LEGEND */}
       <section className="py-16 bg-[#0a0a0a] border-y border-[#1a1a1a]">
-        <div className="max-w-[1440px] mx-auto px-6">
+        <div className="max-w-[var(--container-max)] mx-auto px-6">
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -445,7 +445,7 @@ export default function IntegrationsPage() {
 
       {/* OPEN API SECTION */}
       <section className="py-20 border-b border-[#1a1a1a]">
-        <div className="max-w-[1440px] mx-auto px-6">
+        <div className="max-w-[var(--container-max)] mx-auto px-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <motion.div
               initial={{ opacity: 0, x: -20 }}
