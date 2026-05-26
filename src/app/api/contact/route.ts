@@ -20,7 +20,7 @@ export async function POST(req: NextRequest) {
     }
 
     const apiKey = process.env.RESEND_API_KEY;
-    const toEmail = process.env.CONTACT_TO_EMAIL ?? "ardv.anandaravi@gmail.com";
+    const toEmail = process.env.CONTACT_TO_EMAIL ?? "info@papyrus360.com";
 
     const interestList = interests && interests.length > 0 ? interests : [];
     const interestSummary = interestList.length > 0

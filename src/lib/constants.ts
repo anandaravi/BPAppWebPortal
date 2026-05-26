@@ -4,7 +4,7 @@ export const SITE = {
   description:
     "Enterprise ERP purpose-built for Indian paper manufacturing. 44 integrated modules covering production planning, deckle optimization, sales, GST-compliant finance, HR, quality and AI — from order to e-invoice.",
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://papyrusbpapp.vercel.app",
-  email: "contact@papyrusbpapp.com",
+  email: "info@papyrus360.com",
   twitter: "@papyrusbpapp",
   keywords: [
     "paper mill ERP",
