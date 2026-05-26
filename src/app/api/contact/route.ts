@@ -13,7 +13,7 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const { name, company, email, phone, role, companySize, message, honeypot } = parsed.data;
+    const { name, company, email, phone, role, companySize, interests, message, honeypot } = parsed.data;
 
     if (honeypot) {
       return NextResponse.json({ success: true });
@@ -22,6 +22,11 @@ export async function POST(req: NextRequest) {
     const apiKey = process.env.RESEND_API_KEY;
     const toEmail = process.env.CONTACT_TO_EMAIL ?? "contact@papyrusbpapp.com";
 
+    const interestList = interests && interests.length > 0 ? interests : [];
+    const interestSummary = interestList.length > 0
+      ? interestList.slice(0, 4).join(", ") + (interestList.length > 4 ? `, +${interestList.length - 4} more` : "")
+      : "no specific";
+
     if (apiKey) {
       const { Resend } = await import("resend");
       const resend = new Resend(apiKey);
@@ -29,7 +34,7 @@ export async function POST(req: NextRequest) {
       await resend.emails.send({
         from: "Papyrus BPApp Website <noreply@papyrusbpapp.com>",
         to: toEmail,
-        subject: `Demo request from ${name} — ${company}`,
+        subject: `Demo: ${company} (${interestSummary})`,
         text: [
           `Name: ${name}`,
           `Company: ${company}`,
@@ -37,12 +42,17 @@ export async function POST(req: NextRequest) {
           `Phone: ${phone ?? "—"}`,
           `Role: ${role}`,
           `Company size: ${companySize ?? "—"}`,
-          `Message: ${message ?? "—"}`,
+          ``,
+          `Interested in (${interestList.length}):`,
+          interestList.length > 0 ? interestList.map(i => `  • ${i}`).join("\n") : "  (none selected)",
+          ``,
+          `Requirements / message:`,
+          message ?? "—",
         ].join("\n"),
       });
     } else {
       console.log("[contact] RESEND_API_KEY not set — logging submission:", {
-        name, company, email, role,
+        name, company, email, role, interests: interestList,
       });
     }
 

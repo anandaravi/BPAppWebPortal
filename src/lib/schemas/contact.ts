@@ -9,7 +9,8 @@ export const contactSchema = z.object({
     error: "Select your role",
   }),
   companySize: z.enum(["1-50", "51-200", "201-500", "500+", ""]).optional(),
-  message: z.string().max(1000).optional(),
+  interests: z.array(z.string()).max(50).optional(),
+  message: z.string().max(2000).optional(),
   honeypot: z.string().max(0, "Bot detected").optional(),
 });
 
