@@ -2,6 +2,7 @@ import type { MetadataRoute } from "next";
 import { ALL_SLUGS, MODULE_GROUPS } from "@/lib/modules";
 import { SITE } from "@/lib/constants";
 import { ARTICLES } from "@/lib/blog/articles";
+import { CITY_SLUGS } from "@/lib/cities";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
@@ -39,8 +40,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/for/integrated-mill",
   ];
 
-  const contentRoutes = ["/glossary", "/blog", "/roi-calculator"];
+  const contentRoutes = ["/glossary", "/blog", "/roi-calculator", "/erp-for-paper-mills"];
   const blogArticles = Object.keys(ARTICLES).map((slug) => `/blog/${slug}`);
+  const cityRoutes = CITY_SLUGS.map((slug) => `/erp-for-paper-mills/${slug}`);
 
   const groupAnchors = MODULE_GROUPS.map((g) => `/product#${g.slug}`);
 
@@ -86,6 +88,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: now,
       changeFrequency: "monthly" as const,
       priority: 0.8,
+    })),
+    ...cityRoutes.map((path) => ({
+      url: `${base}${path}`,
+      lastModified: now,
+      changeFrequency: "monthly" as const,
+      priority: 0.75,
     })),
   ];
 
