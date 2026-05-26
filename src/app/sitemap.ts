@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 import { ALL_SLUGS, MODULE_GROUPS } from "@/lib/modules";
 import { SITE } from "@/lib/constants";
+import { ARTICLES } from "@/lib/blog/articles";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
@@ -24,6 +25,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/vs/greycon",
     "/vs/sap-mill-products",
     "/vs/tally",
+    "/vs/dataman",
+    "/vs/optivision",
+    "/vs/infor-ln",
   ];
 
   const millTypeRoutes = [
@@ -31,6 +35,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/for/tissue-mill",
     "/for/integrated-mill",
   ];
+
+  const contentRoutes = ["/glossary", "/blog"];
+  const blogArticles = Object.keys(ARTICLES).map((slug) => `/blog/${slug}`);
 
   const groupAnchors = MODULE_GROUPS.map((g) => `/product#${g.slug}`);
 
@@ -64,6 +71,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: now,
       changeFrequency: "monthly" as const,
       priority: 0.7,
+    })),
+    ...contentRoutes.map((path) => ({
+      url: `${base}${path}`,
+      lastModified: now,
+      changeFrequency: "weekly" as const,
+      priority: 0.85,
+    })),
+    ...blogArticles.map((path) => ({
+      url: `${base}${path}`,
+      lastModified: now,
+      changeFrequency: "monthly" as const,
+      priority: 0.8,
     })),
   ];
 
