@@ -9,7 +9,7 @@ interface LogoProps {
   size?: "sm" | "md" | "lg";
 }
 
-const HEIGHTS = { sm: 28, md: 36, lg: 48 };
+const HEIGHTS = { sm: 40, md: 52, lg: 68 };
 
 export function Logo({ className, size = "md" }: LogoProps) {
   const h = HEIGHTS[size];
