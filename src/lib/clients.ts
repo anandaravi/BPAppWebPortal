@@ -121,13 +121,13 @@ export const CLIENTS: Client[] = [
   // ====== INDIA — NORTH (Punjab, UP, Uttarakhand) ======
   {
     slug: "khanna-paper",
-    name: "Khanna Paper Mills",
-    short: "Khanna Paper",
-    city: "Khanna",
+    name: "Khanna Paper Mills (KPM)",
+    short: "Khanna Paper Mills",
+    city: "Amritsar",
     state: "Punjab",
     country: "India",
-    lat: 30.7,
-    lon: 76.22,
+    lat: 31.63,
+    lon: 74.87,
     grade: "Newsprint, W&P, Recycled",
     verified: true,
   },
