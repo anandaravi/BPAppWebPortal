@@ -81,7 +81,7 @@ const MILL_TYPES = [
 export default function ForIndexPage() {
   return (
     <div className="min-h-screen bg-[#080808]">
-      <section className="pt-32 pb-12 px-6 max-w-7xl mx-auto">
+      <section className="pt-32 pb-12 px-6 max-w-[1440px] mx-auto">
         <p className="text-amber-500 text-xs font-semibold uppercase tracking-widest mb-4">By Mill Type</p>
         <h1 className="text-5xl md:text-7xl font-black text-white tracking-tight leading-[1.0] mb-6">
           Every paper mill.<br />
@@ -96,7 +96,7 @@ export default function ForIndexPage() {
         </p>
       </section>
 
-      <section className="pb-24 px-6 max-w-7xl mx-auto">
+      <section className="pb-24 px-6 max-w-[1440px] mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {MILL_TYPES.map((m) => (
             <Link

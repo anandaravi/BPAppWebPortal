@@ -36,7 +36,7 @@ export function Navbar() {
         ? "bg-[#080808]/95 backdrop-blur-xl border-b border-[#222]"
         : "bg-transparent"
     )}>
-      <nav className="max-w-7xl mx-auto px-6 flex items-center justify-between h-16">
+      <nav className="max-w-[1440px] mx-auto px-6 flex items-center justify-between h-16">
         <Link href="/" className="flex items-center gap-2 group">
           <Logo size="sm" />
         </Link>

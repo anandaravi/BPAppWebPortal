@@ -31,7 +31,7 @@ export default function CaseStudiesIndex() {
 
   return (
     <div className="min-h-screen bg-[#080808]">
-      <section className="pt-32 pb-12 px-6 max-w-7xl mx-auto">
+      <section className="pt-32 pb-12 px-6 max-w-[1440px] mx-auto">
         <p className="text-amber-500 text-xs font-semibold uppercase tracking-widest mb-4">
           Case Studies
         </p>
@@ -47,7 +47,7 @@ export default function CaseStudiesIndex() {
         </p>
       </section>
 
-      <section className="pb-24 px-6 max-w-7xl mx-auto">
+      <section className="pb-24 px-6 max-w-[1440px] mx-auto">
         {published.length === 0 ? (
           <div className="bg-[#0f0f0f] border border-[#1f1f1f] rounded-2xl p-12 text-center">
             <div className="w-12 h-12 mx-auto rounded-xl border border-amber-500/30 bg-amber-500/10 flex items-center justify-center mb-5">

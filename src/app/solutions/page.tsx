@@ -88,7 +88,7 @@ export default function SolutionsPage() {
         </div>
         <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-transparent via-amber-500 to-transparent opacity-60" />
 
-        <div className="relative max-w-7xl mx-auto px-6 pt-36 pb-20">
+        <div className="relative max-w-[1440px] mx-auto px-6 pt-36 pb-20">
           <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}
             className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-amber-500/30 bg-amber-500/10 text-amber-400 text-xs font-semibold uppercase tracking-widest mb-8">
             <Target size={12} /> Solutions by Role
@@ -120,7 +120,7 @@ export default function SolutionsPage() {
 
       {/* ROLES */}
       <section className="py-20 border-y border-[#1a1a1a]">
-        <div className="max-w-7xl mx-auto px-6 space-y-12">
+        <div className="max-w-[1440px] mx-auto px-6 space-y-12">
           {ROLES.map((r, i) => (
             <motion.div key={r.id}
               initial={{ opacity: 0, y: 20 }}

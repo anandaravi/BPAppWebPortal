@@ -15,7 +15,7 @@ const BADGES = [
 export function ComplianceStrip() {
   return (
     <section className="py-20 bg-[#080808] border-b border-[#1a1a1a]">
-      <div className="max-w-7xl mx-auto px-6">
+      <div className="max-w-[1440px] mx-auto px-6">
         <motion.div
           initial={{ opacity: 0, y: 12 }}
           whileInView={{ opacity: 1, y: 0 }}

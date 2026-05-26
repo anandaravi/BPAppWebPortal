@@ -34,7 +34,7 @@ export default function FeaturesPage() {
   return (
     <div className="min-h-screen bg-[#080808]">
       {/* HERO */}
-      <section className="pt-32 pb-12 px-6 max-w-7xl mx-auto">
+      <section className="pt-32 pb-12 px-6 max-w-[1440px] mx-auto">
         <motion.p
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
@@ -77,7 +77,7 @@ export default function FeaturesPage() {
 
       {/* GROUP FILTER PILLS */}
       {!search && (
-        <section className="px-6 max-w-7xl mx-auto mb-8">
+        <section className="px-6 max-w-[1440px] mx-auto mb-8">
           <div className="flex flex-wrap gap-2">
             <button
               onClick={() => setActiveGroup("all")}
@@ -104,7 +104,7 @@ export default function FeaturesPage() {
       )}
 
       {/* RESULTS / GROUPS */}
-      <section className="px-6 max-w-7xl mx-auto pb-24">
+      <section className="px-6 max-w-[1440px] mx-auto pb-24">
         <AnimatePresence mode="wait">
           {search && filteredCaps ? (
             // SEARCH RESULTS VIEW

@@ -292,7 +292,7 @@ export default function TechnicalPage() {
         </div>
         <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-transparent via-amber-500 to-transparent opacity-60" />
 
-        <div className="relative max-w-7xl mx-auto px-6 pt-36 pb-20">
+        <div className="relative max-w-[1440px] mx-auto px-6 pt-36 pb-20">
           <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}
             className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-amber-500/30 bg-amber-500/10 text-amber-400 text-xs font-semibold uppercase tracking-widest mb-8 max-w-max">
             <Server size={12} /> Technical & Deployment
@@ -324,7 +324,7 @@ export default function TechnicalPage() {
 
       {/* DEPLOYMENT MODELS */}
       <section className="py-24 border-y border-[#1a1a1a] bg-[#0a0a0a]">
-        <div className="max-w-7xl mx-auto px-6">
+        <div className="max-w-[1440px] mx-auto px-6">
           <p className="text-amber-500 text-xs font-semibold uppercase tracking-widest mb-3">Deployment Models</p>
           <h2 className="text-4xl md:text-5xl font-black text-white tracking-tight mb-4">Four ways to deploy.</h2>
           <p className="text-zinc-400 text-lg max-w-2xl mb-14">
@@ -371,7 +371,7 @@ export default function TechnicalPage() {
 
       {/* TOPOLOGIES — Standalone / HA / HADR */}
       <section className="py-24 border-b border-[#1a1a1a]">
-        <div className="max-w-7xl mx-auto px-6">
+        <div className="max-w-[1440px] mx-auto px-6">
           <p className="text-amber-500 text-xs font-semibold uppercase tracking-widest mb-3">Environment Topologies</p>
           <h2 className="text-4xl md:text-5xl font-black text-white tracking-tight mb-4">Standalone, HA, HADR.</h2>
           <p className="text-zinc-400 text-lg max-w-2xl mb-14">
@@ -536,7 +536,7 @@ export default function TechnicalPage() {
 
       {/* SIZING */}
       <section className="py-24 bg-[#0a0a0a] border-b border-[#1a1a1a]">
-        <div className="max-w-7xl mx-auto px-6">
+        <div className="max-w-[1440px] mx-auto px-6">
           <p className="text-amber-500 text-xs font-semibold uppercase tracking-widest mb-3">Sizing Reference</p>
           <h2 className="text-4xl font-black text-white tracking-tight mb-4">Hardware by scale.</h2>
           <p className="text-zinc-400 text-lg max-w-2xl mb-12">
@@ -577,7 +577,7 @@ export default function TechnicalPage() {
 
       {/* SOFTWARE STACK */}
       <section className="py-24 border-b border-[#1a1a1a]">
-        <div className="max-w-7xl mx-auto px-6">
+        <div className="max-w-[1440px] mx-auto px-6">
           <p className="text-amber-500 text-xs font-semibold uppercase tracking-widest mb-3">Software Stack</p>
           <h2 className="text-4xl font-black text-white tracking-tight mb-4">Open, standard, supported.</h2>
           <p className="text-zinc-400 text-lg max-w-2xl mb-12">
@@ -608,7 +608,7 @@ export default function TechnicalPage() {
 
       {/* EXTENSIONS */}
       <section className="py-24 bg-[#0a0a0a] border-b border-[#1a1a1a]">
-        <div className="max-w-7xl mx-auto px-6">
+        <div className="max-w-[1440px] mx-auto px-6">
           <p className="text-amber-500 text-xs font-semibold uppercase tracking-widest mb-3">Extensions & Integrations</p>
           <h2 className="text-4xl md:text-5xl font-black text-white tracking-tight mb-4">Plugs into your ecosystem.</h2>
           <p className="text-zinc-400 text-lg max-w-2xl mb-14">
@@ -647,7 +647,7 @@ export default function TechnicalPage() {
 
       {/* SECURITY */}
       <section className="py-24 border-b border-[#1a1a1a]">
-        <div className="max-w-7xl mx-auto px-6">
+        <div className="max-w-[1440px] mx-auto px-6">
           <p className="text-amber-500 text-xs font-semibold uppercase tracking-widest mb-3">Security & Compliance</p>
           <h2 className="text-4xl font-black text-white tracking-tight mb-4">Encrypted. Audited. Compliant.</h2>
           <p className="text-zinc-400 text-lg max-w-2xl mb-12">
@@ -675,7 +675,7 @@ export default function TechnicalPage() {
 
       {/* INSTALLATION TIMELINE */}
       <section className="py-24 bg-[#0a0a0a] border-b border-[#1a1a1a]">
-        <div className="max-w-7xl mx-auto px-6">
+        <div className="max-w-[1440px] mx-auto px-6">
           <p className="text-amber-500 text-xs font-semibold uppercase tracking-widest mb-3">Installation Plan</p>
           <h2 className="text-4xl font-black text-white tracking-tight mb-4">From kickoff to go-live in 2 weeks.</h2>
           <p className="text-zinc-400 text-lg max-w-2xl mb-12">

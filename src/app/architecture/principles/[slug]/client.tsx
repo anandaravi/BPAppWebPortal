@@ -28,7 +28,7 @@ export function PrincipleDetailClient({ slug }: { slug: string }) {
         </div>
         <div className="absolute left-0 top-0 bottom-0 w-1" style={{ background: `linear-gradient(to bottom, transparent, ${p.accent}, transparent)` }} />
 
-        <div className="relative max-w-7xl mx-auto px-6 pt-32 pb-20">
+        <div className="relative max-w-[1440px] mx-auto px-6 pt-32 pb-20">
           <motion.nav initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}
             className="flex items-center gap-2 text-xs text-zinc-500 mb-8">
             <Link href="/architecture" className="hover:text-amber-400 transition-colors">Architecture</Link>
@@ -70,7 +70,7 @@ export function PrincipleDetailClient({ slug }: { slug: string }) {
 
       {/* WHAT IT MEANS */}
       <section className="py-20 border-y border-[#1a1a1a]">
-        <div className="max-w-7xl mx-auto px-6">
+        <div className="max-w-[1440px] mx-auto px-6">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
             <div>
               <p className="text-xs font-semibold uppercase tracking-widest mb-3" style={{ color: p.accent }}>What this means</p>
@@ -95,7 +95,7 @@ export function PrincipleDetailClient({ slug }: { slug: string }) {
 
       {/* HOW IT WORKS */}
       <section className="py-20 bg-[#0a0a0a] border-b border-[#1a1a1a]">
-        <div className="max-w-7xl mx-auto px-6">
+        <div className="max-w-[1440px] mx-auto px-6">
           <p className="text-xs font-semibold uppercase tracking-widest mb-3" style={{ color: p.accent }}>How it works</p>
           <h2 className="text-3xl md:text-4xl font-black text-white tracking-tight mb-12">Under the hood.</h2>
 
@@ -230,7 +230,7 @@ export function PrincipleDetailClient({ slug }: { slug: string }) {
 
       {/* EXAMPLE */}
       <section className="py-20 border-b border-[#1a1a1a]">
-        <div className="max-w-7xl mx-auto px-6">
+        <div className="max-w-[1440px] mx-auto px-6">
           <p className="text-xs font-semibold uppercase tracking-widest mb-3" style={{ color: p.accent }}>Real-World Example</p>
           <h2 className="text-3xl md:text-4xl font-black text-white tracking-tight mb-3">{p.example.title}</h2>
 
@@ -253,7 +253,7 @@ export function PrincipleDetailClient({ slug }: { slug: string }) {
 
       {/* PREV / NEXT */}
       <section className="py-16 bg-[#0a0a0a] border-b border-[#1a1a1a]">
-        <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="max-w-[1440px] mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-4">
           {prev ? (
             <Link href={`/architecture/principles/${prev.slug}`}
               className="group bg-[#0f0f0f] border border-[#1f1f1f] rounded-xl p-5 hover:border-amber-500/30 transition-colors">

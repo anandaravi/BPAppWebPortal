@@ -92,7 +92,7 @@ export default function ComparePage() {
   return (
     <div className="min-h-screen bg-[#080808]">
       {/* HERO */}
-      <section className="pt-32 pb-12 px-6 max-w-7xl mx-auto">
+      <section className="pt-32 pb-12 px-6 max-w-[1440px] mx-auto">
         <p className="text-amber-500 text-xs font-semibold uppercase tracking-widest mb-4">Compare</p>
         <h1 className="text-5xl md:text-7xl font-black text-white tracking-tight leading-[1.0] mb-6">
           13 alternatives.<br />
@@ -120,7 +120,7 @@ export default function ComparePage() {
       </section>
 
       {/* GROUPS */}
-      <section className="pb-24 px-6 max-w-7xl mx-auto space-y-16">
+      <section className="pb-24 px-6 max-w-[1440px] mx-auto space-y-16">
         {GROUPS.map((g) => {
           const Icon = g.icon;
           return (

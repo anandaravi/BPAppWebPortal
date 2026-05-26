@@ -492,7 +492,7 @@ export default function ResourcesPage() {
         <div className="absolute inset-0 bg-gradient-to-t from-[#080808] via-transparent to-transparent" />
         <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-transparent via-amber-500 to-transparent opacity-60" />
 
-        <div className="relative max-w-7xl mx-auto px-6 pt-36 pb-20">
+        <div className="relative max-w-[1440px] mx-auto px-6 pt-36 pb-20">
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
@@ -543,7 +543,7 @@ export default function ResourcesPage() {
 
       {/* TAB NAV + CONTENT */}
       <section className="py-16 border-t border-[#1a1a1a]">
-        <div className="max-w-7xl mx-auto px-6">
+        <div className="max-w-[1440px] mx-auto px-6">
           {/* Tabs */}
           <div className="flex items-center gap-1 mb-12 border-b border-[#1a1a1a] overflow-x-auto">
             {TABS.map((tab) => (

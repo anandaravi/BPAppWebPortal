@@ -20,7 +20,7 @@ export function Hero() {
       {/* Amber vertical accent line */}
       <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-transparent via-amber-500 to-transparent opacity-60" />
 
-      <div className="relative z-10 max-w-7xl mx-auto px-6 pt-36 pb-24 min-h-screen flex flex-col justify-center">
+      <div className="relative z-10 max-w-[1440px] mx-auto px-6 pt-36 pb-24 min-h-screen flex flex-col justify-center">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
 
           {/* LEFT: Copy */}

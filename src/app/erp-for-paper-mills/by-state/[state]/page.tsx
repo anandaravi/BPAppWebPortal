@@ -65,7 +65,7 @@ export default async function Page({ params }: { params: Promise<{ state: string
         ]}
       />
 
-      <section className="pt-32 pb-12 px-6 max-w-7xl mx-auto">
+      <section className="pt-32 pb-12 px-6 max-w-[1440px] mx-auto">
         <Link
           href="/erp-for-paper-mills"
           className="inline-flex items-center gap-1.5 text-xs text-zinc-500 hover:text-amber-400 mb-6 transition-colors"
@@ -107,7 +107,7 @@ export default async function Page({ params }: { params: Promise<{ state: string
         </div>
       </section>
 
-      <section className="pb-16 px-6 max-w-7xl mx-auto">
+      <section className="pb-16 px-6 max-w-[1440px] mx-auto">
         <p className="text-emerald-300 text-xs font-semibold uppercase tracking-widest mb-3">
           Paper mill hubs in {s.name}
         </p>
@@ -155,7 +155,7 @@ export default async function Page({ params }: { params: Promise<{ state: string
         </div>
       </section>
 
-      <section className="pb-20 px-6 max-w-7xl mx-auto">
+      <section className="pb-20 px-6 max-w-[1440px] mx-auto">
         <p className="text-emerald-300 text-xs font-semibold uppercase tracking-widest mb-3">
           Grades served
         </p>

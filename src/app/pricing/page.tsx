@@ -114,7 +114,7 @@ export default function PricingPage() {
         </div>
         <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-transparent via-amber-500 to-transparent opacity-60" />
 
-        <div className="relative max-w-7xl mx-auto px-6 pt-36 pb-20">
+        <div className="relative max-w-[1440px] mx-auto px-6 pt-36 pb-20">
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
@@ -174,7 +174,7 @@ export default function PricingPage() {
 
       {/* HOW IT WORKS */}
       <section className="py-20 border-y border-[#1a1a1a]">
-        <div className="max-w-7xl mx-auto px-6">
+        <div className="max-w-[1440px] mx-auto px-6">
           <p className="text-amber-500 text-xs font-semibold uppercase tracking-widest mb-3">
             Four Dimensions
           </p>
@@ -221,7 +221,7 @@ export default function PricingPage() {
 
       {/* WHY PLUGGABLE */}
       <section className="py-20 bg-[#0a0a0a] border-b border-[#1a1a1a]">
-        <div className="max-w-7xl mx-auto px-6">
+        <div className="max-w-[1440px] mx-auto px-6">
           <p className="text-amber-500 text-xs font-semibold uppercase tracking-widest mb-3">
             Why Pluggable?
           </p>
@@ -287,7 +287,7 @@ export default function PricingPage() {
 
       {/* INDICATIVE PRICING */}
       <section className="py-20 border-b border-[#1a1a1a]">
-        <div className="max-w-7xl mx-auto px-6">
+        <div className="max-w-[1440px] mx-auto px-6">
           <p className="text-amber-500 text-xs font-semibold uppercase tracking-widest mb-3">
             Indicative Annual Cost
           </p>
@@ -425,7 +425,7 @@ export default function PricingPage() {
 
       {/* MODULE GROUPS OVERVIEW */}
       <section className="py-20 border-b border-[#1a1a1a]">
-        <div className="max-w-7xl mx-auto px-6">
+        <div className="max-w-[1440px] mx-auto px-6">
           <p className="text-amber-500 text-xs font-semibold uppercase tracking-widest mb-3">
             44 Modules Across 6 Groups
           </p>

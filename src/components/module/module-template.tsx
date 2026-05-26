@@ -24,7 +24,7 @@ export function ModuleTemplate({ data }: { data: ModuleData }) {
 
       {/* Workflow + Doc flow */}
       <section className="py-20 border-b border-[#1a1a1a] bg-[#080808]">
-        <div className="max-w-7xl mx-auto px-6 space-y-6">
+        <div className="max-w-[1440px] mx-auto px-6 space-y-6">
           <div>
             <p className="text-xs font-semibold uppercase tracking-widest mb-3" style={{ color: data.accent }}>
               How It Works

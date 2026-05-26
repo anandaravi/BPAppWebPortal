@@ -12,7 +12,7 @@ export type Integration = {
 export function IntegrationMap({ moduleName, integrations, accent }: { moduleName: string; integrations: Integration[]; accent: string }) {
   return (
     <section className="py-20 bg-[#0a0a0a] border-b border-[#1a1a1a]">
-      <div className="max-w-7xl mx-auto px-6">
+      <div className="max-w-[1440px] mx-auto px-6">
         <p className="text-xs font-semibold uppercase tracking-widest mb-3" style={{ color: accent }}>Integrations</p>
         <h2 className="text-3xl md:text-4xl font-black text-white tracking-tight mb-2">Works with everything else.</h2>
         <p className="text-zinc-500 mb-12 max-w-2xl">Every {moduleName} action flows into the other modules — no manual data re-entry, no reconciliation pain.</p>

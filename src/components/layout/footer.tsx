@@ -35,7 +35,7 @@ export function Footer() {
   return (
     <footer className="border-t border-[#1a1a1a] bg-[#080808] relative overflow-hidden">
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-amber-500/30 to-transparent" />
-      <div className="max-w-7xl mx-auto px-6 py-14">
+      <div className="max-w-[1440px] mx-auto px-6 py-14">
         <div className="grid grid-cols-1 lg:grid-cols-[220px_1fr] gap-10">
           <div className="flex flex-col gap-4">
             <Link href="/" className="inline-block">
