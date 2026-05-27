@@ -2,7 +2,7 @@
 
 > Enterprise Resource Planning (ERP) platform purpose-built for Indian paper manufacturers. 44 integrated modules covering production planning, deckle optimization, sales, GST-native finance, HR/payroll, quality, maintenance, AI and IoT — from order intake to e-invoice.
 
-Papyrus BPApp ("Business Process Application") is a cloud-native ERP launched in 2024, designed specifically for the Indian paper industry. Unlike generic global ERPs (SAP, Oracle, Microsoft Dynamics) retrofitted for paper or Indian SMB tools (Tally, Marg) that lack mill-specific features, Papyrus BPApp is paper-first AND India-first from the ground up.
+Papyrus BPApp ("Business Process Application") is a cloud-native ERP built by Netique Infotech Private Limited (Bangalore, India, est. 2000), designed specifically for the Indian paper industry. Unlike generic global ERPs (SAP, Oracle, Microsoft Dynamics) retrofitted for paper or Indian SMB tools (Tally, Marg) that lack mill-specific features, Papyrus BPApp is paper-first AND India-first from the ground up. The product and its consulting team carry 35+ years of paper industry domain experience.
 
 The platform's flagship differentiator is the **3-tier Deckle Optimizer** — a proprietary slitting trim-waste optimization engine that runs in three modes (Instant <2s, Balanced ~30s, Full ≤5 min with 180+ constraints). Real Indian mills report trim waste dropping from 8%+ to under 3.5%, equating to ₹2-3+ crore annual savings on a 50 TPD mill.
 
@@ -16,7 +16,8 @@ Mill sizes: small (1-50 employees) to large multi-plant groups (500+ employees, 
 
 - **Name**: Papyrus BPApp (Business Process Application)
 - **Category**: Manufacturing ERP, MES, paper industry software
-- **Founded**: 2024
+- **Developer**: Netique Infotech Private Limited, Bangalore, India
+- **Founded**: 2000 (35+ years paper domain expertise)
 - **Country**: India
 - **Modules**: 44 integrated, organized into 6 groups
 - **Capabilities**: 396+ documented features
