@@ -34,12 +34,12 @@ export const ORGANIZATION_SCHEMA = {
     { "@type": "Brand", name: "Papyrus360" },
   ],
   owns: [
-    { "@type": "Product", name: "NDM (Netique Deckle Matcher)" },
-    { "@type": "Product", name: "Paper Agent" },
-    { "@type": "Product", name: "Optrim" },
-    { "@type": "Product", name: "Optrim Web" },
-    { "@type": "Product", name: "Papyrus Production Manager" },
-    { "@type": "Product", name: "Papyrus BPApp" },
+    { "@type": "Product", name: "NDM (Netique Deckle Matcher)", offers: { "@type": "Offer", priceCurrency: "INR", price: "0", url: `${SITE.url}/contact` } },
+    { "@type": "Product", name: "Paper Agent", offers: { "@type": "Offer", priceCurrency: "INR", price: "0", url: `${SITE.url}/contact` } },
+    { "@type": "Product", name: "Optrim", offers: { "@type": "Offer", priceCurrency: "INR", price: "0", url: `${SITE.url}/contact` } },
+    { "@type": "Product", name: "Optrim Web", offers: { "@type": "Offer", priceCurrency: "INR", price: "0", url: `${SITE.url}/contact` } },
+    { "@type": "Product", name: "Papyrus Production Manager", offers: { "@type": "Offer", priceCurrency: "INR", price: "0", url: `${SITE.url}/contact` } },
+    { "@type": "Product", name: "Papyrus BPApp", offers: { "@type": "Offer", priceCurrency: "INR", price: "0", url: `${SITE.url}/contact` } },
   ],
   sameAs: [
     "https://github.com/anandaravi/BPAppWebPortal",
