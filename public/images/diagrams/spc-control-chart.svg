@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="360" viewBox="0 0 1000 360">
+  <defs>
+    <style>text { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }</style>
+  </defs>
+  <rect width="1000" height="360" fill="#0a0a0a" rx="12"/>
+  <text x="40" y="36" font-size="15" fill="#FAFAFA" font-weight="700" text-anchor="start" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">GSM Control Chart (SPC)</text>
+<text x="40" y="54" font-size="11" fill="#71717A" font-weight="400" text-anchor="start" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">Production Quality — Papyrus BPApp</text>
+  <line x1="80" y1="124" x2="940" y2="124" stroke="#EF4444" stroke-width="1" stroke-dasharray="6,3"/>
+<text x="948" y="128" font-size="10" fill="#EF4444" font-weight="600" text-anchor="start" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">UCL</text>
+  <line x1="80" y1="190" x2="940" y2="190" stroke="#10B981" stroke-width="1" stroke-dasharray="6,3"/>
+<text x="948" y="194" font-size="10" fill="#10B981" font-weight="600" text-anchor="start" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">Target</text>
+  <line x1="80" y1="256" x2="940" y2="256" stroke="#EF4444" stroke-width="1" stroke-dasharray="6,3"/>
+<text x="948" y="260" font-size="10" fill="#EF4444" font-weight="600" text-anchor="start" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">LCL</text>
+  <rect x="80" y="124" width="860" height="132" fill="#10B9810a"/>
+  <polyline points="80,207.59999999999994 125.26315789473685,187.80000000000013 170.5263157894737,194.40000000000006 215.78947368421052,183.40000000000006 261.0526315789474,165.80000000000013 306.3157894736842,192.19999999999987 351.57894736842104,179 396.8421052631579,196.59999999999994 442.10526315789474,185.59999999999994 487.36842105263156,115.19999999999987 532.6315789473684,190 577.8947368421052,198.80000000000013 623.1578947368421,172.40000000000006 668.421052631579,260.4000000000001 713.6842105263158,183.40000000000006 758.9473684210526,192.19999999999987 804.2105263157895,181.19999999999987 849.4736842105264,187.80000000000013 894.7368421052631,194.40000000000006 940,168" fill="none" stroke="#3B82F6" stroke-width="2"/>
+  <circle cx="80" cy="207.59999999999994" r="4" fill="#3B82F6" stroke="#0a0a0a" stroke-width="2"/>
+  <circle cx="125.26315789473685" cy="187.80000000000013" r="4" fill="#3B82F6" stroke="#0a0a0a" stroke-width="2"/>
+  <circle cx="170.5263157894737" cy="194.40000000000006" r="4" fill="#3B82F6" stroke="#0a0a0a" stroke-width="2"/>
+  <circle cx="215.78947368421052" cy="183.40000000000006" r="4" fill="#3B82F6" stroke="#0a0a0a" stroke-width="2"/>
+  <circle cx="261.0526315789474" cy="165.80000000000013" r="4" fill="#3B82F6" stroke="#0a0a0a" stroke-width="2"/>
+  <circle cx="306.3157894736842" cy="192.19999999999987" r="4" fill="#3B82F6" stroke="#0a0a0a" stroke-width="2"/>
+  <circle cx="351.57894736842104" cy="179" r="4" fill="#3B82F6" stroke="#0a0a0a" stroke-width="2"/>
+  <circle cx="396.8421052631579" cy="196.59999999999994" r="4" fill="#3B82F6" stroke="#0a0a0a" stroke-width="2"/>
+  <circle cx="442.10526315789474" cy="185.59999999999994" r="4" fill="#3B82F6" stroke="#0a0a0a" stroke-width="2"/>
+  <circle cx="487.36842105263156" cy="115.19999999999987" r="6" fill="#EF4444" stroke="#0a0a0a" stroke-width="2"/>
+  <text x="487.36842105263156" y="103.19999999999987" font-size="9" fill="#EF4444" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">⚠ 78.4</text>
+  <circle cx="532.6315789473684" cy="190" r="4" fill="#3B82F6" stroke="#0a0a0a" stroke-width="2"/>
+  <circle cx="577.8947368421052" cy="198.80000000000013" r="4" fill="#3B82F6" stroke="#0a0a0a" stroke-width="2"/>
+  <circle cx="623.1578947368421" cy="172.40000000000006" r="4" fill="#3B82F6" stroke="#0a0a0a" stroke-width="2"/>
+  <circle cx="668.421052631579" cy="260.4000000000001" r="6" fill="#EF4444" stroke="#0a0a0a" stroke-width="2"/>
+  <text x="668.421052631579" y="248.4000000000001" font-size="9" fill="#EF4444" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">⚠ 71.8</text>
+  <circle cx="713.6842105263158" cy="183.40000000000006" r="4" fill="#3B82F6" stroke="#0a0a0a" stroke-width="2"/>
+  <circle cx="758.9473684210526" cy="192.19999999999987" r="4" fill="#3B82F6" stroke="#0a0a0a" stroke-width="2"/>
+  <circle cx="804.2105263157895" cy="181.19999999999987" r="4" fill="#3B82F6" stroke="#0a0a0a" stroke-width="2"/>
+  <circle cx="849.4736842105264" cy="187.80000000000013" r="4" fill="#3B82F6" stroke="#0a0a0a" stroke-width="2"/>
+  <circle cx="894.7368421052631" cy="194.40000000000006" r="4" fill="#3B82F6" stroke="#0a0a0a" stroke-width="2"/>
+  <circle cx="940" cy="168" r="4" fill="#3B82F6" stroke="#0a0a0a" stroke-width="2"/>
+  <text x="70" y="304" font-size="10" fill="#71717A" font-weight="600" text-anchor="end" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">70</text>
+  <text x="70" y="260" font-size="10" fill="#71717A" font-weight="600" text-anchor="end" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">72</text>
+  <text x="70" y="216" font-size="10" fill="#71717A" font-weight="600" text-anchor="end" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">74</text>
+  <text x="70" y="172" font-size="10" fill="#71717A" font-weight="600" text-anchor="end" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">76</text>
+  <text x="70" y="128" font-size="10" fill="#71717A" font-weight="600" text-anchor="end" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">78</text>
+  <text x="70" y="84" font-size="10" fill="#71717A" font-weight="600" text-anchor="end" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">80</text>
+  <text x="500" y="320" font-size="11" fill="#71717A" font-weight="600" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">Sample number →</text>
+  <text x="20" y="190" font-size="11" fill="#71717A" font-weight="600" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">GSM</text>
+  <text x="500" y="344" font-size="11" fill="#71717A" font-weight="600" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">2 violations detected (samples 10 and 14) → auto NCR raised in BPApp</text>
+  <text x="500" y="346" font-size="10" fill="#71717A" font-weight="400" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">Papyrus BPApp · papyrus360.com</text>
+</svg>

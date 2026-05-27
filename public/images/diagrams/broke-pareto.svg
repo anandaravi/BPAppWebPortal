@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="380" viewBox="0 0 900 380">
+  <defs>
+    <style>text { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }</style>
+  </defs>
+  <rect width="900" height="380" fill="#0a0a0a" rx="12"/>
+  <text x="40" y="36" font-size="15" fill="#FAFAFA" font-weight="700" text-anchor="start" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">Broke Loss — Pareto Analysis</text>
+<text x="40" y="54" font-size="11" fill="#71717A" font-weight="400" text-anchor="start" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">Broke Management · Papyrus BPApp</text>
+  <line x1="100" y1="245" x2="740" y2="245" stroke="#2a2a2a" stroke-width="1" stroke-dasharray="4,4"/>
+  <text x="90" y="249" font-size="10" fill="#71717A" font-weight="600" text-anchor="end" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">25%</text>
+  <line x1="100" y1="190" x2="740" y2="190" stroke="#2a2a2a" stroke-width="1" stroke-dasharray="4,4"/>
+  <text x="90" y="194" font-size="10" fill="#71717A" font-weight="600" text-anchor="end" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">50%</text>
+  <line x1="100" y1="135" x2="740" y2="135" stroke="#2a2a2a" stroke-width="1" stroke-dasharray="4,4"/>
+  <text x="90" y="139" font-size="10" fill="#71717A" font-weight="600" text-anchor="end" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">75%</text>
+  <line x1="100" y1="79.99999999999997" x2="740" y2="79.99999999999997" stroke="#2a2a2a" stroke-width="1" stroke-dasharray="4,4"/>
+  <text x="90" y="83.99999999999997" font-size="10" fill="#71717A" font-weight="600" text-anchor="end" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">100%</text>
+  <line x1="100" y1="300" x2="740" y2="300" stroke="#333333" stroke-width="1.5"/>
+  <rect x="100" y="207.6" width="140" height="92.4" rx="4" fill="#EF444422" stroke="#EF4444" stroke-width="1.5"/>
+  <text x="170" y="199.6" font-size="13" fill="#EF4444" font-weight="700" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">42%</text>
+  <text x="170" y="320" font-size="12" fill="#A1A1AA" font-weight="600" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">Wet-end</text>
+  <rect x="260" y="238.39999999999998" width="140" height="61.60000000000001" rx="4" fill="#F9731622" stroke="#F97316" stroke-width="1.5"/>
+  <text x="330" y="230.39999999999998" font-size="13" fill="#F97316" font-weight="700" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">28%</text>
+  <text x="330" y="320" font-size="12" fill="#A1A1AA" font-weight="600" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">Dry-end</text>
+  <rect x="420" y="260.4" width="140" height="39.6" rx="4" fill="#F59E0B22" stroke="#F59E0B" stroke-width="1.5"/>
+  <text x="490" y="252.39999999999998" font-size="13" fill="#F59E0B" font-weight="700" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">18%</text>
+  <text x="490" y="320" font-size="12" fill="#A1A1AA" font-weight="600" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">Converting</text>
+  <rect x="580" y="273.6" width="140" height="26.400000000000002" rx="4" fill="#71717A22" stroke="#71717A" stroke-width="1.5"/>
+  <text x="650" y="265.6" font-size="13" fill="#71717A" font-weight="700" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">12%</text>
+  <text x="650" y="320" font-size="12" fill="#A1A1AA" font-weight="600" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">Other</text>
+  <polyline points="170,300 170,207.6 330,146 490,106.39999999999998 650,79.99999999999997" fill="none" stroke="#F59E0B" stroke-width="2" stroke-dasharray="5,3"/>
+  <circle cx="170" cy="207.6" r="5" fill="#F59E0B" stroke="#0a0a0a" stroke-width="2"/>
+  <text x="180" y="201.6" font-size="10" fill="#F59E0B" font-weight="600" text-anchor="start" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">42%</text>
+  <circle cx="330" cy="146" r="5" fill="#F59E0B" stroke="#0a0a0a" stroke-width="2"/>
+  <text x="340" y="140" font-size="10" fill="#F59E0B" font-weight="600" text-anchor="start" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">70%</text>
+  <circle cx="490" cy="106.39999999999998" r="5" fill="#F59E0B" stroke="#0a0a0a" stroke-width="2"/>
+  <text x="500" y="100.39999999999998" font-size="10" fill="#F59E0B" font-weight="600" text-anchor="start" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">88%</text>
+  <circle cx="650" cy="79.99999999999997" r="5" fill="#F59E0B" stroke="#0a0a0a" stroke-width="2"/>
+  <text x="660" y="73.99999999999997" font-size="10" fill="#F59E0B" font-weight="600" text-anchor="start" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">100%</text>
+  <rect x="760" y="90" width="12" height="12" rx="2" fill="#F59E0B" stroke="#F59E0B"/>
+  <text x="778" y="101" font-size="11" fill="#A1A1AA" font-weight="600" text-anchor="start" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">Cumulative</text>
+  <text x="450" y="364" font-size="11" fill="#71717A" font-weight="600" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">Top 2 causes (wet-end + dry-end) account for 70% of broke loss</text>
+  <text x="450" y="366" font-size="10" fill="#71717A" font-weight="400" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">Papyrus BPApp · papyrus360.com</text>
+</svg>

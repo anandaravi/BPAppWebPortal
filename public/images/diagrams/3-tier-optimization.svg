@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="420" viewBox="0 0 1200 420">
+  <defs>
+    <style>text { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }</style>
+  </defs>
+  <rect width="1200" height="420" fill="#0a0a0a" rx="12"/>
+  <text x="40" y="36" font-size="15" fill="#FAFAFA" font-weight="700" text-anchor="start" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">3-Tier Deckle Optimization Engine</text>
+<text x="40" y="54" font-size="11" fill="#71717A" font-weight="400" text-anchor="start" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">Papyrus BPApp Deckle Optimizer</text>
+  <rect x="80" y="110" width="320" height="260" rx="12" fill="#10B98122" stroke="#10B981" stroke-width="1.5"/>
+  <text x="240" y="140" font-size="14" fill="#10B981" font-weight="700" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">Tier 1 — Instant</text>
+  <text x="240" y="160" font-size="11" fill="#71717A" font-weight="500" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">< 2 seconds</text>
+  <line x1="100" y1="174" x2="380" y2="174" stroke="#10B98144" stroke-width="1"/>
+  <text x="240" y="202" font-size="12" fill="#A1A1AA" font-weight="400" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">Shop floor adjustments</text>
+  <text x="240" y="224" font-size="12" fill="#A1A1AA" font-weight="400" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">Pocket changes</text>
+  <text x="240" y="246" font-size="12" fill="#A1A1AA" font-weight="400" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">Single reel decisions</text>
+  <rect x="100" y="326" width="280" height="28" rx="6" fill="#10B98122" stroke="#10B98144" stroke-width="1"/>
+  <text x="240" y="346" font-size="11" fill="#10B981" font-weight="600" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">Immediate feedback</text>
+  <rect x="440" y="110" width="320" height="260" rx="12" fill="#F59E0B22" stroke="#F59E0B" stroke-width="1.5"/>
+  <text x="600" y="140" font-size="14" fill="#F59E0B" font-weight="700" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">Tier 2 — Balanced</text>
+  <text x="600" y="160" font-size="11" fill="#71717A" font-weight="500" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">5 – 30 seconds</text>
+  <line x1="460" y1="174" x2="740" y2="174" stroke="#F59E0B44" stroke-width="1"/>
+  <text x="600" y="202" font-size="12" fill="#A1A1AA" font-weight="400" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">Shift planning</text>
+  <text x="600" y="224" font-size="12" fill="#A1A1AA" font-weight="400" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">Multi-order batching</text>
+  <text x="600" y="246" font-size="12" fill="#A1A1AA" font-weight="400" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">Pattern matching</text>
+  <rect x="460" y="326" width="280" height="28" rx="6" fill="#F59E0B22" stroke="#F59E0B44" stroke-width="1"/>
+  <text x="600" y="346" font-size="11" fill="#F59E0B" font-weight="600" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">Operator-guided</text>
+  <rect x="800" y="110" width="320" height="260" rx="12" fill="#EF444422" stroke="#EF4444" stroke-width="1.5"/>
+  <text x="960" y="140" font-size="14" fill="#EF4444" font-weight="700" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">Tier 3 — Full Optimize</text>
+  <text x="960" y="160" font-size="11" fill="#71717A" font-weight="500" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">≤ 5 minutes</text>
+  <line x1="820" y1="174" x2="1100" y2="174" stroke="#EF444444" stroke-width="1"/>
+  <text x="960" y="202" font-size="12" fill="#A1A1AA" font-weight="400" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">Daily / weekly planning</text>
+  <text x="960" y="224" font-size="12" fill="#A1A1AA" font-weight="400" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">180+ constraints</text>
+  <text x="960" y="246" font-size="12" fill="#A1A1AA" font-weight="400" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">Pattern learning</text>
+  <rect x="820" y="326" width="280" height="28" rx="6" fill="#EF444422" stroke="#EF444444" stroke-width="1"/>
+  <text x="960" y="346" font-size="11" fill="#EF4444" font-weight="600" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">Autonomous + learning</text>
+  <line x1="404" y1="240" x2="428" y2="240" stroke="#333333" stroke-width="1.5" stroke-dasharray="none"/>
+<polygon points="436,240 428,244 428,236" fill="#333333"/>
+  <line x1="764" y1="240" x2="788" y2="240" stroke="#333333" stroke-width="1.5" stroke-dasharray="none"/>
+<polygon points="796,240 788,244 788,236" fill="#333333"/>
+  <text x="600" y="392" font-size="11" fill="#71717A" font-weight="400" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">All tiers share the same constraint model — escalate automatically based on time available</text>
+  <text x="600" y="406" font-size="10" fill="#71717A" font-weight="400" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">Papyrus BPApp · papyrus360.com</text>
+</svg>

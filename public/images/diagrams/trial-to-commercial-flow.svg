@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="200" viewBox="0 0 1200 200">
+  <defs>
+    <style>text { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }</style>
+  </defs>
+  <rect width="1200" height="200" fill="#0a0a0a" rx="12"/>
+  <text x="40" y="32" font-size="15" fill="#FAFAFA" font-weight="700" text-anchor="start" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">Recipe: Trial to Commercial</text>
+<text x="40" y="50" font-size="11" fill="#71717A" font-weight="400" text-anchor="start" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">Recipe Development</text>
+  <rect x="40" y="78" width="130" height="64" rx="10" fill="#10B98122" stroke="#10B981" stroke-width="1.5"/>
+<text x="105" y="103" font-size="12" fill="#10B981" font-weight="600" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">Lab Trial</text>
+<text x="105" y="120" font-size="10" fill="#71717A" font-weight="500" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">small scale</text>
+  <line x1="174" y1="110" x2="275.5" y2="110" stroke="#333333" stroke-width="1.5" stroke-dasharray="none"/>
+<polygon points="283.5,110 275.5,114 275.5,106" fill="#333333"/>
+  <rect x="287.5" y="78" width="130" height="64" rx="10" fill="#F59E0B22" stroke="#F59E0B" stroke-width="1.5"/>
+<text x="352.5" y="103" font-size="12" fill="#F59E0B" font-weight="600" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">Mill Trial</text>
+<text x="352.5" y="120" font-size="10" fill="#71717A" font-weight="500" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">production</text>
+  <line x1="421.5" y1="110" x2="523" y2="110" stroke="#333333" stroke-width="1.5" stroke-dasharray="none"/>
+<polygon points="531,110 523,114 523,106" fill="#333333"/>
+  <rect x="535" y="78" width="130" height="64" rx="10" fill="#71717A22" stroke="#71717A" stroke-width="1.5"/>
+<text x="600" y="103" font-size="12" fill="#71717A" font-weight="600" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">Customer Sample</text>
+<text x="600" y="120" font-size="10" fill="#71717A" font-weight="500" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">feedback</text>
+  <line x1="669" y1="110" x2="770.5" y2="110" stroke="#333333" stroke-width="1.5" stroke-dasharray="none"/>
+<polygon points="778.5,110 770.5,114 770.5,106" fill="#333333"/>
+  <rect x="782.5" y="78" width="130" height="64" rx="10" fill="#71717A22" stroke="#71717A" stroke-width="1.5"/>
+<text x="847.5" y="103" font-size="12" fill="#71717A" font-weight="600" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">Approval</text>
+<text x="847.5" y="120" font-size="10" fill="#71717A" font-weight="500" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">sign-off</text>
+  <line x1="916.5" y1="110" x2="1018" y2="110" stroke="#333333" stroke-width="1.5" stroke-dasharray="none"/>
+<polygon points="1026,110 1018,114 1018,106" fill="#333333"/>
+  <rect x="1030" y="78" width="130" height="64" rx="10" fill="#F59E0B22" stroke="#F59E0B" stroke-width="1.5"/>
+<text x="1095" y="103" font-size="12" fill="#F59E0B" font-weight="600" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">Commercial</text>
+<text x="1095" y="120" font-size="10" fill="#71717A" font-weight="500" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">released</text>
+  <text x="600" y="186" font-size="10" fill="#71717A" font-weight="400" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">Papyrus BPApp · papyrus360.com</text>
+</svg>

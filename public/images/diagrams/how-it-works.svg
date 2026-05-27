@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="220" viewBox="0 0 1200 220">
+  <defs>
+    <style>text { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }</style>
+  </defs>
+  <rect width="1200" height="220" fill="#0a0a0a" rx="12"/>
+  <text x="40" y="32" font-size="15" fill="#FAFAFA" font-weight="700" text-anchor="start" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">How Papyrus BPApp Works</text>
+<text x="40" y="50" font-size="11" fill="#71717A" font-weight="400" text-anchor="start" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">End-to-end paper mill operations</text>
+  <rect x="40" y="88" width="130" height="64" rx="10" fill="#10B98122" stroke="#10B981" stroke-width="1.5"/>
+<text x="105" y="113" font-size="12" fill="#10B981" font-weight="600" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">Order</text>
+<text x="105" y="130" font-size="10" fill="#71717A" font-weight="500" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">enquiry → SO</text>
+  <line x1="174" y1="120" x2="193" y2="120" stroke="#333333" stroke-width="1.5" stroke-dasharray="none"/>
+<polygon points="201,120 193,124 193,116" fill="#333333"/>
+  <rect x="205" y="88" width="130" height="64" rx="10" fill="#F59E0B22" stroke="#F59E0B" stroke-width="1.5"/>
+<text x="270" y="113" font-size="12" fill="#F59E0B" font-weight="600" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">Planning</text>
+<text x="270" y="130" font-size="10" fill="#71717A" font-weight="500" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">MRP + deckle</text>
+  <line x1="339" y1="120" x2="358" y2="120" stroke="#333333" stroke-width="1.5" stroke-dasharray="none"/>
+<polygon points="366,120 358,124 358,116" fill="#333333"/>
+  <rect x="370" y="88" width="130" height="64" rx="10" fill="#71717A22" stroke="#71717A" stroke-width="1.5"/>
+<text x="435" y="113" font-size="12" fill="#71717A" font-weight="600" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">Production</text>
+<text x="435" y="130" font-size="10" fill="#71717A" font-weight="500" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">shop floor</text>
+  <line x1="504" y1="120" x2="523" y2="120" stroke="#333333" stroke-width="1.5" stroke-dasharray="none"/>
+<polygon points="531,120 523,124 523,116" fill="#333333"/>
+  <rect x="535" y="88" width="130" height="64" rx="10" fill="#71717A22" stroke="#71717A" stroke-width="1.5"/>
+<text x="600" y="113" font-size="12" fill="#71717A" font-weight="600" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">Quality</text>
+<text x="600" y="130" font-size="10" fill="#71717A" font-weight="500" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">QC + COA</text>
+  <line x1="669" y1="120" x2="688" y2="120" stroke="#333333" stroke-width="1.5" stroke-dasharray="none"/>
+<polygon points="696,120 688,124 688,116" fill="#333333"/>
+  <rect x="700" y="88" width="130" height="64" rx="10" fill="#71717A22" stroke="#71717A" stroke-width="1.5"/>
+<text x="765" y="113" font-size="12" fill="#71717A" font-weight="600" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">Dispatch</text>
+<text x="765" y="130" font-size="10" fill="#71717A" font-weight="500" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">e-Way Bill</text>
+  <line x1="834" y1="120" x2="853" y2="120" stroke="#333333" stroke-width="1.5" stroke-dasharray="none"/>
+<polygon points="861,120 853,124 853,116" fill="#333333"/>
+  <rect x="865" y="88" width="130" height="64" rx="10" fill="#71717A22" stroke="#71717A" stroke-width="1.5"/>
+<text x="930" y="113" font-size="12" fill="#71717A" font-weight="600" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">Invoice</text>
+<text x="930" y="130" font-size="10" fill="#71717A" font-weight="500" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">e-invoice</text>
+  <line x1="999" y1="120" x2="1018" y2="120" stroke="#333333" stroke-width="1.5" stroke-dasharray="none"/>
+<polygon points="1026,120 1018,124 1018,116" fill="#333333"/>
+  <rect x="1030" y="88" width="130" height="64" rx="10" fill="#F59E0B22" stroke="#F59E0B" stroke-width="1.5"/>
+<text x="1095" y="113" font-size="12" fill="#F59E0B" font-weight="600" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">Payment</text>
+<text x="1095" y="130" font-size="10" fill="#71717A" font-weight="500" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">GST cleared</text>
+  <text x="600" y="206" font-size="10" fill="#71717A" font-weight="400" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">Papyrus BPApp · papyrus360.com</text>
+</svg>

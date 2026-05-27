@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="200" viewBox="0 0 1200 200">
+  <defs>
+    <style>text { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }</style>
+  </defs>
+  <rect width="1200" height="200" fill="#0a0a0a" rx="12"/>
+  <text x="40" y="32" font-size="15" fill="#FAFAFA" font-weight="700" text-anchor="start" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">Broke Recovery Flow</text>
+<text x="40" y="50" font-size="11" fill="#71717A" font-weight="400" text-anchor="start" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">Broke Management</text>
+  <rect x="40" y="78" width="130" height="64" rx="10" fill="#10B98122" stroke="#10B981" stroke-width="1.5"/>
+<text x="105" y="103" font-size="12" fill="#10B981" font-weight="600" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">Broke Occurs</text>
+<text x="105" y="120" font-size="10" fill="#71717A" font-weight="500" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">shop floor</text>
+  <line x1="174" y1="110" x2="226" y2="110" stroke="#333333" stroke-width="1.5" stroke-dasharray="none"/>
+<polygon points="234,110 226,114 226,106" fill="#333333"/>
+  <rect x="238" y="78" width="130" height="64" rx="10" fill="#F59E0B22" stroke="#EF4444" stroke-width="1.5"/>
+<text x="303" y="103" font-size="12" fill="#EF4444" font-weight="600" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">Classify</text>
+<text x="303" y="120" font-size="10" fill="#71717A" font-weight="500" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">wet / dry</text>
+  <line x1="372" y1="110" x2="424" y2="110" stroke="#333333" stroke-width="1.5" stroke-dasharray="none"/>
+<polygon points="432,110 424,114 424,106" fill="#333333"/>
+  <rect x="436" y="78" width="130" height="64" rx="10" fill="#71717A22" stroke="#71717A" stroke-width="1.5"/>
+<text x="501" y="103" font-size="12" fill="#71717A" font-weight="600" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">Weigh</text>
+<text x="501" y="120" font-size="10" fill="#71717A" font-weight="500" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">% tracked</text>
+  <line x1="570" y1="110" x2="622" y2="110" stroke="#333333" stroke-width="1.5" stroke-dasharray="none"/>
+<polygon points="630,110 622,114 622,106" fill="#333333"/>
+  <rect x="634" y="78" width="130" height="64" rx="10" fill="#71717A22" stroke="#71717A" stroke-width="1.5"/>
+<text x="699" y="103" font-size="12" fill="#71717A" font-weight="600" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">Repulp</text>
+<text x="699" y="120" font-size="10" fill="#71717A" font-weight="500" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">chest route</text>
+  <line x1="768" y1="110" x2="820" y2="110" stroke="#333333" stroke-width="1.5" stroke-dasharray="none"/>
+<polygon points="828,110 820,114 820,106" fill="#333333"/>
+  <rect x="832" y="78" width="130" height="64" rx="10" fill="#71717A22" stroke="#71717A" stroke-width="1.5"/>
+<text x="897" y="103" font-size="12" fill="#71717A" font-weight="600" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">Recover</text>
+<text x="897" y="120" font-size="10" fill="#71717A" font-weight="500" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">blend back</text>
+  <line x1="966" y1="110" x2="1018" y2="110" stroke="#333333" stroke-width="1.5" stroke-dasharray="none"/>
+<polygon points="1026,110 1018,114 1018,106" fill="#333333"/>
+  <rect x="1030" y="78" width="130" height="64" rx="10" fill="#F59E0B22" stroke="#EF4444" stroke-width="1.5"/>
+<text x="1095" y="103" font-size="12" fill="#EF4444" font-weight="600" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">Analyze</text>
+<text x="1095" y="120" font-size="10" fill="#71717A" font-weight="500" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">Pareto</text>
+  <text x="600" y="186" font-size="10" fill="#71717A" font-weight="400" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">Papyrus BPApp · papyrus360.com</text>
+</svg>

@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="460" viewBox="0 0 1200 460">
+  <defs>
+    <style>text { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }</style>
+  </defs>
+  <rect width="1200" height="460" fill="#0a0a0a" rx="12"/>
+  <text x="40" y="36" font-size="15" fill="#FAFAFA" font-weight="700" text-anchor="start" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">MPS / MRP / CRP Planning Stack</text>
+<text x="40" y="54" font-size="11" fill="#71717A" font-weight="400" text-anchor="start" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">Production Planning — Papyrus BPApp</text>
+  <rect x="150" y="80" width="900" height="72" rx="10" fill="#F59E0B18" stroke="#F59E0B" stroke-width="1.5"/>
+  <rect x="150" y="80" width="90" height="72" rx="10" fill="#F59E0B33" stroke="#F59E0B" stroke-width="1.5"/>
+  <text x="195" y="121" font-size="16" fill="#F59E0B" font-weight="800" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">MPS</text>
+  <text x="270" y="106" font-size="13" fill="#FAFAFA" font-weight="700" text-anchor="start" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">Master Production Schedule</text>
+  <text x="270" y="128" font-size="11" fill="#A1A1AA" font-weight="400" text-anchor="start" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">Demand forecast + customer orders → production plan</text>
+  <line x1="600" y1="154" x2="600" y2="190" stroke="#333333" stroke-width="1.5" stroke-dasharray="none"/>
+<polygon points="600,198 596,190 604,190" fill="#333333"/>
+  <rect x="150" y="200" width="900" height="72" rx="10" fill="#F9731618" stroke="#F97316" stroke-width="1.5"/>
+  <rect x="150" y="200" width="90" height="72" rx="10" fill="#F9731633" stroke="#F97316" stroke-width="1.5"/>
+  <text x="195" y="241" font-size="16" fill="#F97316" font-weight="800" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">MRP</text>
+  <text x="270" y="226" font-size="13" fill="#FAFAFA" font-weight="700" text-anchor="start" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">Material Requirements Planning</text>
+  <text x="270" y="248" font-size="11" fill="#A1A1AA" font-weight="400" text-anchor="start" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">BOM explosion → purchase requisitions + work orders</text>
+  <line x1="600" y1="274" x2="600" y2="310" stroke="#333333" stroke-width="1.5" stroke-dasharray="none"/>
+<polygon points="600,318 596,310 604,310" fill="#333333"/>
+  <rect x="150" y="320" width="900" height="72" rx="10" fill="#3B82F618" stroke="#3B82F6" stroke-width="1.5"/>
+  <rect x="150" y="320" width="90" height="72" rx="10" fill="#3B82F633" stroke="#3B82F6" stroke-width="1.5"/>
+  <text x="195" y="361" font-size="16" fill="#3B82F6" font-weight="800" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">CRP</text>
+  <text x="270" y="346" font-size="13" fill="#FAFAFA" font-weight="700" text-anchor="start" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">Capacity Requirements Planning</text>
+  <text x="270" y="368" font-size="11" fill="#A1A1AA" font-weight="400" text-anchor="start" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">Load vs capacity → schedule feasibility + leveling</text>
+  <text x="40" y="116" font-size="11" fill="#71717A" font-weight="600" text-anchor="start" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">Demand signals</text>
+  <text x="40" y="236" font-size="11" fill="#71717A" font-weight="600" text-anchor="start" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">PR + WO signals</text>
+  <text x="40" y="356" font-size="11" fill="#71717A" font-weight="600" text-anchor="start" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">Capacity load</text>
+  <text x="600" y="446" font-size="10" fill="#71717A" font-weight="400" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">Papyrus BPApp · papyrus360.com</text>
+</svg>

@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="440" viewBox="0 0 1200 440">
+  <defs>
+    <style>text { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }</style>
+  </defs>
+  <rect width="1200" height="440" fill="#0a0a0a" rx="12"/>
+  <text x="40" y="36" font-size="15" fill="#FAFAFA" font-weight="700" text-anchor="start" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">IoT Architecture</text>
+<text x="40" y="54" font-size="11" fill="#71717A" font-weight="400" text-anchor="start" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">Papyrus BPApp IoT & Device Integration</text>
+  <rect x="60" y="80" width="180" height="320" rx="10" fill="#F9731614" stroke="#F9731655" stroke-width="1.5"/>
+  <text x="150" y="104" font-size="13" fill="#F97316" font-weight="700" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">Sensors</text>
+  <text x="150" y="120" font-size="10" fill="#71717A" font-weight="400" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">Edge devices</text>
+  <line x1="76" y1="132" x2="224" y2="132" stroke="#F9731633" stroke-width="1"/>
+  <rect x="72" y="144" width="156" height="30" rx="5" fill="#1a1a1a" stroke="#2a2a2a" stroke-width="1"/>
+  <text x="150" y="164" font-size="11" fill="#A1A1AA" font-weight="500" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">Flow meter</text>
+  <rect x="72" y="188" width="156" height="30" rx="5" fill="#1a1a1a" stroke="#2a2a2a" stroke-width="1"/>
+  <text x="150" y="208" font-size="11" fill="#A1A1AA" font-weight="500" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">Temperature</text>
+  <rect x="72" y="232" width="156" height="30" rx="5" fill="#1a1a1a" stroke="#2a2a2a" stroke-width="1"/>
+  <text x="150" y="252" font-size="11" fill="#A1A1AA" font-weight="500" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">Pressure</text>
+  <rect x="72" y="276" width="156" height="30" rx="5" fill="#1a1a1a" stroke="#2a2a2a" stroke-width="1"/>
+  <text x="150" y="296" font-size="11" fill="#A1A1AA" font-weight="500" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">Consistency</text>
+  <rect x="72" y="320" width="156" height="30" rx="5" fill="#1a1a1a" stroke="#2a2a2a" stroke-width="1"/>
+  <text x="150" y="340" font-size="11" fill="#A1A1AA" font-weight="500" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">Speed</text>
+  <line x1="244" y1="240" x2="268" y2="240" stroke="#F9731688" stroke-width="1.5" stroke-dasharray="none"/>
+<polygon points="276,240 268,244 268,236" fill="#F9731688"/>
+  <rect x="280" y="80" width="180" height="320" rx="10" fill="#F59E0B14" stroke="#F59E0B55" stroke-width="1.5"/>
+  <text x="370" y="104" font-size="13" fill="#F59E0B" font-weight="700" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">Gateway</text>
+  <text x="370" y="120" font-size="10" fill="#71717A" font-weight="400" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">Edge compute</text>
+  <line x1="296" y1="132" x2="444" y2="132" stroke="#F59E0B33" stroke-width="1"/>
+  <rect x="292" y="144" width="156" height="30" rx="5" fill="#1a1a1a" stroke="#2a2a2a" stroke-width="1"/>
+  <text x="370" y="164" font-size="11" fill="#A1A1AA" font-weight="500" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">MQTT broker</text>
+  <rect x="292" y="188" width="156" height="30" rx="5" fill="#1a1a1a" stroke="#2a2a2a" stroke-width="1"/>
+  <text x="370" y="208" font-size="11" fill="#A1A1AA" font-weight="500" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">OPC-UA server</text>
+  <rect x="292" y="232" width="156" height="30" rx="5" fill="#1a1a1a" stroke="#2a2a2a" stroke-width="1"/>
+  <text x="370" y="252" font-size="11" fill="#A1A1AA" font-weight="500" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">Buffer + filter</text>
+  <rect x="292" y="276" width="156" height="30" rx="5" fill="#1a1a1a" stroke="#2a2a2a" stroke-width="1"/>
+  <text x="370" y="296" font-size="11" fill="#A1A1AA" font-weight="500" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">Local ML</text>
+  <line x1="464" y1="240" x2="488" y2="240" stroke="#F59E0B88" stroke-width="1.5" stroke-dasharray="none"/>
+<polygon points="496,240 488,244 488,236" fill="#F59E0B88"/>
+  <rect x="500" y="80" width="180" height="320" rx="10" fill="#3B82F614" stroke="#3B82F655" stroke-width="1.5"/>
+  <text x="590" y="104" font-size="13" fill="#3B82F6" font-weight="700" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">Stream</text>
+  <text x="590" y="120" font-size="10" fill="#71717A" font-weight="400" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">Transport</text>
+  <line x1="516" y1="132" x2="664" y2="132" stroke="#3B82F633" stroke-width="1"/>
+  <rect x="512" y="144" width="156" height="30" rx="5" fill="#1a1a1a" stroke="#2a2a2a" stroke-width="1"/>
+  <text x="590" y="164" font-size="11" fill="#A1A1AA" font-weight="500" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">MQTT / HTTP</text>
+  <rect x="512" y="188" width="156" height="30" rx="5" fill="#1a1a1a" stroke="#2a2a2a" stroke-width="1"/>
+  <text x="590" y="208" font-size="11" fill="#A1A1AA" font-weight="500" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">TLS encrypted</text>
+  <rect x="512" y="232" width="156" height="30" rx="5" fill="#1a1a1a" stroke="#2a2a2a" stroke-width="1"/>
+  <text x="590" y="252" font-size="11" fill="#A1A1AA" font-weight="500" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">Retry + QoS</text>
+  <rect x="512" y="276" width="156" height="30" rx="5" fill="#1a1a1a" stroke="#2a2a2a" stroke-width="1"/>
+  <text x="590" y="296" font-size="11" fill="#A1A1AA" font-weight="500" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">Schema validation</text>
+  <line x1="684" y1="240" x2="708" y2="240" stroke="#3B82F688" stroke-width="1.5" stroke-dasharray="none"/>
+<polygon points="716,240 708,244 708,236" fill="#3B82F688"/>
+  <rect x="720" y="80" width="180" height="320" rx="10" fill="#8B5CF614" stroke="#8B5CF655" stroke-width="1.5"/>
+  <text x="810" y="104" font-size="13" fill="#8B5CF6" font-weight="700" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">TimescaleDB</text>
+  <text x="810" y="120" font-size="10" fill="#71717A" font-weight="400" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">Time-series store</text>
+  <line x1="736" y1="132" x2="884" y2="132" stroke="#8B5CF633" stroke-width="1"/>
+  <rect x="732" y="144" width="156" height="30" rx="5" fill="#1a1a1a" stroke="#2a2a2a" stroke-width="1"/>
+  <text x="810" y="164" font-size="11" fill="#A1A1AA" font-weight="500" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">Raw telemetry</text>
+  <rect x="732" y="188" width="156" height="30" rx="5" fill="#1a1a1a" stroke="#2a2a2a" stroke-width="1"/>
+  <text x="810" y="208" font-size="11" fill="#A1A1AA" font-weight="500" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">Downsampled</text>
+  <rect x="732" y="232" width="156" height="30" rx="5" fill="#1a1a1a" stroke="#2a2a2a" stroke-width="1"/>
+  <text x="810" y="252" font-size="11" fill="#A1A1AA" font-weight="500" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">Retention policy</text>
+  <rect x="732" y="276" width="156" height="30" rx="5" fill="#1a1a1a" stroke="#2a2a2a" stroke-width="1"/>
+  <text x="810" y="296" font-size="11" fill="#A1A1AA" font-weight="500" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">Hypertables</text>
+  <line x1="904" y1="240" x2="928" y2="240" stroke="#8B5CF688" stroke-width="1.5" stroke-dasharray="none"/>
+<polygon points="936,240 928,244 928,236" fill="#8B5CF688"/>
+  <rect x="940" y="80" width="180" height="320" rx="10" fill="#10B98114" stroke="#10B98155" stroke-width="1.5"/>
+  <text x="1030" y="104" font-size="13" fill="#10B981" font-weight="700" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">BPApp</text>
+  <text x="1030" y="120" font-size="10" fill="#71717A" font-weight="400" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">ERP layer</text>
+  <line x1="956" y1="132" x2="1104" y2="132" stroke="#10B98133" stroke-width="1"/>
+  <rect x="952" y="144" width="156" height="30" rx="5" fill="#1a1a1a" stroke="#2a2a2a" stroke-width="1"/>
+  <text x="1030" y="164" font-size="11" fill="#A1A1AA" font-weight="500" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">Alerts engine</text>
+  <rect x="952" y="188" width="156" height="30" rx="5" fill="#1a1a1a" stroke="#2a2a2a" stroke-width="1"/>
+  <text x="1030" y="208" font-size="11" fill="#A1A1AA" font-weight="500" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">OEE calc</text>
+  <rect x="952" y="232" width="156" height="30" rx="5" fill="#1a1a1a" stroke="#2a2a2a" stroke-width="1"/>
+  <text x="1030" y="252" font-size="11" fill="#A1A1AA" font-weight="500" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">Predictive AI</text>
+  <rect x="952" y="276" width="156" height="30" rx="5" fill="#1a1a1a" stroke="#2a2a2a" stroke-width="1"/>
+  <text x="1030" y="296" font-size="11" fill="#A1A1AA" font-weight="500" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">Dashboard</text>
+  <text x="600" y="426" font-size="10" fill="#71717A" font-weight="400" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">Papyrus BPApp · papyrus360.com</text>
+</svg>
