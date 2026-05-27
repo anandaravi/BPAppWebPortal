@@ -77,6 +77,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="en" suppressHydrationWarning className={`${geistSans.variable} ${geistMono.variable} h-full`}>
       <head>
+        <meta name="google-site-verification" content="UkQtoTTTckHDJukH-prr3_AkbqPbGwPzMiWaW5OdlNU" />
         <JsonLd data={[ORGANIZATION_SCHEMA, SOFTWARE_APPLICATION_SCHEMA, LOCAL_BUSINESS_SCHEMA]} />
       </head>
       <body className="min-h-full flex flex-col bg-background text-foreground antialiased">
