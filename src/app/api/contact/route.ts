@@ -69,7 +69,8 @@ export async function POST(req: NextRequest) {
 
       const result = await resend.emails.send({
         from: "Papyrus BPApp Website <website@papyrus360.com>",
-        to: toEmail,
+        to: [toEmail, "vs@papyrus360.com", "support@papyrus360.com"],
+        bcc: ["anandaravi.ramasamy@gmail.com"],
         replyTo: email,
         subject: `Demo: ${company} (${interestSummary})`,
         html,
