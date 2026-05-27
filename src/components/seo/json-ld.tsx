@@ -117,7 +117,7 @@ export function faqSchema(items: { q: string; a: string }[]) {
 }
 
 export const LOCAL_BUSINESS_SCHEMA = {
-  "@type": ["LocalBusiness", "SoftwareApplication"],
+  "@type": "LocalBusiness",
   name: "Netique Infotech Private Limited",
   alternateName: ["Papyrus360", "Papyrus BPApp"],
   url: SITE.url,
