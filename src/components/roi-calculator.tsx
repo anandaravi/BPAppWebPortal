@@ -1,9 +1,9 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useEffect, useId, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { ArrowRight, TrendingDown, Calculator, IndianRupee } from "lucide-react";
+import { ArrowRight, TrendingDown, Calculator, IndianRupee, Mail, CheckCircle2, Loader2, AlertCircle, Link2, Printer, Check } from "lucide-react";
 
 const formatINR = (n: number) => {
   if (n >= 10000000) return `₹${(n / 10000000).toFixed(2)} Cr`;
@@ -14,12 +14,113 @@ const formatINR = (n: number) => {
 const formatTons = (n: number) =>
   n >= 1000 ? `${(n / 1000).toFixed(1)}K tons` : `${Math.round(n).toLocaleString("en-IN")} tons`;
 
+const DEFAULTS = { tpd: 50, currentTrim: 8, targetTrim: 3.5, pricePerTon: 55000, operatingDays: 330 };
+
+function readQS(): Partial<typeof DEFAULTS> {
+  if (typeof window === "undefined") return {};
+  const p = new URLSearchParams(window.location.search);
+  const num = (k: string) => {
+    const v = p.get(k);
+    if (v === null) return undefined;
+    const n = Number(v);
+    return Number.isFinite(n) ? n : undefined;
+  };
+  return {
+    tpd: num("tpd"),
+    currentTrim: num("ct"),
+    targetTrim: num("tt"),
+    pricePerTon: num("p"),
+    operatingDays: num("d"),
+  };
+}
+
 export function ROICalculator({ faqs }: { faqs: { q: string; a: string }[] }) {
-  const [tpd, setTpd] = useState(50);
-  const [currentTrim, setCurrentTrim] = useState(8);
-  const [targetTrim, setTargetTrim] = useState(3.5);
-  const [pricePerTon, setPricePerTon] = useState(55000);
-  const [operatingDays, setOperatingDays] = useState(330);
+  const [tpd, setTpd] = useState(DEFAULTS.tpd);
+  const [currentTrim, setCurrentTrim] = useState(DEFAULTS.currentTrim);
+  const [targetTrim, setTargetTrim] = useState(DEFAULTS.targetTrim);
+  const [pricePerTon, setPricePerTon] = useState(DEFAULTS.pricePerTon);
+  const [operatingDays, setOperatingDays] = useState(DEFAULTS.operatingDays);
+  const hydratedRef = useRef(false);
+  const [copied, setCopied] = useState(false);
+
+  // Hydrate from URL on mount (one-shot, post-hydration — server has no URL search)
+  /* eslint-disable react-hooks/set-state-in-effect */
+  useEffect(() => {
+    const q = readQS();
+    if (q.tpd !== undefined) setTpd(q.tpd);
+    if (q.currentTrim !== undefined) setCurrentTrim(q.currentTrim);
+    if (q.targetTrim !== undefined) setTargetTrim(q.targetTrim);
+    if (q.pricePerTon !== undefined) setPricePerTon(q.pricePerTon);
+    if (q.operatingDays !== undefined) setOperatingDays(q.operatingDays);
+    hydratedRef.current = true;
+  }, []);
+  /* eslint-enable react-hooks/set-state-in-effect */
+
+  // Sync state → URL (replace, no history pollution)
+  useEffect(() => {
+    if (!hydratedRef.current) return;
+    const p = new URLSearchParams();
+    if (tpd !== DEFAULTS.tpd) p.set("tpd", String(tpd));
+    if (currentTrim !== DEFAULTS.currentTrim) p.set("ct", String(currentTrim));
+    if (targetTrim !== DEFAULTS.targetTrim) p.set("tt", String(targetTrim));
+    if (pricePerTon !== DEFAULTS.pricePerTon) p.set("p", String(pricePerTon));
+    if (operatingDays !== DEFAULTS.operatingDays) p.set("d", String(operatingDays));
+    const qs = p.toString();
+    const next = qs ? `${window.location.pathname}?${qs}` : window.location.pathname;
+    window.history.replaceState(null, "", next);
+  }, [tpd, currentTrim, targetTrim, pricePerTon, operatingDays]);
+
+  const copyLink = async () => {
+    try {
+      await navigator.clipboard.writeText(window.location.href);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1800);
+    } catch {
+      // fall back to selection
+    }
+  };
+
+  const printPdf = () => window.print();
+
+  const [reportEmail, setReportEmail] = useState("");
+  const [reportName, setReportName] = useState("");
+  const [reportCompany, setReportCompany] = useState("");
+  const [reportHoneypot, setReportHoneypot] = useState("");
+  const [reportStatus, setReportStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+  const [reportError, setReportError] = useState<string | null>(null);
+  const reportErrId = useId();
+
+  const sendReport = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!reportEmail) return;
+    setReportStatus("loading");
+    setReportError(null);
+    try {
+      const res = await fetch("/api/roi-report", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email: reportEmail,
+          name: reportName || undefined,
+          company: reportCompany || undefined,
+          honeypot: reportHoneypot,
+          tpd,
+          currentTrim,
+          targetTrim,
+          pricePerTon,
+          operatingDays,
+        }),
+      });
+      if (!res.ok) {
+        const j = await res.json().catch(() => ({}));
+        throw new Error(j.error ?? "Failed");
+      }
+      setReportStatus("success");
+    } catch (err) {
+      setReportStatus("error");
+      setReportError(err instanceof Error ? err.message : "Failed");
+    }
+  };
 
   const calc = useMemo(() => {
     const annualTons = tpd * operatingDays;
@@ -43,8 +144,8 @@ export function ROICalculator({ faqs }: { faqs: { q: string; a: string }[] }) {
   }, [tpd, currentTrim, targetTrim, pricePerTon, operatingDays]);
 
   return (
-    <div className="min-h-screen bg-background pt-28 pb-24">
-      <article className="max-w-5xl mx-auto px-6">
+    <div className="min-h-screen bg-background pt-28 pb-24 roi-page">
+      <article className="max-w-5xl mx-auto px-6 roi-printable">
         {/* Hero */}
         <header className="mb-12 text-center">
           <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-amber-500/30 bg-amber-500/10 text-amber-400 text-xs font-medium mb-6 tracking-wide uppercase">
@@ -193,9 +294,109 @@ export function ROICalculator({ faqs }: { faqs: { q: string; a: string }[] }) {
               </div>
             </div>
 
+            {/* Share + Print */}
+            <div className="grid grid-cols-2 gap-2 no-print">
+              <button
+                type="button"
+                onClick={copyLink}
+                className="flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-lg border border-border-light text-text-2 hover:text-foreground hover:border-amber-500/40 text-xs font-semibold transition-colors"
+              >
+                {copied ? <Check size={13} className="text-emerald-400" /> : <Link2 size={13} />}
+                {copied ? "Link copied" : "Copy share link"}
+              </button>
+              <button
+                type="button"
+                onClick={printPdf}
+                className="flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-lg border border-border-light text-text-2 hover:text-foreground hover:border-amber-500/40 text-xs font-semibold transition-colors"
+              >
+                <Printer size={13} />
+                Save as PDF
+              </button>
+            </div>
+
+            {/* Email-me-this-report */}
+            <div className="bg-surface border border-border rounded-2xl p-5 no-print">
+              {reportStatus === "success" ? (
+                <div className="flex items-start gap-3">
+                  <CheckCircle2 size={18} className="text-emerald-400 mt-0.5 flex-shrink-0" />
+                  <div>
+                    <p className="text-sm font-semibold text-foreground">Report sent to {reportEmail}</p>
+                    <p className="text-xs text-text-3 mt-1">
+                      Check inbox in ~30 sec. Sales follows up within 1 business day.
+                    </p>
+                  </div>
+                </div>
+              ) : (
+                <form onSubmit={sendReport} className="space-y-3">
+                  <div className="flex items-start gap-2.5">
+                    <Mail size={16} className="text-amber-400 mt-0.5 flex-shrink-0" />
+                    <div className="flex-1">
+                      <p className="text-sm font-semibold text-foreground">Email me this report</p>
+                      <p className="text-xs text-text-3">Full breakdown + assumptions in your inbox.</p>
+                    </div>
+                  </div>
+                  <input
+                    type="text"
+                    tabIndex={-1}
+                    autoComplete="off"
+                    aria-hidden="true"
+                    value={reportHoneypot}
+                    onChange={(e) => setReportHoneypot(e.target.value)}
+                    className="absolute opacity-0 pointer-events-none w-0 h-0"
+                  />
+                  <div className="grid grid-cols-2 gap-2">
+                    <input
+                      type="text"
+                      placeholder="Name (optional)"
+                      autoComplete="name"
+                      value={reportName}
+                      onChange={(e) => setReportName(e.target.value)}
+                      className="bg-background border border-border rounded-lg px-3 py-2 text-sm text-foreground placeholder:text-text-4 focus:border-amber-500/50 outline-none transition-colors"
+                    />
+                    <input
+                      type="text"
+                      placeholder="Company (optional)"
+                      autoComplete="organization"
+                      value={reportCompany}
+                      onChange={(e) => setReportCompany(e.target.value)}
+                      className="bg-background border border-border rounded-lg px-3 py-2 text-sm text-foreground placeholder:text-text-4 focus:border-amber-500/50 outline-none transition-colors"
+                    />
+                  </div>
+                  <div className="flex flex-col sm:flex-row gap-2">
+                    <input
+                      type="email"
+                      required
+                      placeholder="you@yourmill.com"
+                      autoComplete="email"
+                      value={reportEmail}
+                      onChange={(e) => setReportEmail(e.target.value)}
+                      aria-label="Email for ROI report"
+                      aria-invalid={reportStatus === "error" ? true : undefined}
+                      aria-describedby={reportStatus === "error" ? reportErrId : undefined}
+                      className="flex-1 bg-background border border-border rounded-lg px-3 py-2.5 text-sm text-foreground placeholder:text-text-4 focus:border-amber-500/50 outline-none transition-colors"
+                    />
+                    <button
+                      type="submit"
+                      disabled={reportStatus === "loading" || !reportEmail}
+                      className="flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-amber-500 hover:bg-amber-400 disabled:opacity-60 disabled:cursor-not-allowed text-black text-sm font-bold transition-colors"
+                    >
+                      {reportStatus === "loading" ? <Loader2 size={14} className="animate-spin" /> : <Mail size={14} />}
+                      {reportStatus === "loading" ? "Sending..." : "Send report"}
+                    </button>
+                  </div>
+                  {reportStatus === "error" && (
+                    <div id={reportErrId} role="alert" className="flex items-center gap-2 text-xs text-red-400">
+                      <AlertCircle size={12} />
+                      {reportError ?? "Failed to send."} Try again or use the demo form below.
+                    </div>
+                  )}
+                </form>
+              )}
+            </div>
+
             <Link
               href="/contact"
-              className="group block w-full px-6 py-4 rounded-xl bg-amber-500 hover:bg-amber-400 text-black text-sm font-bold transition-colors text-center"
+              className="no-print group block w-full px-6 py-4 rounded-xl bg-amber-500 hover:bg-amber-400 text-black text-sm font-bold transition-colors text-center"
             >
               Get a Custom ROI Analysis →
             </Link>
@@ -250,7 +451,7 @@ export function ROICalculator({ faqs }: { faqs: { q: string; a: string }[] }) {
         </section>
 
         {/* FAQ */}
-        <section className="mb-12">
+        <section className="mb-12 no-print">
           <h2 className="text-xl font-bold text-foreground mb-5">Questions about this calculator</h2>
           <div className="space-y-3">
             {faqs.map((f, i) => (
@@ -271,7 +472,7 @@ export function ROICalculator({ faqs }: { faqs: { q: string; a: string }[] }) {
         </section>
 
         {/* CTA */}
-        <section className="bg-gradient-to-br from-amber-500/10 to-transparent border border-amber-500/20 rounded-2xl p-8 text-center">
+        <section className="bg-gradient-to-br from-amber-500/10 to-transparent border border-amber-500/20 rounded-2xl p-8 text-center no-print">
           <h2 className="text-2xl font-bold text-foreground mb-3">
             Get a detailed ROI report for your mill
           </h2>
@@ -326,6 +527,8 @@ function Slider({
         step={step}
         value={value}
         onChange={(e) => setValue(Number(e.target.value))}
+        aria-label={label}
+        aria-valuetext={display}
         className="w-full h-2 bg-surface-3 rounded-lg appearance-none cursor-pointer accent-amber-500"
       />
       {hint && <p className="text-xs text-text-3 mt-1.5">{hint}</p>}

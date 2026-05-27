@@ -1,7 +1,8 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Monitor, X } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 const PRESETS = [
   { label: "Narrow", value: "1280px", hint: "Original" },
@@ -13,11 +14,11 @@ const PRESETS = [
 
 const STORAGE_KEY = "bpapp:container-max";
 
-export function WidthToggle() {
+export function WidthToggle({ className }: { className?: string }) {
   const [open, setOpen] = useState(false);
   const [current, setCurrent] = useState<string>("1440px");
+  const wrapRef = useRef<HTMLDivElement>(null);
 
-  // Load saved on mount
   useEffect(() => {
     const saved = localStorage.getItem(STORAGE_KEY);
     if (saved) {
@@ -26,6 +27,24 @@ export function WidthToggle() {
       setCurrent(saved);
     }
   }, []);
+
+  useEffect(() => {
+    if (!open) return;
+    const onDown = (e: MouseEvent) => {
+      if (wrapRef.current && !wrapRef.current.contains(e.target as Node)) {
+        setOpen(false);
+      }
+    };
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setOpen(false);
+    };
+    document.addEventListener("mousedown", onDown);
+    document.addEventListener("keydown", onKey);
+    return () => {
+      document.removeEventListener("mousedown", onDown);
+      document.removeEventListener("keydown", onKey);
+    };
+  }, [open]);
 
   const apply = (v: string) => {
     document.documentElement.style.setProperty("--container-max", v);
@@ -40,18 +59,20 @@ export function WidthToggle() {
   };
 
   return (
-    <>
+    <div ref={wrapRef} className={cn("relative", className)}>
       <button
+        type="button"
         onClick={() => setOpen((o) => !o)}
-        className="fixed bottom-5 right-5 z-[90] w-11 h-11 rounded-full bg-surface border border-border hover:border-amber-500/40 text-text-2 hover:text-amber-400 flex items-center justify-center shadow-xl shadow-black/60 transition-colors"
-        aria-label="Toggle layout width"
+        aria-label="Layout width"
+        aria-expanded={open}
         title="Layout width"
+        className="inline-flex items-center justify-center w-8 h-8 rounded-md text-text-2 hover:text-foreground hover:bg-amber-500/10 transition-colors"
       >
         <Monitor size={16} />
       </button>
 
       {open && (
-        <div className="fixed bottom-20 right-5 z-[91] w-64 bg-background border border-border-dim rounded-xl shadow-2xl shadow-black/70 overflow-hidden">
+        <div className="absolute right-0 top-full mt-2 z-50 w-64 bg-background border border-border-dim rounded-xl shadow-2xl shadow-black/70 overflow-hidden">
           <div className="flex items-center justify-between px-4 py-3 border-b border-border-dim">
             <p className="text-[10px] font-bold uppercase tracking-widest text-amber-400">
               Layout Width
@@ -110,6 +131,6 @@ export function WidthToggle() {
           </div>
         </div>
       )}
-    </>
+    </div>
   );
 }

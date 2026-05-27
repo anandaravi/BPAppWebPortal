@@ -44,7 +44,7 @@ export async function POST(req: NextRequest) {
         company,
         email,
         phone,
-        role: roleLabel[role] ?? role,
+        role: (role ? roleLabel[role] ?? role : "—"),
         companySize,
         interests: interestList,
         message,
@@ -57,7 +57,7 @@ export async function POST(req: NextRequest) {
         `Company     : ${company}`,
         `Email       : ${email}`,
         `Phone       : ${phone ?? "—"}`,
-        `Role        : ${roleLabel[role] ?? role}`,
+        `Role        : ${(role ? roleLabel[role] ?? role : "—")}`,
         `Company size: ${companySize ?? "—"}`,
         ``,
         `Interested in (${interestList.length}):`,
@@ -226,7 +226,7 @@ function renderHtml(data: {
           <tr>
             <td style="background:#080808;border-radius:0 0 12px 12px;padding:18px 32px;border-left:1px solid #2a2a2a;border-right:1px solid #2a2a2a;border-bottom:1px solid #2a2a2a;text-align:center;">
               <p style="margin:0;color:#52525b;font-size:12px;line-height:1.5;">
-                Sent from <a href="https://papyrusbpapp.vercel.app" style="color:#71717a;text-decoration:none;">papyrusbpapp.vercel.app</a>
+                Sent from <a href="https://bpapperp.papyrus360.com" style="color:#71717a;text-decoration:none;">bpapperp.papyrus360.com</a>
                 · ${new Date().toLocaleString("en-IN", { dateStyle: "medium", timeStyle: "short", timeZone: "Asia/Kolkata" })} IST
               </p>
             </td>

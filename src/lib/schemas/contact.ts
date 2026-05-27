@@ -5,9 +5,7 @@ export const contactSchema = z.object({
   company: z.string().min(2, "Company name required"),
   email: z.string().email("Enter a valid email"),
   phone: z.string().optional(),
-  role: z.enum(["owner", "gm", "finance", "it", "other"], {
-    error: "Select your role",
-  }),
+  role: z.enum(["owner", "gm", "finance", "it", "other", ""]).optional(),
   companySize: z.enum(["1-50", "51-200", "201-500", "500+", ""]).optional(),
   interests: z.array(z.string()).max(50).optional(),
   message: z.string().max(2000).optional(),

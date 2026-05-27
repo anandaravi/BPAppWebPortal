@@ -248,7 +248,7 @@ export async function GET(req: NextRequest) {
               letterSpacing: "0.5px",
             }}
           >
-            papyrusbpapp.vercel.app
+            bpapperp.papyrus360.com
           </div>
         </div>
       </div>

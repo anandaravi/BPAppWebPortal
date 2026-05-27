@@ -21,9 +21,9 @@
   --emerald-dim:  rgba(16,185,129,0.08);
 
   --text:         #FAFAFA;
-  --text-2:       #A1A1AA;
-  --text-3:       #71717A;
-  --text-4:       #52525B;
+  --text-2:       #B5B5BD;
+  --text-3:       #8A8A93;
+  --text-4:       #6F6F78;
 
   --container-max: 1440px;
 }
@@ -211,4 +211,138 @@ body {
     rgba(0,0,0,0.03) 2px,
     rgba(0,0,0,0.03) 4px
   );
+}
+
+/* Marquee for logo strip */
+@keyframes marquee {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.animate-marquee {
+  animation: marquee 40s linear infinite;
+}
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee { animation: none; }
+}
+.mask-fade-x {
+  -webkit-mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+          mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+}
+
+/* Accessibility: reduced motion — neuter all animations/transitions globally.
+   Framer Motion respects this via its own check, but this also catches CSS-driven
+   animations from third-party / class-based transitions. */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Accessibility: skip-to-content link — visible on focus */
+.skip-link {
+  position: fixed;
+  top: 0.5rem;
+  left: 0.5rem;
+  z-index: 200;
+  padding: 0.6rem 1rem;
+  background: var(--amber);
+  color: #0a0a0a;
+  font-weight: 700;
+  font-size: 0.85rem;
+  border-radius: 0.5rem;
+  text-decoration: none;
+  transform: translateY(-150%);
+  transition: transform 150ms ease;
+}
+.skip-link:focus,
+.skip-link:focus-visible {
+  transform: translateY(0);
+  outline: 2px solid #0a0a0a;
+  outline-offset: 2px;
+}
+
+/* Accessibility: globally visible focus ring on keyboard nav */
+:focus-visible {
+  outline: 2px solid var(--amber);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+[role="button"]:focus-visible {
+  outline: 2px solid var(--amber);
+  outline-offset: 2px;
+}
+
+/* Print stylesheet — used by ROI "Save as PDF" + general print */
+@media print {
+  /* Hide chrome */
+  header, footer, nav, .skip-link,
+  [class*="floating-actions"],
+  [aria-label="Search site"],
+  [aria-label="Layout width"],
+  [class*="ExitIntent"],
+  .no-print {
+    display: none !important;
+  }
+  /* Force light printable */
+  html, body {
+    background: #ffffff !important;
+    color: #0a0a0a !important;
+  }
+  .roi-printable {
+    color: #0a0a0a !important;
+    max-width: 100% !important;
+  }
+  .roi-printable * {
+    background: transparent !important;
+    color: inherit !important;
+    border-color: #d4d4d8 !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+  .roi-printable .amber-text,
+  .roi-printable [class*="text-amber"] {
+    color: #b45309 !important;
+  }
+  .roi-printable [class*="text-emerald"] {
+    color: #047857 !important;
+  }
+  .roi-printable [class*="text-red"] {
+    color: #b91c1c !important;
+  }
+  a {
+    text-decoration: none !important;
+    color: inherit !important;
+  }
+  /* Pagination */
+  section, header, article, details {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+}
+
+/* Browser-native cross-document view transitions (Chromium 126+, Safari TP). */
+@view-transition {
+  navigation: auto;
+}
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 200ms;
+  animation-timing-function: cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none !important;
+  }
 }

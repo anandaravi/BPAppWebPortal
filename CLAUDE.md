@@ -3,7 +3,8 @@
 ## Project Context
 
 **What this is:** Public marketing website for Papyrus BPApp — enterprise ERP for Indian paper manufacturing.
-**Live URL:** https://papyrusbpapp.vercel.app
+**Live URL:** https://bpapperp.papyrus360.com (permanent custom domain)
+**Vercel URL:** https://papyrusbpapp.vercel.app
 **GitHub:** https://github.com/anandaravi/BPAppWebPortal
 **Deploy:** Vercel — auto-deploys on every push to `main`
 

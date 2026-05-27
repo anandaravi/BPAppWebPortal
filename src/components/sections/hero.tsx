@@ -12,7 +12,16 @@ export function Hero() {
     <section className="relative min-h-screen overflow-hidden grain on-photo">
       {/* Background photo */}
       <div className="absolute inset-0">
-        <Image src={PHOTO} alt="Paper mill operations" fill className="object-cover object-center" priority loading="eager" unoptimized />
+        <Image
+          src={PHOTO}
+          alt="Paper mill operations"
+          fill
+          sizes="100vw"
+          quality={75}
+          className="object-cover object-center"
+          priority
+          fetchPriority="high"
+        />
         <div className="photo-overlay absolute inset-0" />
         <div className="absolute inset-0 bg-gradient-to-r from-[#080808] via-[#080808]/70 to-transparent" />
       </div>
@@ -77,8 +86,8 @@ export function Hero() {
                   <span className="w-2.5 h-2.5 rounded-full bg-emerald-500/70" />
                 </div>
                 <span className="text-xs text-text-4 ml-2 font-mono">Mill Dashboard</span>
-                <span className="ml-auto flex items-center gap-1 text-xs text-emerald-400">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" /> Live
+                <span className="ml-auto flex items-center gap-1 text-[10px] text-text-3 uppercase tracking-widest">
+                  <span className="w-1.5 h-1.5 rounded-full bg-text-4" /> Sample
                 </span>
               </div>
               <div className="p-5 grid grid-cols-3 gap-3">

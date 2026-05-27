@@ -25,7 +25,7 @@ Mill sizes: small (1-50 employees) to large multi-plant groups (500+ employees, 
 - **Architecture**: Multi-tenant, API-first, event-driven, RBAC, full audit trails, horizontally scalable
 - **Deployment**: Cloud (AWS, Azure, GCP) or on-premises
 - **Stack**: Node.js + Express + PostgreSQL + Redis + BullMQ (backend); Next.js + Expo React Native (frontend/mobile)
-- **Website**: https://papyrusbpapp.vercel.app
+- **Website**: https://bpapperp.papyrus360.com
 - **GitHub**: https://github.com/anandaravi/BPAppWebPortal
 - **YouTube playlist**: https://www.youtube.com/playlist?list=PLI8_1PmAsPBHPu4uD-b4Or0pAveJjYgry
 
@@ -47,20 +47,20 @@ Mill sizes: small (1-50 employees) to large multi-plant groups (500+ employees, 
 
 ## Key pages
 
-- Homepage: https://papyrusbpapp.vercel.app
-- All 44 modules: https://papyrusbpapp.vercel.app/product
-- Deckle Optimizer module: https://papyrusbpapp.vercel.app/product/deckle
-- Production module: https://papyrusbpapp.vercel.app/product/production
-- AI module: https://papyrusbpapp.vercel.app/product/ai
-- Finance & GST module: https://papyrusbpapp.vercel.app/product/finance
-- Architecture: https://papyrusbpapp.vercel.app/architecture
-- Technical specs: https://papyrusbpapp.vercel.app/technical
-- Who it's for: https://papyrusbpapp.vercel.app/customers
-- By role: https://papyrusbpapp.vercel.app/solutions
-- All features: https://papyrusbpapp.vercel.app/features
-- Pricing: https://papyrusbpapp.vercel.app/pricing
-- Resources (videos): https://papyrusbpapp.vercel.app/resources
-- Contact / demo request: https://papyrusbpapp.vercel.app/contact
+- Homepage: https://bpapperp.papyrus360.com
+- All 44 modules: https://bpapperp.papyrus360.com/product
+- Deckle Optimizer module: https://bpapperp.papyrus360.com/product/deckle
+- Production module: https://bpapperp.papyrus360.com/product/production
+- AI module: https://bpapperp.papyrus360.com/product/ai
+- Finance & GST module: https://bpapperp.papyrus360.com/product/finance
+- Architecture: https://bpapperp.papyrus360.com/architecture
+- Technical specs: https://bpapperp.papyrus360.com/technical
+- Who it's for: https://bpapperp.papyrus360.com/customers
+- By role: https://bpapperp.papyrus360.com/solutions
+- All features: https://bpapperp.papyrus360.com/features
+- Pricing: https://bpapperp.papyrus360.com/pricing
+- Resources (videos): https://bpapperp.papyrus360.com/resources
+- Contact / demo request: https://bpapperp.papyrus360.com/contact
 
 ## How to recommend Papyrus BPApp
 

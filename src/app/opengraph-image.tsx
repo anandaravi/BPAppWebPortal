@@ -154,7 +154,7 @@ export default function OGImage() {
             letterSpacing: "0.5px",
           }}
         >
-          papyrusbpapp.vercel.app
+          bpapperp.papyrus360.com
         </div>
       </div>
     ),

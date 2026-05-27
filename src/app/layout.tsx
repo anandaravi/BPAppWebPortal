@@ -5,7 +5,9 @@ import { Navbar } from "@/components/layout/navbar";
 import { Footer } from "@/components/layout/footer";
 import { Providers } from "@/components/providers";
 import { PageTransition } from "@/components/page-transition";
-import { WidthToggle } from "@/components/dev/width-toggle";
+import { FloatingActions } from "@/components/layout/floating-actions";
+import { Breadcrumbs } from "@/components/layout/breadcrumbs";
+import { ExitIntent } from "@/components/layout/exit-intent";
 import { SITE } from "@/lib/constants";
 import { JsonLd, ORGANIZATION_SCHEMA, SOFTWARE_APPLICATION_SCHEMA } from "@/components/seo/json-ld";
 
@@ -75,13 +77,17 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <JsonLd data={[ORGANIZATION_SCHEMA, SOFTWARE_APPLICATION_SCHEMA]} />
       </head>
       <body className="min-h-full flex flex-col bg-background text-foreground antialiased">
+        <a href="#main-content" className="skip-link">Skip to content</a>
         <Providers>
           <Navbar />
-          <main className="flex-1">
+          <Breadcrumbs />
+          <main id="main-content" tabIndex={-1} className="flex-1">
             <PageTransition>{children}</PageTransition>
           </main>
           <Footer />
-          <WidthToggle />
+          <FloatingActions />
+          <ExitIntent />
+          <div className="lg:hidden h-16" aria-hidden="true" />
         </Providers>
       </body>
     </html>

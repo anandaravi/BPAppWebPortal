@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Menu, X, ChevronDown } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
@@ -9,6 +10,7 @@ import { MODULE_GROUPS } from "@/lib/modules";
 import { Logo } from "@/components/ui/logo";
 import { SearchDialog } from "@/components/search/search-dialog";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
+import { WidthToggle } from "@/components/dev/width-toggle";
 
 type DropdownKey = "product" | "solutions" | "resources" | null;
 
@@ -32,16 +34,62 @@ const RESOURCES_LINKS = [
   { label: "Glossary", href: "/glossary", desc: "Paper-industry terms" },
 ];
 
+const PRODUCT_PATHS = ["/product", "/features"];
+const SOLUTIONS_PATHS = ["/customers", "/solutions", "/for", "/clients", "/case-studies", "/implementation"];
+const RESOURCES_PATHS = ["/architecture", "/technical", "/roi-calculator", "/resources", "/blog", "/faq", "/glossary"];
+
+function matches(pathname: string, prefixes: string[]) {
+  return prefixes.some((p) => pathname === p || pathname.startsWith(p + "/"));
+}
+
 export function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<DropdownKey>(null);
   const closeTimer = useRef<NodeJS.Timeout | null>(null);
+  const pathname = usePathname() ?? "/";
+
+  const isHome = pathname === "/";
+  const isProduct = matches(pathname, PRODUCT_PATHS);
+  const isSolutions = matches(pathname, SOLUTIONS_PATHS);
+  const isResources = matches(pathname, RESOURCES_PATHS);
+  const isPricing = pathname === "/pricing" || pathname.startsWith("/pricing/");
+
+  const topLink = (active: boolean) =>
+    cn(
+      "relative text-sm transition-colors",
+      active
+        ? "text-foreground after:absolute after:left-0 after:right-0 after:-bottom-1 after:h-0.5 after:bg-amber-500 after:rounded-full"
+        : "text-text-2 hover:text-foreground"
+    );
+  const dropdownTrigger = (active: boolean) =>
+    cn(
+      "relative flex items-center gap-1 text-sm transition-colors",
+      active
+        ? "text-foreground after:absolute after:left-0 after:right-0 after:-bottom-1 after:h-0.5 after:bg-amber-500 after:rounded-full"
+        : "text-text-2 hover:text-foreground"
+    );
+  const mobileLink = (active: boolean) =>
+    cn(
+      "py-1 transition-colors",
+      active ? "text-amber-400 font-semibold" : "text-text-2 hover:text-foreground"
+    );
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setMenuOpen(false);
+        setActiveDropdown(null);
+      }
+    };
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
   }, []);
 
   const openDropdown = (key: DropdownKey) => {
@@ -67,10 +115,10 @@ export function Navbar() {
         </Link>
 
         <div className="hidden lg:flex items-center gap-7">
-          <Link href="/" className="text-sm text-text-2 hover:text-foreground transition-colors">Home</Link>
+          <Link href="/" className={topLink(isHome)} aria-current={isHome ? "page" : undefined}>Home</Link>
           {/* PRODUCT */}
           <div className="relative" onMouseEnter={() => openDropdown("product")} onMouseLeave={closeDropdown}>
-            <button className="flex items-center gap-1 text-sm text-text-2 hover:text-foreground transition-colors">
+            <button className={dropdownTrigger(isProduct)} aria-current={isProduct ? "page" : undefined}>
               Product <ChevronDown size={14} className={cn("transition-transform", activeDropdown === "product" && "rotate-180")} />
             </button>
             <AnimatePresence>
@@ -117,7 +165,7 @@ export function Navbar() {
 
           {/* SOLUTIONS */}
           <div className="relative" onMouseEnter={() => openDropdown("solutions")} onMouseLeave={closeDropdown}>
-            <button className="flex items-center gap-1 text-sm text-text-2 hover:text-foreground transition-colors">
+            <button className={dropdownTrigger(isSolutions)} aria-current={isSolutions ? "page" : undefined}>
               Solutions <ChevronDown size={14} className={cn("transition-transform", activeDropdown === "solutions" && "rotate-180")} />
             </button>
             <AnimatePresence>
@@ -144,7 +192,7 @@ export function Navbar() {
 
           {/* RESOURCES */}
           <div className="relative" onMouseEnter={() => openDropdown("resources")} onMouseLeave={closeDropdown}>
-            <button className="flex items-center gap-1 text-sm text-text-2 hover:text-foreground transition-colors">
+            <button className={dropdownTrigger(isResources)} aria-current={isResources ? "page" : undefined}>
               Resources <ChevronDown size={14} className={cn("transition-transform", activeDropdown === "resources" && "rotate-180")} />
             </button>
             <AnimatePresence>
@@ -169,9 +217,10 @@ export function Navbar() {
             </AnimatePresence>
           </div>
 
-          <Link href="/pricing" className="text-sm text-text-2 hover:text-foreground transition-colors">Pricing</Link>
+          <Link href="/pricing" className={topLink(isPricing)} aria-current={isPricing ? "page" : undefined}>Pricing</Link>
           <SearchDialog />
           <ThemeToggle />
+          <WidthToggle />
           <Link href="/contact" className="px-4 py-2 rounded-lg bg-amber-500 hover:bg-amber-400 text-black text-sm font-semibold transition-colors">
             Request Demo
           </Link>
@@ -179,17 +228,21 @@ export function Navbar() {
 
         <div className="lg:hidden flex items-center gap-2">
           <ThemeToggle />
+          <WidthToggle />
           <SearchDialog />
           <button className="text-text-2 hover:text-foreground"
-            onClick={() => setMenuOpen(!menuOpen)} aria-label="Toggle menu">
+            onClick={() => setMenuOpen(!menuOpen)}
+            aria-label={menuOpen ? "Close menu" : "Open menu"}
+            aria-expanded={menuOpen}
+            aria-controls="mobile-nav">
             {menuOpen ? <X size={20} /> : <Menu size={20} />}
           </button>
         </div>
       </nav>
 
       {menuOpen && (
-        <div className="lg:hidden bg-surface border-b border-border px-6 py-5 flex flex-col gap-3 max-h-[80vh] overflow-y-auto">
-          <Link href="/" className="text-sm text-text-2 hover:text-foreground py-1" onClick={() => setMenuOpen(false)}>Home</Link>
+        <div id="mobile-nav" className="lg:hidden bg-surface border-b border-border px-6 py-5 flex flex-col gap-3 max-h-[80vh] overflow-y-auto">
+          <Link href="/" className={cn("text-sm", mobileLink(isHome))} onClick={() => setMenuOpen(false)} aria-current={isHome ? "page" : undefined}>Home</Link>
           <p className="text-[10px] font-semibold uppercase tracking-widest text-amber-500 mb-1 mt-2">Product</p>
           {MODULE_GROUPS.map((g) => (
             <Link
@@ -207,18 +260,24 @@ export function Navbar() {
           </Link>
 
           <p className="text-[10px] font-semibold uppercase tracking-widest text-amber-500 mb-1 mt-3">Solutions</p>
-          {SOLUTIONS_LINKS.map((l) => (
-            <Link key={l.href} href={l.href} className="text-sm text-text-2 hover:text-foreground py-1 pl-2" onClick={() => setMenuOpen(false)}>{l.label}</Link>
-          ))}
+          {SOLUTIONS_LINKS.map((l) => {
+            const active = pathname === l.href || pathname.startsWith(l.href + "/");
+            return (
+              <Link key={l.href} href={l.href} className={cn("text-sm pl-2", mobileLink(active))} onClick={() => setMenuOpen(false)} aria-current={active ? "page" : undefined}>{l.label}</Link>
+            );
+          })}
 
           <p className="text-[10px] font-semibold uppercase tracking-widest text-amber-500 mb-1 mt-3">Resources</p>
-          {RESOURCES_LINKS.map((l) => (
-            <Link key={l.href} href={l.href} className="text-sm text-text-2 hover:text-foreground py-1 pl-2" onClick={() => setMenuOpen(false)}>{l.label}</Link>
-          ))}
+          {RESOURCES_LINKS.map((l) => {
+            const active = pathname === l.href || pathname.startsWith(l.href + "/");
+            return (
+              <Link key={l.href} href={l.href} className={cn("text-sm pl-2", mobileLink(active))} onClick={() => setMenuOpen(false)} aria-current={active ? "page" : undefined}>{l.label}</Link>
+            );
+          })}
 
           <div className="border-t border-border-dim mt-3 pt-3 flex flex-col gap-2">
-            <Link href="/pricing" className="text-sm text-text-2 hover:text-foreground" onClick={() => setMenuOpen(false)}>Pricing</Link>
-            <Link href="/contact" className="text-sm text-text-2 hover:text-foreground" onClick={() => setMenuOpen(false)}>Contact</Link>
+            <Link href="/pricing" className={cn("text-sm", mobileLink(isPricing))} onClick={() => setMenuOpen(false)} aria-current={isPricing ? "page" : undefined}>Pricing</Link>
+            <Link href="/contact" className={cn("text-sm", mobileLink(pathname.startsWith("/contact")))} onClick={() => setMenuOpen(false)} aria-current={pathname.startsWith("/contact") ? "page" : undefined}>Contact</Link>
           </div>
 
           <Link href="/contact"
