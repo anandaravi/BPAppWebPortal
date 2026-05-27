@@ -9,7 +9,7 @@ import { FloatingActions } from "@/components/layout/floating-actions";
 import { Breadcrumbs } from "@/components/layout/breadcrumbs";
 import { ExitIntent } from "@/components/layout/exit-intent";
 import { SITE } from "@/lib/constants";
-import { JsonLd, ORGANIZATION_SCHEMA, SOFTWARE_APPLICATION_SCHEMA } from "@/components/seo/json-ld";
+import { JsonLd, ORGANIZATION_SCHEMA, SOFTWARE_APPLICATION_SCHEMA, LOCAL_BUSINESS_SCHEMA } from "@/components/seo/json-ld";
 
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
 const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
@@ -62,6 +62,9 @@ export const metadata: Metadata = {
     },
   },
   manifest: "/manifest.webmanifest",
+  verification: {
+    google: "UkQtoTTTckHDJukH-prr3_AkbqPbGwPzMiWaW5OdlNU",
+  },
 };
 
 export const viewport = {
@@ -74,7 +77,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="en" suppressHydrationWarning className={`${geistSans.variable} ${geistMono.variable} h-full`}>
       <head>
-        <JsonLd data={[ORGANIZATION_SCHEMA, SOFTWARE_APPLICATION_SCHEMA]} />
+        <JsonLd data={[ORGANIZATION_SCHEMA, SOFTWARE_APPLICATION_SCHEMA, LOCAL_BUSINESS_SCHEMA]} />
       </head>
       <body className="min-h-full flex flex-col bg-background text-foreground antialiased">
         <a href="#main-content" className="skip-link">Skip to content</a>

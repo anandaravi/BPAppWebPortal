@@ -116,6 +116,58 @@ export function faqSchema(items: { q: string; a: string }[]) {
   };
 }
 
+export const LOCAL_BUSINESS_SCHEMA = {
+  "@type": ["LocalBusiness", "SoftwareApplication"],
+  name: "Netique Infotech Private Limited",
+  alternateName: ["Papyrus360", "Papyrus BPApp"],
+  url: SITE.url,
+  logo: `${SITE.url}/bp_app.png`,
+  image: `${SITE.url}/bp_app.png`,
+  description:
+    "Bangalore-based enterprise ERP company building Papyrus BPApp — purpose-built for Indian paper manufacturing since 2000. 35+ years domain expertise.",
+  email: SITE.email,
+  telephone: "+91-80-2671-6066",
+  foundingDate: "2000",
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: "Bangalore",
+    addressLocality: "Bangalore",
+    addressRegion: "Karnataka",
+    postalCode: "560001",
+    addressCountry: "IN",
+  },
+  geo: {
+    "@type": "GeoCoordinates",
+    latitude: 12.9716,
+    longitude: 77.5946,
+  },
+  areaServed: {
+    "@type": "Country",
+    name: "India",
+  },
+  serviceArea: {
+    "@type": "Country",
+    name: "India",
+  },
+  hasOfferCatalog: {
+    "@type": "OfferCatalog",
+    name: "Papyrus BPApp ERP Modules",
+    itemListElement: [
+      { "@type": "Offer", itemOffered: { "@type": "Service", name: "Paper Mill ERP Software" } },
+      { "@type": "Offer", itemOffered: { "@type": "Service", name: "Deckle Optimization" } },
+      { "@type": "Offer", itemOffered: { "@type": "Service", name: "GST Compliance Software" } },
+      { "@type": "Offer", itemOffered: { "@type": "Service", name: "Production Planning MRP" } },
+    ],
+  },
+  sameAs: [
+    "https://github.com/anandaravi/BPAppWebPortal",
+    "https://www.youtube.com/playlist?list=PLI8_1PmAsPBHPu4uD-b4Or0pAveJjYgry",
+  ],
+  priceRange: "₹₹",
+  currenciesAccepted: "INR",
+  paymentAccepted: "NEFT, RTGS, UPI, Cheque",
+};
+
 export function productSchema(args: {
   name: string;
   description: string;
