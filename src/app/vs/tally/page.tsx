@@ -39,7 +39,7 @@ const data: ComparisonPageData = {
   intro:
     "Tally is the de-facto accounting platform in 80%+ of Indian SMB paper mills — well-loved by CAs, well-priced, GST-ready. But Tally is accounting software, not a manufacturing ERP. It doesn't run production, doesn't optimize deckle, doesn't track OEE, doesn't manage quality samples, and doesn't do payroll at mill scale. Papyrus BPApp fills the gap that every growing mill eventually hits — without forcing you to abandon what already works in Tally.",
   positioningPapyrus:
-    "Complete manufacturing ERP purpose-built for Indian paper mills. 44 modules covering everything Tally doesn't (production planning, deckle optimization, quality, maintenance, HR/payroll, shop floor, AI, IoT) — plus integrated GST-compliant finance that's as auditor-friendly as Tally. Can be deployed alongside Tally during transition.",
+    "Complete manufacturing ERP purpose-built for Indian paper mills. 45 modules covering everything Tally doesn't (production planning, deckle optimization, quality, maintenance, HR/payroll, shop floor, AI, IoT) — plus integrated GST-compliant finance that's as auditor-friendly as Tally. Can be deployed alongside Tally during transition.",
   positioningCompetitor:
     "Tally Prime is the leading Indian accounting software with ~2 million businesses using it. Strengths: simple GST and e-invoice filing, low cost (₹18,000–₹54,000/year), familiar to every Indian CA, offline-capable, fast data entry. Weaknesses: not a manufacturing ERP — no production planning, no shop floor, no quality, no payroll at scale, no AI, single-user editions create bottlenecks.",
   rows: [

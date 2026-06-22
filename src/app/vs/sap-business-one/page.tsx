@@ -37,7 +37,7 @@ const data: ComparisonPageData = {
   intro:
     "SAP Business One (B1) is SAP's offering for small and medium enterprises — including manufacturing companies. Many Indian paper mills sized between Tally and S/4HANA end up evaluating SAP B1. The trade-off: SAP brand strength + integration with parent's SAP ecosystem, but generic across industries with paper-specific features requiring partner add-ons or customization.",
   positioningPapyrus:
-    "Paper-first, India-first cloud ERP. 44 modules with native deckle, GST, payroll. Modular activation, INR pricing, 4–12 week go-live.",
+    "Paper-first, India-first cloud ERP. 45 modules with native deckle, GST, payroll. Modular activation, INR pricing, 4–12 week go-live.",
   positioningCompetitor:
     "SAP Business One is a generic SMB ERP suite covering finance, sales, inventory, basic manufacturing. Strong in financial controls and SAP HANA integration. Paper-specific workflows (deckle, broke, BF/BS, parent reel genealogy) require third-party add-ons or partner customization. Indian compliance via SAP B1 India localization + customization.",
   rows: [

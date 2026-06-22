@@ -14,7 +14,7 @@ export function FeaturesGrid() {
         <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }} transition={{ duration: 0.5 }} className="mb-16 flex flex-col md:flex-row md:items-end md:justify-between gap-6">
           <div>
-            <p className="text-amber-500 text-xs font-semibold uppercase tracking-widest mb-3">All 44 Modules</p>
+            <p className="text-amber-500 text-xs font-semibold uppercase tracking-widest mb-3">All 45 Modules</p>
             <h2 className="text-4xl md:text-5xl font-black text-foreground tracking-tight">
               Everything a paper mill needs.<br />
               <span className="text-text-3">Nothing it doesn&apos;t.</span>

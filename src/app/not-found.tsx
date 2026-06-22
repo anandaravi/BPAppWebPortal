@@ -2,7 +2,7 @@ import Link from "next/link";
 import { ArrowRight, Home, Calculator, ShoppingCart, Factory, Scissors, Sparkles, IndianRupee, MessageCircle, FileQuestion } from "lucide-react";
 
 const POPULAR = [
-  { label: "Product overview", href: "/product", Icon: Factory, desc: "All 44 modules" },
+  { label: "Product overview", href: "/product", Icon: Factory, desc: "All 45 modules" },
   { label: "Deckle Optimizer", href: "/product/deckle", Icon: Scissors, desc: "Trim waste eliminator" },
   { label: "Production", href: "/product/production", Icon: Factory, desc: "MES + planning" },
   { label: "Sales", href: "/product/sales", Icon: ShoppingCart, desc: "Quote to e-invoice" },

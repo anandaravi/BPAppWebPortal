@@ -77,7 +77,7 @@ export const ORGANIZATION_SCHEMA = {
     {
       "@type": "Product",
       name: "Papyrus BPApp",
-      description: "Enterprise ERP purpose-built for Indian paper manufacturing — 44 integrated modules covering production, deckle optimization, GST finance, HR and AI.",
+      description: "Enterprise ERP purpose-built for Indian paper manufacturing — 45 integrated modules covering production, deckle optimization, GST finance, HR and AI.",
       image: `${SITE.url}/bp_app.png`,
       brand: { "@type": "Brand", name: "Papyrus360" },
       offers: { "@type": "Offer", priceCurrency: "INR", price: "0", availability: "https://schema.org/InStock", url: `${SITE.url}/contact` },
@@ -122,7 +122,7 @@ export const SOFTWARE_APPLICATION_SCHEMA = {
     "Quality management with LIMS",
     "AI-powered predictive maintenance",
     "Multi-plant, multi-tenant, RBAC",
-    "44 integrated modules",
+    "45 integrated modules",
   ],
   audience: {
     "@type": "BusinessAudience",

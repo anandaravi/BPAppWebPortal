@@ -2,7 +2,7 @@ export const SITE = {
   name: "Papyrus BPApp",
   tagline: "The ERP Built for Paper Mills",
   description:
-    "Enterprise ERP purpose-built for Indian paper manufacturing. 44 integrated modules covering production planning, deckle optimization, sales, GST-compliant finance, HR, quality and AI — from order to e-invoice.",
+    "Enterprise ERP purpose-built for Indian paper manufacturing. 45 integrated modules covering production planning, deckle optimization, sales, GST-compliant finance, HR, quality and AI — from order to e-invoice.",
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://bpapperp.papyrus360.com",
   email: "info@papyrus360.com",
   phone: "+91 98765 43210",
@@ -39,7 +39,7 @@ export const NAV_LINKS = [
 ];
 
 export const STATS = [
-  { value: "44", label: "Modules" },
+  { value: "45", label: "Modules" },
   { value: "50+", label: "DB Migrations" },
   { value: "3", label: "Languages" },
   { value: "AI", label: "Optimizer" },

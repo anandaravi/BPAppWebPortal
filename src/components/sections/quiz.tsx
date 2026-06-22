@@ -51,7 +51,7 @@ function recommend(a: Answers): { href: string; label: string; reason: string } 
   if (a.pain === "planning") return { href: "/product/production", label: "Production Management", reason: "Capacity planning, OEE, downtime root-cause." };
   if (a.pain === "visibility") return { href: "/product/ai", label: "AI & Analytics", reason: "Ask anything across sales, production, finance." };
   if (a.pain === "people") return { href: "/product/hr", label: "HR & Payroll", reason: "Shift, attendance, PF/ESI/PT, ESS/MSS." };
-  return { href: "/product", label: "Product Overview", reason: "Explore all 44 modules." };
+  return { href: "/product", label: "Product Overview", reason: "Explore all 45 modules." };
 }
 
 const SIZE_LABEL: Record<string, string> = { small: "Under 50 TPD", mid: "50–150 TPD", large: "150+ TPD" };

@@ -38,7 +38,7 @@ const data: ComparisonPageData = {
   intro:
     "Oracle JD Edwards EnterpriseOne is a respected mid-large enterprise ERP with broad industry coverage including manufacturing. Indian paper mills using JDE typically inherited it from a global parent company or invested heavily in customization. Papyrus BPApp offers a paper-first alternative: built-in deckle optimization, native Indian compliance, modular cloud deployment, and a fraction of the TCO.",
   positioningPapyrus:
-    "Paper-first, India-first cloud ERP. 44 modules covering production, deckle, sales, GST, HR, AI, IoT. No multi-year implementation, no customization armies, no enterprise license complexity.",
+    "Paper-first, India-first cloud ERP. 45 modules covering production, deckle, sales, GST, HR, AI, IoT. No multi-year implementation, no customization armies, no enterprise license complexity.",
   positioningCompetitor:
     "JD Edwards EnterpriseOne is Oracle's mid-enterprise ERP suite (acquired from PeopleSoft/J.D. Edwards). Broad industry breadth, deep manufacturing capability with significant customization. Typically deployed by Indian subsidiaries of multinational parents. Cloud (Oracle Cloud) and on-prem options exist. Implementation needs significant Oracle expertise.",
   rows: [

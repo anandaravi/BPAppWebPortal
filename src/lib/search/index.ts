@@ -25,7 +25,7 @@ export type SearchEntry = {
 
 const STATIC_PAGES: SearchEntry[] = [
   { title: "Home", subtitle: "Papyrus BPApp overview", url: "/", type: "Page", keywords: "home overview landing" },
-  { title: "Product", subtitle: "All 44 modules", url: "/product", type: "Page", keywords: "modules product 44" },
+  { title: "Product", subtitle: "All 45 modules", url: "/product", type: "Page", keywords: "modules product 44" },
   { title: "Features", subtitle: "Browse 396 capabilities", url: "/features", type: "Page", keywords: "features capabilities" },
   { title: "Architecture", subtitle: "Cloud-native multi-tenant architecture", url: "/architecture", type: "Page", keywords: "architecture cloud postgres node redis" },
   { title: "Technical", subtitle: "Stack and engineering details", url: "/technical", type: "Page", keywords: "technical stack postgres nodejs nextjs" },

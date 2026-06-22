@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 
 const STATS = [
-  { value: "44", label: "Integrated Modules" },
+  { value: "45", label: "Integrated Modules" },
   { value: "5", label: "Module Groups" },
   { value: "Web-First", label: "+ Mobile Companion" },
   { value: "Offline", label: "Field Sync" },

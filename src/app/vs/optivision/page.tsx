@@ -38,7 +38,7 @@ const data: ComparisonPageData = {
   intro:
     "Honeywell Optivision is one of the most widely deployed paper mill MES suites globally, with deep capabilities in production scheduling, reel tracking, and quality data acquisition. It's typically chosen by large multinational paper companies. Papyrus BPApp offers the MES depth Optivision is known for — combined with full ERP, GST compliance, and AI — in a cloud-native platform priced for Indian mills.",
   positioningPapyrus:
-    "Cloud-native ERP + MES + AI for Indian paper mills. 44 integrated modules covering everything from order intake to e-invoice, with paper-specific deckle optimization and shop floor execution. Modular activation, INR pricing.",
+    "Cloud-native ERP + MES + AI for Indian paper mills. 45 integrated modules covering everything from order intake to e-invoice, with paper-specific deckle optimization and shop floor execution. Modular activation, INR pricing.",
   positioningCompetitor:
     "Honeywell Optivision is an enterprise MES suite (part of Honeywell Forge) covering production planning, reel tracking, quality data, and shop floor execution. Excellent depth for large mills, typically deployed alongside Honeywell's automation (DCS, PLCs). Integration with separate ERP (SAP, Oracle) required. Pricing aligned to enterprise customers.",
   rows: [

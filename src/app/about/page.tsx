@@ -283,7 +283,7 @@ export default function AboutPage() {
                 {
                   era: "2024+",
                   product: "Papyrus BPApp · Papyrus360",
-                  desc: "End-to-end ERP for paper manufacturing. 44 modules. Cloud-native, multi-tenant, GST + FEMA native. Delivered under the Papyrus360 umbrella covering software, consultancy, and raw material supply.",
+                  desc: "End-to-end ERP for paper manufacturing. 45 modules. Cloud-native, multi-tenant, GST + FEMA native. Delivered under the Papyrus360 umbrella covering software, consultancy, and raw material supply.",
                   active: true,
                 },
               ].map((step, i) => (

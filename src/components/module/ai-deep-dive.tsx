@@ -40,7 +40,7 @@ const AI_FEATURES = [
   {
     category: "Conversational AI", icon: MessageSquare, color: "#A78BFA", count: "22 capabilities",
     items: [
-      "Natural-language queries across 44 modules",
+      "Natural-language queries across 45 modules",
       "Multi-turn context with conversation memory",
       "Cross-module joins ('top 10 customers Q3')",
       "Action commands ('create quote for ABC, 50t kraft')",
@@ -207,7 +207,7 @@ export function AIDeepDive({ data }: { data: ModuleData }) {
 
           <motion.p initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.2 }}
             className="text-xl text-text-2 max-w-2xl mb-10 leading-relaxed">
-            Conversational AI across all 44 modules. Claude, Gemini or GPT — configurable per
+            Conversational AI across all 45 modules. Claude, Gemini or GPT — configurable per
             deployment. Predictive maintenance with 24–72 hour warning. Bulk actions with
             human-in-loop preview. Citations on every answer.
           </motion.p>
@@ -227,7 +227,7 @@ export function AIDeepDive({ data }: { data: ModuleData }) {
             {[
               { value: "Multi-LLM", label: "Claude · Gemini · GPT", color: "#A78BFA" },
               { value: "24–72h", label: "Predictive warning", color: "#F59E0B" },
-              { value: "44", label: "Modules covered", color: "#34D399" },
+              { value: "45", label: "Modules covered", color: "#34D399" },
               { value: "0.4%", label: "Hallucination rate", color: "#60A5FA" },
             ].map((m) => (
               <div key={m.label} className="bg-surface/85 backdrop-blur border border-border-dim rounded-xl p-4">

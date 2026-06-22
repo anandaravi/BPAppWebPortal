@@ -48,7 +48,7 @@ export function AISpotlight() {
               Ask your ERP anything.<br /><span className="amber-text">Act instantly.</span>
             </h2>
             <p className="text-text-2 text-lg mb-8 leading-relaxed">
-              Natural language chat across all 44 modules. Query sales, production,
+              Natural language chat across all 45 modules. Query sales, production,
               finance, and HR in one conversation — then act with full audit trails.
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">

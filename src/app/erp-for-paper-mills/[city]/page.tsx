@@ -227,7 +227,7 @@ export default async function Page({ params }: { params: Promise<{ city: string 
               href="/product"
               className="inline-flex items-center gap-1 text-sm text-amber-400 hover:text-amber-300 mt-4 font-medium"
             >
-              See all 44 modules →
+              See all 45 modules →
             </Link>
           </section>
 

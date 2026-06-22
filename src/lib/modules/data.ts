@@ -977,7 +977,7 @@ export const MODULES_DATA: Record<string, ModuleData> = {
     name: "AI",
     title: "Ask your ERP anything.",
     highlight: "Act instantly.",
-    blurb: "Natural language chat across all 44 modules, AI-powered bulk actions with human-in-the-loop preview, 50+ predictive analytics (cash flow, demand forecasting, anomaly detection), and a 5-phase analytics roadmap.",
+    blurb: "Natural language chat across all 45 modules, AI-powered bulk actions with human-in-the-loop preview, 50+ predictive analytics (cash flow, demand forecasting, anomaly detection), and a 5-phase analytics roadmap.",
     photo: "/images/heroes/ai-hero.jpg",
     accent: "#A78BFA",
     icon: "Sparkles",

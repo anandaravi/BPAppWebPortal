@@ -62,13 +62,13 @@ const VIDEOS: VideoItem[] = [
     title: "Papyrus BPApp — The Complete ERP for Indian Paper Mills",
     duration: "Watch",
     description:
-      "Full platform overview — 44 integrated modules covering production, sales, finance, HR, quality, maintenance, AI, and more.",
+      "Full platform overview — 45 integrated modules covering production, sales, finance, HR, quality, maintenance, AI, and more.",
     category: "Product",
   },
   {
     id: "unified-flow",
     youtubeId: "OBn-tlhePTs",
-    title: "The Unified Flow: How All 44 Modules Work Together",
+    title: "The Unified Flow: How All 45 Modules Work Together",
     duration: "Watch",
     description:
       "Order → Production → Dispatch → Invoice → Payment. See how data flows across departments without re-entry, in real time.",

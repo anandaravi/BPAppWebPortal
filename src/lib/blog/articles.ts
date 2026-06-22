@@ -327,7 +327,7 @@ Vendors love to talk Year 1 licenses. Real TCO is implementation + licenses + AM
 If they can't give you this within a week, they don't actually know.
 
 ### 8. Can we start small and grow?
-Modular activation matters. You shouldn't have to buy 44 modules to use 4. You should be able to add modules as needed without a re-implementation.
+Modular activation matters. You shouldn't have to buy 45 modules to use 4. You should be able to add modules as needed without a re-implementation.
 
 > **Ask**: "If we start with Sales + Finance + Inventory in Phase 1, what's the cost and time to add Production + Deckle in Phase 2?"
 

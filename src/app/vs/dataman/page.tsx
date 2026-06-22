@@ -38,7 +38,7 @@ const data: ComparisonPageData = {
   intro:
     "Dataman is a respected European paper mill MES (Manufacturing Execution System) specialist focused on shop floor execution, reel tracking, and production reporting. Papyrus BPApp delivers the same MES depth — plus the entire ERP layer above it (sales, finance, GST, HR, AI), eliminating the need to integrate MES + ERP from two different vendors.",
   positioningPapyrus:
-    "Cloud-native ERP + MES + AI in one platform. 44 integrated modules covering deckle, production, sales, GST-native finance, HR/payroll, quality, maintenance, IoT. India-first design with multi-currency, multi-country support.",
+    "Cloud-native ERP + MES + AI in one platform. 45 integrated modules covering deckle, production, sales, GST-native finance, HR/payroll, quality, maintenance, IoT. India-first design with multi-currency, multi-country support.",
   positioningCompetitor:
     "Dataman is a focused MES specialist with deep paper mill expertise. Strong at shop floor data acquisition, reel tracking, and OEE. Typically deployed on-premises with custom integration to SAP/Oracle/IBM for the ERP layer. India presence via partners.",
   rows: [
@@ -85,7 +85,7 @@ const data: ComparisonPageData = {
     },
     {
       q: "TCO comparison: Dataman + SAP vs Papyrus BPApp?",
-      a: "Dataman MES license + SAP S/4HANA + integration middleware typically costs ₹3–8 crore implementation + ₹50–100 lakh/year ongoing. Papyrus BPApp full platform: ₹15–40 lakh implementation, software starts at ₹4–12 lakh/year for small mills and scales to ₹12–30 lakh/year for mid mills covering all 44 modules. Typical 60–75% TCO reduction.",
+      a: "Dataman MES license + SAP S/4HANA + integration middleware typically costs ₹3–8 crore implementation + ₹50–100 lakh/year ongoing. Papyrus BPApp full platform: ₹15–40 lakh implementation, software starts at ₹4–12 lakh/year for small mills and scales to ₹12–30 lakh/year for mid mills covering all 45 modules. Typical 60–75% TCO reduction.",
     },
     {
       q: "What about Dataman's specific paper industry strengths like grade transitions and tail-fed reel tracking?",

@@ -37,7 +37,7 @@ const data: ComparisonPageData = {
   intro:
     "ProcessPro (acquired by Open Systems, now ProcessProERP) serves process manufacturers — food, beverage, chemicals, cosmetics, nutraceuticals. Some paper mills evaluate it for its process manufacturing focus. Papyrus BPApp goes further: paper-specific data model, deckle optimization, India compliance, and cloud-native architecture.",
   positioningPapyrus:
-    "Cloud-native paper-first ERP. Built specifically for Indian paper mills. 44 modules, INR pricing.",
+    "Cloud-native paper-first ERP. Built specifically for Indian paper mills. 45 modules, INR pricing.",
   positioningCompetitor:
     "ProcessProERP is purpose-built for process manufacturing — batch processing, formula management, recipe versioning, lot traceability. Good fit for food/beverage/chemicals. For paper specifically, lacks deckle optimization, paper grade master, India compliance defaults.",
   rows: [

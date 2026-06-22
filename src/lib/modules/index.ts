@@ -23,7 +23,7 @@ export const EXTRA_SLUGS = [
   "stock-preparation", "converting-finishing", "broke-management", "recipe-development",
   "crm", "helpdesk", "marketing-automation", "field-service",
   "iot-devices", "digital-twin", "sustainability", "edge-computing",
-  "rpa", "voice", "document-intelligence", "engineering-change",
+  "rpa", "voice", "document-intelligence", "engineering-change", "yard",
 ];
 
 export const ALL_SLUGS = [...CORE_SLUGS, ...PLATFORM_SLUGS_ORDERED, ...EXTRA_SLUGS];
@@ -35,7 +35,7 @@ export const MODULE_GROUPS = [
     tagline: "Production, deckle, inventory, quality — the mill floor.",
     slugs: [
       "sales", "procurement", "production", "stock-preparation", "deckle",
-      "converting-finishing", "broke-management", "inventory", "quality",
+      "converting-finishing", "broke-management", "inventory", "yard", "quality",
       "maintenance", "lab-master", "recipe-development",
     ],
   },

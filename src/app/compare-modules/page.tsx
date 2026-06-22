@@ -4,7 +4,7 @@ import { ModuleMatrix } from "@/components/sections/module-matrix";
 export const metadata: Metadata = {
   title: "Module Matrix — which modules fit your mill",
   description:
-    "Filterable comparison of all 44 Papyrus BPApp modules — relevance by mill type (Kraft, Duplex, W&P, Newsprint, Tissue, Specialty) and tier inclusion (Essential, Growth, Enterprise).",
+    "Filterable comparison of all 45 Papyrus BPApp modules — relevance by mill type (Kraft, Duplex, W&P, Newsprint, Tissue, Specialty) and tier inclusion (Essential, Growth, Enterprise).",
   alternates: { canonical: "/compare-modules" },
 };
 
@@ -20,7 +20,7 @@ export default function CompareModulesPage() {
             Which modules fit your mill?
           </h1>
           <p className="text-lg text-text-2 leading-relaxed">
-            All 44 modules · mapped to mill type + tier · click a module for details.
+            All 45 modules · mapped to mill type + tier · click a module for details.
           </p>
         </header>
         <ModuleMatrix />

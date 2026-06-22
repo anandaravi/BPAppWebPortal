@@ -19,7 +19,7 @@ const HOW_IT_WORKS = [
     icon: Puzzle,
     title: "Module Selection",
     description:
-      "Choose from 44 modules across Core Operations, Finance, HR, Platform, and Intelligence. Only the modules you activate are in scope. No shelfware, no unused licences.",
+      "Choose from 45 modules across Core Operations, Finance, HR, Platform, and Intelligence. Only the modules you activate are in scope. No shelfware, no unused licences.",
     accent: "#F59E0B",
   },
   {
@@ -334,13 +334,13 @@ export default function PricingPage() {
                 tier: "Large / Integrated Mill",
                 price: "₹30 lakh+",
                 period: "per year",
-                desc: "Multi-PM or integrated mill, 150+ users, full 44-module footprint, multi-plant, custom integration.",
+                desc: "Multi-PM or integrated mill, 150+ users, full 45-module footprint, multi-plant, custom integration.",
                 accent: "#A78BFA",
                 items: [
                   "Multi-PM / integrated",
                   "150+ named users",
                   "Cloud · On-prem · Hybrid",
-                  "Up to 44 modules",
+                  "Up to 45 modules",
                   "Dedicated success team",
                 ],
               },
@@ -426,7 +426,7 @@ export default function PricingPage() {
       <section className="py-20 border-b border-border-dim">
         <div className="max-w-[var(--container-max)] mx-auto px-6">
           <p className="text-amber-500 text-xs font-semibold uppercase tracking-widest mb-3">
-            44 Modules Across 6 Groups
+            45 Modules Across 6 Groups
           </p>
           <h2 className="text-4xl md:text-5xl font-black text-foreground tracking-tight mb-4">
             Pick what you need.
@@ -482,7 +482,7 @@ export default function PricingPage() {
               href="/product"
               className="text-amber-400 hover:text-amber-300 transition-colors"
             >
-              Browse all 44 modules →
+              Browse all 45 modules →
             </Link>
           </motion.p>
         </div>

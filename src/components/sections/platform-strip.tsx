@@ -53,7 +53,7 @@ export function PlatformStrip() {
           transition={{ duration: 0.4, delay: 0.3 }}
           className="text-center mt-10">
           <Link href="/product" className="group inline-flex items-center gap-2 text-sm text-amber-400 hover:text-amber-300 transition-colors font-medium">
-            See all 44 modules <ArrowRight size={14} className="group-hover:translate-x-0.5 transition-transform" />
+            See all 45 modules <ArrowRight size={14} className="group-hover:translate-x-0.5 transition-transform" />
           </Link>
         </motion.div>
       </div>

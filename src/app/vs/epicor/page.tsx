@@ -37,7 +37,7 @@ const data: ComparisonPageData = {
   intro:
     "Epicor Kinetic (formerly Epicor ERP 10) is a respected mid-market manufacturing ERP with strong roots in discrete manufacturing — automotive, machinery, electronics. Process industries including paper are supported but require configuration. Papyrus BPApp delivers what Epicor needs partner customization for — paper-specific workflows, India compliance, deckle optimization — all in cloud-native form.",
   positioningPapyrus:
-    "Paper-first cloud ERP for Indian mills. 44 native paper modules. INR pricing, 4–12 week implementation.",
+    "Paper-first cloud ERP for Indian mills. 45 native paper modules. INR pricing, 4–12 week implementation.",
   positioningCompetitor:
     "Epicor Kinetic is a mid-market ERP suite available on cloud or on-prem. Strong in discrete manufacturing, project-based, MTO/CTO businesses. Paper industry coverage via process manufacturing extensions + ISV solutions. Indian compliance via Epicor India localization + partner customization.",
   rows: [

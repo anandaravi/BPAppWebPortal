@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "/contact" },
   openGraph: {
     title: "Request a Demo of Papyrus BPApp",
-    description: "Book a paper mill ERP demo. 44 modules covering production, deckle, GST, HR, AI.",
+    description: "Book a paper mill ERP demo. 45 modules covering production, deckle, GST, HR, AI.",
     url: "/contact",
   },
 };

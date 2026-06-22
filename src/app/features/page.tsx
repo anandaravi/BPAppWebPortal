@@ -48,7 +48,7 @@ export default function FeaturesPage() {
           transition={{ duration: 0.5, delay: 0.1 }}
           className="text-5xl md:text-7xl font-black text-foreground tracking-tight leading-[1.0] mb-6">
           <span className="font-mono text-amber-400">{totalCaps}+</span> capabilities.<br />
-          <span className="amber-text">44 modules.</span>
+          <span className="amber-text">45 modules.</span>
         </motion.h1>
         <motion.p
           initial={{ opacity: 0, y: 12 }}

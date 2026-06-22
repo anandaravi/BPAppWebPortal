@@ -4,7 +4,7 @@ import { ogImage } from "@/lib/og";
 
 const OG = ogImage({
   title: "Built for paper. Engineered for scale.",
-  subtitle: "Cloud-native multi-tenant architecture. 44 modules, REST APIs, event-driven, audit-ready.",
+  subtitle: "Cloud-native multi-tenant architecture. 45 modules, REST APIs, event-driven, audit-ready.",
   tag: "Architecture",
   accent: "#60A5FA",
 });

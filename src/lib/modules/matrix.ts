@@ -57,7 +57,7 @@ export type MatrixEntry = {
   tier: Tier;
 };
 
-// 44 entries
+// 45 entries
 export const MODULE_MATRIX: MatrixEntry[] = [
   // CORE OPERATIONS
   { slug: "sales", category: "Core Ops", relevance: ALL_CORE, tier: "essential" },
@@ -68,6 +68,7 @@ export const MODULE_MATRIX: MatrixEntry[] = [
   { slug: "converting-finishing", category: "Core Ops", relevance: REC({ tissue: "core", writing: "core", specialty: "core" }), tier: "growth" },
   { slug: "broke-management", category: "Core Ops", relevance: REC({ writing: "core", duplex: "core" }), tier: "growth" },
   { slug: "inventory", category: "Core Ops", relevance: ALL_CORE, tier: "essential" },
+  { slug: "yard", category: "Core Ops", relevance: REC({}), tier: "growth" },
   { slug: "quality", category: "Core Ops", relevance: ALL_CORE, tier: "essential" },
   { slug: "maintenance", category: "Core Ops", relevance: REC({}), tier: "growth" },
   { slug: "lab-master", category: "Core Ops", relevance: REC({ writing: "core", specialty: "core", duplex: "core" }), tier: "growth" },

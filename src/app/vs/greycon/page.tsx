@@ -39,7 +39,7 @@ const data: ComparisonPageData = {
   intro:
     "Greycon is the world's most established name in paper mill trim optimization, with X-Trim and GreyconMill deployed at major global paper companies. Papyrus BPApp takes a different approach: instead of bolting trim optimization onto an existing ERP stack, the Deckle Optimizer is a first-class module inside a full Indian paper mill ERP — built natively for GST, multi-tenant cloud, and the operating realities of Indian mills.",
   positioningPapyrus:
-    "Cloud-native, India-built ERP with 44 integrated modules. The 3-tier Deckle Optimizer (Instant <2s · Balanced ~30s · Full ≤5 min, 180+ constraints) is one of them — feeding directly from Sales Orders, scheduling into Production, and posting consumption to Inventory and Finance automatically. No middleware, no integration projects, no separate license.",
+    "Cloud-native, India-built ERP with 45 integrated modules. The 3-tier Deckle Optimizer (Instant <2s · Balanced ~30s · Full ≤5 min, 180+ constraints) is one of them — feeding directly from Sales Orders, scheduling into Production, and posting consumption to Inventory and Finance automatically. No middleware, no integration projects, no separate license.",
   positioningCompetitor:
     "Mature point-solution specialist headquartered in the UK. X-Trim is the deckle optimization engine; GreyconMill adds scheduling and supply-chain layers. Strong global pedigree at large multinational paper companies. Typically deployed on-premises, integrated to a separate ERP (SAP, Oracle, IBM) via middleware. Pricing in foreign currency, India support via partners.",
   rows: [

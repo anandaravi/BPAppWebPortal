@@ -48,7 +48,7 @@ export function Hero() {
 
             <motion.p initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.2 }}
               className="text-lg text-text-2 max-w-lg mb-10 leading-relaxed">
-              44 integrated modules to streamline, automate, govern, and control your entire mill —
+              45 integrated modules to streamline, automate, govern, and control your entire mill —
               from order intake and reel optimization to GST filing, payroll, maintenance, and audit. One platform.
             </motion.p>
 

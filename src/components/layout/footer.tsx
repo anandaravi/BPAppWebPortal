@@ -154,7 +154,7 @@ export function Footer() {
         {/* Module groups directory */}
         <div className="mt-12 pt-10 border-t border-border-dim">
           <p className="text-xs font-semibold uppercase tracking-widest text-amber-500 mb-5">
-            All 44 Modules
+            All 45 Modules
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-6">
             {MODULE_GROUPS.map((g) => {

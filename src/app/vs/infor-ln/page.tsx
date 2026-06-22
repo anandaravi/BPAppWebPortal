@@ -38,7 +38,7 @@ const data: ComparisonPageData = {
   intro:
     "Infor LN (and its cloud version CloudSuite Industrial) is a well-regarded mid-market ERP for discrete and process manufacturing. It works across industries — automotive, electronics, food, paper, chemicals. Papyrus BPApp takes a different bet: paper-first, India-first, with deckle optimization built in as a core module rather than a partner add-on.",
   positioningPapyrus:
-    "Cloud-native ERP purpose-built for Indian paper mills. 44 modules tuned for paper industry workflows. Out-of-box Indian GST, FEMA, PF/ESI compliance. 3-tier Deckle Optimizer included.",
+    "Cloud-native ERP purpose-built for Indian paper mills. 45 modules tuned for paper industry workflows. Out-of-box Indian GST, FEMA, PF/ESI compliance. 3-tier Deckle Optimizer included.",
   positioningCompetitor:
     "Infor LN is a horizontal ERP with deep manufacturing capability. Strong in discrete manufacturing (automotive, machinery). Process manufacturing extensions exist but require configuration for paper-specific workflows (deckle, broke management, kraft/tissue/board grades). Indian compliance via Infor's India localization layer + partner customization.",
   rows: [
@@ -87,7 +87,7 @@ const data: ComparisonPageData = {
     },
     {
       q: "TCO comparison for a 50 TPD paper mill?",
-      a: "Infor LN: implementation ₹1–2 crore, annual licenses ₹40–80 lakh + AMC ₹20–40 lakh. Papyrus BPApp: implementation ₹15–40 lakh, annual subscription ₹4–12 lakh for small mills · ₹12–30 lakh for mid mills (50 TPD typical) · ₹30 lakh+ for large/integrated mills, covering all 44 modules. Typical 60–75% lower 5-year TCO.",
+      a: "Infor LN: implementation ₹1–2 crore, annual licenses ₹40–80 lakh + AMC ₹20–40 lakh. Papyrus BPApp: implementation ₹15–40 lakh, annual subscription ₹4–12 lakh for small mills · ₹12–30 lakh for mid mills (50 TPD typical) · ₹30 lakh+ for large/integrated mills, covering all 45 modules. Typical 60–75% lower 5-year TCO.",
     },
     {
       q: "Will my Infor consultant ecosystem be lost?",

@@ -139,7 +139,7 @@ export default function OGImage() {
             maxWidth: 680,
           }}
         >
-          44 modules. GST-native. AI-powered. Complete from orders to payroll.
+          45 modules. GST-native. AI-powered. Complete from orders to payroll.
         </div>
 
         {/* Bottom tag */}

@@ -151,7 +151,7 @@ export function Navbar() {
                   <div className="mt-3 pt-3 border-t border-border-dim flex items-center justify-between">
                     <Link href="/product" onClick={closeAll}
                       className="text-xs text-amber-400 hover:text-amber-300 transition-colors font-medium">
-                      View all 44 modules →
+                      View all 45 modules →
                     </Link>
                     <Link href="/features" onClick={closeAll}
                       className="text-xs text-text-3 hover:text-amber-300 transition-colors">
@@ -256,7 +256,7 @@ export function Navbar() {
             </Link>
           ))}
           <Link href="/product" className="text-xs text-amber-400 hover:text-amber-300 pl-2 py-1" onClick={() => setMenuOpen(false)}>
-            View all 44 modules →
+            View all 45 modules →
           </Link>
 
           <p className="text-[10px] font-semibold uppercase tracking-widest text-amber-500 mb-1 mt-3">Solutions</p>

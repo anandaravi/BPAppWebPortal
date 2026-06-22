@@ -70,7 +70,7 @@ export function ArchitectureDiagram() {
             Platform Architecture
           </p>
           <h2 className="text-4xl md:text-5xl font-black text-foreground tracking-tight">
-            44 modules.{" "}
+            45 modules.{" "}
             <span className="text-text-3">One connected platform.</span>
           </h2>
           <p className="mt-4 text-text-2 text-base max-w-xl">

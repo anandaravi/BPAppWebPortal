@@ -38,7 +38,7 @@ const data: ComparisonPageData = {
   intro:
     "Microsoft Dynamics 365 — Business Central (mid-market) and Finance & Operations (enterprise) — is a popular cloud ERP choice for Indian businesses already in the Microsoft ecosystem. It's well-designed, integrates with Microsoft 365, and has strong financial capability. But it's generic across industries — paper-specific workflows (deckle, broke, kraft grades) require customization or ISV add-ons. Papyrus BPApp delivers these natively, at a fraction of the cost.",
   positioningPapyrus:
-    "Cloud-native ERP purpose-built for Indian paper mills. 44 paper-specific modules. Native deckle optimization, GST, payroll. India-priced, India-supported, paper-first.",
+    "Cloud-native ERP purpose-built for Indian paper mills. 45 paper-specific modules. Native deckle optimization, GST, payroll. India-priced, India-supported, paper-first.",
   positioningCompetitor:
     "Microsoft Dynamics 365 is a horizontal cloud ERP suite. Business Central serves mid-market; Finance & Operations serves enterprise. Strong finance, decent manufacturing, good Microsoft 365 integration. Paper-specific capability requires customization or third-party ISV solutions. Indian compliance via Localization India add-on + partner customization.",
   rows: [
