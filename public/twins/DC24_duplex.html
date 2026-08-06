@@ -1,0 +1,2119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Digital Twin — Paper Mill Duplex Cutter</title>
+<style>
+  :root{
+    --bg:#0b1016; --panel:#121a24; --panel2:#0f161f; --line:#1e2b3a;
+    --ink:#e8eef6; --muted:#8ba0b6; --dim:#5f7386;
+    --ok:#22c58b; --warn:#f5b642; --alarm:#ff5468; --accent:#37b6ff; --violet:#b694e8;
+    --web:#d7c9a3; --grid:#16202c;
+    --font:'Segoe UI',Roboto,-apple-system,Helvetica,Arial,sans-serif;
+    --mono:'SFMono-Regular',Consolas,'Liberation Mono',Menlo,monospace;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;height:100%}
+  body{background:radial-gradient(1200px 700px at 70% -10%,#132030 0%,var(--bg) 60%);
+    color:var(--ink);font-family:var(--font);font-size:14px;-webkit-font-smoothing:antialiased}
+  .app{display:flex;flex-direction:column;min-height:100vh}
+
+  header{display:flex;align-items:center;gap:16px;padding:13px 22px;flex-wrap:wrap;
+    background:linear-gradient(180deg,#101923,#0c141d);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:6}
+  .brand{display:flex;flex-direction:column;line-height:1.2}
+  .brand h1{margin:0;font-size:17px;letter-spacing:.3px}
+  .brand .sub{color:var(--muted);font-size:12px;margin-top:2px}
+  .brand .sub b{color:var(--accent);font-weight:600}
+  .hspacer{flex:1}
+  .statepill{display:flex;align-items:center;gap:9px;padding:8px 16px;border-radius:999px;
+    font-weight:700;letter-spacing:.4px;font-size:13px;border:1px solid transparent}
+  .statepill .dot{width:11px;height:11px;border-radius:50%}
+  .st-run{background:rgba(34,197,139,.12);color:var(--ok);border-color:rgba(34,197,139,.35)}
+  .st-run .dot{background:var(--ok);box-shadow:0 0 10px var(--ok);animation:pulse 1.4s infinite}
+  .st-stop{background:rgba(139,160,182,.12);color:var(--muted);border-color:rgba(139,160,182,.3)}
+  .st-stop .dot{background:var(--muted)}
+  .st-alarm{background:rgba(255,84,104,.14);color:var(--alarm);border-color:rgba(255,84,104,.4)}
+  .st-alarm .dot{background:var(--alarm);box-shadow:0 0 10px var(--alarm);animation:pulse .7s infinite}
+  .st-hold{background:rgba(245,182,66,.14);color:var(--warn);border-color:rgba(245,182,66,.4)}
+  .st-hold .dot{background:var(--warn);box-shadow:0 0 10px var(--warn);animation:pulse 1s infinite}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+  .clock{font-family:var(--mono);color:var(--muted);font-size:12px;text-align:right;line-height:1.4}
+  .clock b{color:var(--ink);font-size:13px}
+
+  .top{padding:16px 22px 0}
+  .tabs{display:flex;gap:6px;padding:16px 22px 0;flex-wrap:wrap}
+  .tab{background:transparent;border:1px solid var(--line);color:var(--muted);border-radius:9px;
+    padding:9px 18px;font-size:12.5px;font-weight:700;letter-spacing:.4px;cursor:pointer;transition:.15s}
+  .tab:hover{color:var(--ink);border-color:#2c3e52}
+  .tab.active{background:rgba(55,182,255,.13);border-color:var(--accent);color:var(--accent)}
+  .pane[hidden]{display:none}
+
+  .grid{display:grid;grid-template-columns:1.35fr 1fr 1fr;gap:16px;padding:16px 22px}
+  .grid.two{grid-template-columns:1fr 1fr}
+  @media (max-width:1280px){.grid,.grid.two{grid-template-columns:1fr 1fr}}
+  @media (max-width:820px){.grid,.grid.two{grid-template-columns:1fr}}
+  .col{display:flex;flex-direction:column;gap:16px;min-width:0}
+
+  .card{background:linear-gradient(180deg,var(--panel),var(--panel2));border:1px solid var(--line);
+    border-radius:14px;padding:16px 18px;box-shadow:0 6px 22px rgba(0,0,0,.28)}
+  .card h2{margin:0 0 14px;font-size:12px;letter-spacing:1.4px;text-transform:uppercase;
+    color:var(--muted);font-weight:700;display:flex;align-items:center;gap:8px}
+  .card h2 .tag{margin-left:auto;font-size:10px;letter-spacing:1px;color:var(--dim);
+    border:1px solid var(--line);padding:2px 8px;border-radius:6px;text-transform:none}
+
+  svg#twin{width:100%;height:auto;display:block;background:
+    linear-gradient(0deg,transparent 23px,var(--grid) 24px),
+    linear-gradient(90deg,transparent 23px,var(--grid) 24px);
+    background-size:24px 24px;border-radius:10px;border:1px solid var(--line)}
+  .lbl{fill:var(--muted);font:600 11px var(--font)}
+  .lbl-sm{fill:var(--dim);font:500 9.5px var(--font)}
+  .val{fill:var(--ink);font:700 12px var(--mono)}
+  .zone-name{fill:var(--accent);font:700 10px var(--font);letter-spacing:.5px}
+
+  .gauges{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .gauge{display:flex;flex-direction:column;align-items:center;background:var(--panel2);
+    border:1px solid var(--line);border-radius:12px;padding:12px 8px 10px}
+  .gauge .num{font-family:var(--mono);font-size:24px;font-weight:700;margin-top:4px}
+  .gauge .unit{color:var(--muted);font-size:11px;margin-top:1px}
+  .gauge .name{color:var(--muted);font-size:10.5px;letter-spacing:.8px;text-transform:uppercase;margin-top:6px}
+  .gauge .sp{color:var(--dim);font-size:10px;font-family:var(--mono);margin-top:2px}
+
+  .tzone{margin-bottom:11px}.tzone:last-child{margin-bottom:0}
+  .tzone .row{display:flex;justify-content:space-between;font-size:11.5px;margin-bottom:4px}
+  .tzone .row .z{color:var(--ink);font-weight:600}
+  .tzone .row .v{font-family:var(--mono);color:var(--muted)}
+  .tzone .v b{color:var(--ink)}
+  .track{position:relative;height:9px;background:#0a1119;border:1px solid var(--line);border-radius:6px;overflow:hidden}
+  .fill{position:absolute;top:0;bottom:0;left:0;border-radius:6px;transition:width .4s ease,background .3s}
+  .setmark{position:absolute;top:-3px;width:2px;height:15px;background:var(--ink);opacity:.55}
+
+  .drow{display:flex;justify-content:space-between;align-items:baseline;padding:7px 0;border-bottom:1px dashed var(--line)}
+  .drow:last-child{border-bottom:none}
+  .drow .k{color:var(--muted);font-size:12px}
+  .drow .v{font-family:var(--mono);font-size:13px;font-weight:700}
+  .drow .v small{color:var(--dim);font-weight:500;font-size:10px;margin-left:3px}
+
+  table.tbl{width:100%;border-collapse:collapse;font-size:12px}
+  table.tbl th{color:var(--dim);font-weight:600;text-align:right;padding:6px 6px;
+    border-bottom:1px solid var(--line);font-size:10px;letter-spacing:.5px;text-transform:uppercase}
+  table.tbl th:first-child{text-align:left}
+  table.tbl td{padding:8px 6px;border-bottom:1px dashed var(--line);text-align:right;font-family:var(--mono)}
+  table.tbl td:first-child{text-align:left;font-family:var(--font);color:var(--ink)}
+  table.tbl tr.sel td{background:rgba(55,182,255,.08)}
+  table.tbl tr.click{cursor:pointer}
+  table.tbl tr.click:hover td{background:rgba(55,182,255,.06)}
+  .barmini{position:relative;height:6px;width:52px;background:#0a1119;border-radius:4px;display:inline-block;
+    vertical-align:middle;overflow:hidden;border:1px solid var(--line)}
+  .barmini i{position:absolute;left:0;top:0;bottom:0;border-radius:4px;transition:width .4s}
+  .drv-dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:5px;vertical-align:middle}
+
+  .oee{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:12px}
+  .oee .cell{background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:10px;text-align:center}
+  .oee .cell .big{font-family:var(--mono);font-size:20px;font-weight:700}
+  .oee .cell .lb{color:var(--muted);font-size:10px;letter-spacing:.6px;text-transform:uppercase;margin-top:3px}
+  .countrow{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);padding:6px 2px}
+  .countrow b{color:var(--ink);font-family:var(--mono)}
+
+  .alarms{display:flex;flex-direction:column;gap:8px;max-height:230px;overflow:auto}
+  .alarm{display:flex;gap:10px;align-items:flex-start;padding:9px 11px;border-radius:9px;
+    background:var(--panel2);border-left:3px solid var(--line)}
+  .alarm.crit{border-left-color:var(--alarm);background:rgba(255,84,104,.06)}
+  .alarm.warn{border-left-color:var(--warn);background:rgba(245,182,66,.05)}
+  .alarm.info{border-left-color:var(--accent)}
+  .alarm .ico{font-weight:800;font-size:13px;margin-top:1px}
+  .alarm.crit .ico{color:var(--alarm)}.alarm.warn .ico{color:var(--warn)}.alarm.info .ico{color:var(--accent)}
+  .alarm .txt{flex:1;min-width:0}
+  .alarm .txt .m{font-size:12px;color:var(--ink)}
+  .alarm .txt .t{font-size:10px;color:var(--dim);font-family:var(--mono);margin-top:2px}
+  .noalarm{color:var(--muted);font-size:12px;text-align:center;padding:16px;font-style:italic}
+
+  .controls{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+  button.ctl{background:var(--panel2);color:var(--ink);border:1px solid var(--line);border-radius:8px;
+    padding:7px 13px;font-size:12px;cursor:pointer;font-weight:600;transition:.15s}
+  button.ctl:hover{border-color:var(--accent);color:var(--accent)}
+  button.ctl.active{background:rgba(55,182,255,.14);border-color:var(--accent);color:var(--accent)}
+  button.ctl.warnactive{background:rgba(245,182,66,.14);border-color:var(--warn);color:var(--warn)}
+  button.ctl.stop:hover{border-color:var(--alarm);color:var(--alarm)}
+  .foot{color:var(--dim);font-size:11px;padding:6px 22px 18px;text-align:center}
+  .foot code{color:var(--muted);font-family:var(--mono)}
+
+  .spark{width:100%;height:auto;display:block;background:#0a1119;border:1px solid var(--line);border-radius:8px}
+  .spark-wrap{margin-bottom:12px}.spark-wrap:last-child{margin-bottom:0}
+  .spark-hd{display:flex;justify-content:space-between;font-size:11px;margin-bottom:5px}
+  .spark-hd .t{color:var(--muted);font-weight:600;letter-spacing:.3px}
+  .spark-hd .v{font-family:var(--mono);color:var(--ink)}
+  .legend{display:flex;gap:10px;flex-wrap:wrap;font-size:10px;color:var(--muted);margin-top:5px}
+  .legend span{display:inline-flex;align-items:center;gap:4px}
+  .legend i{width:9px;height:3px;border-radius:2px;display:inline-block}
+
+  svg#slitset,svg#defmap{width:100%;height:auto;display:block;background:#0a1119;border:1px solid var(--line);border-radius:8px}
+  .slit-w{fill:var(--dim);font:600 9px var(--mono)}
+
+  .setup{display:grid;grid-template-columns:1fr 1fr;gap:10px 12px}
+  .setup .f{display:flex;flex-direction:column;gap:4px}
+  .setup .f.wide{grid-column:1/3}
+  .setup label{font-size:10.5px;color:var(--muted);letter-spacing:.4px;text-transform:uppercase}
+  .setup input{background:#0a1119;border:1px solid var(--line);border-radius:7px;color:var(--ink);
+    font-family:var(--mono);font-size:13px;padding:8px 10px;width:100%}
+  .setup input:focus{outline:none;border-color:var(--accent)}
+  .setup .apply{grid-column:1/3;display:flex;gap:8px;align-items:center;margin-top:2px;flex-wrap:wrap}
+  .setup .msg{font-size:11px;color:var(--dim)}
+  .setup .msg.err{color:var(--alarm)}.setup .msg.ok{color:var(--ok)}
+
+  .health{margin-bottom:12px}
+  .health .row{display:flex;justify-content:space-between;font-size:12px;margin-bottom:5px}
+  .health .row .k{color:var(--muted)}.health .row .v{font-family:var(--mono)}
+  .wearbar{position:relative;height:11px;background:#0a1119;border:1px solid var(--line);border-radius:6px;overflow:hidden}
+  .wearbar i{position:absolute;left:0;top:0;bottom:0;border-radius:6px;transition:width .4s,background .3s}
+  .wearbar .limit{position:absolute;top:-2px;height:15px;width:2px;background:var(--ink);opacity:.4}
+  .duetag{font-size:10px;font-weight:700;padding:2px 7px;border-radius:5px;letter-spacing:.5px;white-space:nowrap}
+  .due-ok{background:rgba(34,197,139,.14);color:var(--ok)}
+  .due-soon{background:rgba(245,182,66,.14);color:var(--warn)}
+  .due-now{background:rgba(255,84,104,.16);color:var(--alarm)}
+
+  .dd{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px}
+  .ddcell{background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:10px 6px 8px;text-align:center}
+  .ddcell svg{width:100%;max-width:112px;height:auto;display:block;margin:0 auto}
+  .ddname{color:var(--muted);font-size:10px;letter-spacing:.7px;text-transform:uppercase;margin-top:4px}
+  .ddsub{color:var(--dim);font-size:10px;font-family:var(--mono);margin-top:2px}
+  .ddctl{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+
+  /* KPI tiles */
+  .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;margin-bottom:12px}
+  .kpi{background:var(--panel2);border:1px solid var(--line);border-radius:11px;padding:11px;text-align:center}
+  .kpi .n{font-family:var(--mono);font-size:21px;font-weight:700}
+  .kpi .u{color:var(--dim);font-size:10px;margin-top:1px;font-family:var(--mono)}
+  .kpi .l{color:var(--muted);font-size:10px;letter-spacing:.6px;text-transform:uppercase;margin-top:5px}
+
+  /* barcode */
+  .bc{background:#f4f6f8;border-radius:8px;padding:10px 12px 6px;text-align:center;margin-top:10px}
+  .bc svg{width:100%;height:52px;display:block}
+  .bc .id{font-family:var(--mono);font-size:11px;color:#111;letter-spacing:1.5px;margin-top:3px;font-weight:700}
+  .bc .cap{font-size:10px;color:#555;margin-top:2px}
+
+  /* certificate verdict */
+  .verdict{display:inline-block;padding:4px 12px;border-radius:7px;font-weight:800;font-size:12px;letter-spacing:.6px}
+  .v-pass{background:rgba(34,197,139,.15);color:var(--ok)}
+  .v-watch{background:rgba(245,182,66,.15);color:var(--warn)}
+  .v-rej{background:rgba(255,84,104,.16);color:var(--alarm)}
+
+  .qhead{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;
+    background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:10px 12px}
+  .qhead .t{font-size:12px;color:var(--muted)}
+  .qhead .t b{color:var(--ink);font-family:var(--mono);display:block;font-size:14px;margin-top:2px}
+
+  .ordrow{display:flex;gap:10px;align-items:center;padding:10px 12px;border-radius:10px;
+    background:var(--panel2);border:1px solid var(--line);margin-bottom:8px}
+  .ordrow.run{border-color:var(--accent);background:rgba(55,182,255,.07)}
+  .ordrow.done{opacity:.55}
+  .ordrow .oid{font-family:var(--mono);font-weight:700;font-size:12.5px}
+  .ordrow .om{flex:1;min-width:0}
+  .ordrow .osub{color:var(--dim);font-size:10.5px;margin-top:2px}
+  .ordrow .ost{font-size:10px;font-weight:700;padding:3px 8px;border-radius:5px;letter-spacing:.5px}
+  .os-run{background:rgba(55,182,255,.16);color:var(--accent)}
+  .os-q{background:rgba(139,160,182,.14);color:var(--muted)}
+  .os-d{background:rgba(34,197,139,.14);color:var(--ok)}
+
+  /* ================= KIOSK / WALL MODE — fixed 1920×1080 canvas, never scrolls ================= */
+  #stage{display:none}
+  body.kiosk{overflow:hidden}
+  body.kiosk #deskRoot{display:none}
+  body.kiosk #stage{display:block;position:fixed;left:50%;top:50%;width:1920px;height:1080px;
+    transform-origin:center center;overflow:hidden}
+  .kwrap{display:flex;flex-direction:column;height:1080px;padding:14px 18px;gap:11px}
+  .khead{display:flex;align-items:center;gap:16px;height:66px;flex:0 0 auto;
+    background:linear-gradient(180deg,#101923,#0c141d);border:1px solid var(--line);border-radius:14px;padding:0 18px}
+  .khead h1{margin:0;font-size:23px;letter-spacing:.4px;line-height:1.15}
+  .ksub{color:var(--muted);font-size:13px;margin-top:2px}
+  .ksub b{color:var(--accent);font-weight:600}
+  .kbody{display:grid;grid-template-columns:1fr 664px;gap:11px;flex:1 1 auto;min-height:0}
+  .kcol{display:flex;flex-direction:column;gap:11px;min-height:0}
+  .kcard{background:linear-gradient(180deg,var(--panel),var(--panel2));border:1px solid var(--line);
+    border-radius:14px;padding:11px 14px;min-height:0;display:flex;flex-direction:column;overflow:hidden}
+  .kcard h3{margin:0 0 8px;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);
+    font-weight:700;display:flex;align-items:center;gap:9px;flex:0 0 auto}
+  .kcard h3 .tag{font-size:10px;letter-spacing:1px;color:var(--dim);border:1px solid var(--line);
+    padding:2px 8px;border-radius:6px;text-transform:none}
+  .ktiles{display:grid;grid-template-columns:repeat(8,1fr);gap:9px;flex:0 0 auto}
+  .ktile{background:linear-gradient(180deg,var(--panel),var(--panel2));border:1px solid var(--line);
+    border-radius:12px;padding:10px 5px 9px;text-align:center}
+  .ktile .n{font-family:var(--mono);font-size:27px;font-weight:700;line-height:1.05}
+  .ktile .u{color:var(--dim);font-size:10px;font-family:var(--mono);margin-top:2px}
+  .ktile .l{color:var(--muted);font-size:9.5px;letter-spacing:.8px;text-transform:uppercase;margin-top:6px}
+  .kprog{height:4px;background:#0a1119;border-radius:3px;overflow:hidden;flex:0 0 auto}
+  .kprog i{display:block;height:100%;background:var(--accent);width:0%;transition:width .12s linear}
+  .kdots{display:flex;gap:6px;margin-left:auto;align-items:center}
+  .kdot{width:9px;height:9px;border-radius:50%;background:#243447;cursor:pointer;transition:.2s}
+  .kdot.on{background:var(--accent);box-shadow:0 0 7px rgba(55,182,255,.7)}
+  .kalarms{display:flex;flex-direction:column;gap:6px;overflow:hidden;flex:1 1 auto}
+  .kalarm{display:flex;gap:9px;align-items:center;padding:7px 10px;border-radius:8px;
+    background:var(--panel2);border-left:3px solid var(--line);font-size:13px;flex:0 0 auto}
+  .kalarm.crit{border-left-color:var(--alarm);background:rgba(255,84,104,.07)}
+  .kalarm.warn{border-left-color:var(--warn);background:rgba(245,182,66,.05)}
+  .kalarm.info{border-left-color:var(--accent)}
+  .kalarm .m{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .kalarm .t{font-family:var(--mono);font-size:11px;color:var(--dim)}
+  .kpane{flex:1 1 auto;min-height:0;overflow:hidden;margin-top:9px;display:flex;flex-direction:column;gap:9px}
+  .kg2{display:grid;grid-template-columns:1fr 1fr;gap:11px;min-height:0}
+  .ksec{background:var(--panel2);border:1px solid var(--line);border-radius:11px;padding:9px 11px;min-height:0;overflow:hidden}
+  .ksec .st{color:var(--muted);font-size:10px;letter-spacing:.9px;text-transform:uppercase;font-weight:700;margin-bottom:7px;
+    display:flex;justify-content:space-between;align-items:baseline}
+  .ksec .st span{font-family:var(--mono);color:var(--ink);font-size:11px;letter-spacing:0;text-transform:none}
+  body.kiosk .drow{padding:5px 0;font-size:12px}
+  body.kiosk .drow .v{font-size:12.5px}
+  body.kiosk table.tbl td{padding:5px 5px;font-size:11.5px}
+  body.kiosk table.tbl th{padding:4px 5px;font-size:9.5px}
+  body.kiosk .tzone{margin-bottom:8px}
+  body.kiosk .spark{border-radius:7px}
+  .kfit{width:100%;height:auto;display:block}
+  /* charts that stretch to fill their section */
+  .ksec.flexcol{display:flex;flex-direction:column}
+  .kchart{width:100%;flex:1 1 auto;min-height:0;display:block;background:#0a1119;
+    border:1px solid var(--line);border-radius:7px}
+  .kscroll{flex:1 1 auto;min-height:0;overflow:hidden}
+  /* ---------- duplex-cutter specific ---------- */
+  .bsgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}
+  .bscell{background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:8px 5px 7px;text-align:center}
+  .bscell svg{width:100%;max-width:66px;height:auto;display:block;margin:0 auto}
+  .bscell .bn{color:var(--muted);font-size:9.5px;letter-spacing:.6px;text-transform:uppercase;margin-top:4px}
+  .bscell .bv{font-family:var(--mono);font-size:10.5px;color:var(--dim);margin-top:2px}
+  .bscell.low{border-color:rgba(245,182,66,.55)}
+  .bscell.crit{border-color:rgba(255,84,104,.6)}
+  .panelsvg{width:100%;height:auto;display:block;background:#0a1119;border:1px solid var(--line);border-radius:8px}
+  .pilebar{position:relative;height:16px;background:#0a1119;border:1px solid var(--line);border-radius:7px;overflow:hidden}
+  .pilebar i{position:absolute;left:0;top:0;bottom:0;background:linear-gradient(90deg,#8a7850,#e9dcbb);border-radius:7px;transition:width .35s}
+  .pilebar span{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+    font-family:var(--mono);font-size:10.5px;color:var(--ink);font-weight:800;
+    text-shadow:0 1px 3px rgba(0,0,0,.95),0 0 6px rgba(0,0,0,.8)}
+  /* deck cards */
+  .deck{background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:11px 13px;margin-bottom:11px}
+  .deck:last-child{margin-bottom:0}
+  .deck.a{border-left:3px solid var(--accent)}
+  .deck.b{border-left:3px solid var(--violet)}
+  .deck .dh{display:flex;align-items:baseline;gap:9px;margin-bottom:8px}
+  .deck .dh .dn{font-size:11px;letter-spacing:1.1px;text-transform:uppercase;color:var(--muted);font-weight:700}
+  .deck .dh .df{margin-left:auto;font-family:var(--mono);font-size:15px;font-weight:700;color:var(--ink)}
+  .deck .dg{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:9px}
+  .deck .dg div{background:#0c141d;border:1px solid var(--line);border-radius:8px;padding:6px 5px;text-align:center}
+  .deck .dg .n{font-family:var(--mono);font-size:15px;font-weight:700}
+  .deck .dg .l{color:var(--muted);font-size:9px;letter-spacing:.6px;text-transform:uppercase;margin-top:3px}
+  .deckchip{font-size:9px;font-weight:800;padding:2px 7px;border-radius:5px;letter-spacing:.7px}
+  .chip-a{background:rgba(55,182,255,.16);color:var(--accent)}
+  .chip-b{background:rgba(182,148,232,.18);color:var(--violet)}
+</style>
+</head>
+<body>
+<div class="app" id="deskRoot">
+  <header>
+    <div class="brand">
+      <h1 id="mcName">Duplex Cutter</h1>
+      <div class="sub">Digital Twin · Line <b id="mcLine">—</b> · Asset <b id="mcAsset">—</b> · Order <b id="mcOrder">—</b></div>
+    </div>
+    <div class="hspacer"></div>
+    <div class="controls">
+      <button class="ctl active" id="btnRun">▶ Run</button>
+      <button class="ctl stop" id="btnStop">■ Stop</button>
+      <button class="ctl" id="btnPileA">⬓ Discharge A</button>
+      <button class="ctl" id="btnPileB">⬓ Discharge B</button>
+      <button class="ctl" id="btnReel">⟳ Reel change</button>
+      <button class="ctl" id="btnFault">⚠ Inject fault</button>
+      <button class="ctl" id="btnKiosk">⛶ Wall mode</button>
+    </div>
+    <div id="statepill" class="statepill st-run"><span class="dot"></span><span id="stateTxt">RUNNING</span></div>
+    <div class="clock"><b id="clk">--:--:--</b><br><span id="shift">Shift —</span></div>
+  </header>
+
+  <div class="top">
+    <div class="card">
+      <h2>Machine Schematic — Two Cutting Decks <span class="tag" id="dirTag">Live twin</span></h2>
+      <svg id="twin" viewBox="0 50 980 320" preserveAspectRatio="xMidYMid meet"></svg>
+    </div>
+  </div>
+
+  <div class="tabs">
+    <button class="tab active" data-tab="overview">Overview</button>
+    <button class="tab" data-tab="quality">Quality</button>
+    <button class="tab" data-tab="production">Production</button>
+    <button class="tab" data-tab="losses">Losses &amp; Energy</button>
+  </div>
+
+  <!-- ======================= OVERVIEW ======================= -->
+  <div class="pane" id="pane-overview">
+    <div class="grid">
+      <div class="col">
+        <div class="card">
+          <h2>Line Speed &amp; Decks <span class="tag" id="dxTag">duplex · 2 knives</span></h2>
+          <div class="gauges">
+            <div class="gauge"><div class="name">Line speed</div>
+              <div class="num" id="gSpeed" style="color:var(--accent)">0</div>
+              <div class="unit">m / min</div><div class="sp" id="gSpeedSp">SP —</div></div>
+            <div class="gauge"><div class="name">Total output</div>
+              <div class="num" id="gTph" style="color:var(--ok)">0</div>
+              <div class="unit">t / h</div><div class="sp" id="gTphSp">both decks</div></div>
+          </div>
+          <div style="height:10px"></div>
+          <div id="lineRows"></div>
+        </div>
+
+        <div class="card">
+          <h2>Web Tension <span class="tag">zone control</span></h2>
+          <div id="tzones"></div>
+        </div>
+
+        <div class="card">
+          <h2>Live Trends <span class="tag">rolling window</span></h2>
+          <div class="spark-wrap">
+            <div class="spark-hd"><span class="t">Line speed (m/min)</span><span class="v" id="spSpeedV">—</span></div>
+            <svg id="spSpeed" class="spark" viewBox="0 0 300 56" preserveAspectRatio="none"></svg>
+          </div>
+          <div class="spark-wrap">
+            <div class="spark-hd"><span class="t">Deck A length deviation (mm)</span><span class="v" id="spDevAV">—</span></div>
+            <svg id="spDevA" class="spark" viewBox="0 0 300 50" preserveAspectRatio="none"></svg>
+          </div>
+          <div class="spark-wrap">
+            <div class="spark-hd"><span class="t">Deck B length deviation (mm)</span><span class="v" id="spDevBV">—</span></div>
+            <svg id="spDevB" class="spark" viewBox="0 0 300 50" preserveAspectRatio="none"></svg>
+          </div>
+          <div class="legend"><span><i style="background:var(--accent)"></i>Deck A</span>
+            <span><i style="background:var(--violet)"></i>Deck B</span>
+            <span><i style="background:rgba(34,197,139,.5)"></i>Tolerance band</span></div>
+        </div>
+      </div>
+
+      <div class="col">
+        <div class="card">
+          <h2>Cutting Decks <span class="tag" id="deckTag">independent lengths</span></h2>
+          <div id="deckCards"></div>
+        </div>
+
+        <div class="card">
+          <h2>Slitting &amp; Deck Allocation <span class="tag" id="allocTag">ribbons</span></h2>
+          <svg id="alloc" class="panelsvg" viewBox="0 0 520 120" preserveAspectRatio="xMidYMid meet"></svg>
+          <div style="margin-top:10px" id="allocRows"></div>
+        </div>
+      </div>
+
+      <div class="col">
+        <div class="card">
+          <h2>Unwind Backstands <span class="tag" id="bsTag">reels</span></h2>
+          <div class="bsgrid" id="bsGrid"></div>
+          <div style="margin-top:11px" id="bsRows"></div>
+        </div>
+
+        <div class="card">
+          <h2>Production &amp; OEE <span class="tag" id="oeeShift">This shift</span></h2>
+          <div class="oee">
+            <div class="cell"><div class="big" id="oeeA" style="color:var(--ok)">—</div><div class="lb">Availability</div></div>
+            <div class="cell"><div class="big" id="oeeP" style="color:var(--accent)">—</div><div class="lb">Performance</div></div>
+            <div class="cell"><div class="big" id="oeeQ" style="color:var(--warn)">—</div><div class="lb">Quality</div></div>
+          </div>
+          <div class="oee" style="grid-template-columns:1fr">
+            <div class="cell" style="padding:12px"><div class="big" id="oeeTotal" style="font-size:30px">—</div>
+              <div class="lb">Overall OEE</div></div>
+          </div>
+          <div class="countrow"><span>Sheets — deck A / B</span><b id="cSheets">0 / 0</b></div>
+          <div class="countrow"><span>Piles — deck A / B</span><b id="cPiles">0 / 0</b></div>
+          <div class="countrow"><span>Tonnage</span><b id="cTon">0 t</b></div>
+          <div class="countrow"><span>Trim waste</span><b id="cWaste">0 %</b></div>
+        </div>
+
+        <div class="card">
+          <h2>Alarms &amp; Events <span class="tag" id="almCount">0 active</span></h2>
+          <div class="alarms" id="alarms"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================= QUALITY ======================= -->
+  <div class="pane" id="pane-quality" hidden>
+    <div class="grid two">
+      <div class="col">
+        <div class="card">
+          <h2>Sheet Length Accuracy — Deck A <span class="tag" id="lenTagA">vs tolerance</span></h2>
+          <div class="spark-hd"><span class="t">Deviation distribution (mm)</span><span class="v" id="lenStatA">—</span></div>
+          <svg id="lenHistA" class="panelsvg" viewBox="0 0 300 108" preserveAspectRatio="none"></svg>
+          <div style="margin-top:10px" id="lenRowsA"></div>
+        </div>
+        <div class="card">
+          <h2>Sheet Length Accuracy — Deck B <span class="tag" id="lenTagB">vs tolerance</span></h2>
+          <div class="spark-hd"><span class="t">Deviation distribution (mm)</span><span class="v" id="lenStatB">—</span></div>
+          <svg id="lenHistB" class="panelsvg" viewBox="0 0 300 108" preserveAspectRatio="none"></svg>
+          <div style="margin-top:10px" id="lenRowsB"></div>
+        </div>
+      </div>
+
+      <div class="col">
+        <div class="card">
+          <h2>Cross-Web (CD) Profile <span class="tag">across deckle</span></h2>
+          <div class="spark-wrap">
+            <div class="spark-hd"><span class="t">Caliper (mm)</span><span class="v" id="cdCalV">—</span></div>
+            <svg id="cdCal" class="spark" viewBox="0 0 300 46" preserveAspectRatio="none"></svg>
+          </div>
+          <div class="spark-wrap">
+            <div class="spark-hd"><span class="t">Moisture (%)</span><span class="v" id="cdMoiV">—</span></div>
+            <svg id="cdMoi" class="spark" viewBox="0 0 300 46" preserveAspectRatio="none"></svg>
+          </div>
+          <div class="spark-wrap">
+            <div class="spark-hd"><span class="t">Basis weight (g/m²)</span><span class="v" id="cdBwV">—</span></div>
+            <svg id="cdBw" class="spark" viewBox="0 0 300 46" preserveAspectRatio="none"></svg>
+          </div>
+          <div class="legend"><span>Ticks mark slitter positions · dashed = target</span></div>
+        </div>
+
+        <div class="card">
+          <h2>Defect Map <span class="tag" id="defTag">by ribbon</span></h2>
+          <svg id="defmap" viewBox="0 0 520 200" preserveAspectRatio="xMidYMid meet" class="panelsvg"></svg>
+          <div class="legend">
+            <span><i style="background:var(--alarm)"></i>Major</span>
+            <span><i style="background:var(--warn)"></i>Minor</span>
+            <span>Ribbon lanes shaded by deck</span>
+          </div>
+          <div style="margin-top:10px" id="defRows"></div>
+        </div>
+
+        <div class="card">
+          <h2>Pile Quality Certificate <span class="tag" id="certTag">last pile</span></h2>
+          <div id="certBox"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================= PRODUCTION ======================= -->
+  <div class="pane" id="pane-production" hidden>
+    <div class="grid two">
+      <div class="col">
+        <div class="card">
+          <h2>Order Queue <span class="tag" id="ordTag">schedule</span></h2>
+          <div style="color:var(--dim);font-size:11px;margin-bottom:9px">
+            Each order runs two formats at once — one per cutting deck.
+          </div>
+          <div id="ordList"></div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px">
+            <button class="ctl" id="btnNextOrder">Load next order</button>
+            <span class="setup"><span class="msg" id="ordMsg"></span></span>
+          </div>
+        </div>
+
+        <div class="card">
+          <h2>Setup / Recipe <span class="tag">editable</span></h2>
+          <div class="setup">
+            <div class="f"><label>Speed SP (m/min)</label><input id="inSpeed" type="number" min="0" step="10"></div>
+            <div class="f"><label>Deckle (mm)</label><input id="inDeckle" type="number" min="200" step="10"></div>
+            <div class="f"><label>Deck A sheet length (mm)</label><input id="inLA" type="number" min="50" step="10"></div>
+            <div class="f"><label>Deck B sheet length (mm)</label><input id="inLB" type="number" min="50" step="10"></div>
+            <div class="f"><label>Sheets per pile — A</label><input id="inPA" type="number" min="10" step="50"></div>
+            <div class="f"><label>Sheets per pile — B</label><input id="inPB" type="number" min="10" step="50"></div>
+            <div class="f"><label>Caliper (mm)</label><input id="inCal" type="number" min="0.01" step="0.01"></div>
+            <div class="f"><label>Basis weight (g/m²)</label><input id="inGsm" type="number" min="10" step="5"></div>
+            <div class="f wide"><label>Ribbon widths (mm, comma-separated)</label>
+              <input id="inSlits" type="text" placeholder="420,420,420,420"></div>
+            <div class="f wide"><label>Deck per ribbon (A/B, comma-separated — must match ribbon count)</label>
+              <input id="inAssign" type="text" placeholder="A,A,B,B"></div>
+            <div class="apply">
+              <button class="ctl" id="btnApply">Apply recipe</button>
+              <span class="msg" id="setupMsg"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col">
+        <div class="card">
+          <h2>Pallet Traceability <span class="tag" id="traceTag">0 pallets</span></h2>
+          <table class="tbl">
+            <thead><tr><th>Pallet ID</th><th>Deck</th><th>Size</th><th>Sheets</th><th>kg</th><th>Dev</th><th>Q</th></tr></thead>
+            <tbody id="traceBody"></tbody>
+          </table>
+          <div class="bc" id="bcBox">
+            <svg id="barcode" viewBox="0 0 400 60" preserveAspectRatio="none"></svg>
+            <div class="id" id="bcId">—</div>
+            <div class="cap" id="bcCap">Code 39 · click any pallet above</div>
+          </div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px">
+            <button class="ctl" id="btnCsv">⭳ Export pallet report (CSV)</button>
+            <button class="ctl" id="btnShift">⭳ Shift summary (CSV)</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================= LOSSES ======================= -->
+  <div class="pane" id="pane-losses" hidden>
+    <div class="grid two">
+      <div class="col">
+        <div class="card">
+          <h2>Energy <span class="tag">live &amp; shift</span></h2>
+          <div class="kpis">
+            <div class="kpi"><div class="n" id="enKw" style="color:var(--accent)">—</div><div class="u">kW</div><div class="l">Live power</div></div>
+            <div class="kpi"><div class="n" id="enKwh">—</div><div class="u">kWh</div><div class="l">Shift energy</div></div>
+            <div class="kpi"><div class="n" id="enSpec" style="color:var(--warn)">—</div><div class="u">kWh / t</div><div class="l">Specific energy</div></div>
+            <div class="kpi"><div class="n" id="enIdle" style="color:var(--muted)">—</div><div class="u">%</div><div class="l">Idle share</div></div>
+          </div>
+          <div class="spark-wrap">
+            <div class="spark-hd"><span class="t">Total drive power (kW)</span><span class="v" id="spKwV">—</span></div>
+            <svg id="spKw" class="spark" viewBox="0 0 300 60" preserveAspectRatio="none"></svg>
+          </div>
+          <div id="enRows" style="margin-top:6px"></div>
+        </div>
+
+        <div class="card">
+          <h2>Section Drives <span class="tag" id="driveTag">axes</span></h2>
+          <table class="tbl">
+            <thead><tr><th>Drive</th><th>Load</th><th>kW</th><th>Speed</th><th>Temp</th></tr></thead>
+            <tbody id="driveBody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="col">
+        <div class="card">
+          <h2>Downtime &amp; Loss Pareto <span class="tag" id="parTag">by reason</span></h2>
+          <svg id="pareto" class="panelsvg" viewBox="0 0 320 140" preserveAspectRatio="xMidYMid meet"></svg>
+          <table class="tbl" style="margin-top:10px">
+            <thead><tr><th>Reason</th><th>Lost min</th><th>Share</th><th>Cum</th></tr></thead>
+            <tbody id="parBody"></tbody>
+          </table>
+        </div>
+
+        <div class="card">
+          <h2>Tool Wear &amp; Health <span class="tag">per deck</span></h2>
+          <div id="wearBox"></div>
+          <table class="tbl" style="margin-top:8px">
+            <thead><tr><th>Drive</th><th>Temp</th><th>Vib</th><th>Health</th></tr></thead>
+            <tbody id="healthBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="foot">
+    Reusable digital-twin template · edit the <code>MACHINE</code> config object (or the Setup / Recipe panel) to retarget any duplex / twin-knife sheeter ·
+    both decks share the line speed, so <code>cuts/min = v·1000 / L_deck</code> differs per deck while tonnage per ribbon does not ·
+    replace <code>simulateTick()</code> with live PLC / OPC-UA / SCADA tag reads for real data.
+  </div>
+</div>
+
+<!-- ================== KIOSK / WALL DISPLAY ================== -->
+<div id="stage">
+  <div class="kwrap">
+    <div class="khead">
+      <div>
+        <h1 id="kName">Duplex Cutter</h1>
+        <div class="ksub">Digital Twin · Line <b id="kLine">—</b> · Asset <b id="kAsset">—</b> · Order <b id="kOrder">—</b> · <span id="kGrade">—</span></div>
+      </div>
+      <div class="hspacer"></div>
+      <div id="kPill" class="statepill st-run" style="font-size:15px;padding:10px 20px">
+        <span class="dot"></span><span id="kState">RUNNING</span></div>
+      <div class="clock" style="font-size:13px"><b id="kClk" style="font-size:19px">--:--:--</b><br><span id="kShift">Shift —</span></div>
+      <button class="ctl" id="btnPause">⏸ Pause rotation</button>
+      <button class="ctl" id="btnFs">⛶ Fullscreen</button>
+      <button class="ctl" id="btnDesk">🖵 Desk mode</button>
+    </div>
+    <div class="kbody">
+      <div class="kcol">
+        <div class="kcard" style="flex:0 0 auto">
+          <h3>Machine Schematic — Two Cutting Decks <span class="tag" id="kSchTag">live twin</span></h3>
+          <div id="kSchematic" style="flex:0 0 auto"></div>
+        </div>
+        <div class="ktiles" id="kTiles"></div>
+        <div class="kcard" style="flex:1 1 auto">
+          <h3>Alarms &amp; Events <span class="tag" id="kAlmTag">0 active</span></h3>
+          <div class="kalarms" id="kAlarms"></div>
+        </div>
+      </div>
+      <div class="kcol">
+        <div class="kcard" style="flex:1 1 auto">
+          <h3><span id="kPaneTitle">Decks</span><span class="kdots" id="kDots"></span></h3>
+          <div class="kprog"><i id="kProg"></i></div>
+          <div class="kpane" id="kPane"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* =====================================================================
+   REUSABLE CONFIG — duplex (twin-knife) sheeter
+   Two cutting decks share ONE line speed but cut independent lengths.
+   ===================================================================== */
+/* ==== GENERATED CONFIG START ==== */
+/* Generated from mill_asset_registry.xlsx · asset DC24 · 16 field(s) overridden
+   Do not edit this block. Edit mill_asset_registry.xlsx and re-run
+   generate_fleet.py — the next run overwrites everything below.  */
+const MACHINE = {
+  "name": "Duplex Sheeter DC-24",
+  "line": "Mill A · PM-2",
+  "asset": "CUT-DC24",
+  "gradeName": "Coated Board 210 gsm",
+  "gsm": 210,
+  "caliperMm": 0.25,
+  "deckleMm": 1700,
+  "plies": 6,
+  "reel": {
+    "startDiaMm": 1500,
+    "coreMm": 150
+  },
+  "slitWidthsMm": [
+    420,
+    420,
+    420,
+    420
+  ],
+  "deckAssign": [
+    "A",
+    "A",
+    "B",
+    "B"
+  ],
+  "decks": [
+    {
+      "id": "A",
+      "name": "Deck A — upper",
+      "lengthMm": 900,
+      "pileCount": 1000,
+      "blades": 1,
+      "maxRpm": 420,
+      "knifeLifeCuts": 1600000,
+      "anvilLifeCuts": 4200000
+    },
+    {
+      "id": "B",
+      "name": "Deck B — lower",
+      "lengthMm": 640,
+      "pileCount": 1000,
+      "blades": 1,
+      "maxRpm": 420,
+      "knifeLifeCuts": 1600000,
+      "anvilLifeCuts": 4200000
+    }
+  ],
+  "speedSetpoint": 250,
+  "tensionSetpoint": 180,
+  "autoPile": true,
+  "zones": [
+    {
+      "id": "UNWIND",
+      "name": "Unwind",
+      "sp": 190,
+      "min": 40,
+      "max": 320
+    },
+    {
+      "id": "DRAW",
+      "name": "Draw",
+      "sp": 180,
+      "min": 40,
+      "max": 320
+    },
+    {
+      "id": "SLIT",
+      "name": "Slitter",
+      "sp": 172,
+      "min": 40,
+      "max": 320
+    },
+    {
+      "id": "KNA",
+      "name": "Knife A in",
+      "sp": 166,
+      "min": 40,
+      "max": 320
+    },
+    {
+      "id": "KNB",
+      "name": "Knife B in",
+      "sp": 162,
+      "min": 40,
+      "max": 320
+    }
+  ],
+  "drives": [
+    {
+      "id": "BS",
+      "name": "Backstand brakes",
+      "ratedKw": 40
+    },
+    {
+      "id": "DRW",
+      "name": "Draw / pull rolls",
+      "ratedKw": 55
+    },
+    {
+      "id": "SL",
+      "name": "Slitter drive",
+      "ratedKw": 22
+    },
+    {
+      "id": "KNA",
+      "name": "Cross-cut knife A",
+      "ratedKw": 95
+    },
+    {
+      "id": "KNB",
+      "name": "Cross-cut knife B",
+      "ratedKw": 95
+    },
+    {
+      "id": "OVA",
+      "name": "Overlap belts A",
+      "ratedKw": 26
+    },
+    {
+      "id": "OVB",
+      "name": "Overlap belts B",
+      "ratedKw": 26
+    },
+    {
+      "id": "LYA",
+      "name": "Layboy A",
+      "ratedKw": 22
+    },
+    {
+      "id": "LYB",
+      "name": "Layboy B",
+      "ratedKw": 22
+    }
+  ],
+  "quality": {
+    "lenTolMm": 0.5,
+    "sqTolMm": 0.6,
+    "maxDefectsPerPile": 4,
+    "calTolPct": 3,
+    "moistTarget": 6.5,
+    "moistTol": 0.6,
+    "bwTolPct": 2.5
+  },
+  "orders": [
+    {
+      "id": "SO-81401",
+      "customer": "Nordic Packaging",
+      "grade": "Coated Board 210 gsm",
+      "gsm": 210,
+      "slitWidthsMm": [
+        420,
+        420,
+        420,
+        420
+      ],
+      "deckAssign": [
+        "A",
+        "A",
+        "B",
+        "B"
+      ],
+      "lenA": 900,
+      "lenB": 640,
+      "speed": 250,
+      "piles": 6
+    },
+    {
+      "id": "SO-81402",
+      "customer": "Baltic Cartons",
+      "grade": "Coated Board 250 gsm",
+      "gsm": 250,
+      "slitWidthsMm": [
+        560,
+        560,
+        560
+      ],
+      "deckAssign": [
+        "A",
+        "A",
+        "B"
+      ],
+      "lenA": 800,
+      "lenB": 1000,
+      "speed": 215,
+      "piles": 4
+    },
+    {
+      "id": "SO-81405",
+      "customer": "Alpine Print",
+      "grade": "Graphic Paper 150 gsm",
+      "gsm": 150,
+      "slitWidthsMm": [
+        330,
+        330,
+        330,
+        330,
+        330
+      ],
+      "deckAssign": [
+        "A",
+        "A",
+        "A",
+        "B",
+        "B"
+      ],
+      "lenA": 480,
+      "lenB": 610,
+      "speed": 300,
+      "piles": 8
+    }
+  ],
+  "knifeChangeMin": 22,
+  "anvilChangeMin": 35,
+  "shiftHours": 8,
+  "updateMs": 900,
+  "simTimeScale": 2
+};
+/* ==== GENERATED CONFIG END ==== */
+const ZCOLORS=['#37b6ff','#22c58b','#f5b642','#e07798','#b694e8'];
+const DCOLOR={A:'var(--accent)',B:'var(--violet)'};
+
+/* =====================================================================
+   PROCESS MATHS
+     both decks share v; cuts/min = v·1000 / L_deck
+     tonnage per ribbon = width · v · gsm · plies  (independent of cut length)
+   ===================================================================== */
+const lengthOnRoll=(D,d,t)=>Math.max(0,Math.PI*(D*D-d*d)/(4*t)/1000);
+const shrinkDia=(D,t,Lm)=>Math.sqrt(Math.max(0,D*D-4*t*(Lm*1000)/Math.PI));
+function ribbonsOf(id){
+  return MACHINE.slitWidthsMm.map((w,i)=>({w,i,deck:MACHINE.deckAssign[i]})).filter(r=>r.deck===id); }
+function derived(){
+  const sum=MACHINE.slitWidthsMm.reduce((a,b)=>a+b,0);
+  const trim=Math.max(0,MACHINE.deckleMm-sum);
+  const out={trim,trimPct:MACHINE.deckleMm>0?trim/MACHINE.deckleMm*100:0,decks:{},tph:0,sheetsMin:0};
+  MACHINE.decks.forEach(d=>{
+    const rb=ribbonsOf(d.id);
+    const cuts=S.speed*1000/Math.max(1,d.lengthMm);
+    const rpm=cuts/Math.max(1,d.blades);
+    const sheetsMin=cuts*rb.length*MACHINE.plies;
+    const kgSheetAvg=rb.length?rb.reduce((a,r)=>a+(r.w/1000)*(d.lengthMm/1000)*MACHINE.gsm/1000,0)/rb.length:0;
+    const kgMin=rb.reduce((a,r)=>a+(r.w/1000)*(d.lengthMm/1000)*MACHINE.gsm/1000,0)*cuts*MACHINE.plies;
+    const tph=kgMin*60/1000;
+    out.decks[d.id]={streams:rb.length,widths:rb.map(r=>r.w),cuts,rpm,sheetsMin,kgSheetAvg,tph,
+      sheetsPerPileMin:cuts*MACHINE.plies};
+    out.tph+=tph; out.sheetsMin+=sheetsMin;
+  });
+  return out;
+}
+
+/* =====================================================================
+   STATE
+   ===================================================================== */
+const S={
+  running:true, alarmMode:false, speed:0, tensionAvg:0,
+  reels:[], zoneVals:{}, drives:{},
+  decks:{}, tonnes:0, wasteKg:0,
+  splices:0, breaks:0, runMin:0, downMin:0, goodSheets:0, sheetsAll:0,
+  cd:null, certs:[], pileLog:[], selPile:null,
+  orderIdx:0, orderPilesDone:0,
+  energy:{kWh:0,kw:0,idleKWh:0}, losses:{},
+  trend:{speed:[],tension:[],devA:[],devB:[],kw:[]},
+  alarms:[], _t:0, faultTimer:0
+};
+MACHINE.zones.forEach(z=>S.zoneVals[z.id]=z.sp);
+MACHINE.drives.forEach(d=>S.drives[d.id]={load:0,kw:0,rpm:0,amp:0,temp:35,vib:0.9});
+function initDecks(){
+  MACHINE.decks.forEach(d=>{ S.decks[d.id]={pileSheets:0,piles:0,sheets:0,tonnes:0,
+    knifeCuts:0,anvilCuts:0,lenDev:0,sqDev:0,devHist:[],defects:[],knifeFlag:0,anvilFlag:0}; });
+}
+function initReels(){ S.reels=[];
+  for(let i=0;i<MACHINE.plies;i++){ const f=0.55+0.45*((i*0.37)%1);
+    S.reels.push({id:'BS'+(i+1),dia:MACHINE.reel.coreMm+(MACHINE.reel.startDiaMm-MACHINE.reel.coreMm)*f}); } }
+initDecks(); initReels();
+
+const rnd=(a,b)=>a+Math.random()*(b-a);
+const pick=a=>a[Math.floor(Math.random()*a.length)];
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+const fmt=(n,d=0)=>(isFinite(n)?n:0).toLocaleString('en-US',{minimumFractionDigits:d,maximumFractionDigits:d});
+const mean=a=>a.length?a.reduce((x,y)=>x+y,0)/a.length:0;
+const sd=a=>{if(a.length<2)return 0;const m=mean(a);return Math.sqrt(mean(a.map(v=>(v-m)*(v-m))));};
+const colorFor=(v,sp,band)=>{const e=Math.abs(v-sp)/(sp||1);return e<band?'var(--ok)':e<band*2.2?'var(--warn)':'var(--alarm)';};
+function eta(min){ if(!isFinite(min)||min<0) return '—'; if(min>600) return '>10 h';
+  const s=Math.round(min*60); return String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0'); }
+function stamp(){const d=new Date(),p=n=>String(n).padStart(2,'0');
+  return d.getFullYear()+p(d.getMonth()+1)+p(d.getDate());}
+function drow(k,v){return `<div class="drow"><span class="k">${k}</span><span class="v">${v}</span></div>`;}
+
+const NS="http://www.w3.org/2000/svg";
+const svg=document.getElementById('twin');
+function el(t,a){const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);return e;}
+function txt(p,x,y,s,fill,style,anchor){const e=el('text',{x,y,'text-anchor':anchor||'start'});
+  e.setAttribute('fill',fill||'var(--muted)');e.setAttribute('style',style||'font:600 9px var(--mono)');
+  e.textContent=s;p.appendChild(e);return e;}
+function clearSvg(id){const s=document.getElementById(id); if(s) s.innerHTML=''; return s;}
+
+/* =====================================================================
+   SCHEMATIC
+   ===================================================================== */
+const BSPOS=[[60,105],[132,105],[60,200],[132,200],[60,295],[132,295]];
+const DECKY={A:{knife:105,anvil:136,conv:150,base:196},B:{knife:248,anvil:279,conv:293,base:339}};
+const CONV={x0:540,x1:684}, LAY={x:702,w:104,maxH:42};
+let webPaths=[], reelG=[], knifeG={}, sheetG={}, pileRect={}, pileLines={}, palletG={}, deckText={}, laneText;
+function buildSchematic(){
+  svg.innerHTML='';
+  const defs=el('defs');
+  const g1=el('linearGradient',{id:'steel',x1:0,y1:0,x2:0,y2:1});
+  [['0%','#5a6f85'],['50%','#33465a'],['100%','#212f3d']].forEach(s=>g1.appendChild(el('stop',{offset:s[0],'stop-color':s[1]})));
+  defs.appendChild(g1);
+  const g2=el('radialGradient',{id:'reel'});
+  [['0%','#e9dcbb'],['70%','#cbb98f'],['100%','#9c8a63']].forEach(s=>g2.appendChild(el('stop',{offset:s[0],'stop-color':s[1]})));
+  defs.appendChild(g2); svg.appendChild(defs);
+
+  // backstand rack
+  svg.appendChild(el('rect',{x:26,y:68,width:140,height:264,rx:8,fill:'none',stroke:'#1e2b3a','stroke-width':2}));
+  reelG=[]; webPaths=[];
+  const merge={x:265,y:200};
+  BSPOS.forEach((p,i)=>{
+    const g=el('g',{transform:`translate(${p[0]},${p[1]})`});
+    g.appendChild(el('circle',{r:26,fill:'url(#reel)',stroke:'#7d6c46','stroke-width':2.5}));
+    const sp=el('g');
+    for(let k=0;k<5;k++){const a=k*Math.PI/2.5;
+      sp.appendChild(el('line',{x1:0,y1:0,x2:Math.cos(a)*26,y2:Math.sin(a)*26,stroke:'#8a7850','stroke-width':1.5,opacity:.5}));}
+    g.appendChild(sp);
+    g.appendChild(el('circle',{r:6,fill:'#1b2531',stroke:'#54697f','stroke-width':2}));
+    svg.appendChild(g); reelG.push(g);
+    txt(svg,p[0],p[1]+40,'BS'+(i+1),'var(--dim)','font:600 8px var(--mono)','middle');
+    const d=`M ${p[0]+26} ${p[1]} Q ${(p[0]+merge.x)/2} ${p[1]} ${merge.x} ${merge.y}`;
+    svg.appendChild(el('path',{d,fill:'none',stroke:'#2b3b4e','stroke-width':3,'stroke-linecap':'round'}));
+    const w=el('path',{d,fill:'none',stroke:'var(--web)','stroke-width':1.6,'stroke-dasharray':'9 7','stroke-linecap':'round'});
+    svg.appendChild(w); webPaths.push(w);
+  });
+  txt(svg,96,352,'6 BACKSTANDS','var(--muted)','font:600 10.5px var(--font)','middle');
+
+  // draw rolls
+  svg.appendChild(el('circle',{cx:300,cy:184,r:15,fill:'url(#steel)',stroke:'#1a2735','stroke-width':2}));
+  svg.appendChild(el('circle',{cx:300,cy:216,r:15,fill:'url(#steel)',stroke:'#1a2735','stroke-width':2}));
+  txt(svg,300,352,'DRAW / GUIDE','var(--muted)','font:600 10.5px var(--font)','middle');
+
+  // slitters
+  const slX=372;
+  svg.appendChild(el('rect',{x:slX-34,y:174,width:68,height:14,rx:3,fill:'#1b2735',stroke:'#33465a'}));
+  const n=MACHINE.slitWidthsMm.length, kg=el('g');
+  for(let i=0;i<=n;i++){const kx=slX-28+(56*i/n);
+    kg.appendChild(el('line',{x1:kx,y1:188,x2:kx,y2:200,stroke:'#8fa6bd','stroke-width':1.6}));
+    kg.appendChild(el('circle',{cx:kx,cy:202,r:4,fill:'url(#steel)',stroke:'#8fa6bd','stroke-width':1.2}));}
+  svg.appendChild(kg);
+  txt(svg,slX,166,'SLITTERS','var(--muted)','font:600 9.5px var(--font)','middle');
+  laneText=txt(svg,slX,234,'','var(--dim)','font:600 8.5px var(--mono)','middle');
+
+  // main web then the deck split
+  const web=`M ${merge.x} ${merge.y} L ${slX-34} 200 L ${slX+34} 200 L 408 200`;
+  svg.appendChild(el('path',{d:web,fill:'none',stroke:'#2b3b4e','stroke-width':4.5,'stroke-linecap':'round'}));
+  const wp=el('path',{d:web,fill:'none',stroke:'var(--web)','stroke-width':2.4,'stroke-dasharray':'12 8','stroke-linecap':'round'});
+  svg.appendChild(wp); webPaths.push(wp);
+  txt(svg,414,186,'DECK SPLIT','var(--dim)','font:600 8px var(--mono)');
+
+  // per-deck geometry
+  MACHINE.decks.forEach(d=>{
+    const Y=DECKY[d.id], col=d.id==='A'?'var(--accent)':'var(--violet)';
+    // branch web from the split into the knife nip
+    const bd=`M 408 200 Q 452 200 462 ${Y.anvil-8} L 492 ${Y.anvil-6}`;
+    svg.appendChild(el('path',{d:bd,fill:'none',stroke:'#2b3b4e','stroke-width':4,'stroke-linecap':'round'}));
+    const bw=el('path',{d:bd,fill:'none',stroke:'var(--web)','stroke-width':2.2,'stroke-dasharray':'11 8','stroke-linecap':'round'});
+    svg.appendChild(bw); webPaths.push(bw);
+    // knife cylinder + anvil
+    const g=el('g',{transform:`translate(505,${Y.knife})`});
+    g.appendChild(el('circle',{r:22,fill:'url(#steel)',stroke:'#1a2735','stroke-width':2.2}));
+    g.appendChild(el('line',{x1:0,y1:-22,x2:0,y2:22,stroke:'#cfe0f0','stroke-width':3,'stroke-linecap':'round'}));
+    g.appendChild(el('circle',{r:4.5,fill:'#1b2531',stroke:'#54697f','stroke-width':1.6}));
+    svg.appendChild(g); knifeG[d.id]=g;
+    svg.appendChild(el('circle',{cx:505,cy:Y.anvil,r:11,fill:'url(#steel)',stroke:'#1a2735','stroke-width':1.8}));
+    txt(svg,505,Y.knife-30,'KNIFE '+d.id,col,'font:700 9.5px var(--font)','middle');
+    // overlap conveyor
+    svg.appendChild(el('line',{x1:CONV.x0,y1:Y.conv+8,x2:CONV.x1,y2:Y.conv+8,stroke:'#33465a','stroke-width':2.6}));
+    [CONV.x0,(CONV.x0+CONV.x1)/2,CONV.x1].forEach(x=>
+      svg.appendChild(el('circle',{cx:x,cy:Y.conv+8,r:6,fill:'url(#steel)',stroke:'#1a2735','stroke-width':1.3})));
+    sheetG[d.id]=el('g'); svg.appendChild(sheetG[d.id]);
+    // layboy + pallet
+    svg.appendChild(el('rect',{x:LAY.x-5,y:Y.base+2,width:LAY.w+10,height:10,rx:3,fill:'#1b2735',stroke:'#33465a'}));
+    svg.appendChild(el('line',{x1:LAY.x-5,y1:Y.base-46,x2:LAY.x-5,y2:Y.base,stroke:'#243447','stroke-width':1.8}));
+    svg.appendChild(el('line',{x1:LAY.x+LAY.w+5,y1:Y.base-46,x2:LAY.x+LAY.w+5,y2:Y.base,stroke:'#243447','stroke-width':1.8}));
+    palletG[d.id]=el('g');
+    pileRect[d.id]=el('rect',{x:LAY.x,y:Y.base,width:LAY.w,height:0,fill:'url(#reel)',stroke:'#7d6c46','stroke-width':1.5,rx:1});
+    pileLines[d.id]=el('g');
+    palletG[d.id].appendChild(pileRect[d.id]); palletG[d.id].appendChild(pileLines[d.id]);
+    svg.appendChild(palletG[d.id]);
+    svg.appendChild(el('line',{x1:LAY.x+LAY.w+14,y1:Y.base+7,x2:868,y2:Y.base+7,
+      stroke:'#2b3b4e','stroke-width':1.8,'stroke-dasharray':'5 4'}));
+    txt(svg,872,Y.base+11,'▸','var(--dim)','font:700 12px var(--font)');
+    deckText[d.id]=txt(svg,LAY.x+LAY.w/2,Y.base+26,'',col,'font:700 9.5px var(--mono)','middle');
+  });
+}
+
+/* =====================================================================
+   ANIMATION
+   ===================================================================== */
+let rot=0, dash=0, phase={A:0,B:0};
+function animate(){
+  const D=derived(), spd=S.speed;
+  dash-=spd*0.05+0.2;
+  webPaths.forEach(w=>w.setAttribute('stroke-dashoffset',dash));
+  rot+=spd*0.05;
+  S.reels.forEach((r,i)=>{ const g=reelG[i];
+    if(!g||(reelSeq&&reelSeq.idx===i)) return;
+    const rr=7+19*clamp((r.dia-MACHINE.reel.coreMm)/(MACHINE.reel.startDiaMm-MACHINE.reel.coreMm),0,1);
+    g.querySelector('circle').setAttribute('r',rr.toFixed(1));
+    g.setAttribute('transform',`translate(${BSPOS[i][0]},${BSPOS[i][1]}) rotate(${rot*(26/Math.max(7,rr))})`); });
+  MACHINE.decks.forEach(d=>{
+    const dd=D.decks[d.id], Y=DECKY[d.id];
+    if(knifeG[d.id]) knifeG[d.id].setAttribute('transform',`translate(505,${Y.knife}) rotate(${(rot*dd.rpm/140)%360})`);
+    // sheets: spacing scales with the deck's own cut length
+    const gap=clamp(d.lengthMm/34,14,44);
+    phase[d.id]=(phase[d.id]+spd*0.07)%gap;
+    const g=sheetG[d.id]; if(!g) return; g.innerHTML='';
+    if(spd>4){ const n=Math.floor((CONV.x1-CONV.x0)/gap)+1;
+      for(let i=0;i<n;i++){ const x=CONV.x0+((i*gap+phase[d.id])%(CONV.x1-CONV.x0));
+        g.appendChild(el('rect',{x:x.toFixed(1),y:(Y.conv-2-(i%2)*2).toFixed(1),
+          width:Math.min(gap*0.8,26).toFixed(1),height:4.4,rx:1,fill:'#e4d7b4',stroke:'#9c8a63','stroke-width':.7,opacity:.95})); } }
+    if(!pileSeq[d.id]) drawPile(d.id,S.decks[d.id].pileSheets/d.pileCount,LAY.x,0);
+  });
+  const now=performance.now();
+  MACHINE.decks.forEach(d=>{ if(pileSeq[d.id]) stepPile(d.id,now-pileSeq[d.id].start); });
+  if(reelSeq) stepReel(now-reelSeq.start);
+  requestAnimationFrame(animate);
+}
+function drawPile(id,frac,x,dy){
+  const Y=DECKY[id], h=LAY.maxH*clamp(frac,0,1);
+  pileRect[id].setAttribute('x',x); pileRect[id].setAttribute('y',Y.base-h+dy);
+  pileRect[id].setAttribute('height',h.toFixed(1));
+  pileLines[id].innerHTML='';
+  const n=Math.min(9,Math.floor(h/5));
+  for(let i=1;i<n;i++){const y=Y.base-h+dy+i*(h/n);
+    pileLines[id].appendChild(el('line',{x1:x+2,y1:y.toFixed(1),x2:x+LAY.w-2,y2:y.toFixed(1),
+      stroke:'#9c8a63','stroke-width':.6,opacity:.55}));}
+}
+
+/* =====================================================================
+   SEQUENCES — the two layboys discharge INDEPENDENTLY
+   ===================================================================== */
+const pileSeq={A:null,B:null}; let reelSeq=null;
+const PILE_DUR=3400, REEL_DUR=3600;
+function startPile(id,manual){
+  if(pileSeq[id]) return;
+  const d=MACHINE.decks.find(x=>x.id===id), st=S.decks[id];
+  st.piles++; S.orderPilesDone++;
+  makeCertificate(id);
+  pileSeq[id]={start:performance.now(),frac:st.pileSheets/d.pileCount,reset:false};
+  pushAlarm('info',(manual?'Manual discharge — ':'')+`Deck ${id} pile ${st.piles} complete (${fmt(st.pileSheets)} sheets) — discharging`);
+  const b=document.getElementById('btnPile'+id); if(b) b.classList.add('active');
+  setState();
+}
+function startReel(manual,idx){
+  if(reelSeq) return;
+  if(idx===undefined){ idx=0; S.reels.forEach((r,i)=>{if(r.dia<S.reels[idx].dia) idx=i;}); }
+  reelSeq={start:performance.now(),idx,reset:false}; S.splices++;
+  pushAlarm('info',(manual?'Manual reel change — ':'')+`Backstand ${S.reels[idx].id} at core Ø ${fmt(S.reels[idx].dia)} mm — splicing`);
+  document.getElementById('btnReel').classList.add('active'); setState();
+}
+function stepPile(id,t){
+  const u=Math.min(t/PILE_DUR,1), s=pileSeq[id];
+  if(u<0.6){ const x=LAY.x+(u/0.6)*120;
+    drawPile(id,s.frac,x,(u/0.6)*8);
+    palletG[id].setAttribute('opacity',String(u<0.48?1:Math.max(0,1-(u-0.48)/0.12)));
+  } else {
+    if(!s.reset){ s.reset=true; S.decks[id].pileSheets=0; S.decks[id].defects=[];
+      pushAlarm('info',`Deck ${id} pallet discharged — new pile started`); }
+    palletG[id].setAttribute('opacity','1'); drawPile(id,0,LAY.x,0);
+  }
+  if(u>=1){ pileSeq[id]=null;
+    const b=document.getElementById('btnPile'+id); if(b) b.classList.remove('active'); setState(); }
+}
+function stepReel(t){
+  const u=Math.min(t/REEL_DUR,1), g=reelG[reelSeq.idx];
+  if(!g){ reelSeq=null; return; }
+  if(u<0.45) g.setAttribute('opacity',String(1-u/0.45));
+  else if(u<0.55){ if(!reelSeq.reset){ reelSeq.reset=true; S.reels[reelSeq.idx].dia=MACHINE.reel.startDiaMm;
+      pushAlarm('info',`Backstand ${S.reels[reelSeq.idx].id} reloaded — full reel`); }
+    g.setAttribute('opacity','0'); }
+  else g.setAttribute('opacity',String(Math.min(1,(u-0.55)/0.35)));
+  if(u>=1){ g.setAttribute('opacity','1'); reelSeq=null;
+    document.getElementById('btnReel').classList.remove('active'); setState(); }
+}
+const anySeq=()=>pileSeq.A||pileSeq.B||reelSeq;
+
+/* =====================================================================
+   CD PROFILE / DEFECTS / CERTIFICATE
+   ===================================================================== */
+function ribbonBounds(){
+  const sum=MACHINE.slitWidthsMm.reduce((a,b)=>a+b,0);
+  const trim=Math.max(0,MACHINE.deckleMm-sum); let x=trim/2; const out=[];
+  MACHINE.slitWidthsMm.forEach((w,i)=>{ out.push({from:x,to:x+w,w,deck:MACHINE.deckAssign[i],i}); x+=w; });
+  return out;
+}
+function ribbonAt(cd){ const b=ribbonBounds();
+  for(let i=0;i<b.length;i++) if(cd>=b[i].from&&cd<b[i].to) return b[i]; return null; }
+function buildCd(){
+  const N=61; S.cd={cal:[],moi:[],bw:[],N};
+  const P=[rnd(0,6.28),rnd(0,6.28),rnd(0,6.28)];
+  for(let i=0;i<N;i++){ const u=i/(N-1);
+    S.cd.cal.push(MACHINE.caliperMm*(1+0.016*Math.sin(u*6.283*1.6+P[0])+0.007*Math.sin(u*6.283*4.1+P[1])));
+    S.cd.moi.push(6.5+0.30*Math.sin(u*6.283*1.2+P[1])+0.10*Math.sin(u*6.283*3.3+P[2]));
+    S.cd.bw.push(MACHINE.gsm*(1+0.011*Math.sin(u*6.283*2.1+P[2])+0.005*Math.sin(u*6.283*5+P[0]))); }
+}
+function driftCd(){ if(!S.cd) return buildCd();
+  for(let i=0;i<S.cd.N;i++){
+    S.cd.cal[i]+=rnd(-0.0006,0.0006); S.cd.moi[i]+=rnd(-0.012,0.012); S.cd.bw[i]+=rnd(-0.09,0.09);
+    S.cd.cal[i]=clamp(S.cd.cal[i],MACHINE.caliperMm*0.9,MACHINE.caliperMm*1.1);
+    S.cd.moi[i]=clamp(S.cd.moi[i],5.2,7.8);
+    S.cd.bw[i]=clamp(S.cd.bw[i],MACHINE.gsm*0.93,MACHINE.gsm*1.07); } }
+function cdStrip(id,arr,target,tol,unit,dp,valId){
+  const s=clearSvg(id); if(!s||!arr) return;
+  const W=300,H=46,pad=4,ph=H-pad*2;
+  const lo=target*(1-tol*2.2), hi=target*(1+tol*2.2);
+  const yOf=v=>pad+ph-((clamp(v,lo,hi)-lo)/((hi-lo)||1))*ph;
+  s.appendChild(el('rect',{x:0,y:yOf(target*(1+tol)),width:W,
+    height:Math.max(1,yOf(target*(1-tol))-yOf(target*(1+tol))),fill:'rgba(34,197,139,.08)'}));
+  s.appendChild(el('line',{x1:0,y1:yOf(target),x2:W,y2:yOf(target),stroke:'var(--dim)','stroke-width':1,'stroke-dasharray':'4 3'}));
+  const total=MACHINE.deckleMm;
+  ribbonBounds().forEach(b=>[b.from,b.to].forEach(p=>
+    s.appendChild(el('line',{x1:(p/total)*W,y1:pad,x2:(p/total)*W,y2:pad+ph,stroke:'#2a3b4e','stroke-width':1,opacity:.55}))));
+  s.appendChild(el('polyline',{points:arr.map((v,i)=>((i/(arr.length-1))*W).toFixed(1)+','+yOf(v).toFixed(1)).join(' '),
+    fill:'none',stroke:'var(--accent)','stroke-width':1.5}));
+  const out=arr.filter(v=>Math.abs(v-target)/target>tol).length;
+  if(valId) document.getElementById(valId).textContent=
+    fmt(mean(arr),dp)+' '+unit+' · 2σ '+fmt(sd(arr)*2,dp)+' · '+(out?fmt(out/arr.length*100)+'% out':'in spec');
+}
+function defectsPerRibbon(){
+  const out=MACHINE.slitWidthsMm.map(()=>0);
+  MACHINE.decks.forEach(d=>S.decks[d.id].defects.forEach(f=>{
+    const r=ribbonAt(f.cd); if(r) out[r.i]++; }));
+  return out;
+}
+function gradePile(dev,defects){
+  const q=MACHINE.quality;
+  if(defects>q.maxDefectsPerPile||Math.abs(dev)>q.lenTolMm*2) return 'REJECT';
+  if(defects>Math.max(1,q.maxDefectsPerPile-2)||Math.abs(dev)>q.lenTolMm) return 'WATCH';
+  return 'PASS';
+}
+function makeCertificate(id){
+  const D=derived(), dd=D.decks[id], d=MACHINE.decks.find(x=>x.id===id), st=S.decks[id];
+  const ord=MACHINE.orders[S.orderIdx]||{id:'—',customer:'—'};
+  const ts=new Date().toTimeString().slice(0,8);
+  const devs=st.devHist.slice(-120), avgDev=mean(devs);
+  const per=defectsPerRibbon();
+  const pallets=ribbonsOf(id).map((r,k)=>{
+    const dev=avgDev+rnd(-0.06,0.06);
+    const kg=Math.round(st.pileSheets*(r.w/1000)*(d.lengthMm/1000)*MACHINE.gsm/1000);
+    const g=gradePile(dev,per[r.i]||0);
+    return { id:`${MACHINE.asset}-${stamp()}-${id}${String(st.piles).padStart(4,'0')}-R${r.i+1}`,
+      deck:id, ribbon:r.i+1, width:r.w, size:`${r.w}×${d.lengthMm}`,
+      sheets:Math.round(st.pileSheets), kg, dev:+dev.toFixed(2), defects:per[r.i]||0, q:g,
+      ts, order:ord.id, customer:ord.customer, grade:MACHINE.gradeName };
+  });
+  const worst=pallets.some(p=>p.q==='REJECT')?'REJECT':pallets.some(p=>p.q==='WATCH')?'WATCH':'PASS';
+  const cert={ deck:id, no:st.piles, ts, order:ord.id, customer:ord.customer, pallets, verdict:worst,
+    avgDev:+avgDev.toFixed(3), devSd:+sd(devs).toFixed(3), sq:+st.sqDev.toFixed(2),
+    defects:st.defects.length, size:`${(dd.widths[0]||0)}×${d.lengthMm} mm`,
+    cal:S.cd?+mean(S.cd.cal).toFixed(3):0, moi:S.cd?+mean(S.cd.moi).toFixed(2):0, bw:S.cd?+mean(S.cd.bw).toFixed(1):0 };
+  S.certs.unshift(cert); if(S.certs.length>20)S.certs.pop();
+  pallets.forEach(p=>S.pileLog.unshift(p)); if(S.pileLog.length>200) S.pileLog.length=200;
+  if(!S.selPile) S.selPile=pallets[0];
+  pushAlarm(worst==='REJECT'?'crit':worst==='WATCH'?'warn':'info',
+    `Deck ${id} pile ${st.piles} certificate: ${worst} — ${pallets.length} pallets, dev ${cert.avgDev} mm`);
+  return cert;
+}
+
+/* =====================================================================
+   SIMULATION TICK
+   ===================================================================== */
+function simulateTick(){
+  S._t++;
+  const dtMin=MACHINE.updateMs/60000*(MACHINE.simTimeScale||1);
+  const t=MACHINE.caliperMm;
+
+  if(S.running&&!S.alarmMode){
+    S.speed+=(MACHINE.speedSetpoint-S.speed)*0.25+rnd(-3,3);
+    S.speed=clamp(S.speed,0,MACHINE.speedSetpoint*1.05); S.runMin+=dtMin;
+  } else if(S.alarmMode){ S.speed*=0.80; if(S.speed<10)S.speed=0; S.downMin+=dtMin; }
+  else { S.speed*=0.74; if(S.speed<6)S.speed=0; if(S.speed===0)S.downMin+=dtMin; }
+  if(pileSeq.A||pileSeq.B) S.speed=Math.min(S.speed,MACHINE.speedSetpoint*0.70);
+  if(reelSeq)              S.speed=Math.min(S.speed,MACHINE.speedSetpoint*0.35);
+  const spd=S.speed, D=derived();
+
+  const jit=S.alarmMode?3.2:1; let sum=0;
+  MACHINE.zones.forEach(z=>{ let v=S.zoneVals[z.id];
+    v+=(z.sp-v)*0.3+rnd(-5,5)*jit; if(spd<15) v+=(0-v)*0.4; v=clamp(v,0,z.max);
+    S.zoneVals[z.id]=v; sum+=v; });
+  S.tensionAvg=sum/MACHINE.zones.length;
+
+  const wound=spd*dtMin;
+  if(spd>2&&!reelSeq){
+    S.reels.forEach(r=>{ r.dia=Math.max(MACHINE.reel.coreMm,shrinkDia(r.dia,t,wound)); });
+    S.wasteKg+=wound*(MACHINE.deckleMm/1000)*MACHINE.gsm/1000*(D.trimPct/100)*MACHINE.plies;
+    if(S._t%12===0) driftCd();
+  }
+
+  MACHINE.decks.forEach(d=>{
+    const st=S.decks[d.id], dd=D.decks[d.id];
+    // knife wear drives length deviation, independently per deck
+    const kw=st.knifeCuts/d.knifeLifeCuts;
+    st.lenDev=rnd(-0.16,0.16)+kw*0.42+(S.alarmMode?rnd(0,0.7):0);
+    st.sqDev=Math.abs(rnd(-0.15,0.15)+kw*0.35+(S.alarmMode?rnd(0,0.6):0));
+    if(spd>2&&!pileSeq[d.id]&&!reelSeq){
+      const cuts=dd.cuts*dtMin;
+      st.knifeCuts+=cuts; st.anvilCuts+=cuts;
+      st.pileSheets+=cuts*MACHINE.plies;
+      const newSheets=cuts*dd.streams*MACHINE.plies;
+      st.sheets+=newSheets; S.sheetsAll+=newSheets;
+      S.goodSheets+=newSheets*(S.alarmMode?0.5:0.995);
+      const tAdd=dd.tph*(dtMin/60);
+      st.tonnes+=tAdd; S.tonnes+=tAdd;
+      st.devHist.push(st.lenDev); if(st.devHist.length>600) st.devHist.shift();
+      if(Math.random()<(S.alarmMode?0.24:0.05)){
+        const rb=ribbonsOf(d.id); if(rb.length){ const r=pick(rb);
+          const b=ribbonBounds().find(x=>x.i===r.i);
+          st.defects.push({cd:rnd(b.from,b.to),md:st.pileSheets,
+            type:pick(['Cut burr','Dog ear','Wrinkle','Dust','Edge crack']),
+            sev:Math.random()<(S.alarmMode?0.5:0.22)?'major':'minor'});
+          if(st.defects.length>300) st.defects.shift(); } }
+    }
+    // pile complete → independent discharge
+    if(!pileSeq[d.id]&&st.pileSheets>=d.pileCount){
+      if(MACHINE.autoPile) startPile(d.id,false);
+      else st.pileSheets=d.pileCount;
+    }
+    // wear flags
+    const kp=st.knifeCuts/d.knifeLifeCuts*100, ap=st.anvilCuts/d.anvilLifeCuts*100;
+    if(kp>=100&&st.knifeFlag<2){st.knifeFlag=2;pushAlarm('crit',`Deck ${d.id} knife past life — sheet length drifting`);}
+    else if(kp>=85&&st.knifeFlag<1){st.knifeFlag=1;pushAlarm('warn',`Deck ${d.id} knife wear high — plan blade change`);}
+    if(ap>=100&&st.anvilFlag<2){st.anvilFlag=2;pushAlarm('crit',`Deck ${d.id} anvil past life — regrind required`);}
+    else if(ap>=85&&st.anvilFlag<1){st.anvilFlag=1;pushAlarm('warn',`Deck ${d.id} anvil wear high`);}
+  });
+
+  if(!reelSeq){ const i=S.reels.findIndex(r=>r.dia<=MACHINE.reel.coreMm+4); if(i>=0) startReel(false,i); }
+
+  const f=spd/MACHINE.speedSetpoint; let kw=0;
+  MACHINE.drives.forEach(d=>{ const dv=S.drives[d.id];
+    dv.load=clamp(f*rnd(58,78)+(d.id.startsWith('KN')?10:0)+(S.alarmMode?rnd(0,22):0)+rnd(-4,4),0,120);
+    dv.kw=dv.load*d.ratedKw/100*rnd(.92,1.04);
+    dv.rpm=d.id==='KNA'?D.decks.A.rpm:d.id==='KNB'?D.decks.B.rpm:f*rnd(800,1400);
+    dv.amp=dv.load/100*d.ratedKw*2.1*rnd(.95,1.05);
+    const tT=35+dv.load*0.45+(S.alarmMode?8:0);
+    dv.temp+=(tT-dv.temp)*0.08+rnd(-0.3,0.3);
+    dv.vib=0.8+dv.load*0.02+(dv.temp>75?1.5:0)+(S.alarmMode?1.1:0)+rnd(-0.1,0.3);
+    kw+=dv.kw; });
+  kw+=11; S.energy.kw=kw;
+  const kwh=kw*(dtMin/60); S.energy.kWh+=kwh;
+  if(spd<MACHINE.speedSetpoint*0.15) S.energy.idleKWh+=kwh;
+
+  const lossFrac=1-clamp(spd/MACHINE.speedSetpoint,0,1);
+  if(lossFrac>0.01){
+    const reason=S.alarmMode?'Web break / fault'
+      :reelSeq?'Reel change / splice'
+      :(pileSeq.A&&pileSeq.B)?'Both decks discharging'
+      :pileSeq.A?'Deck A discharge':pileSeq.B?'Deck B discharge'
+      :!S.running?'Operator stop':'Speed loss / ramp';
+    S.losses[reason]=(S.losses[reason]||0)+lossFrac*dtMin;
+  }
+
+  if(S.running&&!S.alarmMode&&Math.random()<0.045){
+    pushAlarm('warn',pick(['Deck A layboy jogger near limit','Deck B layboy jogger near limit',
+      'Edge trim vacuum low','Deck split guide near limit','Sheet overlap gap narrow',
+      'Backstand brake temperature rising']));
+  }
+  if(S.alarmMode){S.faultTimer--;if(S.faultTimer<=0){S.alarmMode=false;pushAlarm('info','Fault cleared — operator reset');setState();}}
+  pushTrend();
+}
+function pushTrend(){
+  const T=S.trend,N=80;
+  T.speed.push(S.speed); T.devA.push(S.decks.A.lenDev); T.devB.push(S.decks.B.lenDev); T.kw.push(S.energy.kw);
+  MACHINE.zones.forEach((z,i)=>{(T.tension[i]=T.tension[i]||[]).push(S.zoneVals[z.id]);});
+  if(T.speed.length>N){T.speed.shift();T.devA.shift();T.devB.shift();T.kw.shift();T.tension.forEach(a=>a.shift());}
+}
+let alarmSeq=0;
+function pushAlarm(sev,msg){ const ts=new Date().toTimeString().slice(0,8);
+  S.alarms.unshift({sev,msg,ts,id:++alarmSeq}); if(S.alarms.length>60)S.alarms.pop(); }
+
+/* =====================================================================
+   CHART PRIMITIVES
+   ===================================================================== */
+function pointsFrom(buf,ymin,ymax,W,H){ const n=buf.length; if(n<2) return '';
+  return buf.map((v,i)=>{const x=(i/(n-1))*W;
+    const y=H-((clamp(v,ymin,ymax)-ymin)/((ymax-ymin)||1))*H; return x.toFixed(1)+','+y.toFixed(1);}).join(' '); }
+function devChart(id,buf,tol,W,H,color){
+  const s=clearSvg(id); if(!s) return;
+  const lim=Math.max(tol*2.4,0.9), yOf=v=>H/2-(clamp(v,-lim,lim)/lim)*(H/2-3);
+  s.appendChild(el('rect',{x:0,y:yOf(tol),width:W,height:Math.max(1,yOf(-tol)-yOf(tol)),fill:'rgba(34,197,139,.10)'}));
+  s.appendChild(el('line',{x1:0,y1:H/2,x2:W,y2:H/2,stroke:'#2b3b4e','stroke-width':1}));
+  if(buf.length>1) s.appendChild(el('polyline',{points:buf.map((v,i)=>((i/(buf.length-1))*W).toFixed(1)+','+yOf(v).toFixed(1)).join(' '),
+    fill:'none',stroke:color||'var(--violet)','stroke-width':1.6}));
+}
+function histChart(id,data,tol,W,H,color){
+  const s=clearSvg(id); if(!s) return;
+  const lim=Math.max(tol*2.4,0.9), bins=21, counts=new Array(bins).fill(0);
+  data.forEach(v=>{ const b=Math.floor((clamp(v,-lim,lim)+lim)/(2*lim)*(bins-1e-9)); counts[clamp(b,0,bins-1)]++; });
+  const max=Math.max(1,...counts), bw=W/bins;
+  const inTol=i=>{const c=-lim+(i+0.5)*(2*lim/bins); return Math.abs(c)<=tol;};
+  counts.forEach((c,i)=>{ const h=(c/max)*(H-16);
+    s.appendChild(el('rect',{x:(i*bw+bw*0.12).toFixed(1),y:(H-14-h).toFixed(1),width:(bw*0.76).toFixed(1),
+      height:Math.max(0,h).toFixed(1),rx:1,fill:inTol(i)?(color||'var(--ok)'):'var(--warn)',opacity:.85})); });
+  [-tol,tol].forEach(v=>{ const x=((v+lim)/(2*lim))*W;
+    s.appendChild(el('line',{x1:x,y1:0,x2:x,y2:H-14,stroke:'var(--ok)','stroke-width':1,'stroke-dasharray':'3 3',opacity:.7})); });
+  s.appendChild(el('line',{x1:W/2,y1:0,x2:W/2,y2:H-14,stroke:'var(--dim)','stroke-width':1}));
+  txt(s,2,H-3,'-'+lim.toFixed(1),'var(--dim)','font:600 8px var(--mono)');
+  txt(s,W/2,H-3,'0','var(--dim)','font:600 8px var(--mono)','middle');
+  txt(s,W-2,H-3,'+'+lim.toFixed(1),'var(--dim)','font:600 8px var(--mono)','end');
+}
+function drawRing(id,pct,center,sub,color){
+  const s=clearSvg(id); if(!s) return;
+  const R=36,cx=50,cy=50,C=2*Math.PI*R;
+  s.appendChild(el('circle',{cx,cy,r:R,fill:'none',stroke:'#1a2432','stroke-width':11}));
+  s.appendChild(el('circle',{cx,cy,r:R,fill:'none',stroke:color,'stroke-width':11,'stroke-linecap':'round',
+    'stroke-dasharray':`${(C*clamp(pct,0,100)/100).toFixed(1)} ${(C+2).toFixed(1)}`,transform:`rotate(-90 ${cx} ${cy})`}));
+  txt(s,cx,cy+2,center,'var(--ink)','font:700 16px var(--mono)','middle');
+  txt(s,cx,cy+17,sub,'var(--dim)','font:600 9px var(--font)','middle');
+}
+function lossList(){ return Object.entries(S.losses).filter(([,v])=>v>0.001).sort((a,b)=>b[1]-a[1]); }
+function renderPareto(svgId,tbodyId,tagId){
+  const s=clearSvg(svgId); if(!s) return;
+  const L=lossList().slice(0,7), tb=tbodyId?document.getElementById(tbodyId):null;
+  const total=lossList().reduce((a,b)=>a+b[1],0);
+  const tg=tagId?document.getElementById(tagId):null; if(tg) tg.textContent=fmt(total,1)+' min lost';
+  if(!L.length){ txt(s,160,70,'No losses recorded yet','var(--muted)','font:600 11px var(--font)','middle');
+    if(tb) tb.innerHTML='<tr><td colspan="4" style="text-align:center;color:var(--muted);font-family:var(--font)">No downtime or speed loss recorded</td></tr>';
+    return; }
+  const W=320,H=140,pL=28,pR=30,pT=8,pB=40, pw=W-pL-pR, ph=H-pT-pB;
+  const max=L[0][1], bw=pw/L.length;
+  s.appendChild(el('line',{x1:pL,y1:pT+ph,x2:pL+pw,y2:pT+ph,stroke:'#2b3b4e','stroke-width':1}));
+  let cum=0; const pts=[];
+  L.forEach(([k,v],i)=>{ const h=(v/max)*ph, x=pL+i*bw;
+    const col=k.includes('Deck A')?'var(--accent)':k.includes('Deck B')?'var(--violet)':'#5f8fb0';
+    s.appendChild(el('rect',{x:(x+bw*.16).toFixed(1),y:(pT+ph-h).toFixed(1),width:(bw*.68).toFixed(1),
+      height:Math.max(1,h).toFixed(1),fill:col,opacity:.85,rx:2}));
+    cum+=v; pts.push((x+bw/2).toFixed(1)+','+(pT+ph-(cum/total)*ph).toFixed(1));
+    const lbl=k.includes('Deck A')?'Deck A':k.includes('Deck B')?'Deck B':k.split(' ')[0].slice(0,7);
+    txt(s,x+bw/2,pT+ph+12,lbl,'var(--dim)','font:600 8px var(--font)','middle');
+    txt(s,x+bw/2,pT+ph+22,fmt(v,1),'var(--muted)','font:600 8px var(--mono)','middle'); });
+  s.appendChild(el('polyline',{points:pts.join(' '),fill:'none',stroke:'var(--warn)','stroke-width':1.6}));
+  pts.forEach(p=>{const[a,b]=p.split(',');s.appendChild(el('circle',{cx:a,cy:b,r:2.4,fill:'var(--warn)'}));});
+  txt(s,4,pT+8,fmt(max,1),'var(--dim)','font:600 8px var(--mono)');
+  txt(s,W-4,pT+8,'100%','var(--warn)','font:600 8px var(--mono)','end');
+  if(tb){ let c=0; tb.innerHTML=lossList().map(([k,v])=>{c+=v;
+    return `<tr><td>${k}</td><td>${fmt(v,2)}</td><td>${fmt(v/total*100,1)}%</td><td>${fmt(c/total*100,1)}%</td></tr>`;}).join(''); }
+}
+/* ribbon → deck allocation diagram */
+function drawAlloc(id,W,H){
+  const s=clearSvg(id); if(!s) return;
+  const pL=14,pR=14,pT=26,pB=26, pw=W-pL-pR, bandH=26;
+  const total=MACHINE.deckleMm;
+  txt(s,pL,16,'Deckle '+fmt(total)+' mm','var(--muted)','font:600 9px var(--mono)');
+  txt(s,W-pR,16,'trim '+fmt(derived().trim)+' mm','var(--dim)','font:600 9px var(--mono)','end');
+  ribbonBounds().forEach(b=>{
+    const x1=pL+(b.from/total)*pw, x2=pL+(b.to/total)*pw;
+    const col=b.deck==='A'?'rgba(55,182,255,.22)':'rgba(182,148,232,.22)';
+    const stk=b.deck==='A'?'var(--accent)':'var(--violet)';
+    s.appendChild(el('rect',{x:x1.toFixed(1),y:pT,width:(x2-x1).toFixed(1),height:bandH,rx:3,fill:col,stroke:stk,'stroke-width':1.4}));
+    txt(s,(x1+x2)/2,pT+17,'R'+(b.i+1),'var(--ink)','font:700 10px var(--mono)','middle');
+    txt(s,(x1+x2)/2,pT+bandH+13,fmt(b.w)+' mm','var(--dim)','font:600 8.5px var(--mono)','middle');
+    // routing line down to its deck band
+    const dy=b.deck==='A'?pT+bandH+24:pT+bandH+44;
+    s.appendChild(el('line',{x1:(x1+x2)/2,y1:pT+bandH+18,x2:(x1+x2)/2,y2:dy,stroke:stk,'stroke-width':1.2,opacity:.8}));
+  });
+  const D=derived();
+  ['A','B'].forEach((d,k)=>{
+    const y=pT+bandH+24+k*20;
+    s.appendChild(el('line',{x1:pL,y1:y,x2:pL+pw,y2:y,stroke:d==='A'?'var(--accent)':'var(--violet)','stroke-width':2,opacity:.55}));
+    txt(s,pL,y-3,`Deck ${d} · ${D.decks[d].streams} stream${D.decks[d].streams===1?'':'s'} · L ${MACHINE.decks.find(x=>x.id===d).lengthMm} mm · ${fmt(D.decks[d].cuts)} cuts/min`,
+      d==='A'?'var(--accent)':'var(--violet)','font:700 8.5px var(--mono)');
+  });
+}
+function renderDefectMap(id,W,H){
+  const s=clearSvg(id); if(!s) return;
+  const pL=28,pT=16,pB=24,pR=10, pw=W-pL-pR, ph=H-pT-pB;
+  const total=MACHINE.deckleMm;
+  const maxMd=Math.max(...MACHINE.decks.map(d=>d.pileCount),1);
+  s.appendChild(el('rect',{x:pL,y:pT,width:pw,height:ph,fill:'#0c141d',stroke:'#1e2b3a'}));
+  ribbonBounds().forEach(b=>{
+    const x1=pL+(b.from/total)*pw, x2=pL+(b.to/total)*pw;
+    s.appendChild(el('rect',{x:x1,y:pT,width:x2-x1,height:ph,
+      fill:b.deck==='A'?'rgba(55,182,255,.06)':'rgba(182,148,232,.06)',stroke:'#2b3b4e','stroke-width':1}));
+    txt(s,(x1+x2)/2,pT-4,'R'+(b.i+1)+'·'+b.deck,'var(--dim)','font:600 8px var(--mono)','middle'); });
+  MACHINE.decks.forEach(d=>S.decks[d.id].defects.forEach(f=>
+    s.appendChild(el('circle',{cx:(pL+(f.cd/total)*pw).toFixed(1),
+      cy:(pT+(f.md/d.pileCount)*ph).toFixed(1),r:f.sev==='major'?3.2:2.2,
+      fill:f.sev==='major'?'var(--alarm)':'var(--warn)',opacity:.9}))));
+  txt(s,4,pT+8,'pile top','var(--dim)','font:600 7.5px var(--mono)');
+  txt(s,4,pT+ph,'start','var(--dim)','font:600 7.5px var(--mono)');
+  txt(s,pL,H-6,'0 mm','var(--dim)','font:600 8px var(--mono)');
+  txt(s,pL+pw,H-6,fmt(total)+' mm','var(--dim)','font:600 8px var(--mono)','end');
+  const per=defectsPerRibbon(), tot=per.reduce((a,b)=>a+b,0);
+  const dt=document.getElementById('defTag'); if(dt) dt.textContent=tot+' defects';
+  const dr=document.getElementById('defRows');
+  if(dr) dr.innerHTML=[
+    drow('Defects in current piles',String(tot)),
+    drow('Deck A / Deck B',S.decks.A.defects.length+' / '+S.decks.B.defects.length),
+    drow('Worst ribbon','R'+(per.indexOf(Math.max(...per,0))+1)+' <small>'+Math.max(...per,0)+' defects</small>'),
+  ].join('');
+}
+function renderCert(){
+  const box=document.getElementById('certBox'); if(!box) return;
+  const c=S.certs[0];
+  if(!c){ box.innerHTML='<div class="noalarm">No completed pile yet — a certificate is issued at each discharge</div>'; return; }
+  const vc=c.verdict==='PASS'?'v-pass':c.verdict==='WATCH'?'v-watch':'v-rej';
+  box.innerHTML=`
+    <div class="qhead"><div class="t"><span class="deckchip ${c.deck==='A'?'chip-a':'chip-b'}">DECK ${c.deck}</span>
+      Pile ${c.no} · ${c.order} · ${c.customer}<b>${c.ts} · ${c.size}</b></div>
+      <span class="verdict ${vc}">${c.verdict}</span></div>
+    <table class="tbl"><thead><tr><th>Pallet</th><th>Ribbon</th><th>Sheets</th><th>kg</th><th>Dev</th><th>Def</th><th>Q</th></tr></thead>
+    <tbody>${c.pallets.map(p=>`<tr><td>R${p.ribbon}</td><td>${fmt(p.width)} mm</td><td>${fmt(p.sheets)}</td><td>${fmt(p.kg)}</td>
+      <td>${fmt(p.dev,2)}</td><td>${p.defects}</td>
+      <td><span class="duetag ${p.q==='PASS'?'due-ok':p.q==='WATCH'?'due-soon':'due-now'}">${p.q}</span></td></tr>`).join('')}</tbody></table>
+    <div style="margin-top:10px">
+      ${drow('Mean length deviation',fmt(c.avgDev,3)+' <small>mm · 2σ '+fmt(c.devSd*2,3)+'</small>')}
+      ${drow('Squareness',fmt(c.sq,2)+' <small>mm diagonal</small>')}
+      ${drow('CD caliper / moisture',fmt(c.cal,3)+' <small>mm · '+fmt(c.moi,2)+'%</small>')}
+      ${drow('Defects in pile',String(c.defects))}
+    </div>`;
+  document.getElementById('certTag').textContent='deck '+c.deck+' · pile '+c.no;
+}
+
+/* =====================================================================
+   ORDERS / TRACEABILITY / BARCODE / CSV
+   ===================================================================== */
+function renderOrders(){
+  const list=document.getElementById('ordList'); if(!list) return;
+  list.innerHTML=MACHINE.orders.map((o,i)=>{
+    const st=i<S.orderIdx?'done':i===S.orderIdx?'run':'q';
+    const done=i<S.orderIdx?o.piles:i===S.orderIdx?S.orderPilesDone:0;
+    const lbl=st==='done'?'COMPLETE':st==='run'?'RUNNING':'QUEUED';
+    const cls=st==='done'?'os-d':st==='run'?'os-run':'os-q';
+    const nA=o.deckAssign.filter(x=>x==='A').length, nB=o.deckAssign.filter(x=>x==='B').length;
+    return `<div class="ordrow ${st==='run'?'run':st==='done'?'done':''}">
+      <div class="om"><div class="oid">${o.id} · ${o.customer}</div>
+      <div class="osub">${o.grade} · <span style="color:var(--accent)">A: ${nA}×${o.slitWidthsMm[0]}×${o.lenA}</span>
+        · <span style="color:var(--violet)">B: ${nB}×${o.slitWidthsMm[0]}×${o.lenB}</span> · ${o.speed} m/min</div></div>
+      <div style="text-align:right"><span class="ost ${cls}">${lbl}</span>
+      <div class="osub" style="margin-top:4px">${done}/${o.piles} piles</div></div></div>`;}).join('');
+  const o=MACHINE.orders[S.orderIdx];
+  document.getElementById('ordTag').textContent=o?('order '+(S.orderIdx+1)+'/'+MACHINE.orders.length):'all done';
+  document.getElementById('mcOrder').textContent=o?o.id:'—';
+}
+function loadOrder(i){
+  const o=MACHINE.orders[i], msg=document.getElementById('ordMsg');
+  if(!o){ if(msg){msg.className='msg err';msg.textContent='No further orders in the queue.';} return; }
+  S.orderIdx=i; S.orderPilesDone=0;
+  MACHINE.slitWidthsMm=o.slitWidthsMm.slice(); MACHINE.deckAssign=o.deckAssign.slice();
+  MACHINE.decks.find(d=>d.id==='A').lengthMm=o.lenA;
+  MACHINE.decks.find(d=>d.id==='B').lengthMm=o.lenB;
+  MACHINE.speedSetpoint=o.speed; MACHINE.gradeName=o.grade; MACHINE.gsm=o.gsm;
+  initDecks(); pileSeq.A=null; pileSeq.B=null; reelSeq=null;
+  buildSchematic(); buildCd(); loadSetupInputs(); setState();
+  if(msg){ msg.className='msg ok'; msg.textContent=`Loaded ${o.id} — deck A ${o.lenA} mm, deck B ${o.lenB} mm.`; }
+  pushAlarm('info',`Order ${o.id} loaded — ${o.customer}, A ${o.lenA} mm / B ${o.lenB} mm`);
+  render();
+}
+const C39={'0':'000110100','1':'100100001','2':'001100001','3':'101100000','4':'000110001',
+'5':'100110000','6':'001110000','7':'000100101','8':'100100100','9':'001100100',
+'A':'100001001','B':'001001001','C':'101001000','D':'000011001','E':'100011000',
+'F':'001011000','G':'000001101','H':'100001100','I':'001001100','J':'000011100',
+'K':'100000011','L':'001000011','M':'101000010','N':'000010011','O':'100010010',
+'P':'001010010','Q':'000000111','R':'100000110','S':'001000110','T':'000010110',
+'U':'110000001','V':'011000001','W':'111000000','X':'010010001','Y':'110010000',
+'Z':'011010000','-':'010000101','.':'110000100',' ':'011000100','*':'010010100'};
+function renderBarcode(text){
+  const s=clearSvg('barcode'); if(!s) return;
+  const data='*'+String(text).toUpperCase().replace(/[^0-9A-Z\-. ]/g,'-')+'*';
+  const chars=data.split('').filter(c=>C39[c]);
+  const narrow=1,wide=3,gap=narrow; let total=0;
+  chars.forEach(c=>{C39[c].split('').forEach(b=>total+=(b==='1'?wide:narrow)); total+=gap;});
+  const H=60, unit=400/total; let x=0;
+  chars.forEach(c=>{ C39[c].split('').forEach((b,i)=>{ const w=(b==='1'?wide:narrow)*unit;
+      if(i%2===0) s.appendChild(el('rect',{x:x.toFixed(2),y:0,width:Math.max(0.4,w).toFixed(2),height:H,fill:'#111'}));
+      x+=w; }); x+=gap*unit; });
+  document.getElementById('bcId').textContent=data;
+  document.getElementById('bcCap').textContent='Code 39 · '+chars.length+' chars · scannable';
+}
+function renderTrace(){
+  const tb=document.getElementById('traceBody'); if(!tb) return;
+  document.getElementById('traceTag').textContent=S.pileLog.length+' pallets';
+  if(!S.pileLog.length){ tb.innerHTML='<tr><td colspan="7" style="text-align:center;color:var(--muted);font-family:var(--font)">No piles completed yet — records are created at each discharge</td></tr>'; return; }
+  tb.innerHTML=S.pileLog.slice(0,10).map((r,i)=>
+    `<tr class="click ${S.selPile&&S.selPile.id===r.id?'sel':''}" data-i="${i}">
+      <td style="font-family:var(--mono);font-size:10px">${r.id}</td>
+      <td><span class="deckchip ${r.deck==='A'?'chip-a':'chip-b'}">${r.deck}</span></td>
+      <td>${r.size}</td><td>${fmt(r.sheets)}</td><td>${fmt(r.kg)}</td><td>${fmt(r.dev,2)}</td>
+      <td><span class="duetag ${r.q==='PASS'?'due-ok':r.q==='WATCH'?'due-soon':'due-now'}">${r.q}</span></td></tr>`).join('');
+  tb.querySelectorAll('tr.click').forEach(tr=>tr.onclick=()=>{
+    S.selPile=S.pileLog[+tr.dataset.i]; renderTrace(); renderBarcode(S.selPile.id); });
+  if(S.selPile) renderBarcode(S.selPile.id);
+}
+function downloadCsv(name,rows){
+  const csv=rows.map(r=>r.map(v=>`"${String(v).replace(/"/g,'""')}"`).join(',')).join('\r\n');
+  const blob=new Blob([csv],{type:'text/csv;charset=utf-8;'});
+  const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download=name;
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  setTimeout(()=>URL.revokeObjectURL(a.href),1000);
+  pushAlarm('info','Exported '+name+' ('+(rows.length-1)+' rows)');
+}
+function exportPallets(){
+  const rows=[['Pallet ID','Time','Deck','Ribbon','Sheet size mm','Order','Customer','Grade','Sheets','Weight kg','Length dev mm','Defects','Quality']];
+  S.pileLog.forEach(r=>rows.push([r.id,r.ts,r.deck,r.ribbon,r.size,r.order,r.customer,r.grade,r.sheets,r.kg,r.dev,r.defects,r.q]));
+  downloadCsv(MACHINE.asset+'_pallet_report_'+stamp()+'.csv',rows);
+}
+function exportShift(){
+  const D=derived(), totMin=S.runMin+S.downMin||1;
+  const rows=[['Metric','Value','Unit']]; const add=(k,v,u)=>rows.push([k,v,u||'']);
+  add('Asset',MACHINE.asset); add('Line',MACHINE.line); add('Machine type','Duplex (twin-knife) sheeter');
+  add('Grade',MACHINE.gradeName); add('Report time',new Date().toString());
+  add('Deckle',MACHINE.deckleMm,'mm'); add('Trim',D.trim,'mm'); add('Trim loss',D.trimPct.toFixed(2),'%');
+  MACHINE.decks.forEach(d=>{ const dd=D.decks[d.id], st=S.decks[d.id];
+    add(`Deck ${d.id} sheet length`,d.lengthMm,'mm');
+    add(`Deck ${d.id} streams`,dd.streams);
+    add(`Deck ${d.id} cuts per min`,dd.cuts.toFixed(0));
+    add(`Deck ${d.id} sheets`,Math.round(st.sheets));
+    add(`Deck ${d.id} piles`,st.piles);
+    add(`Deck ${d.id} tonnage`,st.tonnes.toFixed(2),'t');
+    add(`Deck ${d.id} knife wear`,(st.knifeCuts/d.knifeLifeCuts*100).toFixed(1),'%');
+    add(`Deck ${d.id} mean length dev`,mean(st.devHist).toFixed(3),'mm'); });
+  add('Total tonnage',S.tonnes.toFixed(2),'t');
+  add('Run time',S.runMin.toFixed(1),'min'); add('Down time',S.downMin.toFixed(1),'min');
+  add('Availability',(S.runMin/totMin*100).toFixed(1),'%');
+  add('Splices',S.splices); add('Energy',S.energy.kWh.toFixed(1),'kWh');
+  add('Specific energy',(S.tonnes>0?S.energy.kWh/S.tonnes:0).toFixed(1),'kWh/t');
+  rows.push([]); rows.push(['Loss reason','Lost minutes','Share %']);
+  const L=lossList(), tot=L.reduce((a,b)=>a+b[1],0)||1;
+  L.forEach(([k,v])=>rows.push([k,v.toFixed(2),(v/tot*100).toFixed(1)]));
+  downloadCsv(MACHINE.asset+'_shift_summary_'+stamp()+'.csv',rows);
+}
+
+/* =====================================================================
+   SETUP / RECIPE
+   ===================================================================== */
+function loadSetupInputs(){
+  const g=id=>document.getElementById(id);
+  g('inSpeed').value=Math.round(MACHINE.speedSetpoint); g('inDeckle').value=MACHINE.deckleMm;
+  g('inLA').value=MACHINE.decks.find(d=>d.id==='A').lengthMm;
+  g('inLB').value=MACHINE.decks.find(d=>d.id==='B').lengthMm;
+  g('inPA').value=MACHINE.decks.find(d=>d.id==='A').pileCount;
+  g('inPB').value=MACHINE.decks.find(d=>d.id==='B').pileCount;
+  g('inCal').value=MACHINE.caliperMm; g('inGsm').value=MACHINE.gsm;
+  g('inSlits').value=MACHINE.slitWidthsMm.join(',');
+  g('inAssign').value=MACHINE.deckAssign.join(',');
+}
+function applySetup(){
+  const n=id=>+document.getElementById(id).value, msg=document.getElementById('setupMsg');
+  const sp=n('inSpeed'),dk=n('inDeckle'),la=n('inLA'),lb=n('inLB'),pa=n('inPA'),pb=n('inPB'),cal=n('inCal'),gsm=n('inGsm');
+  const slits=document.getElementById('inSlits').value.split(',').map(s=>parseFloat(s.trim())).filter(v=>v>0);
+  const assign=document.getElementById('inAssign').value.split(',').map(s=>s.trim().toUpperCase()).filter(v=>v);
+  if(!(sp>0)||!(dk>0)||!(la>0)||!(lb>0)||!(pa>0)||!(pb>0)||!(cal>0)||!(gsm>0)||!slits.length){
+    msg.className='msg err'; msg.textContent='All values must be positive and at least one ribbon is required.'; return; }
+  if(assign.length!==slits.length){
+    msg.className='msg err'; msg.textContent=`Deck list has ${assign.length} entries but there are ${slits.length} ribbons — they must match.`; return; }
+  if(assign.some(a=>a!=='A'&&a!=='B')){
+    msg.className='msg err'; msg.textContent='Deck entries must be A or B only.'; return; }
+  if(!assign.includes('A')||!assign.includes('B')){
+    msg.className='msg err'; msg.textContent='A duplex run needs at least one ribbon on each deck.'; return; }
+  const sum=slits.reduce((a,b)=>a+b,0);
+  if(sum>dk){ msg.className='msg err'; msg.textContent=`Ribbon total ${fmt(sum)} mm exceeds the deckle ${fmt(dk)} mm.`; return; }
+  MACHINE.speedSetpoint=sp; MACHINE.deckleMm=dk; MACHINE.caliperMm=cal; MACHINE.gsm=gsm;
+  MACHINE.slitWidthsMm=slits; MACHINE.deckAssign=assign;
+  MACHINE.decks.find(d=>d.id==='A').lengthMm=la; MACHINE.decks.find(d=>d.id==='A').pileCount=pa;
+  MACHINE.decks.find(d=>d.id==='B').lengthMm=lb; MACHINE.decks.find(d=>d.id==='B').pileCount=pb;
+  initDecks(); pileSeq.A=null; pileSeq.B=null; reelSeq=null;
+  buildSchematic(); buildCd(); setState();
+  const D=derived();
+  msg.className='msg ok';
+  msg.textContent=`Applied · A ${D.decks.A.streams}×${la} mm @ ${fmt(D.decks.A.cuts)} cuts/min · B ${D.decks.B.streams}×${lb} mm @ ${fmt(D.decks.B.cuts)} cuts/min · ${fmt(dk-sum)} mm trim.`;
+  pushAlarm('info',`Recipe applied — A ${la} mm / B ${lb} mm, ${slits.length} ribbons`);
+  render();
+}
+
+/* =====================================================================
+   RENDER — desk mode
+   ===================================================================== */
+let activeTab='overview';
+function render(){
+  const D=derived();
+  document.getElementById('mcName').textContent=MACHINE.name;
+  document.getElementById('mcLine').textContent=MACHINE.line;
+  document.getElementById('mcAsset').textContent=MACHINE.asset;
+  document.getElementById('dirTag').textContent='Live twin · sim ×'+(MACHINE.simTimeScale||1);
+  if(laneText) laneText.textContent=`${MACHINE.slitWidthsMm.length} ribbons · ${fmt(D.trim)} mm trim`;
+  MACHINE.decks.forEach(d=>{ if(deckText[d.id]){
+    const st=S.decks[d.id];
+    deckText[d.id].textContent=`${fmt(st.pileSheets)}/${fmt(d.pileCount)} · ${fmt(D.decks[d.id].cuts)} c/min`; } });
+
+  if(kioskOn){ renderKiosk(); return; }
+
+  if(activeTab==='overview'){
+    document.getElementById('gSpeed').textContent=fmt(S.speed);
+    document.getElementById('gSpeedSp').textContent='SP '+fmt(MACHINE.speedSetpoint)+' m/min';
+    document.getElementById('gTph').textContent=fmt(D.tph,1);
+    document.getElementById('gTphSp').textContent='A '+fmt(D.decks.A.tph,1)+' + B '+fmt(D.decks.B.tph,1)+' t/h';
+    document.getElementById('lineRows').innerHTML=[
+      drow('Deckle',fmt(MACHINE.deckleMm)+' <small>mm · '+MACHINE.plies+' plies</small>'),
+      drow('Ribbons',MACHINE.slitWidthsMm.length+' <small>'+MACHINE.slitWidthsMm.join('/')+'</small>'),
+      drow('Edge trim',fmt(D.trim)+' <small>mm ('+fmt(D.trimPct,2)+'%)</small>'),
+      drow('Total sheets / min',fmt(D.sheetsMin)),
+    ].join('');
+    document.getElementById('tzones').innerHTML=MACHINE.zones.map((z,i)=>{
+      const v=S.zoneVals[z.id];
+      const pct=clamp((v-z.min)/(z.max-z.min)*100,0,100), spp=clamp((z.sp-z.min)/(z.max-z.min)*100,0,100);
+      return `<div class="tzone"><div class="row"><span class="z">${z.name}</span>
+        <span class="v"><b>${fmt(v)}</b> N/m · SP ${z.sp}</span></div>
+        <div class="track"><div class="fill" style="width:${pct}%;background:${colorFor(v,z.sp,0.14)}"></div>
+        <div class="setmark" style="left:${spp}%"></div></div></div>`;}).join('');
+    const W=300;
+    const a=clearSvg('spSpeed');
+    a.appendChild(el('line',{x1:0,y1:28,x2:W,y2:28,stroke:'#16202c','stroke-width':1}));
+    a.appendChild(el('polyline',{points:pointsFrom(S.trend.speed,0,MACHINE.speedSetpoint*1.15,W,56),fill:'none',stroke:'var(--accent)','stroke-width':1.6}));
+    document.getElementById('spSpeedV').textContent=fmt(S.speed)+' m/min';
+    devChart('spDevA',S.trend.devA,MACHINE.quality.lenTolMm,W,50,'var(--accent)');
+    document.getElementById('spDevAV').textContent=fmt(S.decks.A.lenDev,2)+' mm';
+    devChart('spDevB',S.trend.devB,MACHINE.quality.lenTolMm,W,50,'var(--violet)');
+    document.getElementById('spDevBV').textContent=fmt(S.decks.B.lenDev,2)+' mm';
+    // deck cards
+    document.getElementById('deckCards').innerHTML=MACHINE.decks.map(d=>{
+      const dd=D.decks[d.id], st=S.decks[d.id];
+      const pf=clamp(st.pileSheets/d.pileCount*100,0,100);
+      const spm=dd.sheetsPerPileMin;
+      const kp=clamp(st.knifeCuts/d.knifeLifeCuts*100,0,140);
+      return `<div class="deck ${d.id.toLowerCase()}">
+        <div class="dh"><span class="deckchip ${d.id==='A'?'chip-a':'chip-b'}">DECK ${d.id}</span>
+          <span class="dn">${dd.streams} stream${dd.streams===1?'':'s'}</span>
+          <span class="df">${fmt(dd.widths[0]||0)} × ${fmt(d.lengthMm)} mm</span></div>
+        <div class="dg">
+          <div><div class="n" style="color:${DCOLOR[d.id]}">${fmt(dd.cuts)}</div><div class="l">cuts/min</div></div>
+          <div><div class="n">${fmt(dd.rpm)}</div><div class="l">knife rpm</div></div>
+          <div><div class="n">${fmt(dd.sheetsMin)}</div><div class="l">sheets/min</div></div>
+        </div>
+        <div class="pilebar"><i style="width:${pf}%"></i><span>${fmt(st.pileSheets)} / ${fmt(d.pileCount)} sheets</span></div>
+        <div style="margin-top:7px">
+          ${drow('Output',fmt(dd.tph,2)+' <small>t/h · '+fmt(st.tonnes,2)+' t so far</small>')}
+          ${drow('Time to discharge',eta(spm>0?(d.pileCount-st.pileSheets)/spm:Infinity)+' <small>mm:ss · '+st.piles+' done</small>')}
+          ${drow('Length deviation',fmt(st.lenDev,2)+' <small>mm (tol ±'+MACHINE.quality.lenTolMm+')</small>')}
+          ${drow('Knife wear',fmt(kp)+' <small>% of blade life</small>')}
+        </div></div>`;}).join('');
+    drawAlloc('alloc',520,120);
+    document.getElementById('allocTag').textContent=MACHINE.slitWidthsMm.length+' ribbons';
+    document.getElementById('allocRows').innerHTML=[
+      drow('Deck A ribbons',D.decks.A.streams+' <small>'+D.decks.A.widths.join('/')+' mm</small>'),
+      drow('Deck B ribbons',D.decks.B.streams+' <small>'+D.decks.B.widths.join('/')+' mm</small>'),
+      drow('Tonnage split',fmt(D.decks.A.tph,2)+' / '+fmt(D.decks.B.tph,2)+' <small>t/h (A/B)</small>'),
+    ].join('');
+    // backstands
+    document.getElementById('bsTag').textContent=MACHINE.plies+' reels';
+    const full=lengthOnRoll(MACHINE.reel.startDiaMm,MACHINE.reel.coreMm,MACHINE.caliperMm);
+    document.getElementById('bsGrid').innerHTML=S.reels.map((r,i)=>{
+      const left=lengthOnRoll(r.dia,MACHINE.reel.coreMm,MACHINE.caliperMm), pct=clamp(left/full*100,0,100);
+      return `<div class="bscell ${pct<8?'crit':pct<20?'low':''}"><svg id="bsRing${i}" viewBox="0 0 100 100"></svg>
+        <div class="bn">${r.id}</div><div class="bv">${fmt(left)} m</div></div>`;}).join('');
+    S.reels.forEach((r,i)=>{ const left=lengthOnRoll(r.dia,MACHINE.reel.coreMm,MACHINE.caliperMm), pct=clamp(left/full*100,0,100);
+      drawRing('bsRing'+i,pct,fmt(r.dia),'Ø mm',pct<8?'var(--alarm)':pct<20?'var(--warn)':'#8fa6bd'); });
+    const minR=S.reels.reduce((m,r)=>r.dia<m.dia?r:m,S.reels[0]);
+    const minLeft=lengthOnRoll(minR.dia,MACHINE.reel.coreMm,MACHINE.caliperMm);
+    document.getElementById('bsRows').innerHTML=[
+      drow('Next reel change',minR.id+' <small>'+fmt(minLeft)+' m left</small>'),
+      drow('Time to next splice',eta(S.speed>5?minLeft/S.speed:Infinity)+' <small>mm:ss</small>'),
+      drow('Splices this shift',String(S.splices)),
+    ].join('');
+    // OEE
+    const totMin=S.runMin+S.downMin||1;
+    const avail=clamp(S.runMin/totMin*100,0,100);
+    const idealTph=MACHINE.decks.reduce((a,d)=>{
+      const rb=ribbonsOf(d.id); const cuts=MACHINE.speedSetpoint*1000/d.lengthMm;
+      return a+rb.reduce((x,r)=>x+(r.w/1000)*(d.lengthMm/1000)*MACHINE.gsm/1000,0)*cuts*MACHINE.plies*60/1000;},0);
+    const perf=S.runMin>0?clamp(S.tonnes/((S.runMin/60)*idealTph||1)*100,0,100):0;
+    const qual=S.sheetsAll>0?clamp(S.goodSheets/S.sheetsAll*100,0,100):100;
+    const oee=avail*perf*qual/10000;
+    document.getElementById('oeeA').textContent=fmt(avail)+'%';
+    document.getElementById('oeeP').textContent=fmt(perf)+'%';
+    document.getElementById('oeeQ').textContent=fmt(qual)+'%';
+    const ot=document.getElementById('oeeTotal'); ot.textContent=fmt(oee)+'%';
+    ot.style.color=oee>75?'var(--ok)':oee>55?'var(--warn)':'var(--alarm)';
+    document.getElementById('cSheets').textContent=fmt(S.decks.A.sheets)+' / '+fmt(S.decks.B.sheets);
+    document.getElementById('cPiles').textContent=S.decks.A.piles+' / '+S.decks.B.piles;
+    document.getElementById('cTon').textContent=fmt(S.tonnes,2)+' t';
+    const totalKg=S.tonnes*1000+S.wasteKg;
+    document.getElementById('cWaste').textContent=fmt(totalKg>0?S.wasteKg/totalKg*100:0,2)+' %';
+    const act=S.alarms.filter(a=>a.sev!=='info').length;
+    document.getElementById('almCount').textContent=act+' active';
+    const box=document.getElementById('alarms');
+    box.innerHTML=S.alarms.length?S.alarms.slice(0,12).map(a=>{
+      const ic=a.sev==='crit'?'✕':a.sev==='warn'?'!':'i';
+      return `<div class="alarm ${a.sev}"><div class="ico">${ic}</div>
+        <div class="txt"><div class="m">${a.msg}</div><div class="t">${a.ts}</div></div></div>`;}).join('')
+      :'<div class="noalarm">No active alarms — all systems nominal</div>';
+  }
+  else if(activeTab==='quality'){
+    const q=MACHINE.quality;
+    ['A','B'].forEach(id=>{
+      const st=S.decks[id], col=id==='A'?'var(--accent)':'var(--violet)';
+      histChart('lenHist'+id,st.devHist,q.lenTolMm,300,108,col);
+      const m=mean(st.devHist), s2=sd(st.devHist)*2;
+      const inTol=st.devHist.filter(v=>Math.abs(v)<=q.lenTolMm).length/(st.devHist.length||1)*100;
+      document.getElementById('lenStat'+id).textContent=fmt(m,3)+' ± '+fmt(s2,3)+' mm (2σ)';
+      document.getElementById('lenTag'+id).textContent=fmt(inTol)+'% in tol';
+      const cpk=s2>0?(q.lenTolMm-Math.abs(m))/(s2/2*1.5):0;
+      const d=MACHINE.decks.find(x=>x.id===id);
+      document.getElementById('lenRows'+id).innerHTML=[
+        drow('Sheet length',fmt(d.lengthMm)+' <small>mm</small>'),
+        drow('Mean deviation',fmt(m,3)+' <small>mm</small>'),
+        drow('2σ spread',fmt(s2,3)+' <small>mm</small>'),
+        drow('Within ±'+q.lenTolMm+' mm',fmt(inTol)+' <small>%</small>'),
+        drow('Capability (Cpk approx.)',fmt(Math.max(0,cpk),2)),
+        drow('Squareness',fmt(st.sqDev,2)+' <small>mm (tol '+q.sqTolMm+')</small>'),
+      ].join('');
+    });
+    cdStrip('cdCal',S.cd&&S.cd.cal,MACHINE.caliperMm,q.calTolPct/100,'mm',3,'cdCalV');
+    cdStrip('cdMoi',S.cd&&S.cd.moi,q.moistTarget,q.moistTol/q.moistTarget,'%',2,'cdMoiV');
+    cdStrip('cdBw',S.cd&&S.cd.bw,MACHINE.gsm,q.bwTolPct/100,'g/m²',1,'cdBwV');
+    renderDefectMap('defmap',520,200);
+    renderCert();
+  }
+  else if(activeTab==='production'){ renderOrders(); renderTrace(); }
+  else if(activeTab==='losses'){
+    const e=S.energy, spec=S.tonnes>0?e.kWh/S.tonnes:0;
+    document.getElementById('enKw').textContent=fmt(e.kw);
+    document.getElementById('enKwh').textContent=fmt(e.kWh,1);
+    document.getElementById('enSpec').textContent=fmt(spec,1);
+    document.getElementById('enIdle').textContent=fmt(e.kWh>0?e.idleKWh/e.kWh*100:0);
+    const maxKw=MACHINE.drives.reduce((a,d)=>a+d.ratedKw,0);
+    const k=clearSvg('spKw');
+    k.appendChild(el('line',{x1:0,y1:30,x2:300,y2:30,stroke:'#16202c','stroke-width':1}));
+    k.appendChild(el('polyline',{points:pointsFrom(S.trend.kw,0,maxKw,300,60),fill:'none',stroke:'var(--accent)','stroke-width':1.6}));
+    document.getElementById('spKwV').textContent=fmt(e.kw)+' kW';
+    document.getElementById('enRows').innerHTML=[
+      drow('Installed drive power',fmt(maxKw)+' <small>kW</small>'),
+      drow('Load factor',fmt(maxKw?e.kw/maxKw*100:0)+' <small>% of installed</small>'),
+      drow('Energy per pile',fmt((S.decks.A.piles+S.decks.B.piles)>0?e.kWh/(S.decks.A.piles+S.decks.B.piles):0,2)+' <small>kWh/pile</small>'),
+    ].join('');
+    document.getElementById('driveTag').textContent=MACHINE.drives.length+' axes';
+    document.getElementById('driveBody').innerHTML=MACHINE.drives.map(d=>{
+      const dv=S.drives[d.id],col=dv.load>100?'var(--alarm)':dv.load>85?'var(--warn)':'var(--ok)';
+      return `<tr><td><span class="drv-dot" style="background:${S.speed>5?col:'var(--muted)'}"></span>${d.name}</td>
+        <td><span class="barmini"><i style="width:${clamp(dv.load,0,100)}%;background:${col}"></i></span> ${fmt(dv.load)}%</td>
+        <td>${fmt(dv.kw)}</td><td>${fmt(dv.rpm)}</td>
+        <td style="color:${dv.temp>80?'var(--alarm)':dv.temp>68?'var(--warn)':'var(--ok)'}">${fmt(dv.temp)}°</td></tr>`;}).join('');
+    renderPareto('pareto','parBody','parTag');
+    document.getElementById('wearBox').innerHTML=MACHINE.decks.map(d=>{
+      const st=S.decks[d.id];
+      const kp=clamp(st.knifeCuts/d.knifeLifeCuts*100,0,140), ap=clamp(st.anvilCuts/d.anvilLifeCuts*100,0,140);
+      const bar=(lbl,pct,rem)=>`<div style="margin-bottom:9px"><div style="display:flex;justify-content:space-between;font-size:11.5px;margin-bottom:4px">
+        <span style="color:var(--muted)">${lbl}</span>
+        <span class="duetag ${pct>100?'due-now':pct>85?'due-soon':'due-ok'}">${pct>100?'CHANGE':pct>85?'DUE SOON':'OK'}</span></div>
+        <div class="wearbar"><i style="width:${Math.min(pct,100)}%;background:${pct>100?'var(--alarm)':pct>85?'var(--warn)':'var(--ok)'}"></i>
+        <div class="limit" style="left:85%"></div></div>
+        <div style="font-size:10px;color:var(--dim);margin-top:3px;font-family:var(--mono)">${rem}</div></div>`;
+      return `<div style="margin-bottom:6px"><span class="deckchip ${d.id==='A'?'chip-a':'chip-b'}">DECK ${d.id}</span></div>`+
+        bar('Cross-cut knife '+d.id,kp,fmt(Math.max(0,d.knifeLifeCuts-st.knifeCuts)/1000)+'k cuts left · '+fmt(kp)+'% worn')+
+        bar('Anvil '+d.id,ap,fmt(Math.max(0,d.anvilLifeCuts-st.anvilCuts)/1000)+'k cuts left · '+fmt(ap)+'% worn')+
+        `<div style="display:flex;gap:8px;margin-bottom:12px">
+          <button class="ctl" onclick="changeKnife('${d.id}')">⟲ Knife ${d.id}</button>
+          <button class="ctl" onclick="regrindAnvil('${d.id}')">⟲ Anvil ${d.id}</button></div>`;
+    }).join('');
+    document.getElementById('healthBody').innerHTML=MACHINE.drives.map(d=>{
+      const dv=S.drives[d.id];
+      const tc=dv.temp>80?'var(--alarm)':dv.temp>68?'var(--warn)':'var(--ok)';
+      const vc=dv.vib>3.5?'var(--alarm)':dv.vib>2.6?'var(--warn)':'var(--ok)';
+      const bad=dv.temp>80||dv.vib>3.5, soon=dv.temp>68||dv.vib>2.6;
+      return `<tr><td>${d.name}</td><td style="color:${tc}">${fmt(dv.temp)}°C</td>
+        <td style="color:${vc}">${fmt(dv.vib,1)}</td>
+        <td>${bad?'<span class="duetag due-now">CHECK</span>':soon?'<span class="duetag due-soon">WATCH</span>':'<span class="duetag due-ok">OK</span>'}</td></tr>`;}).join('');
+  }
+}
+function changeKnife(id){ const st=S.decks[id]; st.knifeCuts=0; st.knifeFlag=0;
+  S.losses['Knife change — deck '+id]=(S.losses['Knife change — deck '+id]||0)+MACHINE.knifeChangeMin;
+  pushAlarm('info',`Deck ${id} knife changed — ${MACHINE.knifeChangeMin} min downtime booked`); render(); }
+function regrindAnvil(id){ const st=S.decks[id]; st.anvilCuts=0; st.anvilFlag=0;
+  S.losses['Anvil regrind — deck '+id]=(S.losses['Anvil regrind — deck '+id]||0)+MACHINE.anvilChangeMin;
+  pushAlarm('info',`Deck ${id} anvil reground — ${MACHINE.anvilChangeMin} min downtime booked`); render(); }
+function tickClock(){ const d=new Date(), now=d.toTimeString().slice(0,8);
+  const h=d.getHours(), sh=h<8?'C (night)':h<16?'A (day)':'B (evening)';
+  document.getElementById('clk').textContent=now;
+  document.getElementById('shift').textContent='Shift '+sh;
+  const kc=document.getElementById('kClk'); if(kc) kc.textContent=now;
+  const ks=document.getElementById('kShift'); if(ks) ks.textContent='Shift '+sh;
+  const oe=document.getElementById('oeeShift'); if(oe) oe.textContent='Shift '+sh[0]; }
+function setState(){
+  const cls=S.alarmMode?'st-alarm':(pileSeq.A||pileSeq.B||reelSeq)?'st-hold':S.running?'st-run':'st-stop';
+  const lbl=S.alarmMode?'FAULT':reelSeq?'SPLICING'
+    :(pileSeq.A&&pileSeq.B)?'BOTH DECKS DISCHARGING':pileSeq.A?'DECK A DISCHARGE':pileSeq.B?'DECK B DISCHARGE'
+    :S.running?'RUNNING':'STOPPED';
+  const p=document.getElementById('statepill'), t=document.getElementById('stateTxt');
+  p.className='statepill '+cls; t.textContent=lbl;
+  document.getElementById('btnRun').classList.toggle('active',S.running&&!S.alarmMode);
+  const kp=document.getElementById('kPill'), kst=document.getElementById('kState');
+  if(kp){ kp.className='statepill '+cls; kp.style.fontSize='15px'; kp.style.padding='10px 20px'; kst.textContent=lbl; } }
+
+/* =====================================================================
+   KIOSK / WALL DISPLAY
+   ===================================================================== */
+let kioskOn=false, kView=0, kRotate=true, kElapsed=0, kBuilt=null;
+const KDWELL=15000;
+const KVIEWS=[
+  {id:'decks',     t:'Decks — Cutting, Piles &amp; Allocation'},
+  {id:'quality',   t:'Quality — Length per Deck, CD &amp; Defects'},
+  {id:'production',t:'Production — Backstands, Orders &amp; Pallets'},
+  {id:'losses',    t:'Losses &amp; Energy'},
+];
+function fitStage(){ if(!kioskOn) return;
+  const s=Math.min(window.innerWidth/1920,window.innerHeight/1080);
+  document.getElementById('stage').style.transform=`translate(-50%,-50%) scale(${s})`; }
+function setMode(on){
+  kioskOn=on; document.body.classList.toggle('kiosk',on);
+  const twin=document.getElementById('twin');
+  if(on){ twin.classList.add('kfit'); document.getElementById('kSchematic').appendChild(twin); }
+  else  { twin.classList.remove('kfit'); document.querySelector('#deskRoot .top .card').appendChild(twin); }
+  kBuilt=null; fitStage(); render(); }
+window.addEventListener('resize',fitStage);
+function kDots(){
+  document.getElementById('kDots').innerHTML=KVIEWS.map((v,i)=>
+    `<span class="kdot ${i===kView?'on':''}" data-i="${i}"></span>`).join('');
+  document.querySelectorAll('#kDots .kdot').forEach(d=>d.onclick=()=>{
+    kView=+d.dataset.i;kElapsed=0;kBuilt=null;kDots();render();}); }
+function kTick(dt){ if(!kioskOn) return;
+  if(kRotate){ kElapsed+=dt;
+    if(kElapsed>=KDWELL){kElapsed=0;kView=(kView+1)%KVIEWS.length;kBuilt=null;kDots();render();} }
+  const p=document.getElementById('kProg'); if(p) p.style.width=(kRotate?clamp(kElapsed/KDWELL*100,0,100):0)+'%'; }
+function kBuildPane(v){
+  const P=document.getElementById('kPane');
+  document.getElementById('kPaneTitle').innerHTML=KVIEWS.find(x=>x.id===v).t;
+  if(v==='decks'){
+    P.innerHTML=`
+      <div id="kDeckCards" style="flex:0 0 auto"></div>
+      <div class="ksec flexcol" style="flex:1 1 auto;min-height:0"><div class="st">Ribbon → deck allocation <span id="kAllocHd">—</span></div>
+        <svg id="kAlloc" viewBox="0 0 520 120" preserveAspectRatio="xMidYMid meet" class="panelsvg"></svg></div>
+      <div class="ksec" style="flex:0 0 auto"><div class="st">Web tension <span id="kTenHd">—</span></div><div id="kTz"></div></div>`;
+  } else if(v==='quality'){
+    P.innerHTML=`
+      <div class="kg2" style="flex:1 1 auto;min-height:0">
+        <div class="ksec flexcol"><div class="st">Deck A length dev <span id="kLenHdA">—</span></div>
+          <svg id="kLenA" class="kchart" viewBox="0 0 300 104" preserveAspectRatio="none"></svg></div>
+        <div class="ksec flexcol"><div class="st">Deck B length dev <span id="kLenHdB">—</span></div>
+          <svg id="kLenB" class="kchart" viewBox="0 0 300 104" preserveAspectRatio="none"></svg></div>
+      </div>
+      <div class="ksec" style="flex:0 0 auto"><div class="st">Cross-web profile <span>across deckle</span></div>
+        <div style="display:flex;gap:9px">
+          <div style="flex:1"><div style="font-size:9.5px;color:var(--dim);margin-bottom:3px" id="kCalV">Caliper</div>
+            <svg id="kCdCal" class="spark" viewBox="0 0 300 40" preserveAspectRatio="none"></svg></div>
+          <div style="flex:1"><div style="font-size:9.5px;color:var(--dim);margin-bottom:3px" id="kMoiV">Moisture</div>
+            <svg id="kCdMoi" class="spark" viewBox="0 0 300 40" preserveAspectRatio="none"></svg></div>
+          <div style="flex:1"><div style="font-size:9.5px;color:var(--dim);margin-bottom:3px" id="kBwV">Basis weight</div>
+            <svg id="kCdBw" class="spark" viewBox="0 0 300 40" preserveAspectRatio="none"></svg></div>
+        </div></div>
+      <div class="kg2" style="flex:1 1 auto;min-height:0">
+        <div class="ksec" style="overflow:hidden"><div class="st">Defect map <span id="kDefHd">—</span></div>
+          <svg id="kDefmap" viewBox="0 0 520 260" preserveAspectRatio="xMidYMid meet" class="panelsvg"></svg></div>
+        <div class="ksec" style="overflow:hidden"><div class="st">Last certificate <span id="kCertHd">—</span></div>
+          <div id="kCert"></div></div>
+      </div>`;
+  } else if(v==='production'){
+    P.innerHTML=`
+      <div class="ksec" style="flex:0 0 auto"><div class="st">Unwind backstands <span id="kBsHd">—</span></div>
+        <div class="bsgrid" id="kBsGrid"></div></div>
+      <div class="ksec" style="flex:0 0 auto"><div class="st">Order queue <span id="kOrdHd">—</span></div>
+        <div id="kOrders"></div></div>
+      <div class="ksec flexcol" style="flex:1 1 auto"><div class="st">Latest pallets <span id="kPalHd">—</span></div>
+        <div class="kscroll"><table class="tbl"><thead><tr><th>Pallet ID</th><th>Deck</th><th>Sheets</th><th>kg</th><th>Q</th></tr></thead>
+        <tbody id="kPallets"></tbody></table></div></div>`;
+  } else {
+    P.innerHTML=`
+      <div class="ktiles" style="grid-template-columns:repeat(4,1fr);flex:0 0 auto">
+        <div class="ktile"><div class="n" id="kEnKw" style="color:var(--accent);font-size:23px">—</div><div class="u">kW</div><div class="l">Live power</div></div>
+        <div class="ktile"><div class="n" id="kEnKwh" style="font-size:23px">—</div><div class="u">kWh</div><div class="l">Shift energy</div></div>
+        <div class="ktile"><div class="n" id="kEnSpec" style="color:var(--warn);font-size:23px">—</div><div class="u">kWh/t</div><div class="l">Specific</div></div>
+        <div class="ktile"><div class="n" id="kEnIdle" style="color:var(--muted);font-size:23px">—</div><div class="u">%</div><div class="l">Idle share</div></div>
+      </div>
+      <div class="ksec flexcol" style="flex:1 1 auto;min-height:0"><div class="st">Total drive power <span id="kKwHd">—</span></div>
+        <svg id="kSpKw" class="kchart" viewBox="0 0 300 56" preserveAspectRatio="none"></svg></div>
+      <div class="ksec" style="flex:0 0 auto"><div class="st">Tool wear per deck <span id="kWearHd">—</span></div>
+        <div id="kWear"></div></div>
+      <div class="ksec" style="flex:1.6 1 auto;min-height:0;overflow:hidden"><div class="st">Loss Pareto <span id="kParHd">—</span></div>
+        <svg id="kPareto" viewBox="0 0 320 140" preserveAspectRatio="xMidYMid meet" class="panelsvg"></svg></div>`;
+  }
+  kBuilt=v;
+}
+function kUpdatePane(v){
+  const D=derived(), q=MACHINE.quality;
+  if(v==='decks'){
+    document.getElementById('kDeckCards').innerHTML=MACHINE.decks.map(d=>{
+      const dd=D.decks[d.id], st=S.decks[d.id];
+      const pf=clamp(st.pileSheets/d.pileCount*100,0,100), spm=dd.sheetsPerPileMin;
+      return `<div class="deck ${d.id.toLowerCase()}" style="margin-bottom:9px;padding:9px 11px">
+        <div class="dh"><span class="deckchip ${d.id==='A'?'chip-a':'chip-b'}">DECK ${d.id}</span>
+          <span class="dn">${dd.streams} stream${dd.streams===1?'':'s'}</span>
+          <span class="df">${fmt(dd.widths[0]||0)} × ${fmt(d.lengthMm)} mm</span></div>
+        <div class="dg">
+          <div><div class="n" style="color:${DCOLOR[d.id]}">${fmt(dd.cuts)}</div><div class="l">cuts/min</div></div>
+          <div><div class="n">${fmt(dd.rpm)}</div><div class="l">knife rpm</div></div>
+          <div><div class="n">${fmt(dd.sheetsMin)}</div><div class="l">sheets/min</div></div>
+          <div><div class="n">${fmt(dd.tph,1)}</div><div class="l">t/h</div></div>
+        </div>
+        <div class="pilebar"><i style="width:${pf}%"></i><span>${fmt(st.pileSheets)} / ${fmt(d.pileCount)}</span></div>
+        <div style="display:flex;justify-content:space-between;font-size:10.5px;color:var(--dim);margin-top:5px;font-family:var(--mono)">
+          <span>discharge in ${eta(spm>0?(d.pileCount-st.pileSheets)/spm:Infinity)}</span>
+          <span>${st.piles} piles · dev ${fmt(st.lenDev,2)} mm</span></div></div>`;}).join('');
+    drawAlloc('kAlloc',520,120);
+    document.getElementById('kAllocHd').textContent=MACHINE.slitWidthsMm.length+' ribbons · '+fmt(D.trim)+' mm trim';
+    document.getElementById('kTenHd').textContent=fmt(S.tensionAvg)+' N/m avg';
+    document.getElementById('kTz').innerHTML=MACHINE.zones.map(z=>{
+      const val=S.zoneVals[z.id];
+      const pct=clamp((val-z.min)/(z.max-z.min)*100,0,100), spp=clamp((z.sp-z.min)/(z.max-z.min)*100,0,100);
+      return `<div class="tzone"><div class="row"><span class="z">${z.name}</span>
+        <span class="v"><b>${fmt(val)}</b> · SP ${z.sp}</span></div>
+        <div class="track"><div class="fill" style="width:${pct}%;background:${colorFor(val,z.sp,0.14)}"></div>
+        <div class="setmark" style="left:${spp}%"></div></div></div>`;}).join('');
+  }
+  else if(v==='quality'){
+    ['A','B'].forEach(id=>{
+      const st=S.decks[id], col=id==='A'?'var(--accent)':'var(--violet)';
+      histChart('kLen'+id,st.devHist,q.lenTolMm,300,104,col);
+      const m=mean(st.devHist), s2=sd(st.devHist)*2;
+      const inTol=st.devHist.filter(x=>Math.abs(x)<=q.lenTolMm).length/(st.devHist.length||1)*100;
+      document.getElementById('kLenHd'+id).textContent=fmt(m,3)+' ±'+fmt(s2,3)+' · '+fmt(inTol)+'% in tol'; });
+    cdStrip('kCdCal',S.cd&&S.cd.cal,MACHINE.caliperMm,q.calTolPct/100,'mm',3,null);
+    cdStrip('kCdMoi',S.cd&&S.cd.moi,q.moistTarget,q.moistTol/q.moistTarget,'%',2,null);
+    cdStrip('kCdBw',S.cd&&S.cd.bw,MACHINE.gsm,q.bwTolPct/100,'g/m²',1,null);
+    if(S.cd){ document.getElementById('kCalV').textContent='Caliper '+fmt(mean(S.cd.cal),3)+' mm';
+      document.getElementById('kMoiV').textContent='Moisture '+fmt(mean(S.cd.moi),2)+' %';
+      document.getElementById('kBwV').textContent='Basis wt '+fmt(mean(S.cd.bw),1)+' g/m²'; }
+    renderDefectMap('kDefmap',520,260);
+    document.getElementById('kDefHd').textContent=(S.decks.A.defects.length+S.decks.B.defects.length)+' in piles';
+    const c=S.certs[0], cb=document.getElementById('kCert');
+    if(!c) cb.innerHTML='<div style="color:var(--muted);font-size:12px;font-style:italic;padding:10px 0">Issued at each pile discharge</div>';
+    else{ const vc=c.verdict==='PASS'?'v-pass':c.verdict==='WATCH'?'v-watch':'v-rej';
+      cb.innerHTML=`<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+        <span style="font-size:11.5px;color:var(--muted)"><span class="deckchip ${c.deck==='A'?'chip-a':'chip-b'}">DECK ${c.deck}</span> pile ${c.no}</span>
+        <span class="verdict ${vc}" style="font-size:11px;padding:3px 9px">${c.verdict}</span></div>
+        <table class="tbl"><tbody>${c.pallets.map(p=>`<tr><td>R${p.ribbon}</td><td>${fmt(p.sheets)}</td><td>${fmt(p.kg)}kg</td>
+        <td>${fmt(p.dev,2)}</td><td><span class="duetag ${p.q==='PASS'?'due-ok':p.q==='WATCH'?'due-soon':'due-now'}">${p.q}</span></td></tr>`).join('')}</tbody></table>`; }
+    document.getElementById('kCertHd').textContent=c?('deck '+c.deck+' · pile '+c.no):'—';
+  }
+  else if(v==='production'){
+    const full=lengthOnRoll(MACHINE.reel.startDiaMm,MACHINE.reel.coreMm,MACHINE.caliperMm);
+    document.getElementById('kBsGrid').innerHTML=S.reels.map((r,i)=>{
+      const left=lengthOnRoll(r.dia,MACHINE.reel.coreMm,MACHINE.caliperMm), pct=clamp(left/full*100,0,100);
+      return `<div class="bscell ${pct<8?'crit':pct<20?'low':''}"><svg id="kBs${i}" viewBox="0 0 100 100"></svg>
+        <div class="bn">${r.id}</div><div class="bv">${fmt(left)} m</div></div>`;}).join('');
+    S.reels.forEach((r,i)=>{ const left=lengthOnRoll(r.dia,MACHINE.reel.coreMm,MACHINE.caliperMm), pct=clamp(left/full*100,0,100);
+      drawRing('kBs'+i,pct,fmt(r.dia),'Ø mm',pct<8?'var(--alarm)':pct<20?'var(--warn)':'#8fa6bd'); });
+    const minR=S.reels.reduce((m,r)=>r.dia<m.dia?r:m,S.reels[0]);
+    document.getElementById('kBsHd').textContent='next '+minR.id;
+    document.getElementById('kOrders').innerHTML=MACHINE.orders.map((o,i)=>{
+      const st=i<S.orderIdx?'done':i===S.orderIdx?'run':'q';
+      const done=i<S.orderIdx?o.piles:i===S.orderIdx?S.orderPilesDone:0;
+      return `<div class="ordrow ${st==='run'?'run':st==='done'?'done':''}" style="padding:6px 9px;margin-bottom:5px">
+        <div class="om"><div class="oid" style="font-size:11.5px">${o.id} · ${o.customer}</div>
+        <div class="osub" style="font-size:9.5px">A ${o.lenA} mm · B ${o.lenB} mm · ${o.speed} m/min</div></div>
+        <div style="text-align:right"><span class="ost ${st==='done'?'os-d':st==='run'?'os-run':'os-q'}" style="font-size:9px">${done}/${o.piles}</span></div></div>`;}).join('');
+    document.getElementById('kOrdHd').textContent='order '+(S.orderIdx+1)+'/'+MACHINE.orders.length;
+    document.getElementById('kPalHd').textContent=S.pileLog.length+' logged';
+    document.getElementById('kPallets').innerHTML=S.pileLog.length?S.pileLog.slice(0,5).map(r=>
+      `<tr><td style="font-family:var(--mono);font-size:9.5px">${r.id}</td>
+      <td><span class="deckchip ${r.deck==='A'?'chip-a':'chip-b'}">${r.deck}</span></td>
+      <td>${fmt(r.sheets)}</td><td>${fmt(r.kg)}</td>
+      <td><span class="duetag ${r.q==='PASS'?'due-ok':r.q==='WATCH'?'due-soon':'due-now'}">${r.q}</span></td></tr>`).join('')
+      :'<tr><td colspan="5" style="text-align:center;color:var(--muted);font-family:var(--font)">No pallets yet</td></tr>';
+  }
+  else {
+    const e=S.energy, spec=S.tonnes>0?e.kWh/S.tonnes:0;
+    document.getElementById('kEnKw').textContent=fmt(e.kw);
+    document.getElementById('kEnKwh').textContent=fmt(e.kWh,1);
+    document.getElementById('kEnSpec').textContent=fmt(spec,1);
+    document.getElementById('kEnIdle').textContent=fmt(e.kWh>0?e.idleKWh/e.kWh*100:0);
+    const maxKw=MACHINE.drives.reduce((a,d)=>a+d.ratedKw,0);
+    const k=clearSvg('kSpKw');
+    if(k){k.appendChild(el('line',{x1:0,y1:28,x2:300,y2:28,stroke:'#16202c','stroke-width':1}));
+      k.appendChild(el('polyline',{points:pointsFrom(S.trend.kw,0,maxKw,300,56),fill:'none',stroke:'var(--accent)','stroke-width':1.8}));}
+    document.getElementById('kKwHd').textContent=fmt(e.kw)+' / '+fmt(maxKw)+' kW';
+    document.getElementById('kWear').innerHTML=MACHINE.decks.map(d=>{
+      const st=S.decks[d.id];
+      const kp=clamp(st.knifeCuts/d.knifeLifeCuts*100,0,140), ap=clamp(st.anvilCuts/d.anvilLifeCuts*100,0,140);
+      const mini=(lbl,pct)=>`<div style="margin-bottom:5px"><div style="display:flex;justify-content:space-between;font-size:10.5px;margin-bottom:3px">
+        <span style="color:var(--muted)">${lbl}</span><span style="font-family:var(--mono);color:var(--dim)">${fmt(pct)}%</span></div>
+        <div class="wearbar"><i style="width:${Math.min(pct,100)}%;background:${pct>100?'var(--alarm)':pct>85?'var(--warn)':'var(--ok)'}"></i></div></div>`;
+      return `<div style="margin-bottom:4px"><span class="deckchip ${d.id==='A'?'chip-a':'chip-b'}">DECK ${d.id}</span></div>`+
+        mini('Knife',kp)+mini('Anvil',ap);}).join('');
+    document.getElementById('kWearHd').textContent='knife &amp; anvil';
+    renderPareto('kPareto',null,'kParHd');
+  }
+}
+function renderKiosk(){
+  const D=derived();
+  document.getElementById('kName').textContent=MACHINE.name;
+  document.getElementById('kLine').textContent=MACHINE.line;
+  document.getElementById('kAsset').textContent=MACHINE.asset;
+  document.getElementById('kGrade').textContent=MACHINE.gradeName+' · A '+MACHINE.decks[0].lengthMm+' / B '+MACHINE.decks[1].lengthMm+' mm';
+  const o=MACHINE.orders[S.orderIdx];
+  document.getElementById('kOrder').textContent=o?o.id:'—';
+  document.getElementById('kSchTag').textContent='live twin · sim ×'+(MACHINE.simTimeScale||1);
+  setState();
+  const totMin=S.runMin+S.downMin||1;
+  const avail=clamp(S.runMin/totMin*100,0,100);
+  const idealTph=MACHINE.decks.reduce((a,d)=>{
+    const rb=ribbonsOf(d.id); const cuts=MACHINE.speedSetpoint*1000/d.lengthMm;
+    return a+rb.reduce((x,r)=>x+(r.w/1000)*(d.lengthMm/1000)*MACHINE.gsm/1000,0)*cuts*MACHINE.plies*60/1000;},0);
+  const perf=S.runMin>0?clamp(S.tonnes/((S.runMin/60)*idealTph||1)*100,0,100):0;
+  const qual=S.sheetsAll>0?clamp(S.goodSheets/S.sheetsAll*100,0,100):100;
+  const oee=avail*perf*qual/10000;
+  const pa=clamp(S.decks.A.pileSheets/MACHINE.decks[0].pileCount*100,0,100);
+  const pb=clamp(S.decks.B.pileSheets/MACHINE.decks[1].pileCount*100,0,100);
+  const tiles=[
+    ['Line speed',fmt(S.speed),'m/min','var(--accent)'],
+    ['Deck A cuts',fmt(D.decks.A.cuts),'/min · L '+MACHINE.decks[0].lengthMm,'var(--accent)'],
+    ['Deck B cuts',fmt(D.decks.B.cuts),'/min · L '+MACHINE.decks[1].lengthMm,'var(--violet)'],
+    ['Total output',fmt(D.tph,1),'t/h','var(--ok)'],
+    ['Pile A',fmt(pa),'%','var(--accent)'],
+    ['Pile B',fmt(pb),'%','var(--violet)'],
+    ['Overall OEE',fmt(oee),'%',oee>75?'var(--ok)':oee>55?'var(--warn)':'var(--alarm)'],
+    ['Output',fmt(S.tonnes,1),'t · '+(S.decks.A.piles+S.decks.B.piles)+' piles','var(--ok)'],
+  ];
+  document.getElementById('kTiles').innerHTML=tiles.map(([l,n,u,c])=>
+    `<div class="ktile"><div class="n" style="color:${c}">${n}</div><div class="u">${u}</div><div class="l">${l}</div></div>`).join('');
+  const act=S.alarms.filter(a=>a.sev!=='info').length;
+  document.getElementById('kAlmTag').textContent=act+' active';
+  document.getElementById('kAlarms').innerHTML=S.alarms.length?S.alarms.slice(0,8).map(a=>
+    `<div class="kalarm ${a.sev}"><span class="m">${a.msg}</span><span class="t">${a.ts}</span></div>`).join('')
+    :'<div style="color:var(--muted);font-size:13px;font-style:italic;text-align:center;padding:14px">No active alarms — all systems nominal</div>';
+  const v=KVIEWS[kView].id;
+  if(kBuilt!==v){ kBuildPane(v); kDots(); }
+  kUpdatePane(v);
+}
+
+/* =====================================================================
+   CONTROLS
+   ===================================================================== */
+document.querySelectorAll('.tab').forEach(b=>b.onclick=()=>{
+  activeTab=b.dataset.tab;
+  document.querySelectorAll('.tab').forEach(x=>x.classList.toggle('active',x===b));
+  document.querySelectorAll('.pane').forEach(p=>p.hidden=(p.id!=='pane-'+activeTab));
+  render(); });
+document.getElementById('btnRun').onclick=()=>{S.running=true;S.alarmMode=false;setState();};
+document.getElementById('btnStop').onclick=()=>{S.running=false;setState();pushAlarm('info','Operator stop requested');};
+document.getElementById('btnPileA').onclick=()=>startPile('A',true);
+document.getElementById('btnPileB').onclick=()=>startPile('B',true);
+document.getElementById('btnReel').onclick=()=>startReel(true);
+document.getElementById('btnFault').onclick=()=>{S.alarmMode=true;S.faultTimer=8;S.breaks++;
+  pushAlarm('crit','Web break detected — deck split, both decks stopped');setState();};
+document.getElementById('btnApply').onclick=applySetup;
+document.getElementById('btnNextOrder').onclick=()=>loadOrder(S.orderIdx+1);
+document.getElementById('btnCsv').onclick=exportPallets;
+document.getElementById('btnShift').onclick=exportShift;
+document.getElementById('btnKiosk').onclick=()=>setMode(true);
+document.getElementById('btnDesk').onclick=()=>setMode(false);
+document.getElementById('btnPause').onclick=()=>{kRotate=!kRotate;
+  const b=document.getElementById('btnPause');
+  b.textContent=kRotate?'⏸ Pause rotation':'▶ Resume rotation';
+  b.className='ctl'+(kRotate?'':' warnactive');};
+document.getElementById('btnFs').onclick=()=>{
+  if(document.fullscreenElement) document.exitFullscreen();
+  else document.documentElement.requestFullscreen&&document.documentElement.requestFullscreen(); };
+document.addEventListener('keydown',e=>{
+  if(e.key==='w'||e.key==='W') setMode(!kioskOn);
+  if(e.key==='f'||e.key==='F') document.getElementById('btnFs').click();
+  if(kioskOn&&e.key==='ArrowRight'){kView=(kView+1)%KVIEWS.length;kElapsed=0;kBuilt=null;kDots();render();}
+  if(kioskOn&&e.key==='ArrowLeft'){kView=(kView-1+KVIEWS.length)%KVIEWS.length;kElapsed=0;kBuilt=null;kDots();render();}
+  if(e.key===' '&&kioskOn){e.preventDefault();document.getElementById('btnPause').click();} });
+function autoKiosk(){ const h=location.hash.toLowerCase();
+  return h.includes('wall')||h.includes('kiosk')||(window.innerWidth>=1600&&window.innerHeight>=800); }
+
+/* boot */
+buildSchematic(); buildCd(); loadSetupInputs(); renderOrders();
+setMode(autoKiosk());
+setState(); tickClock(); render(); animate(); fitStage();
+setInterval(()=>{simulateTick();render();},MACHINE.updateMs);
+setInterval(tickClock,1000);
+setInterval(()=>kTick(120),120);
+</script>
+</body>
+</html>

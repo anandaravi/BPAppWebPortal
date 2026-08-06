@@ -1,0 +1,2945 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Warehouse Digital Twin — WH-1</title>
+<style>
+  :root{
+    --bg:#0b1016; --panel:#121a24; --panel2:#0f161f; --line:#1e2b3a;
+    --ink:#e8eef6; --muted:#8ba0b6; --dim:#5f7386;
+    --ok:#22c58b; --warn:#f5b642; --alarm:#ff5468; --accent:#37b6ff; --violet:#b694e8;
+    --web:#d7c9a3; --grid:#16202c;
+    --font:'Segoe UI',Roboto,-apple-system,Helvetica,Arial,sans-serif;
+    --mono:'SFMono-Regular',Consolas,'Liberation Mono',Menlo,monospace;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;height:100%}
+  body{background:radial-gradient(1200px 700px at 70% -10%,#132030 0%,var(--bg) 60%);
+    color:var(--ink);font-family:var(--font);font-size:14px;-webkit-font-smoothing:antialiased}
+  .app{display:flex;flex-direction:column;min-height:100vh}
+
+  header{display:flex;align-items:center;gap:16px;padding:13px 22px;flex-wrap:wrap;
+    background:linear-gradient(180deg,#101923,#0c141d);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:6}
+  .brand{display:flex;flex-direction:column;line-height:1.2}
+  .brand h1{margin:0;font-size:17px;letter-spacing:.3px}
+  .brand .sub{color:var(--muted);font-size:12px;margin-top:2px}
+  .brand .sub b{color:var(--accent);font-weight:600}
+  .hspacer{flex:1}
+  .statepill{display:flex;align-items:center;gap:9px;padding:8px 16px;border-radius:999px;
+    font-weight:700;letter-spacing:.4px;font-size:13px;border:1px solid transparent}
+  .statepill .dot{width:11px;height:11px;border-radius:50%}
+  .st-run{background:rgba(34,197,139,.12);color:var(--ok);border-color:rgba(34,197,139,.35)}
+  .st-run .dot{background:var(--ok);box-shadow:0 0 10px var(--ok);animation:pulse 1.4s infinite}
+  .st-stop{background:rgba(139,160,182,.12);color:var(--muted);border-color:rgba(139,160,182,.3)}
+  .st-stop .dot{background:var(--muted)}
+  .st-alarm{background:rgba(255,84,104,.14);color:var(--alarm);border-color:rgba(255,84,104,.4)}
+  .st-alarm .dot{background:var(--alarm);box-shadow:0 0 10px var(--alarm);animation:pulse .7s infinite}
+  .st-hold{background:rgba(245,182,66,.14);color:var(--warn);border-color:rgba(245,182,66,.4)}
+  .st-hold .dot{background:var(--warn);box-shadow:0 0 10px var(--warn);animation:pulse 1s infinite}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+  .clock{font-family:var(--mono);color:var(--muted);font-size:12px;text-align:right;line-height:1.4}
+  .clock b{color:var(--ink);font-size:13px}
+
+  .top{padding:16px 22px 0}
+  .tabs{display:flex;gap:6px;padding:16px 22px 0;flex-wrap:wrap}
+  .tab{background:transparent;border:1px solid var(--line);color:var(--muted);border-radius:9px;
+    padding:9px 18px;font-size:12.5px;font-weight:700;letter-spacing:.4px;cursor:pointer;transition:.15s}
+  .tab:hover{color:var(--ink);border-color:#2c3e52}
+  .tab.active{background:rgba(55,182,255,.13);border-color:var(--accent);color:var(--accent)}
+  .pane[hidden]{display:none}
+
+  .grid{display:grid;grid-template-columns:1.35fr 1fr 1fr;gap:16px;padding:16px 22px}
+  .grid.two{grid-template-columns:1fr 1fr}
+  @media (max-width:1280px){.grid,.grid.two{grid-template-columns:1fr 1fr}}
+  @media (max-width:820px){.grid,.grid.two{grid-template-columns:1fr}}
+  .col{display:flex;flex-direction:column;gap:16px;min-width:0}
+
+  .card{background:linear-gradient(180deg,var(--panel),var(--panel2));border:1px solid var(--line);
+    border-radius:14px;padding:16px 18px;box-shadow:0 6px 22px rgba(0,0,0,.28)}
+  .card h2{margin:0 0 14px;font-size:12px;letter-spacing:1.4px;text-transform:uppercase;
+    color:var(--muted);font-weight:700;display:flex;align-items:center;gap:8px}
+  .card h2 .tag{margin-left:auto;font-size:10px;letter-spacing:1px;color:var(--dim);
+    border:1px solid var(--line);padding:2px 8px;border-radius:6px;text-transform:none}
+
+  svg#twin{width:100%;height:auto;display:block;background:
+    linear-gradient(0deg,transparent 23px,var(--grid) 24px),
+    linear-gradient(90deg,transparent 23px,var(--grid) 24px);
+    background-size:24px 24px;border-radius:10px;border:1px solid var(--line)}
+  .lbl{fill:var(--muted);font:600 11px var(--font)}
+  .lbl-sm{fill:var(--dim);font:500 9.5px var(--font)}
+  .val{fill:var(--ink);font:700 12px var(--mono)}
+  .zone-name{fill:var(--accent);font:700 10px var(--font);letter-spacing:.5px}
+
+  .gauges{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .gauge{display:flex;flex-direction:column;align-items:center;background:var(--panel2);
+    border:1px solid var(--line);border-radius:12px;padding:12px 8px 10px}
+  .gauge .num{font-family:var(--mono);font-size:24px;font-weight:700;margin-top:4px}
+  .gauge .unit{color:var(--muted);font-size:11px;margin-top:1px}
+  .gauge .name{color:var(--muted);font-size:10.5px;letter-spacing:.8px;text-transform:uppercase;margin-top:6px}
+  .gauge .sp{color:var(--dim);font-size:10px;font-family:var(--mono);margin-top:2px}
+
+  .tzone{margin-bottom:11px}.tzone:last-child{margin-bottom:0}
+  .tzone .row{display:flex;justify-content:space-between;font-size:11.5px;margin-bottom:4px}
+  .tzone .row .z{color:var(--ink);font-weight:600}
+  .tzone .row .v{font-family:var(--mono);color:var(--muted)}
+  .tzone .v b{color:var(--ink)}
+  .track{position:relative;height:9px;background:#0a1119;border:1px solid var(--line);border-radius:6px;overflow:hidden}
+  .fill{position:absolute;top:0;bottom:0;left:0;border-radius:6px;transition:width .4s ease,background .3s}
+  .setmark{position:absolute;top:-3px;width:2px;height:15px;background:var(--ink);opacity:.55}
+
+  .drow{display:flex;justify-content:space-between;align-items:baseline;padding:7px 0;border-bottom:1px dashed var(--line)}
+  .drow:last-child{border-bottom:none}
+  .drow .k{color:var(--muted);font-size:12px}
+  .drow .v{font-family:var(--mono);font-size:13px;font-weight:700}
+  .drow .v small{color:var(--dim);font-weight:500;font-size:10px;margin-left:3px}
+
+  table.tbl{width:100%;border-collapse:collapse;font-size:12px}
+  table.tbl th{color:var(--dim);font-weight:600;text-align:right;padding:6px 6px;
+    border-bottom:1px solid var(--line);font-size:10px;letter-spacing:.5px;text-transform:uppercase}
+  table.tbl th:first-child{text-align:left}
+  table.tbl td{padding:8px 6px;border-bottom:1px dashed var(--line);text-align:right;font-family:var(--mono)}
+  table.tbl td:first-child{text-align:left;font-family:var(--font);color:var(--ink)}
+  table.tbl tr.sel td{background:rgba(55,182,255,.08)}
+  table.tbl tr.click{cursor:pointer}
+  table.tbl tr.click:hover td{background:rgba(55,182,255,.06)}
+  .barmini{position:relative;height:6px;width:52px;background:#0a1119;border-radius:4px;display:inline-block;
+    vertical-align:middle;overflow:hidden;border:1px solid var(--line)}
+  .barmini i{position:absolute;left:0;top:0;bottom:0;border-radius:4px;transition:width .4s}
+  .drv-dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:5px;vertical-align:middle}
+
+  .oee{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:12px}
+  .oee .cell{background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:10px;text-align:center}
+  .oee .cell .big{font-family:var(--mono);font-size:20px;font-weight:700}
+  .oee .cell .lb{color:var(--muted);font-size:10px;letter-spacing:.6px;text-transform:uppercase;margin-top:3px}
+  .countrow{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);padding:6px 2px}
+  .countrow b{color:var(--ink);font-family:var(--mono)}
+
+  .alarms{display:flex;flex-direction:column;gap:8px;max-height:230px;overflow:auto}
+  .alarm{display:flex;gap:10px;align-items:flex-start;padding:9px 11px;border-radius:9px;
+    background:var(--panel2);border-left:3px solid var(--line)}
+  .alarm.crit{border-left-color:var(--alarm);background:rgba(255,84,104,.06)}
+  .alarm.warn{border-left-color:var(--warn);background:rgba(245,182,66,.05)}
+  .alarm.info{border-left-color:var(--accent)}
+  .alarm .ico{font-weight:800;font-size:13px;margin-top:1px}
+  .alarm.crit .ico{color:var(--alarm)}.alarm.warn .ico{color:var(--warn)}.alarm.info .ico{color:var(--accent)}
+  .alarm .txt{flex:1;min-width:0}
+  .alarm .txt .m{font-size:12px;color:var(--ink)}
+  .alarm .txt .t{font-size:10px;color:var(--dim);font-family:var(--mono);margin-top:2px}
+  .noalarm{color:var(--muted);font-size:12px;text-align:center;padding:16px;font-style:italic}
+
+  .controls{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+  button.ctl{background:var(--panel2);color:var(--ink);border:1px solid var(--line);border-radius:8px;
+    padding:7px 13px;font-size:12px;cursor:pointer;font-weight:600;transition:.15s}
+  button.ctl:hover{border-color:var(--accent);color:var(--accent)}
+  button.ctl.active{background:rgba(55,182,255,.14);border-color:var(--accent);color:var(--accent)}
+  button.ctl.warnactive{background:rgba(245,182,66,.14);border-color:var(--warn);color:var(--warn)}
+  button.ctl.stop:hover{border-color:var(--alarm);color:var(--alarm)}
+  .foot{color:var(--dim);font-size:11px;padding:6px 22px 18px;text-align:center}
+  .foot code{color:var(--muted);font-family:var(--mono)}
+
+  .spark{width:100%;height:auto;display:block;background:#0a1119;border:1px solid var(--line);border-radius:8px}
+  .spark-wrap{margin-bottom:12px}.spark-wrap:last-child{margin-bottom:0}
+  .spark-hd{display:flex;justify-content:space-between;font-size:11px;margin-bottom:5px}
+  .spark-hd .t{color:var(--muted);font-weight:600;letter-spacing:.3px}
+  .spark-hd .v{font-family:var(--mono);color:var(--ink)}
+  .legend{display:flex;gap:10px;flex-wrap:wrap;font-size:10px;color:var(--muted);margin-top:5px}
+  .legend span{display:inline-flex;align-items:center;gap:4px}
+  .legend i{width:9px;height:3px;border-radius:2px;display:inline-block}
+
+  svg#slitset,svg#defmap{width:100%;height:auto;display:block;background:#0a1119;border:1px solid var(--line);border-radius:8px}
+  .slit-w{fill:var(--dim);font:600 9px var(--mono)}
+
+  .setup{display:grid;grid-template-columns:1fr 1fr;gap:10px 12px}
+  .setup .f{display:flex;flex-direction:column;gap:4px}
+  .setup .f.wide{grid-column:1/3}
+  .setup label{font-size:10.5px;color:var(--muted);letter-spacing:.4px;text-transform:uppercase}
+  .setup input{background:#0a1119;border:1px solid var(--line);border-radius:7px;color:var(--ink);
+    font-family:var(--mono);font-size:13px;padding:8px 10px;width:100%}
+  .setup input:focus{outline:none;border-color:var(--accent)}
+  .setup .apply{grid-column:1/3;display:flex;gap:8px;align-items:center;margin-top:2px;flex-wrap:wrap}
+  .setup .msg{font-size:11px;color:var(--dim)}
+  .setup .msg.err{color:var(--alarm)}.setup .msg.ok{color:var(--ok)}
+
+  .health{margin-bottom:12px}
+  .health .row{display:flex;justify-content:space-between;font-size:12px;margin-bottom:5px}
+  .health .row .k{color:var(--muted)}.health .row .v{font-family:var(--mono)}
+  .wearbar{position:relative;height:11px;background:#0a1119;border:1px solid var(--line);border-radius:6px;overflow:hidden}
+  .wearbar i{position:absolute;left:0;top:0;bottom:0;border-radius:6px;transition:width .4s,background .3s}
+  .wearbar .limit{position:absolute;top:-2px;height:15px;width:2px;background:var(--ink);opacity:.4}
+  .duetag{font-size:10px;font-weight:700;padding:2px 7px;border-radius:5px;letter-spacing:.5px;white-space:nowrap}
+  .due-ok{background:rgba(34,197,139,.14);color:var(--ok)}
+  .due-soon{background:rgba(245,182,66,.14);color:var(--warn)}
+  .due-now{background:rgba(255,84,104,.16);color:var(--alarm)}
+
+  .dd{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px}
+  .ddcell{background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:10px 6px 8px;text-align:center}
+  .ddcell svg{width:100%;max-width:112px;height:auto;display:block;margin:0 auto}
+  .ddname{color:var(--muted);font-size:10px;letter-spacing:.7px;text-transform:uppercase;margin-top:4px}
+  .ddsub{color:var(--dim);font-size:10px;font-family:var(--mono);margin-top:2px}
+  .ddctl{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+
+  /* KPI tiles */
+  .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;margin-bottom:12px}
+  .kpi{background:var(--panel2);border:1px solid var(--line);border-radius:11px;padding:11px;text-align:center}
+  .kpi .n{font-family:var(--mono);font-size:21px;font-weight:700}
+  .kpi .u{color:var(--dim);font-size:10px;margin-top:1px;font-family:var(--mono)}
+  .kpi .l{color:var(--muted);font-size:10px;letter-spacing:.6px;text-transform:uppercase;margin-top:5px}
+
+  /* barcode */
+  .bc{background:#f4f6f8;border-radius:8px;padding:10px 12px 6px;text-align:center;margin-top:10px}
+  .bc svg{width:100%;height:52px;display:block}
+  .bc .id{font-family:var(--mono);font-size:11px;color:#111;letter-spacing:1.5px;margin-top:3px;font-weight:700}
+  .bc .cap{font-size:10px;color:#555;margin-top:2px}
+
+  /* certificate verdict */
+  .verdict{display:inline-block;padding:4px 12px;border-radius:7px;font-weight:800;font-size:12px;letter-spacing:.6px}
+  .v-pass{background:rgba(34,197,139,.15);color:var(--ok)}
+  .v-watch{background:rgba(245,182,66,.15);color:var(--warn)}
+  .v-rej{background:rgba(255,84,104,.16);color:var(--alarm)}
+
+  .qhead{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;
+    background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:10px 12px}
+  .qhead .t{font-size:12px;color:var(--muted)}
+  .qhead .t b{color:var(--ink);font-family:var(--mono);display:block;font-size:14px;margin-top:2px}
+
+  .ordrow{display:flex;gap:10px;align-items:center;padding:10px 12px;border-radius:10px;
+    background:var(--panel2);border:1px solid var(--line);margin-bottom:8px}
+  .ordrow.run{border-color:var(--accent);background:rgba(55,182,255,.07)}
+  .ordrow.done{opacity:.55}
+  .ordrow .oid{font-family:var(--mono);font-weight:700;font-size:12.5px}
+  .ordrow .om{flex:1;min-width:0}
+  .ordrow .osub{color:var(--dim);font-size:10.5px;margin-top:2px}
+  .ordrow .ost{font-size:10px;font-weight:700;padding:3px 8px;border-radius:5px;letter-spacing:.5px}
+  .os-run{background:rgba(55,182,255,.16);color:var(--accent)}
+  .os-q{background:rgba(139,160,182,.14);color:var(--muted)}
+  .os-d{background:rgba(34,197,139,.14);color:var(--ok)}
+
+  /* ================= KIOSK / WALL MODE — fixed 1920×1080 canvas, never scrolls ================= */
+  #stage{display:none}
+  body.kiosk{overflow:hidden}
+  body.kiosk #deskRoot{display:none}
+  body.kiosk #stage{display:block;position:fixed;left:50%;top:50%;width:1920px;height:1080px;
+    transform-origin:center center;overflow:hidden}
+  .kwrap{display:flex;flex-direction:column;height:1080px;padding:14px 18px;gap:11px}
+  .khead{display:flex;align-items:center;gap:16px;height:66px;flex:0 0 auto;
+    background:linear-gradient(180deg,#101923,#0c141d);border:1px solid var(--line);border-radius:14px;padding:0 18px}
+  .khead h1{margin:0;font-size:23px;letter-spacing:.4px;line-height:1.15}
+  .ksub{color:var(--muted);font-size:13px;margin-top:2px}
+  .ksub b{color:var(--accent);font-weight:600}
+  .kbody{display:grid;grid-template-columns:1fr 664px;gap:11px;flex:1 1 auto;min-height:0}
+  .kcol{display:flex;flex-direction:column;gap:11px;min-height:0}
+  .kcard{background:linear-gradient(180deg,var(--panel),var(--panel2));border:1px solid var(--line);
+    border-radius:14px;padding:11px 14px;min-height:0;display:flex;flex-direction:column;overflow:hidden}
+  .kcard h3{margin:0 0 8px;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);
+    font-weight:700;display:flex;align-items:center;gap:9px;flex:0 0 auto}
+  .kcard h3 .tag{font-size:10px;letter-spacing:1px;color:var(--dim);border:1px solid var(--line);
+    padding:2px 8px;border-radius:6px;text-transform:none}
+  .ktiles{display:grid;grid-template-columns:repeat(8,1fr);gap:9px;flex:0 0 auto}
+  .ktile{background:linear-gradient(180deg,var(--panel),var(--panel2));border:1px solid var(--line);
+    border-radius:12px;padding:10px 5px 9px;text-align:center}
+  .ktile .n{font-family:var(--mono);font-size:27px;font-weight:700;line-height:1.05}
+  .ktile .u{color:var(--dim);font-size:10px;font-family:var(--mono);margin-top:2px}
+  .ktile .l{color:var(--muted);font-size:9.5px;letter-spacing:.8px;text-transform:uppercase;margin-top:6px}
+  .kprog{height:4px;background:#0a1119;border-radius:3px;overflow:hidden;flex:0 0 auto}
+  .kprog i{display:block;height:100%;background:var(--accent);width:0%;transition:width .12s linear}
+  .kdots{display:flex;gap:6px;margin-left:auto;align-items:center}
+  .kdot{width:9px;height:9px;border-radius:50%;background:#243447;cursor:pointer;transition:.2s}
+  .kdot.on{background:var(--accent);box-shadow:0 0 7px rgba(55,182,255,.7)}
+  .kalarms{display:flex;flex-direction:column;gap:6px;overflow:hidden;flex:1 1 auto}
+  .kalarm{display:flex;gap:9px;align-items:center;padding:7px 10px;border-radius:8px;
+    background:var(--panel2);border-left:3px solid var(--line);font-size:13px;flex:0 0 auto}
+  .kalarm.crit{border-left-color:var(--alarm);background:rgba(255,84,104,.07)}
+  .kalarm.warn{border-left-color:var(--warn);background:rgba(245,182,66,.05)}
+  .kalarm.info{border-left-color:var(--accent)}
+  .kalarm .m{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .kalarm .t{font-family:var(--mono);font-size:11px;color:var(--dim)}
+  .kpane{flex:1 1 auto;min-height:0;overflow:hidden;margin-top:9px;display:flex;flex-direction:column;gap:9px}
+  .kg2{display:grid;grid-template-columns:1fr 1fr;gap:11px;min-height:0}
+  .ksec{background:var(--panel2);border:1px solid var(--line);border-radius:11px;padding:9px 11px;min-height:0;overflow:hidden}
+  .ksec .st{color:var(--muted);font-size:10px;letter-spacing:.9px;text-transform:uppercase;font-weight:700;margin-bottom:7px;
+    display:flex;justify-content:space-between;align-items:baseline}
+  .ksec .st span{font-family:var(--mono);color:var(--ink);font-size:11px;letter-spacing:0;text-transform:none}
+  body.kiosk .drow{padding:5px 0;font-size:12px}
+  body.kiosk .drow .v{font-size:12.5px}
+  body.kiosk table.tbl td{padding:5px 5px;font-size:11.5px}
+  body.kiosk table.tbl th{padding:4px 5px;font-size:9.5px}
+  body.kiosk .tzone{margin-bottom:8px}
+  body.kiosk .spark{border-radius:7px}
+  .kfit{width:100%;height:auto;display:block}
+  /* charts that stretch to fill their section */
+  .ksec.flexcol{display:flex;flex-direction:column}
+  .kchart{width:100%;flex:1 1 auto;min-height:0;display:block;background:#0a1119;
+    border:1px solid var(--line);border-radius:7px}
+  .kscroll{flex:1 1 auto;min-height:0;overflow:hidden}
+  /* ---------- warehouse specific ---------- */
+  .planwrap{position:relative}
+  svg#twin.plan{background:#0a1119;border:1px solid var(--line);border-radius:8px}
+  svg#twin .zoneRect{cursor:pointer}
+  svg#twin .zoneRect:hover{filter:brightness(1.35)}
+  .viewbtns{display:flex;gap:6px;margin-left:auto}
+  .vbtn{background:transparent;border:1px solid var(--line);color:var(--muted);border-radius:7px;
+    padding:4px 11px;font-size:10.5px;font-weight:700;letter-spacing:.5px;cursor:pointer;transition:.15s;
+    text-transform:uppercase;font-family:var(--font)}
+  .vbtn:hover{color:var(--ink);border-color:#2c3e52}
+  .vbtn.on{background:rgba(55,182,255,.13);border-color:var(--accent);color:var(--accent)}
+  /* zone occupancy meters */
+  .zrow{margin-bottom:11px;cursor:pointer;border-radius:8px;padding:2px 4px;margin-left:-4px;transition:.15s}
+  .zrow:hover{background:rgba(139,160,182,.07)}
+  .zrow.sel{background:rgba(55,182,255,.09)}
+  .zrow:last-child{margin-bottom:0}
+  .zrow .zh{display:flex;align-items:baseline;gap:7px;font-size:11.5px;margin-bottom:4px}
+  .zrow .zh .zk{width:15px;height:15px;border-radius:4px;flex:0 0 auto;align-self:center}
+  .zrow .zh .zn{color:var(--ink);font-weight:600}
+  .zrow .zh .zkind{font-size:9px;font-weight:800;letter-spacing:.5px;padding:1px 6px;border-radius:4px;
+    background:rgba(139,160,182,.14);color:var(--muted);text-transform:uppercase}
+  .zrow .zh .zv{margin-left:auto;font-family:var(--mono);color:var(--muted)}
+  .zbar{position:relative;height:13px;background:#0a1119;border:1px solid var(--line);border-radius:7px;overflow:hidden}
+  .zbar i{position:absolute;left:0;top:0;bottom:0;border-radius:7px;transition:width .35s,background .3s}
+  .zbar .mk{position:absolute;top:-2px;width:1px;height:17px;background:var(--ink);opacity:.45}
+  .zfoot{font-size:10px;color:var(--dim);margin-top:3px;font-family:var(--mono)}
+  /* heat cells for aisle / lane fill */
+  .heat{display:flex;flex-wrap:wrap;gap:3px}
+  .heat .hc{width:20px;height:20px;border-radius:4px;border:1px solid var(--line);
+    font-size:8.5px;font-family:var(--mono);display:flex;align-items:center;justify-content:center;
+    color:rgba(232,238,246,.75);cursor:pointer}
+  .heat .hc.sel{outline:2px solid var(--accent);outline-offset:1px}
+  .heatlegend{display:flex;align-items:center;gap:6px;margin-top:9px;font-size:10px;color:var(--dim);font-family:var(--mono)}
+  .heatlegend .sw{width:15px;height:10px;border-radius:3px;border:1px solid var(--line)}
+  /* rack elevation grid */
+  .elev{overflow:auto}
+  .elevgrid{display:inline-block;min-width:100%}
+  .elevrow{display:flex;align-items:center;gap:3px;margin-bottom:3px}
+  .elevrow .lv{width:56px;flex:0 0 auto;font-family:var(--mono);font-size:9.5px;color:var(--dim);text-align:right;padding-right:5px}
+  .elevrow .bay{display:flex;gap:1px;flex:0 0 auto;margin-right:3px}
+  .slot{width:9px;height:15px;border-radius:2px;border:1px solid rgba(30,43,58,.9);background:#0a1119}
+  .slot.occ{border-color:transparent}
+  .slot.blk{background:repeating-linear-gradient(45deg,#3a2430,#3a2430 2px,#0a1119 2px,#0a1119 4px)}
+  .slot.hold{background:var(--alarm)}
+  .elevax{display:flex;gap:3px;margin-top:2px}
+  .elevax .lv{width:56px;flex:0 0 auto}
+  .elevax .bt{flex:0 0 auto;font-family:var(--mono);font-size:8px;color:var(--dim);text-align:center;margin-right:3px}
+  /* age histogram */
+  .agebars{display:flex;align-items:flex-end;gap:5px;height:104px;padding-top:4px}
+  .agebars .ab{flex:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;height:100%}
+  .agebars .ab i{width:100%;border-radius:4px 4px 0 0;min-height:2px;transition:height .35s,background .3s}
+  .agebars .ab .n{font-family:var(--mono);font-size:9.5px;color:var(--muted);margin-bottom:3px}
+  .agelbl{display:flex;gap:5px;margin-top:5px}
+  .agelbl div{flex:1;text-align:center;font-size:9px;color:var(--dim);font-family:var(--mono)}
+  /* trucks / task queue */
+  .tq{font-family:var(--mono);font-size:11px}
+  .tq .r{display:flex;gap:8px;padding:5px 0;border-bottom:1px dashed var(--line);align-items:center}
+  .tq .r:last-child{border-bottom:none}
+  .tq .ty{font-size:9px;font-weight:800;letter-spacing:.5px;padding:1px 6px;border-radius:4px;flex:0 0 auto}
+  .ty-PUT{background:rgba(55,182,255,.16);color:var(--accent)}
+  .ty-RET{background:rgba(182,148,232,.18);color:var(--violet)}
+  .ty-LOAD{background:rgba(34,197,139,.16);color:var(--ok)}
+  .ty-CONS{background:rgba(245,182,66,.16);color:var(--warn)}
+  .ty-RELOC{background:rgba(224,119,152,.18);color:#e07798}
+  .tq .r .g{flex:1;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .tq .r .w{color:var(--dim);flex:0 0 auto}
+  /* dock doors */
+  .docks{display:grid;grid-template-columns:repeat(auto-fit,minmax(132px,1fr));gap:9px}
+  .door{background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:9px 10px}
+  .door .dh{display:flex;align-items:baseline;gap:6px;margin-bottom:5px}
+  .door .dh b{font-family:var(--mono);font-size:12px}
+  .door .dst{margin-left:auto;font-size:8.5px;font-weight:800;letter-spacing:.5px;padding:1px 6px;border-radius:4px}
+  .ds-empty{background:rgba(139,160,182,.14);color:var(--muted)}
+  .ds-dock{background:rgba(245,182,66,.16);color:var(--warn)}
+  .ds-load{background:rgba(55,182,255,.16);color:var(--accent)}
+  .ds-done{background:rgba(34,197,139,.16);color:var(--ok)}
+  .door .di{font-size:10.5px;color:var(--muted);line-height:1.5;font-family:var(--mono)}
+  .door .dp{position:relative;height:7px;background:#0a1119;border:1px solid var(--line);
+    border-radius:4px;overflow:hidden;margin-top:6px}
+  .door .dp i{position:absolute;left:0;top:0;bottom:0;background:var(--accent);border-radius:4px;transition:width .3s}
+  /* fleet strip */
+  .fleet{display:grid;grid-template-columns:repeat(auto-fit,minmax(112px,1fr));gap:8px}
+  .ftruck{background:var(--panel2);border:1px solid var(--line);border-radius:9px;padding:7px 8px}
+  .ftruck .fn{font-family:var(--mono);font-size:11px;font-weight:700}
+  .ftruck .fs{font-size:9.5px;color:var(--muted);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .ftruck .fb{position:relative;height:5px;background:#0a1119;border-radius:3px;overflow:hidden;margin-top:5px}
+  .ftruck .fb i{position:absolute;left:0;top:0;bottom:0;border-radius:3px;transition:width .3s}
+  /* geometry check table */
+  .gchk td.ok{color:var(--ok)}
+  .gchk td.bad{color:var(--alarm);font-weight:700}
+  .addr{font-family:var(--mono);font-size:11px;color:var(--accent)}
+  .kpiwide{display:grid;grid-template-columns:repeat(auto-fit,minmax(116px,1fr));gap:10px}
+  .panelsvg{width:100%;height:auto;display:block;background:#0a1119;border:1px solid var(--line);border-radius:8px}
+  .assetlink{color:var(--accent);text-decoration:none;border-bottom:1px dotted rgba(55,182,255,.5)}
+  .assetlink:hover{color:var(--ink)}
+  .setup select{background:#0a1119;border:1px solid var(--line);border-radius:7px;color:var(--ink);
+    font-family:var(--mono);font-size:13px;padding:8px 10px;width:100%}
+  .setup select:focus{outline:none;border-color:var(--accent)}
+  .bal{font-family:var(--mono);font-size:12px}
+  .bal .r{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px dashed var(--line)}
+  .bal .r:last-child{border-bottom:none;border-top:1px solid var(--line);margin-top:3px;padding-top:8px;font-weight:700}
+  .bal .r .k{color:var(--muted);font-family:var(--font);font-size:12px}
+  .caprow{display:flex;align-items:center;gap:9px;margin-bottom:8px}
+  .caprow .cl{color:var(--muted);font-size:11px;width:112px;flex:0 0 auto}
+  .caprow .cb{position:relative;flex:1;height:14px;background:#0a1119;border:1px solid var(--line);border-radius:7px;overflow:hidden}
+  .caprow .cb i{position:absolute;left:0;top:0;bottom:0;border-radius:7px;transition:width .35s,background .3s}
+  .caprow .cv{font-family:var(--mono);font-size:11px;color:var(--ink);width:104px;text-align:right;flex:0 0 auto}
+  .mtile{background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:11px 7px;text-align:center}
+  .mtile .n{font-family:var(--mono);font-size:22px;font-weight:700;line-height:1.05}
+  .mtile .u{color:var(--dim);font-size:10px;font-family:var(--mono);margin-top:2px}
+  .mtile .l{color:var(--muted);font-size:9.5px;letter-spacing:.7px;text-transform:uppercase;margin-top:5px}
+</style></head>
+<body>
+<div class="app" id="deskRoot">
+  <header>
+    <div class="brand">
+      <h1 id="whName">Finished Goods Warehouse</h1>
+      <div class="sub">Digital Twin · Site <b id="whSite">—</b> · Asset <b id="whAsset">—</b> · Fill <b id="whFill">—</b></div>
+    </div>
+    <div class="hspacer"></div>
+    <div class="controls">
+      <button class="ctl active" id="btnRun">▶ Run</button>
+      <button class="ctl stop" id="btnStop">■ Stop</button>
+      <button class="ctl" id="btnSurge">⚡ Dispatch surge</button>
+      <button class="ctl" id="btnDown">⚠ Truck breakdown</button>
+      <button class="ctl" id="btnKiosk">⛶ Wall mode</button>
+    </div>
+    <div id="statepill" class="statepill st-run"><span class="dot"></span><span id="stateTxt">RUNNING</span></div>
+    <div class="clock"><b id="clk">--:--:--</b><br><span id="shift">Shift —</span></div>
+  </header>
+
+  <div class="top">
+    <div class="card planwrap">
+      <h2><span id="planTitle">Warehouse Plan — Zones, Aisles &amp; Traffic</span>
+        <span class="viewbtns">
+          <button class="vbtn on" id="vPlan">Plan view</button>
+          <button class="vbtn" id="vElev">Rack elevation</button>
+          <button class="vbtn" id="vHeat">Heat: fill</button>
+          <button class="vbtn" id="vAge">Heat: age</button>
+        </span>
+        <span class="tag" id="planTag">live twin</span></h2>
+      <svg id="twin" class="plan" viewBox="0 0 1000 520" preserveAspectRatio="xMidYMid meet"></svg>
+      <div id="elevHost" hidden>
+        <div class="elev" id="elevBox"></div>
+        <div class="heatlegend" id="elevLegend"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tabs">
+    <button class="tab active" data-tab="floor">Floor &amp; Occupancy</button>
+    <button class="tab" data-tab="stock">Stock &amp; Ageing</button>
+    <button class="tab" data-tab="movement">Movement &amp; Docks</button>
+    <button class="tab" data-tab="capacity">Capacity &amp; Setup</button>
+  </div>
+
+  <!-- ======================= FLOOR ======================= -->
+  <div class="pane" id="pane-floor">
+    <div class="grid">
+      <div class="col">
+        <div class="card">
+          <h2>Warehouse KPIs <span class="tag" id="kpiTag">—</span></h2>
+          <div class="kpiwide" id="kpiTiles"></div>
+        </div>
+        <div class="card">
+          <h2>Zone Occupancy <span class="tag">click a zone to select it</span></h2>
+          <div id="zoneRows"></div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="card">
+          <h2><span id="heatHd">Aisle Fill</span> <span class="tag" id="heatTag">—</span></h2>
+          <div class="heat" id="heatCells"></div>
+          <div class="heatlegend" id="heatLeg"></div>
+        </div>
+        <div class="card">
+          <h2>Selected Location <span class="tag" id="selTag">—</span></h2>
+          <div class="dl" id="selRows"></div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="card">
+          <h2>Alarms &amp; Events <span class="tag" id="almTag">0 active</span></h2>
+          <div class="alarms" id="alarmList"></div>
+        </div>
+        <div class="card">
+          <h2>Intake from FP-1 <span class="tag" id="inTag">—</span></h2>
+          <div class="dl" id="intakeRows"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================= STOCK ======================= -->
+  <div class="pane" id="pane-stock" hidden>
+    <div class="grid two">
+      <div class="col">
+        <div class="card">
+          <h2>Age Profile <span class="tag" id="ageTag">—</span></h2>
+          <div class="agebars" id="ageBars"></div>
+          <div class="agelbl" id="ageLbl"></div>
+          <div class="dl" id="ageRows" style="margin-top:14px"></div>
+        </div>
+        <div class="card">
+          <h2>FIFO / FEFO Compliance <span class="tag" id="fifoTag">—</span></h2>
+          <div class="dl" id="fifoRows"></div>
+          <svg id="fifoChart" class="panelsvg" viewBox="0 0 480 120" preserveAspectRatio="none"></svg>
+        </div>
+      </div>
+      <div class="col">
+        <div class="card">
+          <h2>Stock by Product <span class="tag" id="skuTag">—</span></h2>
+          <div style="max-height:250px;overflow:auto">
+            <table class="tbl"><thead><tr><th>Product</th><th>Kind</th><th>Units</th><th>Tonnes</th><th>Oldest</th><th>Zones</th></tr></thead>
+            <tbody id="skuRows"></tbody></table>
+          </div>
+        </div>
+        <div class="card">
+          <h2>Holds, Breaches &amp; Traceability <span class="tag" id="holdTag">—</span></h2>
+          <div class="setup" style="margin-bottom:12px">
+            <div class="f wide"><label>Look up unit ID</label><input id="traceIn" placeholder="e.g. REW-SR42-000123"></div>
+            <div class="apply"><button class="ctl active" id="btnTrace">Find</button>
+              <button class="ctl" id="btnOldest">Oldest unit</button>
+              <button class="ctl" id="btnCsvStock">Export stock CSV</button></div>
+          </div>
+          <div class="dl" id="traceRows"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================= MOVEMENT ======================= -->
+  <div class="pane" id="pane-movement" hidden>
+    <div class="grid">
+      <div class="col">
+        <div class="card">
+          <h2>Fleet <span class="tag" id="fleetTag">—</span></h2>
+          <div class="fleet" id="fleetBox"></div>
+          <div class="dl" id="fleetRows" style="margin-top:13px"></div>
+        </div>
+        <div class="card">
+          <h2>Task Queue <span class="tag" id="taskTag">—</span></h2>
+          <div class="tq" id="taskRows" style="max-height:190px;overflow:auto"></div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="card">
+          <h2>Throughput <span class="tag">moves per hour</span></h2>
+          <svg id="moveChart" class="panelsvg" viewBox="0 0 480 150" preserveAspectRatio="none"></svg>
+          <div class="dl" id="moveRows" style="margin-top:11px"></div>
+        </div>
+        <div class="card">
+          <h2>Travel &amp; Congestion <span class="tag" id="travTag">—</span></h2>
+          <div id="travRows"></div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="card">
+          <h2>Dock Doors <span class="tag" id="dockTag">—</span></h2>
+          <div class="docks" id="dockBox"></div>
+        </div>
+        <div class="card">
+          <h2>Shipment Schedule <span class="tag" id="shipTag">—</span></h2>
+          <div style="max-height:190px;overflow:auto">
+            <table class="tbl"><thead><tr><th>Shipment</th><th>Dest</th><th>Load</th><th>Picked</th><th>Due</th><th>State</th></tr></thead>
+            <tbody id="shipRows"></tbody></table>
+          </div>
+          <div class="controls" style="margin-top:11px">
+            <button class="ctl" id="btnCsvDisp">Export dispatch CSV</button>
+            <button class="ctl" id="btnCsvShift">Shift report</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================= CAPACITY ======================= -->
+  <div class="pane" id="pane-capacity" hidden>
+    <div class="grid two">
+      <div class="col">
+        <div class="card">
+          <h2>Capacity Model &amp; Geometry Check <span class="tag" id="geoTag">—</span></h2>
+          <table class="tbl gchk"><thead><tr><th>Zone</th><th>Kind</th><th>Address</th><th>Slots</th>
+            <th>Capacity</th><th>Needs (m)</th><th>Has (m)</th><th>Fit</th></tr></thead>
+            <tbody id="geoRows"></tbody></table>
+          <div class="setup"><span class="msg" id="geoHint" style="grid-column:1/3;margin-top:11px"></span></div>
+        </div>
+        <div class="card">
+          <h2>Cover &amp; Projection <span class="tag" id="covTag">—</span></h2>
+          <div id="covRows"></div>
+        </div>
+        <div class="card">
+          <h2>Material Balance <span class="tag">self-check</span></h2>
+          <div class="bal" id="balRows"></div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="card">
+          <h2>Setup — Zone Definition <span class="tag">edit and apply</span></h2>
+          <div class="setup">
+            <div class="f wide"><label>Zone</label><select id="szZone"></select></div>
+            <div class="f wide"><label>Address counts — <span id="szNames">—</span></label>
+              <input id="szDims" placeholder="4, 30, 5, 3"></div>
+            <div class="f wide"><label>Plan rectangle x, y, w, h (m)</label>
+              <input id="szPlan" placeholder="6, 6, 40, 52"></div>
+            <div class="apply"><button class="ctl active" id="btnZApply">Apply zone</button>
+              <button class="ctl" id="btnZReset">Reset zone</button>
+              <span class="msg" id="szHint"></span></div>
+          </div>
+        </div>
+        <div class="card">
+          <h2>Setup — Intake, Fleet &amp; Policy <span class="tag">edit and apply</span></h2>
+          <div class="setup">
+            <div class="f"><label>Rolls in / h</label><input id="sRollH" type="number" min="0" max="400" step="1"></div>
+            <div class="f"><label>Piles in / h</label><input id="sPileH" type="number" min="0" max="900" step="1"></div>
+            <div class="f"><label>Piles per storage pallet</label><input id="sPPP" type="number" min="1" max="20" step="1"></div>
+            <div class="f"><label>Cross-dock rolls %</label><input id="sXdR" type="number" min="0" max="100" step="1"></div>
+            <div class="f"><label>Clamp trucks</label><input id="sClamp" type="number" min="1" max="30" step="1"></div>
+            <div class="f"><label>Reach trucks</label><input id="sReach" type="number" min="1" max="30" step="1"></div>
+            <div class="f"><label>Shelf life (h)</label><input id="sAge" type="number" min="6" max="2000" step="1"></div>
+            <div class="f"><label>FIFO window (% of stock)</label><input id="sFifo" type="number" min="1" max="100" step="1"></div>
+            <div class="f"><label>Dispatch (% of intake)</label><input id="sDisp" type="number" min="0" max="200" step="5"></div>
+            <div class="f"><label>Pick policy</label><select id="sPick">
+              <option value="space">space — fullest zone first</option>
+              <option value="fifo">fifo — oldest unit anywhere</option></select></div>
+            <div class="apply"><button class="ctl active" id="btnApply">Apply</button>
+              <button class="ctl" id="btnReset">Reset all</button>
+              <span class="msg" id="setHint"></span></div>
+          </div>
+        </div>
+        <div class="card">
+          <h2>Energy &amp; Handling Cost <span class="tag" id="enTag">—</span></h2>
+          <div class="dl" id="enRows"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="foot">
+    Reusable warehouse digital twin · configurable location hierarchy
+    (<code>zone → aisle → rack → level → bin</code>, block-stack lanes, or bulk stockpile) ·
+    <span id="ftNote">simulated data</span> ·
+    <a class="assetlink" href="site_MILLA.html">plant line overview</a> ·
+    <a class="assetlink" href="FP2_packaging.html">upstream: packaging line FP-1</a>
+  </div>
+</div>
+
+<div id="stage">
+  <div class="kwrap">
+    <div class="khead">
+      <div>
+        <h1 id="kName">Finished Goods Warehouse</h1>
+        <div class="ksub">Digital Twin · Site <b id="kSite">—</b> · Asset <b id="kAsset">—</b> · Fill <b id="kFill">—</b></div>
+      </div>
+      <div class="hspacer"></div>
+      <div id="kPill" class="statepill st-run" style="font-size:15px;padding:10px 20px">
+        <span class="dot"></span><span id="kState">RUNNING</span></div>
+      <div class="clock" style="font-size:13px"><b id="kClk" style="font-size:19px">--:--:--</b><br><span id="kShift">Shift —</span></div>
+      <button class="ctl" id="btnPause">⏸ Pause rotation</button>
+      <button class="ctl" id="btnFs">⛶ Fullscreen</button>
+      <button class="ctl" id="btnDesk">🖵 Desk mode</button>
+    </div>
+    <div class="kbody">
+      <div class="kcol">
+        <div class="kcard" style="flex:0 0 auto">
+          <h3>Warehouse Plan <span class="tag" id="kSchTag">live twin</span></h3>
+          <div id="kSchematic" style="flex:0 0 auto"></div>
+        </div>
+        <div class="ktiles" id="kTiles"></div>
+        <div class="kcard" style="flex:1 1 auto">
+          <h3>Alarms &amp; Events <span class="tag" id="kAlmTag">0 active</span></h3>
+          <div class="kalarms" id="kAlarms"></div>
+        </div>
+      </div>
+      <div class="kcol">
+        <div class="kcard" style="flex:1 1 auto">
+          <h3><span id="kPaneTitle">Occupancy</span><span class="kdots" id="kDots"></span></h3>
+          <div class="kprog"><i id="kProg"></i></div>
+          <div class="kpane" id="kPane"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* =====================================================================
+   REUSABLE CONFIG — warehouse
+   ---------------------------------------------------------------------
+   One object drives the whole page. The location hierarchy is declared
+   per zone: levelNames sets the address depth and dims sets the count at
+   each level, so a zone can be 4 deep (aisle/bay/level/pos), 3 deep,
+   2 deep (lane/depth) or 1 deep (a bulk pile). kind selects the capacity
+   model: 'rack' and 'block' count discrete slots, 'stockpile' derives
+   tonnage from pile geometry and bulk density.
+   ===================================================================== */
+/* ==== GENERATED CONFIG START ==== */
+/* Generated from mill_asset_registry.xlsx · asset WHFG2 · 35 field(s) overridden
+   Do not edit this block. Edit mill_asset_registry.xlsx and re-run
+   generate_fleet.py — the next run overwrites everything below.  */
+const WAREHOUSE = {
+  "name": "Roll & Sheet Store WH-2",
+  "site": "Mill A",
+  "asset": "WH-FG2",
+  "building": {
+    "lengthM": 140,
+    "widthM": 70,
+    "clearM": 11
+  },
+  "intake": {
+    "from": "FP2, FP3",
+    "rollPerH": 64,
+    "pilePerH": 389,
+    "roll": {
+      "name": "Wrapped roll",
+      "diaMm": 1250,
+      "faceMm": 520,
+      "kg": 437,
+      "idPrefix": "REW-SR20"
+    },
+    "pile": {
+      "name": "Wrapped sheet pile",
+      "lengthMm": 900,
+      "widthMm": 640,
+      "kg": 147,
+      "idPrefix": "CUT"
+    },
+    "pilesPerPallet": 8,
+    "pallet": {
+      "name": "Sheet pallet",
+      "lengthMm": 1200,
+      "widthMm": 1000,
+      "heightMm": 1200,
+      "totalHm": 1.35
+    },
+    "crossDockRollPct": 20,
+    "crossDockPalletPct": 12,
+    "infeed": {
+      "xM": 0,
+      "yM": 28,
+      "name": "FP-1 transfer deck"
+    }
+  },
+  "zones": [
+    {
+      "id": "A",
+      "name": "Sheet pallet racking",
+      "kind": "rack",
+      "holds": "pallet",
+      "colour": "#b694e8",
+      "plan": {
+        "x": 6.0,
+        "y": 4.0,
+        "w": 30.0,
+        "h": 52.0
+      },
+      "levelNames": [
+        "aisle",
+        "bay",
+        "level",
+        "pos"
+      ],
+      "startFillPct": 46,
+      "access": "direct",
+      "truck": "reach",
+      "geom": {
+        "runDepthM": 1.3,
+        "aisleWm": 3.2,
+        "bayPitchM": 3.4,
+        "levelPitchM": 1.5
+      },
+      "dims": {
+        "aisle": 5,
+        "bay": 30,
+        "level": 5,
+        "pos": 3
+      }
+    },
+    {
+      "id": "B",
+      "name": "Roll racking",
+      "kind": "rack",
+      "holds": "roll",
+      "colour": "#37b6ff",
+      "plan": {
+        "x": 40.0,
+        "y": 4.0,
+        "w": 18.0,
+        "h": 44.0
+      },
+      "levelNames": [
+        "aisle",
+        "bay",
+        "level"
+      ],
+      "startFillPct": 54,
+      "access": "direct",
+      "truck": "clamp",
+      "geom": {
+        "runDepthM": 0.7,
+        "aisleWm": 3,
+        "bayPitchM": 1.35,
+        "levelPitchM": 1.45
+      },
+      "dims": {
+        "aisle": 4,
+        "bay": 64,
+        "level": 6
+      }
+    },
+    {
+      "id": "C",
+      "name": "Roll block stack",
+      "kind": "block",
+      "holds": "roll",
+      "colour": "#22c58b",
+      "plan": {
+        "x": 62.0,
+        "y": 4.0,
+        "w": 28.0,
+        "h": 8.0
+      },
+      "levelNames": [
+        "lane",
+        "depth",
+        "tier"
+      ],
+      "startFillPct": 60,
+      "access": "lifo",
+      "truck": "clamp",
+      "geom": {
+        "lanePitchM": 1.35,
+        "depthPitchM": 1.35,
+        "tierM": 0.54
+      },
+      "dims": {
+        "lane": 20,
+        "depth": 5,
+        "tier": 3
+      }
+    },
+    {
+      "id": "D",
+      "name": "Trim & broke pile",
+      "kind": "stockpile",
+      "holds": "bulk",
+      "colour": "#f5b642",
+      "plan": {
+        "x": 62.0,
+        "y": 16.0,
+        "w": 22.0,
+        "h": 16.0
+      },
+      "levelNames": [
+        "pile"
+      ],
+      "startFillPct": 42,
+      "access": "lifo",
+      "truck": "loader",
+      "geom": {
+        "bayWm": 10,
+        "bayLm": 15,
+        "maxHm": 4.5,
+        "reposeDeg": 38,
+        "bulkTm3": 0.35
+      },
+      "dims": {
+        "pile": 2
+      }
+    }
+  ],
+  "staging": {
+    "plan": {
+      "x": 94.0,
+      "y": 4.0,
+      "w": 40.0,
+      "h": 52.0
+    },
+    "capUnits": 160,
+    "name": "Outbound staging"
+  },
+  "crossAisle": {
+    "yM": 56,
+    "hM": 10
+  },
+  "docks": [
+    {
+      "id": "D1",
+      "xM": 96.0
+    },
+    {
+      "id": "D2",
+      "xM": 105.0
+    },
+    {
+      "id": "D3",
+      "xM": 114.0
+    },
+    {
+      "id": "D4",
+      "xM": 123.0
+    },
+    {
+      "id": "D5",
+      "xM": 132.0
+    }
+  ],
+  "trailer": {
+    "rolls": 20,
+    "pallets": 20,
+    "payloadT": 24,
+    "dockMin": 10,
+    "arriveWindowMin": 90
+  },
+  "dockLoadS": 105,
+  "fleet": [
+    {
+      "id": "clamp",
+      "name": "Roll clamp truck",
+      "n": 8,
+      "velMs": 2.2,
+      "hoistMs": 0.3,
+      "fixedS": 60,
+      "carry": 1,
+      "kw": 11
+    },
+    {
+      "id": "reach",
+      "name": "Pallet reach truck",
+      "n": 6,
+      "velMs": 2,
+      "hoistMs": 0.35,
+      "fixedS": 40,
+      "carry": 1,
+      "kw": 9
+    }
+  ],
+  "policy": {
+    "shelfLifeH": 96,
+    "fifoWindowPct": 10,
+    "holdRatePct": 0.9,
+    "relocRatePct": 1.5,
+    "pickBy": "space"
+  },
+  "dispatch": {
+    "dispatchPct": 100,
+    "leadTimeH": 2
+  },
+  "customers": [
+    {
+      "id": "C-NORD",
+      "name": "Nordic Packaging",
+      "dest": "Oslo",
+      "takes": "roll",
+      "share": 30
+    },
+    {
+      "id": "C-RHIN",
+      "name": "Rhine Board Co",
+      "dest": "Duisburg",
+      "takes": "roll",
+      "share": 38
+    },
+    {
+      "id": "C-IBER",
+      "name": "Iberia Packaging",
+      "dest": "Porto",
+      "takes": "roll",
+      "share": 32
+    },
+    {
+      "id": "C-BALT",
+      "name": "Baltic Cartons",
+      "dest": "Riga",
+      "takes": "pallet",
+      "share": 55
+    },
+    {
+      "id": "C-ALPI",
+      "name": "Alpine Print",
+      "dest": "Zurich",
+      "takes": "pallet",
+      "share": 45
+    }
+  ],
+  "products": [
+    {
+      "sku": "CB210-R520",
+      "name": "Coated board 210 g · 520 roll",
+      "kind": "roll",
+      "share": 100
+    },
+    {
+      "sku": "CB210-S900",
+      "name": "Coated board 210 g · 900×640 sheet",
+      "kind": "pallet",
+      "share": 62
+    },
+    {
+      "sku": "CB210-S640",
+      "name": "Coated board 210 g · 640×900 sheet",
+      "kind": "pallet",
+      "share": 38
+    }
+  ],
+  "energy": {
+    "tariffPerKwh": 0.118,
+    "lightingKw": 74,
+    "hvacKw": 0
+  },
+  "shiftHours": 8,
+  "updateMs": 900,
+  "simTimeScale": 60
+};
+/* ==== GENERATED CONFIG END ==== */
+
+/* =====================================================================
+   HELPERS
+   ===================================================================== */
+const $=id=>document.getElementById(id);
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+const fmt=(v,d=0)=>(v==null||isNaN(v))?'—':Number(v).toLocaleString(undefined,{minimumFractionDigits:d,maximumFractionDigits:d});
+const pad=(n,w=2)=>String(n).padStart(w,'0');
+const LET='ABCDEFGHJKLMNPQRSTUVWXYZ';
+const rnd=(a,b)=>a+Math.random()*(b-a);
+const el=(t,a)=>{const n=document.createElementNS('http://www.w3.org/2000/svg',t);
+  for(const k in a) n.setAttribute(k,a[k]); return n;};
+const mean=a=>a.length?a.reduce((x,y)=>x+y,0)/a.length:0;
+function hhmm(m){ m=Math.max(0,Math.round(m)); return pad(Math.floor(m/60))+':'+pad(m%60); }
+
+/* ---------- capacity model: one function per zone kind ---------- */
+/* An aisle module is a rack run, the working aisle, and the run on the far
+   side. Deriving it means it can never disagree with its own parts.       */
+function moduleOf(z){ return 2*z.geom.runDepthM+z.geom.aisleWm; }
+function dimsArr(z){ return z.levelNames.map(n=>z.dims[n]); }
+function slotCount(z){ return z.kind==='stockpile' ? z.dims.pile : dimsArr(z).reduce((a,b)=>a*b,1); }
+function unitKg(z){
+  const I=WAREHOUSE.intake;
+  if(z.holds==='roll')   return I.roll.kg;
+  if(z.holds==='pallet') return I.pile.kg*I.pilesPerPallet;
+  return 0;
+}
+/* repose-limited prism: a free pile cannot be taller than (W/2)tan(phi).
+   If the shed height caps it first the section becomes a trapezium.      */
+function pileTonnes(z){
+  const g=z.geom, phi=g.reposeDeg*Math.PI/180;
+  const hRep=(g.bayWm/2)*Math.tan(phi);
+  const h=Math.min(hRep,g.maxHm);
+  const topW=Math.max(0,g.bayWm-2*h/Math.tan(phi));
+  const area=0.5*(g.bayWm+topW)*h;
+  return { h, topW, area, volume:area*g.bayLm, tonnes:area*g.bayLm*g.bulkTm3 };
+}
+function zoneCapT(z){
+  if(z.kind==='stockpile') return pileTonnes(z).tonnes*z.dims.pile;
+  return slotCount(z)*unitKg(z)/1000;
+}
+/* what the declared slot counts actually need on the floor */
+function needFootprint(z){
+  const g=z.geom, d=z.dims;
+  if(z.kind==='rack')
+    return { w:d.aisle*moduleOf(z), h:Math.ceil(d.bay/2)*g.bayPitchM, z:d.level*g.levelPitchM };
+  if(z.kind==='block')
+    return { w:d.lane*g.lanePitchM, h:d.depth*g.depthPitchM, z:d.tier*g.tierM };
+  const p=pileTonnes(z);
+  return { w:d.pile*g.bayWm, h:g.bayLm, z:p.h };
+}
+function fitOf(z){
+  const n=needFootprint(z);
+  return { need:n, okW:n.w<=z.plan.w+0.05, okH:n.h<=z.plan.h+0.05,
+           okZ:n.z<=WAREHOUSE.building.clearM+0.001,
+           sx:Math.min(1,z.plan.w/n.w), sy:Math.min(1,z.plan.h/n.h) };
+}
+/* ---------- addressing: depth comes from levelNames ---------- */
+function decode(z,idx){ const d=dimsArr(z), out=new Array(d.length);
+  for(let i=d.length-1;i>=0;i--){ out[i]=idx%d[i]; idx=Math.floor(idx/d[i]); }
+  return out; }
+function encode(z,parts){ const d=dimsArr(z); let i=0;
+  for(let k=0;k<d.length;k++) i=i*d[k]+parts[k];
+  return i; }
+function addrStr(z,idx){
+  if(z.kind==='stockpile') return z.id+'-P'+(idx+1);
+  const p=decode(z,idx);
+  return z.id+'-'+p.map((v,i)=>{
+    const n=z.levelNames[i];
+    return (n==='pos'||n==='bin') ? LET[v] : pad(v+1, z.dims[n]>=100?3:2);
+  }).join('-');
+}
+function addrLabel(z){ return (z.id+' · '+z.levelNames.join(' / ')); }
+/* plan-view metre coordinates + lift height of a slot */
+function slotPos(z,idx){
+  const g=z.geom, f=z._fit, P=z.plan;
+  if(z.kind==='stockpile'){
+    return { x:P.x+(idx+0.5)*g.bayWm*f.sx, y:P.y+P.h/2, lift:0 };
+  }
+  const p=decode(z,idx);
+  if(z.kind==='rack'){
+    const [a,b,l]=p;
+    const side=b%2, bi=Math.floor(b/2);
+    const ax=P.x+(a+0.5)*moduleOf(z)*f.sx;
+    const off=(side?1:-1)*(g.aisleWm/2+g.runDepthM/2)*f.sx;
+    return { x:ax+off, y:P.y+(bi+0.5)*g.bayPitchM*f.sy, lift:(l+0.5)*g.levelPitchM, aisleX:ax };
+  }
+  const [ln,dp,ti]=p;
+  return { x:P.x+(ln+0.5)*g.lanePitchM*f.sx, y:P.y+(dp+0.5)*g.depthPitchM*f.sy,
+           lift:(ti+0.5)*g.tierM };
+}
+function zoneOf(id){ return WAREHOUSE.zones.find(z=>z.id===id); }
+function zonesFor(kind){ return WAREHOUSE.zones.filter(z=>z.holds===kind); }
+function palletKg(){ return WAREHOUSE.intake.pile.kg*WAREHOUSE.intake.pilesPerPallet; }
+
+/* =====================================================================
+   STATE
+   ===================================================================== */
+const S={
+  running:true, speed:1, simMin:0,
+  slots:{}, fill:{}, bulk:{},
+  units:[], free:[], unitSeq:0,
+  tasks:[], taskSeq:0, trucks:[], doors:[],
+  rollAcc:0, pileAcc:0, pilesHeld:0, brokeAcc:0,
+  staged:[],                        // units waiting at the outbound staging / cross-dock
+  received:{roll:0,pallet:0}, receivedT:0,
+  dispatched:{roll:0,pallet:0}, dispatchedT:0,
+  crossDock:{roll:0,pallet:0},
+  startWipT:0,
+  picks:0, fifoOk:0, holds:0, relocs:0, breaches:0, digs:0,
+  travelM:0, moves:{PUT:0,RET:0,LOAD:0,CONS:0,RELOC:0},
+  moveWin:[], trend:{put:[],ret:[],load:[],fill:[],util:[],fifo:[]},
+  alarms:[], dispatchLog:[], shipments:[], orderPtr:0,
+  energyKwh:0, kw:0,
+  sel:{zone:'B', aisle:0}, selUnit:null, heat:'fill', view:'plan',
+  runMin:0, downMin:0, downTrucks:0, surgeMin:0,
+  _t:0, _lastFifo:[]
+};
+
+/* =====================================================================
+   INIT
+   ===================================================================== */
+function newUnit(kind,zone,slot,bornMin,sku){
+  const I=WAREHOUSE.intake;
+  const i = S.free.length ? S.free.pop() : S.units.length;
+  const seq=++S.unitSeq;
+  const pref = kind==='roll' ? I.roll.idPrefix : I.pile.idPrefix;
+  const u={ i, id:pref+'-'+pad(seq,6), kind, kg:kind==='roll'?I.roll.kg:palletKg(),
+            born:bornMin, zone, slot, status:'stored', sku:sku||pickSku(kind), order:null };
+  S.units[i]=u; return u;
+}
+function pickSku(kind){
+  const cand=WAREHOUSE.products.filter(p=>p.kind===kind);
+  if(!cand.length) return '—';
+  let r=Math.random()*cand.reduce((a,c)=>a+c.share,0);
+  for(const c of cand){ r-=c.share; if(r<=0) return c.sku; }
+  return cand[0].sku;
+}
+function freeUnit(u){ if(!u) return; S.units[u.i]=null; S.free.push(u.i); }
+
+function initZones(){
+  S.lane={};
+  WAREHOUSE.zones.forEach(z=>{
+    z._fit=fitOf(z);
+    if(z.kind==='stockpile'){ S.bulk[z.id]=zoneCapT(z)*(z.startFillPct/100); S.fill[z.id]=0; return; }
+    const n=slotCount(z);
+    S.slots[z.id]=new Int32Array(n);
+    S.fill[z.id]=0;
+    const target=Math.round(n*z.startFillPct/100);
+    const life=WAREHOUSE.policy.shelfLifeH*60;
+    let placed=0;
+    if(z.kind==='block'){
+      // seed in the real LIFO fill order so the geometry is honest from
+      // frame one: deepest floor position first, then the next tier
+      const perLane=z.dims.depth*z.dims.tier;
+      S.lane[z.id]=new Int16Array(z.dims.lane);
+      const base=Math.floor(target/z.dims.lane), extra=target%z.dims.lane;
+      for(let ln=0;ln<z.dims.lane;ln++){
+        const cnt=Math.min(perLane, base+(ln<extra?1:0));
+        for(let k=0;k<cnt;k++){
+          const idx=blockSlot(z,ln,k);
+          const u=newUnit(z.holds,z.id,idx,-rnd(2,life*0.85));
+          S.slots[z.id][idx]=u.i+1; placed++;
+        }
+        S.lane[z.id][ln]=cnt;
+      }
+    } else {
+      const order=[...Array(n).keys()];
+      for(let i=order.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [order[i],order[j]]=[order[j],order[i]]; }
+      for(const idx of order){
+        if(placed>=target) break;
+        const u=newUnit(z.holds,z.id,idx,-rnd(2,life*0.85));
+        S.slots[z.id][idx]=u.i+1; placed++;
+      }
+    }
+    S.fill[z.id]=placed;
+  });
+  S.startWipT=wipT();
+}
+function initFleet(){
+  S.trucks=[];
+  WAREHOUSE.fleet.forEach(f=>{
+    for(let k=0;k<f.n;k++) S.trucks.push({
+      id:f.id.toUpperCase().slice(0,2)+pad(k+1), type:f.id, cfg:f,
+      task:null, t:0, need:0, x:WAREHOUSE.intake.infeed.xM+4, y:WAREHOUSE.intake.infeed.yM,
+      fx:WAREHOUSE.intake.infeed.xM+4, fy:WAREHOUSE.intake.infeed.yM,
+      tx:WAREHOUSE.intake.infeed.xM+4, ty:WAREHOUSE.intake.infeed.yM,
+      busyS:0, idleS:0, travelM:0, moves:0, down:0 });
+  });
+}
+function initDocks(){
+  S.doors=WAREHOUSE.docks.map(d=>({ id:d.id, xM:d.xM, state:'empty', ship:null,
+    loaded:0, queued:0, need:0, t:0, dockT:0 }));
+}
+function initShipments(){ S.shipments=[]; S.shipAcc={roll:0,pallet:0}; S.shipSeq=90400;
+  // seed the book so doors are not idle on frame one
+  bookTrailer('roll',0); bookTrailer('pallet',22); bookTrailer('roll',48);
+}
+function trailersPerH(kind){
+  const I=WAREHOUSE.intake, T=WAREHOUSE.trailer, f=WAREHOUSE.dispatch.dispatchPct/100;
+  return kind==='roll' ? I.rollPerH*f/T.rolls
+                       : (I.pilePerH/I.pilesPerPallet)*f/T.pallets;
+}
+function bookTrailer(kind,inMin){
+  const T=WAREHOUSE.trailer;
+  const pool=WAREHOUSE.customers.filter(c=>c.takes===kind);
+  if(!pool.length) return;
+  let r=Math.random()*pool.reduce((a,c)=>a+c.share,0), c=pool[0];
+  for(const x of pool){ r-=x.share; if(r<=0){ c=x; break; } }
+  const lead=WAREHOUSE.dispatch.leadTimeH*60;
+  S.shipments.push({ id:'SH-'+(++S.shipSeq), customer:c.name, dest:c.dest,
+    rolls:kind==='roll'?T.rolls:0, pallets:kind==='pallet'?T.pallets:0,
+    kind, loaded:{roll:0,pallet:0}, state:'waiting', door:null,
+    dueMin:S.simMin+(inMin!==undefined?inMin:lead) });
+  if(S.shipments.length>60) S.shipments=S.shipments.filter(x=>x.state!=='shipped').slice(-60);
+}
+function genShipments(dtMin){
+  ['roll','pallet'].forEach(kind=>{
+    S.shipAcc[kind]+=trailersPerH(kind)*dtMin/60;
+    while(S.shipAcc[kind]>=1){ S.shipAcc[kind]-=1; bookTrailer(kind); }
+  });
+}
+/* Work in progress is summed from the unit records themselves — stored,
+   staged and in-transit units are all live objects, so nothing can be
+   double counted or dropped whatever state a move is in.               */
+function wipT(){
+  let t=S.pilesHeld*WAREHOUSE.intake.pile.kg/1000;
+  WAREHOUSE.zones.forEach(z=>{ if(z.kind==='stockpile') t+=S.bulk[z.id]; });
+  for(let i=0;i<S.units.length;i++){ const u=S.units[i]; if(u) t+=u.kg/1000; }
+  return t;
+}
+function pushAlarm(sev,msg){
+  const ts=new Date().toTimeString().slice(0,8);
+  S.alarms.unshift({sev,msg,ts});
+  if(S.alarms.length>60) S.alarms.pop();
+}
+
+/* =====================================================================
+   SLOT ALLOCATION
+   ---------------------------------------------------------------------
+   A block-stack lane is a single LIFO column: you drive in and drop at
+   the deepest free floor position, then start the next tier from the
+   deep end again. So position n in the fill order maps to a definite
+   (depth, tier) and the accessible unit is always the last one placed.
+   ===================================================================== */
+function blockSlot(z,lane,n){
+  const D=z.dims.depth, ti=Math.floor(n/D), dp=D-1-(n%D);
+  return encode(z,[lane,dp,ti]);
+}
+function rectDist(x0,y0,x1,y1){ return Math.abs(x1-x0)+Math.abs(y1-y0); }
+function infeedPt(){ return {x:WAREHOUSE.intake.infeed.xM+4, y:WAREHOUSE.intake.infeed.yM}; }
+function stagePt(){ const p=WAREHOUSE.staging.plan; return {x:p.x+p.w/2, y:p.y+p.h/2}; }
+function doorPt(d){ return {x:d.xM, y:WAREHOUSE.building.widthM-4}; }
+
+/* pick a free slot: prefer the emptiest eligible zone, then the nearest
+   free slot found in a bounded sample (keeps allocation O(k) not O(n))   */
+function findSlot(kind,from){
+  const cand=zonesFor(kind).filter(z=>z.kind!=='stockpile'&&S.fill[z.id]<slotCount(z));
+  if(!cand.length) return null;
+  cand.sort((a,b)=>(S.fill[a.id]/slotCount(a))-(S.fill[b.id]/slotCount(b)));
+  const z=cand[0];
+  if(z.kind==='block'){
+    let bl=-1, bd=Infinity;
+    for(let ln=0;ln<z.dims.lane;ln++){
+      const n=S.lane[z.id][ln];
+      if(n>=z.dims.depth*z.dims.tier) continue;
+      const idx=blockSlot(z,ln,n), p=slotPos(z,idx);
+      const d=rectDist(from.x,from.y,p.x,p.y)+n*0.5;    // slight bias to shallow lanes
+      if(d<bd){bd=d;bl=ln;}
+    }
+    if(bl<0) return null;
+    return {zone:z, slot:blockSlot(z,bl,S.lane[z.id][bl]), lane:bl};
+  }
+  const arr=S.slots[z.id], n=arr.length;
+  let best=-1, bd=Infinity;
+  for(let k=0;k<64;k++){
+    const i=Math.floor(Math.random()*n);
+    if(arr[i]) continue;
+    const p=slotPos(z,i), d=rectDist(from.x,from.y,p.x,p.y)+p.lift*3;
+    if(d<bd){bd=d;best=i;}
+  }
+  if(best<0){ for(let i=0;i<n;i++) if(!arr[i]){best=i;break;} }
+  return best<0?null:{zone:z, slot:best};
+}
+
+/* one scan returns everything the pick decision needs */
+function scanStock(kind){
+  let acc=null, accBorn=Infinity, oldest=null, oldBorn=Infinity, total=0, held=0;
+  // pickBy 'space' works the fullest zone first to protect capacity; that is
+  // what forces picks out of the LIFO block stack and costs FIFO compliance
+  let zs=zonesFor(kind).filter(z=>z.kind!=='stockpile');
+  if(WAREHOUSE.policy.pickBy==='space'){
+    zs.sort((a,b)=>(S.fill[b.id]/slotCount(b))-(S.fill[a.id]/slotCount(a)));
+    const top=zs.find(z=>S.fill[z.id]>0);
+    if(top) zs=[top];
+  }
+  zs.forEach(z=>{
+    if(z.kind==='stockpile') return;
+    if(z.kind==='block'){
+      for(let ln=0;ln<z.dims.lane;ln++){
+        const n=S.lane[z.id][ln];
+        for(let k=0;k<n;k++){
+          const u=S.units[S.slots[z.id][blockSlot(z,ln,k)]-1];
+          if(!u) continue; total++;
+          if(u.hold){held++;continue;}
+          if(u.born<oldBorn){oldBorn=u.born;oldest=u;}
+          if(k===n-1 && u.born<accBorn){accBorn=u.born;acc=u;}
+        }
+      }
+    } else {
+      const arr=S.slots[z.id];
+      for(let i=0;i<arr.length;i++){
+        const v=arr[i]; if(!v) continue;
+        const u=S.units[v-1]; if(!u||u.status!=='stored') continue;
+        total++; if(u.hold){held++;continue;}
+        if(u.born<oldBorn){oldBorn=u.born;oldest=u;}
+        if(u.born<accBorn){accBorn=u.born;acc=u;}
+      }
+    }
+  });
+  let older=0;
+  if(acc){
+    zonesFor(kind).forEach(z=>{           // rank against ALL stock, not just the picked zone
+      if(z.kind==='stockpile') return;
+      if(z.kind==='block'){
+        for(let ln=0;ln<z.dims.lane;ln++){ const n=S.lane[z.id][ln];
+          for(let k=0;k<n;k++){ const u=S.units[S.slots[z.id][blockSlot(z,ln,k)]-1];
+            if(u&&!u.hold&&u.born<acc.born) older++; } }
+      } else {
+        const arr=S.slots[z.id];
+        for(let i=0;i<arr.length;i++){ const v=arr[i]; if(!v) continue;
+          const u=S.units[v-1]; if(u&&u.status==='stored'&&!u.hold&&u.born<acc.born) older++; }
+      }
+    });
+  }
+  return {acc, oldest, older, total, held};
+}
+
+/* =====================================================================
+   TASKS
+   ===================================================================== */
+const TRUCK_FOR={PUT:null,RET:null,LOAD:null,RELOC:null};
+function truckOf(kind){ return kind==='roll'?'clamp':'reach'; }
+function queueTask(t){ t.id=++S.taskSeq; t.born=S.simMin; S.tasks.push(t); return t; }
+
+function queuePut(kind){
+  const from=infeedPt();
+  const tgt=findSlot(kind,from);
+  if(!tgt){ pushAlarm('warn','No free '+kind+' location — putaway blocked'); return false; }
+  const P=WAREHOUSE.policy;
+  const u=newUnit(kind,tgt.zone.id,tgt.slot,S.simMin);
+  u.status='moving';
+  if(Math.random()*100<P.holdRatePct){ u.hold=true; S.holds++;
+    pushAlarm('warn','QA hold placed on '+u.id); }
+  // reserve the slot immediately so two tasks cannot target it
+  if(tgt.zone.kind==='block') S.lane[tgt.zone.id][tgt.lane]++;
+  S.slots[tgt.zone.id][tgt.slot]=u.i+1;
+  S.fill[tgt.zone.id]++;
+  const p=slotPos(tgt.zone,tgt.slot);
+  queueTask({type:'PUT',kind,unit:u,zone:tgt.zone.id,slot:tgt.slot,
+    from, to:{x:p.x,y:p.y}, lift:p.lift, truck:truckOf(kind)});
+  return true;
+}
+function queueRet(kind){
+  const sc=scanStock(kind);
+  if(!sc.acc) return false;
+  const P=WAREHOUSE.policy;
+  let u=sc.acc;
+  // compliant if the unit picked sits inside the oldest N% of available stock
+  const window=Math.max(5,sc.total*P.fifoWindowPct/100);
+  const compliant = sc.older < window;
+  // the WMS may choose to dig for a genuinely older unit instead
+  if(!compliant && sc.oldest && Math.random()*100 < P.relocRatePct*10){
+    if(queueReloc(kind,sc.oldest)) { S.digs++; return true; }
+  }
+  S.picks++; if(compliant) S.fifoOk++;
+  else { S.lastBreach={id:u.id,older:sc.older}; S.breachRun=(S.breachRun||0)+1; }
+  const z=zoneOf(u.zone);
+  if(z.kind==='block') S.lane[z.id][ /*lane*/ decode(z,u.slot)[0] ]--;
+  S.slots[z.id][u.slot]=0; S.fill[z.id]--;
+  u.status='moving';
+  const p=slotPos(z,u.slot);
+  queueTask({type:'RET',kind,unit:u,zone:z.id,slot:u.slot,
+    from:{x:p.x,y:p.y}, to:stagePt(), lift:p.lift, truck:truckOf(kind)});
+  return true;
+}
+/* dig: move the accessible unit out of the way to expose an older one */
+function queueReloc(kind,target){
+  const z=zoneOf(target.zone);
+  if(!z||z.kind!=='block') return false;
+  const ln=decode(z,target.slot)[0], n=S.lane[z.id][ln];
+  if(n<=0) return false;
+  const topIdx=blockSlot(z,ln,n-1);
+  const u=S.units[S.slots[z.id][topIdx]-1];
+  if(!u||u.status!=='stored'||u===target) return false;
+  const p=slotPos(z,topIdx);
+  const tgt=findSlot(kind,{x:p.x,y:p.y});
+  if(!tgt) return false;
+  S.slots[z.id][topIdx]=0; S.lane[z.id][ln]--;
+  S.fill[z.id]--;
+  if(tgt.zone.kind==='block') S.lane[tgt.zone.id][tgt.lane]++;
+  S.slots[tgt.zone.id][tgt.slot]=u.i+1; S.fill[tgt.zone.id]++;
+  u.status='moving'; u.zone=tgt.zone.id; u.slot=tgt.slot;
+  const q=slotPos(tgt.zone,tgt.slot);
+  S.relocs++;
+  queueTask({type:'RELOC',kind,unit:u,zone:tgt.zone.id,slot:tgt.slot,
+    from:{x:p.x,y:p.y}, to:{x:q.x,y:q.y}, lift:Math.max(p.lift,q.lift), truck:truckOf(kind)});
+  return true;
+}
+function queueLoad(kind,door){
+  const i=S.staged.findIndex(u=>u.kind===kind);
+  if(i<0) return false;
+  const u=S.staged.splice(i,1)[0];
+  u.status='moving';
+  door.queued=(door.queued||0)+1;
+  queueTask({type:'LOAD',kind,unit:u,door:door.id,
+    from:stagePt(), to:doorPt(door), lift:0, truck:truckOf(kind)});
+  return true;
+}
+function completeTask(t,tr){
+  const u=t.unit;
+  S.moves[t.type]++;
+  if(t.type==='PUT'||t.type==='RELOC'){ u.status='stored'; u.zone=t.zone; u.slot=t.slot; }
+  else if(t.type==='RET'){ u.status='staged'; u.zone=null; u.slot=-1; S.staged.push(u); }
+  else if(t.type==='LOAD'){
+    const d=S.doors.find(x=>x.id===t.door);
+    if(d) d.queued=Math.max(0,(d.queued||0)-1);
+    if(!d||!d.ship){
+      // the trailer left before this move ran — the unit goes back to staging
+      u.status='staged'; S.staged.push(u); tr.moves++; return;
+    }
+    {
+      d.loaded++;
+      d.ship.loaded[u.kind]++;
+      S.dispatched[u.kind]++; S.dispatchedT+=u.kg/1000;
+      S.dispatchLog.unshift({id:u.id,kind:u.kind,sku:u.sku,kg:u.kg,
+        ship:d.ship.id,dest:d.ship.dest,door:d.id,ageH:(S.simMin-u.born)/60,
+        ts:new Date().toTimeString().slice(0,8)});
+      if(S.dispatchLog.length>400) S.dispatchLog.pop();
+      if((S.simMin-u.born)/60>WAREHOUSE.policy.shelfLifeH) S.breaches++;
+      freeUnit(u);
+    }
+  }
+  tr.moves++;
+}
+
+/* =====================================================================
+   SIMULATION  —  replace the body of this function to go live
+   ===================================================================== */
+function simulateTick(){
+  const dtMin=WAREHOUSE.updateMs/60000*WAREHOUSE.simTimeScale*S.speed;
+  const dtS=dtMin*60;
+  if(!S.running){ S.downMin+=dtMin; S.kw=WAREHOUSE.energy.lightingKw;
+    S.energyKwh+=S.kw*dtMin/60; pushTrend(); return; }
+  S.simMin+=dtMin; S.runMin+=dtMin;
+  if(S.surgeMin>0) S.surgeMin=Math.max(0,S.surgeMin-dtMin);
+  arrivals(dtMin);
+  brokeFlow(dtMin);
+  genShipments(dtMin);
+  planPicks(dtMin);
+  runDocks(dtS);
+  assignTasks();
+  advanceTrucks(dtS);
+  ageChecks(dtMin);
+  energy(dtMin);
+  pushTrend();
+  checks();
+}
+function arrivals(dtMin){
+  const I=WAREHOUSE.intake;
+  S.rollAcc+=I.rollPerH*dtMin/60;
+  while(S.rollAcc>=1){
+    S.rollAcc-=1; S.received.roll++; S.receivedT+=I.roll.kg/1000;
+    if(Math.random()*100<I.crossDockRollPct && S.staged.length<WAREHOUSE.staging.capUnits){
+      const u=newUnit('roll',null,-1,S.simMin); u.status='staged'; S.staged.push(u); S.crossDock.roll++;
+    } else if(!queuePut('roll')){ S.received.roll--; S.receivedT-=I.roll.kg/1000; S.rollAcc=0; break; }
+  }
+  S.pileAcc+=I.pilePerH*dtMin/60;
+  while(S.pileAcc>=1){ S.pileAcc-=1; S.pilesHeld++; S.receivedT+=I.pile.kg/1000; }
+  while(S.pilesHeld>=I.pilesPerPallet){
+    S.pilesHeld-=I.pilesPerPallet; S.received.pallet++; S.moves.CONS++;
+    if(Math.random()*100<I.crossDockPalletPct && S.staged.length<WAREHOUSE.staging.capUnits){
+      const u=newUnit('pallet',null,-1,S.simMin); u.status='staged'; S.staged.push(u); S.crossDock.pallet++;
+    } else if(!queuePut('pallet')){ S.pilesHeld+=I.pilesPerPallet; S.received.pallet--; break; }
+  }
+}
+function brokeFlow(dtMin){
+  const z=zoneOf('D'); if(!z||z.kind!=='stockpile') return;
+  const I=WAREHOUSE.intake;
+  const inT=(I.rollPerH*I.roll.kg+I.pilePerH*I.pile.kg)/1000;
+  const brokeTph=inT*0.008;
+  S.bulk.D+=brokeTph*dtMin/60; S.receivedT+=brokeTph*dtMin/60;
+  const cap=zoneCapT(z);
+  if(S.bulk.D>cap*0.85) S._reclaim=true;
+  if(S.bulk.D<cap*0.30) S._reclaim=false;
+  if(S._reclaim){ const out=Math.min(S.bulk.D,cap*0.010*dtMin);
+    S.bulk.D-=out; S.dispatchedT+=out; S.reclaimT=(S.reclaimT||0)+out; }
+  if(S.bulk.D>cap){ const over=S.bulk.D-cap; S.bulk.D=cap; S.receivedT-=over;
+    pushAlarm('alarm','Stockpile D at capacity — broke intake refused'); }
+}
+function activeShipments(){ return S.shipments.filter(s=>s.state!=='shipped'); }
+function planPicks(dtMin){
+  const cap=S.surgeMin>0?8:4;
+  // pick to the trailers on the doors and to the next one due — not to the
+  // whole open order book, which would saturate the fleet on hour one
+  const list=S.shipments.filter(s=>s.state==='docking'||s.state==='loading')
+    .concat(S.shipments.filter(s=>s.state==='waiting').slice(0,1));
+  ['roll','pallet'].forEach(kind=>{
+    const key=kind==='roll'?'rolls':'pallets';
+    let need=0;
+    list.forEach(s=>{ need+=Math.max(0,s[key]-s.loaded[kind]); });
+    const inFlight=S.tasks.filter(t=>t.type==='RET'&&t.kind===kind).length
+      + S.trucks.filter(t=>t.task&&t.task.type==='RET'&&t.task.kind===kind).length;
+    const pool=S.staged.filter(u=>u.kind===kind).length;
+    let want=Math.min(need-inFlight-pool,cap);
+    while(want-->0){ if(!queueRet(kind)) break; }
+  });
+}
+function runDocks(dtS){
+  const T=WAREHOUSE.trailer;
+  S.doors.forEach(d=>{
+    if(d.state==='empty'){
+      // a trailer only shows up inside its arrival window, so doors fill
+      // progressively rather than all at once
+      const s=S.shipments.find(x=>x.state==='waiting'&&!x.door
+        && x.dueMin-S.simMin<=T.arriveWindowMin);
+      if(s){ d.ship=s; s.door=d.id; s.state='docking';
+        d.state='dock'; d.t=0; d.loaded=0; d.queued=0; d.need=s.rolls+s.pallets; }
+      return;
+    }
+    if(d.state==='dock'){
+      d.t+=dtS;
+      if(d.t>=T.dockMin*60){ d.state='load'; d.t=0; d.ship.state='loading'; }
+      return;
+    }
+    if(d.state==='load'){
+      d.t+=dtS;
+      const s=d.ship;
+      const rollLeft=s.rolls-s.loaded.roll, palLeft=s.pallets-s.loaded.pallet;
+      if(rollLeft<=0&&palLeft<=0){ d.state='done'; d.t=0; s.state='loaded'; return; }
+      const q=d.queued||0;
+      if(q<2 && d.loaded+q<d.need){
+        if(rollLeft-q>0) queueLoad('roll',d);
+        else if(palLeft>0) queueLoad('pallet',d);
+      }
+      return;
+    }
+    if(d.state==='done'){
+      d.t+=dtS;
+      if(d.t>=180){
+        const s=d.ship;
+        s.state='shipped'; s.door=null;
+        pushAlarm('info','Shipment '+s.id+' departed door '+d.id+' — '+
+          fmt(s.loaded.roll)+' rolls, '+fmt(s.loaded.pallet)+' pallets');
+        d.ship=null; d.state='empty'; d.t=0; d.loaded=0; d.queued=0;
+
+      }
+    }
+  });
+}
+
+function assignTasks(){
+  S.trucks.forEach(tr=>{
+    if(tr.task||tr.down>0) return;
+    const i=S.tasks.findIndex(t=>t.truck===tr.type);
+    if(i<0) return;
+    const t=S.tasks.splice(i,1)[0];
+    const d1=rectDist(tr.x,tr.y,t.from.x,t.from.y);
+    const d2=rectDist(t.from.x,t.from.y,t.to.x,t.to.y);
+    t.sx0=tr.x; t.sy0=tr.y;
+    t.d1=d1; t.d2=d2; t.dist=d1+d2;
+    t.travelS=t.dist/tr.cfg.velMs;
+    t.liftS=2*t.lift/tr.cfg.hoistMs;
+    t.need=tr.cfg.fixedS+t.travelS+t.liftS;
+    if(t.type==='LOAD') t.need=WAREHOUSE.dockLoadS;
+    tr.task=t; tr.t=0;
+  });
+}
+function advanceTrucks(dtS){
+  S.trucks.forEach(tr=>{
+    if(tr.down>0){ tr.down=Math.max(0,tr.down-dtS/60); tr.idleS+=dtS; return; }
+    if(!tr.task){ tr.idleS+=dtS; return; }
+    const t=tr.task;
+    tr.t+=dtS; tr.busyS+=dtS;
+    const f=clamp(tr.t/t.need,0,1);
+    // travel first (approach then carry), then the fixed handling in place
+    const travelFrac=t.need>0?t.travelS/t.need:0;
+    if(f<travelFrac&&t.dist>0){
+      const s=f/travelFrac*t.dist;
+      if(s<=t.d1){ const p=lpath(t.sx0,t.sy0,t.from.x,t.from.y,t.d1?s/t.d1:1); tr.x=p.x; tr.y=p.y; }
+      else { const p=lpath(t.from.x,t.from.y,t.to.x,t.to.y,t.d2?(s-t.d1)/t.d2:1); tr.x=p.x; tr.y=p.y; }
+    } else { tr.x=t.to.x; tr.y=t.to.y; }
+    if(tr.t>=t.need){
+      tr.travelM+=t.dist; S.travelM+=t.dist;
+      completeTask(t,tr);
+      tr.task=null; tr.t=0;
+    }
+  });
+}
+function lpath(x0,y0,x1,y1,f){
+  const dx=Math.abs(x1-x0), dy=Math.abs(y1-y0), tot=dx+dy;
+  if(tot<=0) return {x:x1,y:y1};
+  const s=clamp(f,0,1)*tot;
+  if(s<=dx) return {x:x0+Math.sign(x1-x0)*s, y:y0};
+  return {x:x1, y:y0+Math.sign(y1-y0)*(s-dx)};
+}
+function ageChecks(dtMin){
+  // release QA holds after a while
+  if(Math.random()<dtMin/8){
+    for(let i=0;i<S.units.length;i++){ const u=S.units[i];
+      if(u&&u.hold&&S.simMin-u.born>90){ u.hold=false;
+        pushAlarm('info','QA hold released on '+u.id); break; } }
+  }
+}
+function energy(dtMin){
+  let kw=WAREHOUSE.energy.lightingKw+WAREHOUSE.energy.hvacKw;
+  S.trucks.forEach(tr=>{ if(tr.task&&tr.down<=0) kw+=tr.cfg.kw; });
+  S.kw=kw; S.energyKwh+=kw*dtMin/60;
+}
+function pushTrend(){
+  const w=90;
+  const push=(a,v)=>{a.push(v); if(a.length>w) a.shift();};
+  const win=Math.max(1,S.runMin)/60;
+  push(S.trend.put,S.moves.PUT); push(S.trend.ret,S.moves.RET); push(S.trend.load,S.moves.LOAD);
+  push(S.trend.fill,fillPct()); push(S.trend.util,fleetUtil()*100);
+  push(S.trend.fifo,S.picks?S.fifoOk/S.picks*100:100);
+}
+function fillPct(){
+  let cap=0,use=0;
+  WAREHOUSE.zones.forEach(z=>{ const c=zoneCapT(z); cap+=c;
+    use+= z.kind==='stockpile'? S.bulk[z.id] : S.fill[z.id]*unitKg(z)/1000; });
+  return cap?use/cap*100:0;
+}
+function fleetUtil(){
+  const b=S.trucks.reduce((a,t)=>a+t.busyS,0), i=S.trucks.reduce((a,t)=>a+t.idleS,0);
+  return (b+i)>0?b/(b+i):0;
+}
+function ratePerH(key){
+  const a=S.trend[key]; if(a.length<3) return 0;
+  const n=Math.min(a.length-1,40);
+  const d=a[a.length-1]-a[a.length-1-n];
+  const minutes=n*WAREHOUSE.updateMs/60000*WAREHOUSE.simTimeScale;
+  return minutes>0?d/minutes*60:0;
+}
+function checks(){
+  WAREHOUSE.zones.forEach(z=>{
+    const cap=z.kind==='stockpile'?zoneCapT(z):slotCount(z);
+    const use=z.kind==='stockpile'?S.bulk[z.id]:S.fill[z.id];
+    const p=cap?use/cap*100:0;
+    const k='full_'+z.id;
+    if(p>92&&!S['_'+k]){ S['_'+k]=true; pushAlarm('alarm','Zone '+z.id+' '+z.name+' at '+fmt(p)+'% — putaway will block'); }
+    if(p<86) S['_'+k]=false;
+  });
+  const u=fleetUtil()*100;
+  if(u>93&&!S._utilA){ S._utilA=true; pushAlarm('warn','Fleet utilisation '+fmt(u)+'% — task queue will grow'); }
+  if(u<86) S._utilA=false;
+  if(S.tasks.length>45&&!S._qA){ S._qA=true; pushAlarm('warn','Task backlog '+S.tasks.length+' moves'); }
+  if(S.tasks.length<25) S._qA=false;
+  // FIFO is reported as a periodic KPI breach, not once per pick
+  const fp=S.picks?S.fifoOk/S.picks*100:100;
+  if(S.simMin-(S._fifoT||0)>30){
+    S._fifoT=S.simMin;
+    if(fp<90&&S.breachRun>0) pushAlarm('warn','FIFO compliance '+fmt(fp,1)+'% — '+S.breachRun
+      +' picks outside the oldest '+WAREHOUSE.policy.fifoWindowPct+'% since the last check'
+      +(S.lastBreach?' (latest '+S.lastBreach.id+', '+fmt(S.lastBreach.older)+' older units available)':''));
+    S.breachRun=0;
+  }
+}
+
+/* =====================================================================
+   COLOUR SCALES
+   ===================================================================== */
+function hex2rgb(h){ return [parseInt(h.slice(1,3),16),parseInt(h.slice(3,5),16),parseInt(h.slice(5,7),16)]; }
+function mix(a,b,f){ const A=hex2rgb(a),B=hex2rgb(b);
+  return '#'+A.map((v,i)=>Math.round(v+(B[i]-v)*clamp(f,0,1)).toString(16).padStart(2,'0')).join(''); }
+function ramp(stops,f){
+  f=clamp(f,0,1);
+  for(let i=0;i<stops.length-1;i++){
+    const [p0,c0]=stops[i], [p1,c1]=stops[i+1];
+    if(f<=p1) return mix(c0,c1,(f-p0)/((p1-p0)||1));
+  }
+  return stops[stops.length-1][1];
+}
+const FILL_STOPS=[[0,'#12202c'],[0.35,'#1b5f7f'],[0.6,'#1f8a63'],[0.8,'#a08028'],[0.92,'#b0562c'],[1,'#8f2b3a']];
+const AGE_STOPS =[[0,'#22c58b'],[0.45,'#7fbf55'],[0.7,'#f5b642'],[0.88,'#e0784a'],[1,'#ff5468']];
+function fillCol(f){ return ramp(FILL_STOPS,f); }
+function ageCol(h){ return ramp(AGE_STOPS,h/Math.max(1,WAREHOUSE.policy.shelfLifeH)); }
+function heatColOf(n,cap,ageH){
+  if(S.heat==='age') return n>0?ageCol(ageH):'#0e1620';
+  return cap>0?fillCol(n/cap):'#0e1620';
+}
+
+/* =====================================================================
+   PLAN VIEW  (static structure built once, fills updated per tick)
+   ===================================================================== */
+const PXS=5.4, PXO=16;
+const px=m=>PXO+m*PXS;
+let planBuilt=false, truckNodes=[], runNodes={}, doorNodes=[], labelNodes={}, stageNodes=[];
+
+function buildPlan(){
+  const svg=$('twin'); svg.innerHTML='';
+  runNodes={}; truckNodes=[]; doorNodes=[]; labelNodes={}; stageNodes=[];
+  const B=WAREHOUSE.building;
+  const W=px(B.lengthM)+PXO, H=px(B.widthM)+46;   // room for the trailers on the apron
+  svg.setAttribute('viewBox','0 0 '+Math.round(W)+' '+Math.round(H));
+
+  const gStatic=el('g',{}), gRuns=el('g',{}), gOver=el('g',{}), gTrucks=el('g',{});
+
+  // building shell
+  gStatic.appendChild(el('rect',{x:px(0),y:px(0),width:B.lengthM*PXS,height:B.widthM*PXS,
+    rx:6,fill:'#0c141d',stroke:'#2a3b4e','stroke-width':2}));
+  // cross aisle band in front of the docks
+  const ca=WAREHOUSE.crossAisle;
+  gStatic.appendChild(el('rect',{x:px(0.5),y:px(ca.yM),width:(B.lengthM-1)*PXS,height:ca.hM*PXS,
+    fill:'rgba(139,160,182,.045)',stroke:'rgba(139,160,182,.15)','stroke-dasharray':'4 4'}));
+  gStatic.appendChild(el('text',{x:px(4),y:px(ca.yM+ca.hM/2)+3,
+    fill:'#5f7386',style:'font:600 9px var(--mono);letter-spacing:1px'})).textContent='MAIN CROSS AISLE';
+
+  // infeed from FP-1
+  const inf=WAREHOUSE.intake.infeed;
+  gStatic.appendChild(el('rect',{x:px(0)-11,y:px(inf.yM)-16,width:14,height:32,rx:3,
+    fill:'rgba(55,182,255,.25)',stroke:'var(--accent)'}));
+  const it=el('text',{x:px(0)+6,y:px(inf.yM)-21,fill:'#37b6ff',
+    style:'font:700 9px var(--mono);letter-spacing:.8px'});
+  it.textContent='◀ FROM FP-1'; gStatic.appendChild(it);
+  gStatic.appendChild(el('path',{d:`M ${px(0)+4} ${px(inf.yM)} L ${px(14)} ${px(inf.yM)}`,
+    stroke:'rgba(55,182,255,.45)','stroke-width':2,'stroke-dasharray':'6 4',fill:'none'}));
+
+  // staging
+  const st=WAREHOUSE.staging.plan;
+  gStatic.appendChild(el('rect',{x:px(st.x),y:px(st.y),width:st.w*PXS,height:st.h*PXS,rx:5,
+    fill:'rgba(34,197,139,.06)',stroke:'rgba(34,197,139,.4)','stroke-dasharray':'6 4'}));
+  const stt=el('text',{x:px(st.x),y:px(st.y)-5,fill:'#22c58b',
+    style:'font:800 11px var(--mono);letter-spacing:1px'});
+  stt.textContent='OUTBOUND STAGING · CROSS-DOCK'; gStatic.appendChild(stt);
+  labelNodes.stage=el('text',{x:px(st.x),y:px(st.y+st.h)+12,fill:'#8ba0b6',
+    style:'font:700 11px var(--mono)'});
+  gStatic.appendChild(labelNodes.stage);
+  // staging lanes: one block per staged unit, filling lane by lane
+  stageNodes=[];
+  const cols=Math.floor((st.w-4)/2.6), rows=Math.ceil(WAREHOUSE.staging.capUnits/cols);
+  for(let i=0;i<WAREHOUSE.staging.capUnits;i++){
+    const c=i%cols, r=Math.floor(i/cols);
+    const n=el('rect',{x:px(st.x+2+c*2.6),y:px(st.y+3+r*((st.h-6)/rows)),
+      width:Math.max(3,2.0*PXS),height:Math.max(3,((st.h-6)/rows)*PXS*0.65),rx:1.5,
+      fill:'#0e1620',stroke:'rgba(34,197,139,.14)'});
+    gRuns.appendChild(n); stageNodes.push(n);
+  }
+
+  // zones
+  WAREHOUSE.zones.forEach(z=>{
+    const P=z.plan, f=z._fit;
+    const r=el('rect',{x:px(P.x),y:px(P.y),width:P.w*PXS,height:P.h*PXS,rx:5,
+      fill:z.colour+'12',stroke:z.colour+'66','stroke-width':1.5,class:'zoneRect'});
+    r.onclick=()=>{ S.sel={zone:z.id,aisle:0}; render(); };
+    gStatic.appendChild(r);
+
+    runNodes[z.id]=[];
+    if(z.kind==='rack'){
+      const g=z.geom;
+      for(let a=0;a<z.dims.aisle;a++){
+        const ax=P.x+(a+0.5)*moduleOf(z)*f.sx;
+        gStatic.appendChild(el('line',{x1:px(ax),y1:px(P.y+1),x2:px(ax),y2:px(P.y+f.need.h*f.sy-1),
+          stroke:'rgba(139,160,182,.18)','stroke-width':1,'stroke-dasharray':'3 5'}));
+        for(let s=0;s<2;s++){
+          const cx=ax+(s?1:-1)*(g.aisleWm/2+g.runDepthM/2)*f.sx;
+          const w=Math.max(3,g.runDepthM*PXS*f.sx);
+          const n=el('rect',{x:px(cx)-w/2,y:px(P.y+0.4),width:w,
+            height:Math.max(4,(f.need.h*f.sy-0.8)*PXS),rx:2,fill:'#12202c',stroke:'rgba(30,43,58,.9)'});
+          n.style.cursor='pointer';
+          n.onclick=()=>{ S.sel={zone:z.id,aisle:a}; render(); };
+          gRuns.appendChild(n); runNodes[z.id].push({node:n,aisle:a,side:s});
+        }
+      }
+    } else if(z.kind==='block'){
+      const g=z.geom;
+      for(let ln=0;ln<z.dims.lane;ln++){
+        const w=Math.max(2.5,g.lanePitchM*PXS*f.sx-1);
+        const n=el('rect',{x:px(P.x+ln*g.lanePitchM*f.sx)+0.5,y:px(P.y+0.4),width:w,
+          height:Math.max(4,(g.depthPitchM*z.dims.depth*f.sy-0.8)*PXS),rx:1.5,
+          fill:'#12202c',stroke:'rgba(30,43,58,.9)'});
+        n.style.cursor='pointer';
+        n.onclick=()=>{ S.sel={zone:z.id,aisle:ln}; render(); };
+        gRuns.appendChild(n); runNodes[z.id].push({node:n,lane:ln});
+      }
+    } else {
+      const g=z.geom;
+      for(let p=0;p<z.dims.pile;p++){
+        const n=el('rect',{x:px(P.x+p*g.bayWm*f.sx)+2,y:px(P.y+0.6),
+          width:Math.max(6,g.bayWm*PXS*f.sx-4),height:Math.max(6,g.bayLm*PXS*f.sy-2),rx:4,
+          fill:'#12202c',stroke:'rgba(30,43,58,.9)'});
+        gRuns.appendChild(n); runNodes[z.id].push({node:n,pile:p});
+      }
+    }
+    // zone label — name on the row above the rectangle, live figure on the row below
+    const t1=el('text',{x:px(P.x),y:px(P.y)-5,fill:z.colour,
+      style:'font:800 13px var(--mono);letter-spacing:1px'});
+    t1.textContent=z.id;
+    gOver.appendChild(t1);
+    const t2=el('text',{x:px(P.x)+15,y:px(P.y)-5,fill:'#8ba0b6',style:'font:600 10px var(--font)'});
+    t2.textContent=z.name.replace(/ [A-D]$/,'')+' · '+z.kind;
+    gOver.appendChild(t2);
+    labelNodes[z.id]=el('text',{x:px(P.x),y:px(P.y+P.h)+12,fill:'#e8eef6',
+      style:'font:700 11px var(--mono)'});
+    gOver.appendChild(labelNodes[z.id]);
+  });
+
+  // dock doors on the south wall
+  WAREHOUSE.docks.forEach((d,i)=>{
+    const y=px(B.widthM)-2;
+    const g=el('g',{});
+    const door=el('rect',{x:px(d.xM)-16,y:y-5,width:32,height:9,rx:2,
+      fill:'#1a2632',stroke:'#3a4d63'});
+    const trailer=el('rect',{x:px(d.xM)-15,y:y+6,width:30,height:22,rx:3,
+      fill:'rgba(139,160,182,.10)',stroke:'rgba(139,160,182,.3)',opacity:0});
+    const lbl=el('text',{x:px(d.xM),y:y+20,'text-anchor':'middle',fill:'#8ba0b6',
+      style:'font:700 9px var(--mono)'});
+    lbl.textContent=d.id;
+    g.appendChild(trailer); g.appendChild(door); g.appendChild(lbl);
+    gOver.appendChild(g);
+    doorNodes.push({door,trailer,lbl});
+  });
+
+  // trucks
+  S.trucks.forEach(tr=>{
+    const g=el('g',{});
+    const col=tr.type==='clamp'?'#37b6ff':'#b694e8';
+    const body=el('rect',{x:-7,y:-5,width:14,height:10,rx:2.5,fill:col,opacity:.9});
+    const load=el('circle',{cx:9,cy:0,r:3,fill:'#f5b642',opacity:0});
+    const t=el('text',{x:0,y:-7,'text-anchor':'middle',fill:col,stroke:'#0a1119','stroke-width':2.2,
+      'paint-order':'stroke',style:'font:700 7px var(--mono)'});
+    t.textContent=tr.id;
+    g.appendChild(body); g.appendChild(load); g.appendChild(t);
+    gTrucks.appendChild(g);
+    truckNodes.push({g,body,load,truck:tr});
+  });
+
+  svg.appendChild(gStatic); svg.appendChild(gRuns);
+  svg.appendChild(gOver);   svg.appendChild(gTrucks);
+  planBuilt=true;
+}
+
+/* per-run occupancy buckets */
+function runStats(z){
+  const out=[];
+  if(z.kind==='stockpile'){
+    const cap=pileTonnes(z).tonnes, share=S.bulk[z.id]/z.dims.pile;
+    for(let p=0;p<z.dims.pile;p++) out.push({n:share,cap,ageH:0});
+    return out;
+  }
+  if(z.kind==='block'){
+    const perLane=z.dims.depth*z.dims.tier;
+    for(let ln=0;ln<z.dims.lane;ln++){
+      const n=S.lane[z.id][ln]; let age=0,c=0;
+      for(let k=0;k<n;k++){ const u=S.units[S.slots[z.id][blockSlot(z,ln,k)]-1];
+        if(u){age+=(S.simMin-u.born)/60;c++;} }
+      out.push({n,cap:perLane,ageH:c?age/c:0});
+    }
+    return out;
+  }
+  const d=z.dims, per=Math.ceil(d.bay/2)*d.level*d.pos;
+  const buckets=[];
+  for(let i=0;i<d.aisle*2;i++) buckets.push({n:0,cap:0,age:0,c:0});
+  const arr=S.slots[z.id];
+  for(let i=0;i<arr.length;i++){
+    const p=decode(z,i), k=p[0]*2+(p[1]%2);
+    buckets[k].cap++;
+    if(arr[i]){ buckets[k].n++;
+      const u=S.units[arr[i]-1]; if(u){buckets[k].age+=(S.simMin-u.born)/60;buckets[k].c++;} }
+  }
+  return buckets.map(b=>({n:b.n,cap:b.cap,ageH:b.c?b.age/b.c:0}));
+}
+
+function renderPlan(){
+  if(!planBuilt) buildPlan();
+  WAREHOUSE.zones.forEach(z=>{
+    const st=runStats(z), nodes=runNodes[z.id]||[];
+    nodes.forEach((r,i)=>{
+      const s=st[i]||{n:0,cap:1,ageH:0};
+      r.node.setAttribute('fill',heatColOf(s.n,s.cap,s.ageH));
+      const isSel=(S.sel.zone===z.id)&&((r.aisle!==undefined&&r.aisle===S.sel.aisle)||(r.lane!==undefined&&r.lane===S.sel.aisle));
+      r.node.setAttribute('stroke',isSel?'#37b6ff':'rgba(30,43,58,.9)');
+      r.node.setAttribute('stroke-width',isSel?1.6:1);
+    });
+    const cap=z.kind==='stockpile'?zoneCapT(z):slotCount(z);
+    const use=z.kind==='stockpile'?S.bulk[z.id]:S.fill[z.id];
+    if(labelNodes[z.id]) labelNodes[z.id].textContent=
+      (z.kind==='stockpile'?fmt(use,0)+' / '+fmt(cap,0)+' t':fmt(use)+' / '+fmt(cap))
+      +'  '+fmt(cap?use/cap*100:0)+'%';
+  });
+  if(labelNodes.stage) labelNodes.stage.textContent=
+    S.staged.length+' units staged · '+fmt(S.staged.reduce((a,u)=>a+u.kg,0)/1000,1)+' t'
+    +' · cap '+WAREHOUSE.staging.capUnits;
+  stageNodes.forEach((n,i)=>{
+    const u=S.staged[i];
+    n.setAttribute('fill',u?(u.kind==='roll'?'#37b6ff':'#b694e8'):'#0e1620');
+    n.setAttribute('opacity',u?0.85:1);
+  });
+  S.doors.forEach((d,i)=>{
+    const n=doorNodes[i]; if(!n) return;
+    const on=d.state!=='empty';
+    n.trailer.setAttribute('opacity',on?1:0);
+    const col=d.state==='load'?'#37b6ff':d.state==='dock'?'#f5b642':d.state==='done'?'#22c58b':'#3a4d63';
+    n.door.setAttribute('stroke',col);
+    n.trailer.setAttribute('stroke',on?col:'rgba(139,160,182,.3)');
+    n.trailer.setAttribute('fill',on?col+'22':'rgba(139,160,182,.10)');
+    n.lbl.setAttribute('fill',on?col:'#8ba0b6');
+    n.lbl.textContent=on?d.id+' '+d.loaded+'/'+d.need:d.id;
+  });
+}
+function animate(){
+  truckNodes.forEach(t=>{
+    const tr=t.truck;
+    t.g.setAttribute('transform','translate('+px(tr.x).toFixed(1)+','+px(tr.y).toFixed(1)+')');
+    const carrying=tr.task&&tr.t>=(tr.task.d1/Math.max(0.01,tr.task.dist))*tr.task.travelS;
+    t.load.setAttribute('opacity',carrying?1:0);
+    t.body.setAttribute('opacity',tr.down>0?.28:(tr.task?.95:.5));
+    t.body.setAttribute('fill',tr.down>0?'#ff5468':(tr.type==='clamp'?'#37b6ff':'#b694e8'));
+  });
+  requestAnimationFrame(animate);
+}
+
+/* =====================================================================
+   RACK ELEVATION  —  address depth drives the layout
+   ===================================================================== */
+function elevDims(z){
+  const ix=n=>z.levelNames.indexOf(n);
+  const pick=names=>{ for(const n of names){ const i=ix(n); if(i>=0) return i; } return -1; };
+  return { sel:pick(['aisle']), row:pick(['level','tier']), col:pick(['bay','lane']),
+           sub:pick(['pos','bin','depth']) };
+}
+function renderElevation(){
+  const z=zoneOf(S.sel.zone), box=$('elevBox'), leg=$('elevLegend');
+  if(!z){ box.innerHTML=''; return; }
+  if(z.kind==='stockpile'){ box.innerHTML=pileSection(z);
+    leg.innerHTML='<span>repose '+z.geom.reposeDeg+'° · bulk '+z.geom.bulkTm3+' t/m³ · '
+      +fmt(pileTonnes(z).tonnes,0)+' t per pile</span>'; return; }
+  const D=elevDims(z), d=z.dims, names=z.levelNames;
+  const nRow=d[names[D.row]], nCol=d[names[D.col]], nSub=D.sub>=0?d[names[D.sub]]:1;
+  const selVal=D.sel>=0?clamp(S.sel.aisle,0,d[names[D.sel]]-1):0;
+  const arr=S.slots[z.id];
+  let html='<div class="elevgrid">';
+  for(let r=nRow-1;r>=0;r--){
+    html+='<div class="elevrow"><div class="lv">'+names[D.row].toUpperCase()+' '+(r+1)+'</div>';
+    for(let c=0;c<nCol;c++){
+      html+='<div class="bay">';
+      for(let s=0;s<nSub;s++){
+        const parts=new Array(names.length).fill(0);
+        if(D.sel>=0) parts[D.sel]=selVal;
+        parts[D.row]=r; parts[D.col]=c; if(D.sub>=0) parts[D.sub]=s;
+        const idx=encode(z,parts), v=arr[idx];
+        let cls='slot', st='', title=addrStr(z,idx);
+        if(v){
+          const u=S.units[v-1];
+          if(u){
+            const ageH=(S.simMin-u.born)/60;
+            let col=S.heat==='age'?ageCol(ageH):z.colour;
+            let buried=false;
+            if(z.kind==='block'){
+              const n=S.lane[z.id][c];
+              const pos=(function(){ for(let k=0;k<n;k++) if(blockSlot(z,c,k)===idx) return k; return -1; })();
+              buried = pos>=0 && pos<n-1;
+            }
+            cls+=' occ'+(u.hold?' hold':'');
+            st='background:'+col+(buried?';opacity:.45':'');
+            title+=' · '+u.id+' · '+fmt(ageH,1)+' h'+(u.hold?' · HOLD':'')+(buried?' · buried':'');
+          }
+        }
+        html+='<div class="'+cls+'" style="'+st+'" title="'+title+'"></div>';
+      }
+      html+='</div>';
+    }
+    html+='</div>';
+  }
+  html+='<div class="elevax"><div class="lv"></div>';
+  for(let c=0;c<nCol;c++){
+    const w=nSub*9+(nSub-1)*1;
+    html+='<div class="bt" style="width:'+w+'px">'+((c+1)%5===0||nCol<=12?(c+1):'')+'</div>';
+  }
+  html+='</div></div>';
+  box.innerHTML=html;
+  const seln=D.sel>=0?names[D.sel]+' '+(selVal+1)+' of '+d[names[D.sel]]:'all '+names[D.col]+'s';
+  leg.innerHTML='<span>'+z.id+' · '+seln+' · rows = '+names[D.row]+', columns = '+names[D.col]
+    +(D.sub>=0?', cells = '+names[D.sub]:'')+'</span>'
+    +(S.heat==='age'?'<span style="margin-left:auto">fresh <i class="sw" style="background:#22c58b"></i>'
+      +'<i class="sw" style="background:#f5b642"></i><i class="sw" style="background:#ff5468"></i> '
+      +WAREHOUSE.policy.shelfLifeH+' h</span>'
+      :'<span style="margin-left:auto"><i class="sw" style="background:'+z.colour+'"></i> occupied &nbsp;'
+      +'<i class="sw" style="background:#0a1119"></i> empty &nbsp;'
+      +'<i class="sw" style="background:'+z.colour+';opacity:.45"></i> buried</span>');
+}
+function pileSection(z){
+  const g=z.geom, p=pileTonnes(z);
+  const W=460,H=170, sc=Math.min((W-80)/(g.bayWm*1.15),(H-50)/(g.maxHm*1.25));
+  const bx=(W-g.bayWm*sc)/2, by=H-26;
+  const hy=by-p.h*sc;
+  const halfTop=p.topW/2, cx=W/2;
+  const pts=p.topW>0
+    ? `${bx},${by} ${cx-halfTop*sc},${hy} ${cx+halfTop*sc},${hy} ${bx+g.bayWm*sc},${by}`
+    : `${bx},${by} ${cx},${hy} ${bx+g.bayWm*sc},${by}`;
+  const fillFrac=clamp(S.bulk[z.id]/Math.max(0.001,zoneCapT(z)),0,1);
+  return `<svg class="panelsvg" viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid meet">
+    <line x1="${bx-20}" y1="${by}" x2="${bx+g.bayWm*sc+20}" y2="${by}" stroke="#3a4d63" stroke-width="2"/>
+    <line x1="${bx-14}" y1="${by-g.maxHm*sc}" x2="${bx+g.bayWm*sc+14}" y2="${by-g.maxHm*sc}"
+      stroke="rgba(255,84,104,.5)" stroke-dasharray="5 4"/>
+    <text x="${bx+g.bayWm*sc+18}" y="${by-g.maxHm*sc-4}" fill="#ff5468" style="font:600 9px var(--mono)">max ${g.maxHm} m</text>
+    <polygon points="${pts}" fill="${z.colour}22" stroke="${z.colour}" stroke-width="1.5"/>
+    <polygon points="${pts}" fill="${z.colour}" opacity="${0.15+0.5*fillFrac}"/>
+    <text x="${cx}" y="${hy-8}" text-anchor="middle" fill="#e8eef6" style="font:700 11px var(--mono)">
+      ${fmt(p.h,2)} m at ${g.reposeDeg}°</text>
+    <text x="${bx}" y="${by+16}" fill="#8ba0b6" style="font:600 9px var(--mono)">${g.bayWm} m bay width</text>
+    <text x="${bx+g.bayWm*sc}" y="${by+16}" text-anchor="end" fill="#8ba0b6" style="font:600 9px var(--mono)">
+      ${fmt(p.area,1)} m² × ${g.bayLm} m = ${fmt(p.volume,0)} m³</text>
+    <text x="${cx}" y="${by-6}" text-anchor="middle" fill="#0b1016" style="font:800 11px var(--mono)">
+      ${fmt(S.bulk[z.id]/z.dims.pile,0)} t</text>
+  </svg>`;
+}
+
+/* =====================================================================
+   AGGREGATES
+   ===================================================================== */
+function stockAgg(){
+  const L=WAREHOUSE.policy.shelfLifeH;
+  const edges=[2,12,24,48,L,Infinity];
+  const byKind={roll:{n:0,t:0,oldest:null},pallet:{n:0,t:0,oldest:null}};
+  const bySku={}, buckets=new Array(edges.length).fill(0);
+  const byZone={};
+  let holds=0, over=0, buried=0;
+  WAREHOUSE.zones.forEach(z=>byZone[z.id]={n:0,t:0,ageSum:0});
+  for(let i=0;i<S.units.length;i++){
+    const u=S.units[i]; if(!u) continue;
+    const k=byKind[u.kind]; if(!k) continue;
+    const ageH=(S.simMin-u.born)/60;
+    k.n++; k.t+=u.kg/1000;
+    if(!k.oldest||u.born<k.oldest.born) k.oldest=u;
+    if(u.hold) holds++;
+    if(ageH>L) over++;
+    let bi=edges.findIndex(e=>ageH<=e); if(bi<0) bi=edges.length-1;
+    buckets[bi]++;
+    const s=bySku[u.sku]||(bySku[u.sku]={n:0,t:0,oldest:null,zones:new Set(),kind:u.kind});
+    s.n++; s.t+=u.kg/1000; if(!s.oldest||u.born<s.oldest.born) s.oldest=u;
+    if(u.zone){ s.zones.add(u.zone);
+      const bz=byZone[u.zone]; if(bz){ bz.n++; bz.t+=u.kg/1000; bz.ageSum+=ageH; } }
+  }
+  WAREHOUSE.zones.filter(z=>z.kind==='block').forEach(z=>{
+    for(let ln=0;ln<z.dims.lane;ln++) buried+=Math.max(0,S.lane[z.id][ln]-1);
+  });
+  return {byKind,bySku,byZone,buckets,edges,holds,over,buried};
+}
+function rateSeries(a,smooth){
+  const mpt=WAREHOUSE.updateMs/60000*WAREHOUSE.simTimeScale;
+  const raw=[];
+  for(let i=1;i<a.length;i++) raw.push((a[i]-a[i-1])/mpt*60);
+  if(!smooth) return raw;
+  const out=[];
+  for(let i=0;i<raw.length;i++){
+    const s=Math.max(0,i-smooth+1);
+    out.push(mean(raw.slice(s,i+1)));
+  }
+  return out;
+}
+function poly(vals,w,h,min,max,pad){
+  pad=pad||6; if(!vals.length) return '';
+  const n=vals.length;
+  return vals.map((v,i)=>{
+    const x=pad+(w-2*pad)*(n>1?i/(n-1):0);
+    const y=h-pad-(h-2*pad)*clamp((v-min)/((max-min)||1),0,1);
+    return (i?'L':'M')+x.toFixed(1)+' '+y.toFixed(1);
+  }).join(' ');
+}
+function drow(k,v){return `<div class="drow"><span class="k">${k}</span><span class="v">${v}</span></div>`;}
+function caprow(l,v,cap,txt,col){
+  const p=clamp(cap>0?v/cap*100:0,0,100);
+  return `<div class="caprow"><div class="cl">${l}</div><div class="cb">
+    <i style="width:${p}%;background:${col||fillCol(p/100)}"></i></div>
+    <div class="cv">${txt}</div></div>`;
+}
+
+/* =====================================================================
+   RENDER
+   ===================================================================== */
+let activeTab='floor';
+function render(){
+  const A=stockAgg();
+  $('whName').textContent=WAREHOUSE.name;
+  $('whSite').textContent=WAREHOUSE.site;
+  $('whAsset').textContent=WAREHOUSE.asset;
+  $('whFill').textContent=fmt(fillPct(),1)+'%';
+  $('planTag').textContent='live twin · sim ×'+WAREHOUSE.simTimeScale;
+  $('ftNote').textContent='simulated data · sim ×'+WAREHOUSE.simTimeScale;
+  setState();
+  if(kioskOn){ renderKiosk(A); return; }
+  if(S.view==='plan'){ $('twin').style.display='block'; $('elevHost').hidden=true; renderPlan(); }
+  else { $('twin').style.display='none'; $('elevHost').hidden=false; renderElevation(); }
+  $('planTitle').textContent=S.view==='plan'
+    ? 'Warehouse Plan — Zones, Aisles & Traffic'
+    : 'Rack Elevation — '+S.sel.zone+' '+(zoneOf(S.sel.zone)||{}).name;
+  ['vPlan','vElev'].forEach(id=>$(id).classList.toggle('on',
+    (id==='vPlan')===(S.view==='plan')));
+  $('vHeat').classList.toggle('on',S.heat==='fill');
+  $('vAge').classList.toggle('on',S.heat==='age');
+  renderAlarms();
+  if(activeTab==='floor')    renderFloor(A);
+  if(activeTab==='stock')    renderStock(A);
+  if(activeTab==='movement') renderMovement();
+  if(activeTab==='capacity') renderCapacity(A);
+}
+function renderAlarms(){
+  const act=S.alarms.filter(a=>a.sev!=='info').length;
+  $('almTag').textContent=act+' active';
+  $('alarmList').innerHTML=S.alarms.length?S.alarms.slice(0,14).map(a=>
+    `<div class="alarm ${a.sev==='alarm'?'crit':a.sev}"><span class="ico">${
+      a.sev==='alarm'?'✕':a.sev==='warn'?'!':'i'}</span>
+      <div class="txt"><div class="m">${a.msg}</div><div class="t">${a.ts}</div></div></div>`).join('')
+    :'<div class="noalarm">No active alarms — all zones within limits</div>';
+}
+function setState(){
+  const full=WAREHOUSE.zones.some(z=>{
+    const cap=z.kind==='stockpile'?zoneCapT(z):slotCount(z);
+    const use=z.kind==='stockpile'?S.bulk[z.id]:S.fill[z.id];
+    return cap&&use/cap>0.95; });
+  const back=S.tasks.length>45;
+  const cls=full?'st-alarm':back?'st-hold':S.running?'st-run':'st-stop';
+  const lbl=full?'ZONE FULL':back?'TASK BACKLOG':S.running?'RUNNING':'STOPPED';
+  const p=$('statepill'); p.className='statepill '+cls; $('stateTxt').textContent=lbl;
+  $('btnRun').classList.toggle('active',S.running);
+  const kp=$('kPill'); if(kp){ kp.className='statepill '+cls;
+    kp.style.fontSize='15px'; kp.style.padding='10px 20px'; $('kState').textContent=lbl; }
+}
+
+/* ---------------- FLOOR ---------------- */
+function renderFloor(A){
+  const util=fleetUtil()*100;
+  const tiles=[
+    ['Fill',fmt(fillPct(),1),'% of capacity',fillCol(fillPct()/100)],
+    ['Units stored',fmt(A.byKind.roll.n+A.byKind.pallet.n),'rolls + pallets','var(--ink)'],
+    ['Stock',fmt(A.byKind.roll.t+A.byKind.pallet.t+ (S.bulk.D||0),0),'t on hand','var(--accent)'],
+    ['Putaway',fmt(ratePerH('put')),'moves / h','var(--accent)'],
+    ['Retrieval',fmt(ratePerH('ret')),'moves / h','var(--violet)'],
+    ['Fleet util',fmt(util),'%',util>92?'var(--alarm)':util>80?'var(--warn)':'var(--ok)'],
+    ['Task queue',S.tasks.length,'waiting',S.tasks.length>40?'var(--alarm)':S.tasks.length>20?'var(--warn)':'var(--ok)'],
+    ['FIFO',fmt(S.picks?S.fifoOk/S.picks*100:100,1),'% compliant',
+      (S.picks&&S.fifoOk/S.picks<0.9)?'var(--warn)':'var(--ok)'],
+  ];
+  $('kpiTiles').innerHTML=tiles.map(([l,n,u,c])=>
+    `<div class="mtile"><div class="n" style="color:${c}">${n}</div><div class="u">${u}</div><div class="l">${l}</div></div>`).join('');
+  $('kpiTag').textContent='shift '+hhmm(S.simMin%(WAREHOUSE.shiftHours*60))+' of '+WAREHOUSE.shiftHours+':00';
+
+  $('zoneRows').innerHTML=WAREHOUSE.zones.map(z=>{
+    const isT=z.kind==='stockpile';
+    const cap=isT?zoneCapT(z):slotCount(z);
+    const use=isT?S.bulk[z.id]:S.fill[z.id];
+    const p=cap?use/cap*100:0;
+    const capT=zoneCapT(z), useT=isT?S.bulk[z.id]:S.fill[z.id]*unitKg(z)/1000;
+    const az=A.byZone[z.id];
+    return `<div class="zrow ${S.sel.zone===z.id?'sel':''}" data-z="${z.id}">
+      <div class="zh"><span class="zk" style="background:${z.colour}"></span>
+        <span class="zn">${z.id} · ${z.name}</span><span class="zkind">${z.kind}</span>
+        <span class="zv">${isT?fmt(use,0)+' / '+fmt(cap,0)+' t':fmt(use)+' / '+fmt(cap)}</span></div>
+      <div class="zbar"><i style="width:${clamp(p,0,100)}%;background:${fillCol(p/100)}"></i>
+        <span class="mk" style="left:92%"></span></div>
+      <div class="zfoot">${fmt(p,1)}% · ${fmt(useT,0)} / ${fmt(capT,0)} t · ${z.levelNames.join('/')}${
+        az&&az.n?' · mean age '+fmt(az.ageSum/az.n,1)+' h':''}</div></div>`;
+  }).join('');
+  document.querySelectorAll('#zoneRows .zrow').forEach(r=>r.onclick=()=>{
+    S.sel={zone:r.dataset.z,aisle:0}; render(); });
+
+  // heat cells: one per aisle (or lane / pile)
+  const z=zoneOf(S.sel.zone);
+  if(z){
+    const st=runStats(z);
+    const D=z.kind==='rack'?'aisle':z.kind==='block'?'lane':'pile';
+    let cells=[];
+    if(z.kind==='rack'){
+      for(let a=0;a<z.dims.aisle;a++){
+        const l=st[a*2]||{n:0,cap:1,ageH:0}, r=st[a*2+1]||{n:0,cap:1,ageH:0};
+        cells.push({i:a,n:l.n+r.n,cap:l.cap+r.cap,ageH:(l.ageH+r.ageH)/2});
+      }
+    } else cells=st.map((s,i)=>({i,...s}));
+    $('heatHd').textContent=(S.heat==='age'?'Mean Age by ':'Fill by ')+D.charAt(0).toUpperCase()+D.slice(1);
+    $('heatTag').textContent=z.id+' · '+cells.length+' '+D+'s';
+    $('heatCells').innerHTML=cells.map(c=>{
+      const col=heatColOf(c.n,c.cap,c.ageH);
+      const t=S.heat==='age'?fmt(c.ageH,0)+' h':fmt(c.cap?c.n/c.cap*100:0)+'%';
+      return `<div class="hc ${c.i===S.sel.aisle?'sel':''}" data-i="${c.i}" style="background:${col}"
+        title="${D} ${c.i+1} · ${fmt(c.n,z.kind==='stockpile'?0:0)}/${fmt(c.cap,0)} · ${t}">${c.i+1}</div>`;
+    }).join('');
+    document.querySelectorAll('#heatCells .hc').forEach(h=>h.onclick=()=>{
+      S.sel.aisle=+h.dataset.i; render(); });
+    $('heatLeg').innerHTML=S.heat==='age'
+      ? '<span>fresh</span><i class="sw" style="background:#22c58b"></i><i class="sw" style="background:#7fbf55"></i>'
+        +'<i class="sw" style="background:#f5b642"></i><i class="sw" style="background:#ff5468"></i>'
+        +'<span>'+WAREHOUSE.policy.shelfLifeH+' h</span>'
+      : '<span>empty</span>'+[0,.35,.6,.8,.92,1].map(f=>
+          '<i class="sw" style="background:'+fillCol(f)+'"></i>').join('')+'<span>full</span>';
+    // selected location detail
+    const st2=st[z.kind==='rack'?S.sel.aisle*2:S.sel.aisle]||{n:0,cap:0,ageH:0};
+    const sample=sampleSlot(z,S.sel.aisle);
+    $('selTag').textContent=addrLabel(z);
+    $('selRows').innerHTML=[
+      drow('Zone',z.id+' — '+z.name),
+      drow('Capacity model',z.kind==='stockpile'?'geometry × bulk density':'discrete slots'),
+      drow('Address depth',z.levelNames.length+' levels <small>'+z.levelNames.join(' / ')+'</small>'),
+      drow('Slots per '+(z.kind==='rack'?'aisle':z.kind==='block'?'lane':'pile'),
+        z.kind==='stockpile'?fmt(pileTonnes(z).tonnes,0)+' t':fmt(slotCount(z)/(z.dims[z.levelNames[0]]))),
+      drow('Selected '+z.levelNames[0],(S.sel.aisle+1)+' of '+z.dims[z.levelNames[0]]),
+      drow('Access policy',z.kind==='block'?'LIFO — '+z.dims.depth+' deep':z.kind==='stockpile'?'LIFO reclaim':'direct, any slot'),
+      drow('Handled by',(WAREHOUSE.fleet.find(f=>f.id===z.truck)||{name:z.truck}).name),
+      sample?drow('Example address','<span class="addr">'+sample.addr+'</span> <small>'+sample.info+'</small>')
+        :drow('Example address','—'),
+    ].join('');
+  }
+  const I=WAREHOUSE.intake;
+  $('inTag').textContent='from FP-1';
+  const inT=(I.rollPerH*I.roll.kg+I.pilePerH*I.pile.kg)/1000;
+  $('intakeRows').innerHTML=[
+    drow('Wrapped rolls',fmt(I.rollPerH)+' /h <small>'+fmt(I.rollPerH*I.roll.kg/1000,1)+' t/h</small>'),
+    drow('Wrapped piles',fmt(I.pilePerH)+' /h <small>'+fmt(I.pilePerH*I.pile.kg/1000,1)+' t/h</small>'),
+    drow('Consolidation',I.pilesPerPallet+' piles → 1 pallet <small>'+fmt(palletKg())+' kg</small>'),
+    drow('Piles held',fmt(S.pilesHeld)+' <small>of '+I.pilesPerPallet+'</small>'),
+    drow('Total intake',fmt(inT,1)+' t/h'),
+    drow('Received',fmt(S.received.roll)+' rolls · '+fmt(S.received.pallet)+' pallets'),
+    drow('Cross-docked',fmt(S.crossDock.roll+S.crossDock.pallet)+' <small>'+
+      fmt(I.crossDockRollPct)+'% / '+fmt(I.crossDockPalletPct)+'% policy</small>'),
+    drow('Staged now',fmt(S.staged.length)+' <small>cap '+WAREHOUSE.staging.capUnits+'</small>'),
+  ].join('');
+}
+function sampleSlot(z,sel){
+  if(z.kind==='stockpile') return {addr:addrStr(z,sel),info:fmt(S.bulk[z.id]/z.dims.pile,0)+' t'};
+  const arr=S.slots[z.id];
+  const first=z.levelNames[0];
+  for(let i=0;i<arr.length;i++){
+    if(!arr[i]) continue;
+    if(decode(z,i)[0]!==sel) continue;
+    const u=S.units[arr[i]-1]; if(!u) continue;
+    return {addr:addrStr(z,i),info:u.id+' · '+fmt((S.simMin-u.born)/60,1)+' h'};
+  }
+  return null;
+}
+
+/* ---------------- STOCK ---------------- */
+function renderStock(A){
+  const L=WAREHOUSE.policy.shelfLifeH;
+  const labels=['< 2 h','2–12 h','12–24 h','24–48 h','48–'+L+' h','> '+L+' h'];
+  const maxB=Math.max(1,...A.buckets);
+  $('ageTag').textContent=fmt(A.byKind.roll.n+A.byKind.pallet.n)+' units';
+  $('ageBars').innerHTML=A.buckets.map((v,i)=>{
+    const f=(i+0.5)/A.buckets.length;
+    return `<div class="ab"><div class="n">${fmt(v)}</div>
+      <i style="height:${clamp(v/maxB*100,1,100)}%;background:${ramp(AGE_STOPS,f)}"></i></div>`;
+  }).join('');
+  $('ageLbl').innerHTML=labels.map(l=>`<div>${l}</div>`).join('');
+  const oldR=A.byKind.roll.oldest, oldP=A.byKind.pallet.oldest;
+  $('ageRows').innerHTML=[
+    drow('Oldest roll',oldR?fmt((S.simMin-oldR.born)/60,1)+' h <small>'+oldR.id+'</small>':'—'),
+    drow('Oldest pallet',oldP?fmt((S.simMin-oldP.born)/60,1)+' h <small>'+oldP.id+'</small>':'—'),
+    drow('Over shelf life',fmt(A.over)+' units <small>limit '+L+' h</small>'),
+    drow('Buried in block stack',fmt(A.buried)+' units <small>behind another roll</small>'),
+    drow('On QA hold',fmt(A.holds)+' units'),
+  ].join('');
+
+  const fifoPct=S.picks?S.fifoOk/S.picks*100:100;
+  $('fifoTag').textContent=fmt(S.picks)+' picks';
+  $('fifoRows').innerHTML=[
+    drow('FIFO compliance',fmt(fifoPct,1)+'% <small>oldest '+WAREHOUSE.policy.fifoWindowPct+'% window</small>'),
+    drow('Breaches on dispatch',fmt(S.breaches)+' <small>units shipped over '+L+' h</small>'),
+    drow('Digs performed',fmt(S.digs)+' <small>'+fmt(S.relocs)+' relocation moves</small>'),
+    drow('Direct-access zones',WAREHOUSE.zones.filter(z=>z.access==='direct').map(z=>z.id).join(', ')||'—'),
+    drow('LIFO-constrained zones',WAREHOUSE.zones.filter(z=>z.access==='lifo').map(z=>z.id).join(', ')||'—'),
+  ].join('');
+  const ser=S.trend.fifo.slice(-60);
+  const svg=$('fifoChart');
+  svg.innerHTML=`<line x1="6" y1="${120-6-(120-12)*0.9}" x2="474" y2="${120-6-(120-12)*0.9}"
+      stroke="rgba(245,182,66,.5)" stroke-dasharray="4 4"/>
+    <path d="${poly(ser,480,120,50,100)}" fill="none" stroke="var(--ok)" stroke-width="2"/>
+    <text x="10" y="14" fill="#5f7386" style="font:600 9px var(--mono)">100%</text>
+    <text x="10" y="114" fill="#5f7386" style="font:600 9px var(--mono)">50%</text>
+    <text x="470" y="14" text-anchor="end" fill="#f5b642" style="font:600 9px var(--mono)">90% target</text>`;
+
+  const skus=Object.entries(A.bySku).sort((a,b)=>b[1].t-a[1].t);
+  $('skuTag').textContent=skus.length+' products';
+  $('skuRows').innerHTML=skus.map(([sku,s])=>{
+    const p=WAREHOUSE.products.find(x=>x.sku===sku);
+    const age=s.oldest?(S.simMin-s.oldest.born)/60:0;
+    return `<tr><td>${sku}<br><small style="color:var(--dim)">${p?p.name:''}</small></td>
+      <td>${s.kind}</td><td>${fmt(s.n)}</td><td>${fmt(s.t,1)}</td>
+      <td style="color:${age>L?'var(--alarm)':age>L*0.6?'var(--warn)':'var(--ink)'}">${fmt(age,1)} h</td>
+      <td>${[...s.zones].sort().join(' ')}</td></tr>`;
+  }).join('')||'<tr><td colspan="6" style="text-align:center;color:var(--muted)">no stock</td></tr>';
+
+  $('holdTag').textContent=fmt(A.holds)+' held · '+fmt(A.over)+' over age';
+  renderTrace();
+}
+function renderTrace(){
+  const u=S.selUnit;
+  if(!u||!S.units[u.i]){ $('traceRows').innerHTML=
+    '<div class="noalarm">Enter a unit ID, or press “Oldest unit”, to trace a roll or pallet.</div>'; return; }
+  const z=u.zone?zoneOf(u.zone):null;
+  const ageH=(S.simMin-u.born)/60;
+  $('traceRows').innerHTML=[
+    drow('Unit ID','<span class="addr">'+u.id+'</span>'),
+    drow('Product',u.sku+' <small>'+u.kind+'</small>'),
+    drow('Weight',fmt(u.kg)+' kg'),
+    drow('Status',u.status+(u.hold?' · QA HOLD':'')),
+    drow('Location',z?'<span class="addr">'+addrStr(z,u.slot)+'</span> <small>'+z.name+'</small>'
+      :(u.status==='staged'?'outbound staging':'in transit')),
+    drow('Age',fmt(ageH,2)+' h <small>'+(ageH>WAREHOUSE.policy.shelfLifeH?'over shelf life':'within limit')+'</small>'),
+    drow('Received at','T+'+hhmm(u.born)+' <small>sim clock</small>'),
+    z&&z.kind==='block'?drow('Dig depth',(function(){
+      const ln=decode(z,u.slot)[0], n=S.lane[z.id][ln];
+      let pos=-1; for(let k=0;k<n;k++) if(blockSlot(z,ln,k)===u.slot) pos=k;
+      return pos<0?'—':(n-1-pos)+' units in front';})()):'',
+  ].filter(Boolean).join('');
+}
+
+/* ---------------- MOVEMENT ---------------- */
+function renderMovement(){
+  const util=fleetUtil()*100;
+  $('fleetTag').textContent=S.trucks.length+' trucks · '+fmt(util)+'% util';
+  $('fleetBox').innerHTML=S.trucks.map(tr=>{
+    const busy=(tr.busyS+tr.idleS)>0?tr.busyS/(tr.busyS+tr.idleS)*100:0;
+    const st=tr.down>0?'DOWN '+fmt(tr.down,0)+' min':tr.task?tr.task.type+' '+(tr.task.zone||tr.task.door||''):'idle';
+    const col=tr.down>0?'var(--alarm)':tr.task?(tr.type==='clamp'?'var(--accent)':'var(--violet)'):'var(--dim)';
+    return `<div class="ftruck"><div class="fn" style="color:${col}">${tr.id}</div>
+      <div class="fs">${st}</div>
+      <div class="fb"><i style="width:${clamp(busy,0,100)}%;background:${busy>92?'var(--alarm)':busy>80?'var(--warn)':'var(--ok)'}"></i></div>
+      <div class="fs" style="color:var(--dim)">${fmt(busy)}% · ${fmt(tr.moves)} moves</div></div>`;
+  }).join('');
+  const totalMoves=Object.values(S.moves).reduce((a,b)=>a+b,0);
+  $('fleetRows').innerHTML=[
+    drow('Fleet utilisation',fmt(util,1)+'%'),
+    drow('Moves completed',fmt(totalMoves)),
+    drow('Travel',fmt(S.travelM/1000,1)+' km <small>'+fmt(totalMoves?S.travelM/totalMoves:0)+' m / move</small>'),
+    drow('Trucks down',fmt(S.trucks.filter(t=>t.down>0).length)),
+  ].join('');
+
+  $('taskTag').textContent=S.tasks.length+' queued';
+  const shown=S.tasks.slice(0,26);
+  $('taskRows').innerHTML=shown.map(t=>{
+    const z=t.zone?zoneOf(t.zone):null;
+    const where=t.type==='LOAD'?('door '+t.door):z?addrStr(z,t.slot):'staging';
+    return `<div class="r"><span class="ty ty-${t.type}">${t.type}</span>
+      <span class="g">${t.unit?t.unit.id:'—'} → ${where}</span>
+      <span class="w">${fmt(S.simMin-t.born,1)} min</span></div>`;
+  }).join('')||'<div class="noalarm">Queue empty — every move assigned</div>';
+
+  const put=rateSeries(S.trend.put,6), ret=rateSeries(S.trend.ret,6), ld=rateSeries(S.trend.load,6);
+  const mx=Math.max(20,...put,...ret,...ld);
+  $('moveChart').innerHTML=`
+    <path d="${poly(put,480,150,0,mx)}" fill="none" stroke="var(--accent)" stroke-width="2"/>
+    <path d="${poly(ret,480,150,0,mx)}" fill="none" stroke="var(--violet)" stroke-width="2"/>
+    <path d="${poly(ld,480,150,0,mx)}"  fill="none" stroke="var(--ok)" stroke-width="2"/>
+    <text x="10" y="14" fill="#5f7386" style="font:600 9px var(--mono)">${fmt(mx)}/h</text>
+    <text x="140" y="14" fill="#37b6ff" style="font:700 9px var(--mono)">putaway</text>
+    <text x="215" y="14" fill="#b694e8" style="font:700 9px var(--mono)">retrieval</text>
+    <text x="292" y="14" fill="#22c58b" style="font:700 9px var(--mono)">loading</text>`;
+  $('moveRows').innerHTML=[
+    drow('Putaway',fmt(ratePerH('put'))+' /h'),
+    drow('Retrieval',fmt(ratePerH('ret'))+' /h'),
+    drow('Loading',fmt(ratePerH('load'))+' /h'),
+    drow('Consolidations',fmt(S.moves.CONS)+' <small>'+WAREHOUSE.intake.pilesPerPallet+' piles each</small>'),
+  ].join('');
+
+  // per-zone travel share
+  const byZ={};
+  WAREHOUSE.zones.forEach(z=>byZ[z.id]=0);
+  const from=infeedPt();
+  WAREHOUSE.zones.forEach(z=>{
+    const P=z.plan;
+    byZ[z.id]=rectDist(from.x,from.y,P.x+P.w/2,P.y+P.h/2);
+  });
+  const mxD=Math.max(1,...Object.values(byZ));
+  $('travTag').textContent=fmt(S.travelM/1000,1)+' km travelled';
+  $('travRows').innerHTML=WAREHOUSE.zones.map(z=>{
+    const f=WAREHOUSE.fleet.find(x=>x.id===z.truck)||{velMs:2,hoistMs:.3,fixedS:50};
+    const lift=needFootprint(z).z/2;
+    const cyc=f.fixedS+2*byZ[z.id]/f.velMs+2*lift/f.hoistMs;
+    return caprow(z.id+' one-way',byZ[z.id],mxD,fmt(byZ[z.id])+' m · '+fmt(cyc)+' s',z.colour);
+  }).join('')+[
+    drow('Mean cycle (all moves)',fmt(S.trucks.reduce((a,t)=>a+t.busyS,0)/Math.max(1,Object.values(S.moves).reduce((a,b)=>a+b,0)))+' s'),
+    drow('Cross-dock avoided moves',fmt((S.crossDock.roll+S.crossDock.pallet)*2)+' <small>putaway + retrieval</small>'),
+  ].join('');
+
+  const T=WAREHOUSE.trailer;
+  $('dockTag').textContent=S.doors.filter(d=>d.state!=='empty').length+' of '+S.doors.length+' occupied';
+  $('dockBox').innerHTML=S.doors.map(d=>{
+    const cls={empty:'ds-empty',dock:'ds-dock',load:'ds-load',done:'ds-done'}[d.state];
+    const lab={empty:'EMPTY',dock:'DOCKING',load:'LOADING',done:'SEALED'}[d.state];
+    const p=d.need?d.loaded/d.need*100:0;
+    return `<div class="door"><div class="dh"><b>${d.id}</b><span class="dst ${cls}">${lab}</span></div>
+      <div class="di">${d.ship?d.ship.id+'<br>'+d.ship.dest:'&mdash;<br>&nbsp;'}</div>
+      <div class="dp"><i style="width:${clamp(p,0,100)}%"></i></div>
+      <div class="di" style="color:var(--dim)">${d.ship?fmt(d.loaded)+' / '+fmt(d.need)+' units':'awaiting trailer'}</div></div>`;
+  }).join('');
+
+  $('shipTag').textContent=S.shipments.filter(s=>s.state!=='shipped').length+' open';
+  $('shipRows').innerHTML=S.shipments.slice(-14).reverse().map(s=>{
+    const need=s.rolls+s.pallets, got=s.loaded.roll+s.loaded.pallet;
+    const due=s.dueMin-S.simMin;
+    const late=due<0&&s.state!=='shipped';
+    return `<tr><td>${s.id}<br><small style="color:var(--dim)">${s.customer}</small></td>
+      <td>${s.dest}</td>
+      <td>${s.rolls?fmt(s.rolls)+'R':''}${s.rolls&&s.pallets?' + ':''}${s.pallets?fmt(s.pallets)+'P':''}</td>
+      <td>${fmt(got)} / ${fmt(need)}</td>
+      <td style="color:${late?'var(--alarm)':'var(--muted)'}">${s.state==='shipped'?'—':(due>=0?'+':'−')+hhmm(Math.abs(due))}</td>
+      <td>${s.state}${s.door?' '+s.door:''}</td></tr>`;
+  }).join('');
+}
+
+/* ---------------- CAPACITY ---------------- */
+function renderCapacity(A){
+  let bad=0;
+  $('geoRows').innerHTML=WAREHOUSE.zones.map(z=>{
+    const f=fitOf(z), n=f.need, P=z.plan;
+    const ok=f.okW&&f.okH&&f.okZ; if(!ok) bad++;
+    const slots=z.kind==='stockpile'?z.dims.pile:slotCount(z);
+    return `<tr><td>${z.id} ${z.name}</td><td>${z.kind}</td>
+      <td class="addr">${z.levelNames.map(k=>z.dims[k]).join('×')}</td>
+      <td>${fmt(slots)}</td>
+      <td>${fmt(zoneCapT(z),0)} t</td>
+      <td>${fmt(n.w,1)} × ${fmt(n.h,1)} × ${fmt(n.z,1)}</td>
+      <td>${fmt(P.w,1)} × ${fmt(P.h,1)} × ${fmt(WAREHOUSE.building.clearM,1)}</td>
+      <td class="${ok?'ok':'bad'}">${ok?'fits':'OVER'}</td></tr>`;
+  }).join('');
+  const B=WAREHOUSE.building;
+  const used=WAREHOUSE.zones.reduce((a,z)=>a+z.plan.w*z.plan.h,0)+WAREHOUSE.staging.plan.w*WAREHOUSE.staging.plan.h;
+  $('geoTag').textContent=bad?bad+' zone(s) over':'all zones fit';
+  $('geoHint').className='msg '+(bad?'err':'ok');
+  $('geoHint').innerHTML=bad
+    ? 'A zone needs more floor than its plan rectangle gives it — the slot counts are not physically buildable as drawn. Reduce the counts or enlarge the rectangle.'
+    : 'Every zone\'s declared slot counts fit inside its plan rectangle and under the '+B.clearM
+      +' m clear height. Footprint used '+fmt(used,0)+' of '+fmt(B.lengthM*B.widthM,0)
+      +' m² ('+fmt(used/(B.lengthM*B.widthM)*100)+'%), the balance being aisles, the cross aisle and the dock apron.';
+
+  const I=WAREHOUSE.intake;
+  const palPerH=I.pilePerH/I.pilesPerPallet;
+  const rollSlots=zonesFor('roll').filter(z=>z.kind!=='stockpile').reduce((a,z)=>a+slotCount(z),0);
+  const palSlots=zonesFor('pallet').filter(z=>z.kind!=='stockpile').reduce((a,z)=>a+slotCount(z),0);
+  const rollUse=zonesFor('roll').filter(z=>z.kind!=='stockpile').reduce((a,z)=>a+S.fill[z.id],0);
+  const palUse=zonesFor('pallet').filter(z=>z.kind!=='stockpile').reduce((a,z)=>a+S.fill[z.id],0);
+  const netRoll=I.rollPerH*(1-I.crossDockRollPct/100)-ratePerH('ret')*0.6;
+  const hToFull=(x,cap,rate)=>rate>0.01?((cap-x)/rate):Infinity;
+  $('covTag').textContent='at current intake';
+  $('covRows').innerHTML=
+    caprow('Roll positions',rollUse,rollSlots,fmt(rollUse)+' / '+fmt(rollSlots))+
+    caprow('Pallet positions',palUse,palSlots,fmt(palUse)+' / '+fmt(palSlots))+
+    caprow('Stockpile D',S.bulk.D||0,zoneCapT(zoneOf('D')),fmt(S.bulk.D||0,0)+' / '+fmt(zoneCapT(zoneOf('D')),0)+' t','#f5b642')+
+    [
+      drow('Roll cover',fmt(rollSlots/Math.max(1,I.rollPerH),1)+' h <small>'+
+        fmt(rollSlots/Math.max(1,I.rollPerH)/24,2)+' days at full intake</small>'),
+      drow('Pallet cover',fmt(palSlots/Math.max(0.01,palPerH),1)+' h <small>'+
+        fmt(palSlots/Math.max(0.01,palPerH)/24,2)+' days</small>'),
+      drow('Total capacity',fmt(WAREHOUSE.zones.reduce((a,z)=>a+zoneCapT(z),0),0)+' t'),
+      drow('On hand',fmt(A.byKind.roll.t+A.byKind.pallet.t+(S.bulk.D||0),0)+' t <small>'+fmt(fillPct(),1)+'%</small>'),
+      drow('Trailer loads open',fmt(Math.ceil(S.shipments.filter(s=>s.state!=='shipped')
+        .reduce((a,s)=>a+(s.rolls-s.loaded.roll)/WAREHOUSE.trailer.rolls
+          +(s.pallets-s.loaded.pallet)/WAREHOUSE.trailer.pallets,0)))),
+    ].join('');
+
+  const wip=wipT();
+  const resid=S.receivedT+S.startWipT-S.dispatchedT-wip;
+  $('balRows').innerHTML=[
+    ['Opening stock',fmt(S.startWipT,2)+' t'],
+    ['Received from FP-1',fmt(S.receivedT,2)+' t'],
+    ['Dispatched to customers',fmt(S.dispatchedT-(S.reclaimT||0),2)+' t'],
+    ['Broke reclaimed to mill',fmt(S.reclaimT||0,2)+' t'],
+    ['Closing stock',fmt(wip,2)+' t'],
+    ['Residual (should be 0)',fmt(resid,3)+' t'],
+  ].map(([k,v])=>`<div class="r"><span class="k">${k}</span><span>${v}</span></div>`).join('');
+
+  const hrs=Math.max(0.01,S.runMin/60);
+  const moves=Object.values(S.moves).reduce((a,b)=>a+b,0);
+  const t=A.byKind.roll.t+A.byKind.pallet.t;
+  $('enTag').textContent=fmt(S.kw)+' kW now';
+  $('enRows').innerHTML=[
+    drow('Demand now',fmt(S.kw)+' kW <small>'+WAREHOUSE.energy.lightingKw+' kW lighting base</small>'),
+    drow('Energy',fmt(S.energyKwh,0)+' kWh <small>'+fmt(S.energyKwh/hrs,0)+' kWh/h</small>'),
+    drow('Cost',fmt(S.energyKwh*WAREHOUSE.energy.tariffPerKwh,0)+' <small>at '+
+      WAREHOUSE.energy.tariffPerKwh+' /kWh</small>'),
+    drow('Energy per tonne handled',fmt(S.dispatchedT>0?S.energyKwh/S.dispatchedT:0,2)+' kWh/t'),
+    drow('Moves per tonne dispatched',fmt(S.dispatchedT>0?moves/S.dispatchedT:0,2)),
+    drow('Touches per unit',fmt((S.moves.PUT+S.moves.RET+S.moves.LOAD+S.moves.RELOC)/
+      Math.max(1,S.dispatched.roll+S.dispatched.pallet),2)+' <small>2.0 is the ideal</small>'),
+  ].join('');
+}
+
+/* =====================================================================
+   KIOSK / WALL DISPLAY
+   ===================================================================== */
+let kioskOn=false, kView=0, kRotate=true, kElapsed=0, kBuilt=null;
+const KDWELL=15000;
+const KVIEWS=[
+  {id:'occ',   t:'Occupancy — Zones, Aisles &amp; Capacity'},
+  {id:'stock', t:'Stock — Ageing, FIFO &amp; Products'},
+  {id:'move',  t:'Movement — Fleet, Tasks &amp; Travel'},
+  {id:'dock',  t:'Docks — Trailers &amp; Shipments'},
+];
+function fitStage(){ if(!kioskOn) return;
+  const s=Math.min(window.innerWidth/1920,window.innerHeight/1080);
+  $('stage').style.transform=`translate(-50%,-50%) scale(${s})`; }
+function setMode(on){
+  kioskOn=on; document.body.classList.toggle('kiosk',on);
+  const twin=$('twin');
+  if(on){ twin.classList.add('kfit'); twin.style.display='block'; $('kSchematic').appendChild(twin); }
+  else  { twin.classList.remove('kfit'); document.querySelector('#deskRoot .top .card').insertBefore(twin,$('elevHost')); }
+  kBuilt=null; fitStage(); render(); }
+window.addEventListener('resize',fitStage);
+function kDotsRender(){
+  $('kDots').innerHTML=KVIEWS.map((v,i)=>`<span class="kdot ${i===kView?'on':''}" data-i="${i}"></span>`).join('');
+  document.querySelectorAll('#kDots .kdot').forEach(d=>d.onclick=()=>{
+    kView=+d.dataset.i;kElapsed=0;kBuilt=null;kDotsRender();render();}); }
+function kTick(dt){ if(!kioskOn) return;
+  if(kRotate){ kElapsed+=dt;
+    if(kElapsed>=KDWELL){kElapsed=0;kView=(kView+1)%KVIEWS.length;kBuilt=null;kDotsRender();render();} }
+  const p=$('kProg'); if(p) p.style.width=(kRotate?clamp(kElapsed/KDWELL*100,0,100):0)+'%'; }
+function kBuildPane(v){
+  const P=$('kPane');
+  $('kPaneTitle').innerHTML=KVIEWS.find(x=>x.id===v).t;
+  if(v==='occ') P.innerHTML=`
+    <div class="ksec" style="flex:0 0 auto"><div class="st">Zones <span id="kzHd">—</span></div><div id="kZones"></div></div>
+    <div class="ksec flexcol" style="flex:1 1 auto"><div class="st">Capacity &amp; geometry <span id="kgHd">—</span></div>
+      <div class="kscroll"><table class="tbl"><thead><tr><th>Zone</th><th>Address</th><th>Slots</th><th>Fill</th><th>Capacity</th><th>Fit</th></tr></thead>
+      <tbody id="kGeo"></tbody></table></div></div>
+    <div class="ksec" style="flex:0 0 auto"><div class="st">Cover at current intake <span id="kcHd">—</span></div><div id="kCov"></div></div>
+    <div class="ksec" style="flex:0 0 auto"><div class="st">Material balance <span id="kbHd">—</span></div><div class="bal" id="kBal"></div></div>`;
+  if(v==='stock') P.innerHTML=`
+    <div class="ksec" style="flex:0 0 auto"><div class="st">Age profile <span id="kaHd">—</span></div>
+      <div class="agebars" id="kAge"></div><div class="agelbl" id="kAgeL"></div></div>
+    <div class="ksec" style="flex:0 0 auto"><div class="st">FIFO / FEFO <span id="kfHd">—</span></div><div id="kFifo"></div></div>
+    <div class="ksec flexcol" style="flex:1 1 auto"><div class="st">Stock by product <span id="ksHd">—</span></div>
+      <div class="kscroll"><table class="tbl"><thead><tr><th>Product</th><th>Units</th><th>Tonnes</th><th>Oldest</th><th>Zones</th></tr></thead>
+      <tbody id="kSku"></tbody></table></div></div>`;
+  if(v==='move') P.innerHTML=`
+    <div class="ksec" style="flex:0 0 auto"><div class="st">Fleet <span id="kflHd">—</span></div><div class="fleet" id="kFleet"></div></div>
+    <div class="ksec flexcol" style="flex:1 1 auto"><div class="st">Throughput <span id="kmHd">—</span></div>
+      <svg id="kMove" class="kchart" viewBox="0 0 620 190" preserveAspectRatio="none"></svg></div>
+    <div class="ksec" style="flex:0 0 auto"><div class="st">Travel &amp; touches <span id="ktHd">—</span></div><div id="kTrav"></div></div>`;
+  if(v==='dock') P.innerHTML=`
+    <div class="ksec" style="flex:0 0 auto"><div class="st">Dock doors <span id="kdHd">—</span></div><div class="docks" id="kDock"></div></div>
+    <div class="ksec flexcol" style="flex:1 1 auto"><div class="st">Shipments <span id="kshHd">—</span></div>
+      <div class="kscroll"><table class="tbl"><thead><tr><th>Shipment</th><th>Dest</th><th>Load</th><th>Loaded</th><th>Due</th><th>State</th></tr></thead>
+      <tbody id="kShip"></tbody></table></div></div>`;
+  kBuilt=v;
+}
+function kUpdate(v,A){
+  if(v==='occ'){
+    $('kzHd').textContent=fmt(fillPct(),1)+'% overall';
+    $('kZones').innerHTML=WAREHOUSE.zones.map(z=>{
+      const isT=z.kind==='stockpile';
+      const cap=isT?zoneCapT(z):slotCount(z), use=isT?S.bulk[z.id]:S.fill[z.id];
+      const p=cap?use/cap*100:0;
+      return caprow(z.id+' '+z.kind,use,cap,fmt(p,1)+'% · '+(isT?fmt(use,0)+'/'+fmt(cap,0)+' t':fmt(use)+'/'+fmt(cap)),fillCol(p/100));
+    }).join('');
+    let bad=0;
+    $('kGeo').innerHTML=WAREHOUSE.zones.map(z=>{
+      const f=fitOf(z), ok=f.okW&&f.okH&&f.okZ; if(!ok) bad++;
+      const isT=z.kind==='stockpile';
+      const cap=isT?zoneCapT(z):slotCount(z), use=isT?S.bulk[z.id]:S.fill[z.id];
+      return `<tr><td>${z.id} ${z.name}</td><td class="addr">${z.levelNames.map(k=>z.dims[k]).join('×')}</td>
+        <td>${fmt(isT?z.dims.pile:slotCount(z))}</td><td>${fmt(cap?use/cap*100:0,1)}%</td>
+        <td>${fmt(zoneCapT(z),0)} t</td><td class="${ok?'ok':'bad'}">${ok?'fits':'OVER'}</td></tr>`;
+    }).join('');
+    $('kgHd').textContent=bad?bad+' over':'all fit';
+    const I=WAREHOUSE.intake, palPerH=I.pilePerH/I.pilesPerPallet;
+    const rollSlots=zonesFor('roll').filter(z=>z.kind!=='stockpile').reduce((a,z)=>a+slotCount(z),0);
+    const palSlots=zonesFor('pallet').filter(z=>z.kind!=='stockpile').reduce((a,z)=>a+slotCount(z),0);
+    const rollUse=zonesFor('roll').filter(z=>z.kind!=='stockpile').reduce((a,z)=>a+S.fill[z.id],0);
+    const palUse=zonesFor('pallet').filter(z=>z.kind!=='stockpile').reduce((a,z)=>a+S.fill[z.id],0);
+    $('kcHd').textContent=fmt(trailersPerH('roll')+trailersPerH('pallet'),2)+' trailers/h out';
+    $('kCov').innerHTML=
+      caprow('Roll positions',rollUse,rollSlots,fmt(rollUse)+' / '+fmt(rollSlots)+' · '
+        +fmt(rollSlots/Math.max(1,I.rollPerH),1)+' h cover')+
+      caprow('Pallet positions',palUse,palSlots,fmt(palUse)+' / '+fmt(palSlots)+' · '
+        +fmt(palSlots/Math.max(0.01,palPerH),1)+' h cover')+
+      caprow('Outbound staging',S.staged.length,WAREHOUSE.staging.capUnits,
+        fmt(S.staged.length)+' / '+WAREHOUSE.staging.capUnits+' units','var(--ok)');
+    const wip=wipT(), resid=S.receivedT+S.startWipT-S.dispatchedT-wip;
+    $('kbHd').textContent='residual '+fmt(resid,3)+' t';
+    $('kBal').innerHTML=[['Opening',fmt(S.startWipT,1)+' t'],['Received',fmt(S.receivedT,1)+' t'],
+      ['Dispatched',fmt(S.dispatchedT,1)+' t'],['Closing',fmt(wip,1)+' t'],
+      ['Residual',fmt(resid,3)+' t']]
+      .map(([k,x])=>`<div class="r"><span class="k">${k}</span><span>${x}</span></div>`).join('');
+  }
+  if(v==='stock'){
+    const L=WAREHOUSE.policy.shelfLifeH;
+    const labels=['<2 h','2–12','12–24','24–48','48–'+L,'>'+L];
+    const mx=Math.max(1,...A.buckets);
+    $('kaHd').textContent=fmt(A.byKind.roll.n+A.byKind.pallet.n)+' units';
+    $('kAge').innerHTML=A.buckets.map((x,i)=>`<div class="ab"><div class="n">${fmt(x)}</div>
+      <i style="height:${clamp(x/mx*100,1,100)}%;background:${ramp(AGE_STOPS,(i+0.5)/A.buckets.length)}"></i></div>`).join('');
+    $('kAgeL').innerHTML=labels.map(l=>`<div>${l}</div>`).join('');
+    const fp=S.picks?S.fifoOk/S.picks*100:100;
+    $('kfHd').textContent=fmt(S.picks)+' picks';
+    $('kFifo').innerHTML=caprow('FIFO compliance',fp,100,fmt(fp,1)+'%',fp>90?'var(--ok)':'var(--warn)')
+      +caprow('Over shelf life',A.over,Math.max(1,A.byKind.roll.n+A.byKind.pallet.n),fmt(A.over)+' units','var(--alarm)')
+      +caprow('Buried (LIFO)',A.buried,Math.max(1,A.byKind.roll.n),fmt(A.buried)+' units','var(--warn)');
+    const skus=Object.entries(A.bySku).sort((a,b)=>b[1].t-a[1].t);
+    $('ksHd').textContent=skus.length+' products';
+    $('kSku').innerHTML=skus.map(([sku,s])=>{
+      const age=s.oldest?(S.simMin-s.oldest.born)/60:0;
+      return `<tr><td>${sku}</td><td>${fmt(s.n)}</td><td>${fmt(s.t,1)}</td>
+        <td style="color:${age>L?'var(--alarm)':'var(--ink)'}">${fmt(age,1)} h</td>
+        <td>${[...s.zones].sort().join(' ')}</td></tr>`;}).join('');
+  }
+  if(v==='move'){
+    const util=fleetUtil()*100;
+    $('kflHd').textContent=fmt(util,1)+'% util';
+    $('kFleet').innerHTML=S.trucks.map(tr=>{
+      const busy=(tr.busyS+tr.idleS)>0?tr.busyS/(tr.busyS+tr.idleS)*100:0;
+      const col=tr.down>0?'var(--alarm)':tr.task?(tr.type==='clamp'?'var(--accent)':'var(--violet)'):'var(--dim)';
+      return `<div class="ftruck"><div class="fn" style="color:${col}">${tr.id}</div>
+        <div class="fs">${tr.down>0?'DOWN':tr.task?tr.task.type:'idle'}</div>
+        <div class="fb"><i style="width:${clamp(busy,0,100)}%;background:${busy>92?'var(--alarm)':busy>80?'var(--warn)':'var(--ok)'}"></i></div></div>`;
+    }).join('');
+    const put=rateSeries(S.trend.put,6), ret=rateSeries(S.trend.ret,6), ld=rateSeries(S.trend.load,6);
+    const mx=Math.max(20,...put,...ret,...ld);
+    $('kmHd').textContent=fmt(ratePerH('put'))+' put · '+fmt(ratePerH('ret'))+' ret · '+fmt(ratePerH('load'))+' load / h';
+    $('kMove').innerHTML=`
+      <path d="${poly(put,620,190,0,mx,10)}" fill="none" stroke="var(--accent)" stroke-width="2.5"/>
+      <path d="${poly(ret,620,190,0,mx,10)}" fill="none" stroke="var(--violet)" stroke-width="2.5"/>
+      <path d="${poly(ld,620,190,0,mx,10)}"  fill="none" stroke="var(--ok)" stroke-width="2.5"/>
+      <text x="14" y="18" fill="#5f7386" style="font:600 11px var(--mono)">${fmt(mx)}/h</text>
+      <text x="300" y="18" fill="#37b6ff" style="font:700 11px var(--mono)">putaway</text>
+      <text x="392" y="18" fill="#b694e8" style="font:700 11px var(--mono)">retrieval</text>
+      <text x="494" y="18" fill="#22c58b" style="font:700 11px var(--mono)">loading</text>`;
+    const moves=Object.values(S.moves).reduce((a,b)=>a+b,0);
+    $('ktHd').textContent=fmt(S.travelM/1000,1)+' km';
+    $('kTrav').innerHTML=[
+      drow('Task queue',fmt(S.tasks.length)),
+      drow('Travel per move',fmt(moves?S.travelM/moves:0)+' m'),
+      drow('Touches per unit shipped',fmt((S.moves.PUT+S.moves.RET+S.moves.LOAD+S.moves.RELOC)/
+        Math.max(1,S.dispatched.roll+S.dispatched.pallet),2)),
+      drow('Relocations (digs)',fmt(S.relocs)),
+    ].join('');
+  }
+  if(v==='dock'){
+    $('kdHd').textContent=S.doors.filter(d=>d.state!=='empty').length+'/'+S.doors.length+' occupied';
+    $('kDock').innerHTML=S.doors.map(d=>{
+      const cls={empty:'ds-empty',dock:'ds-dock',load:'ds-load',done:'ds-done'}[d.state];
+      const lab={empty:'EMPTY',dock:'DOCKING',load:'LOADING',done:'SEALED'}[d.state];
+      const p=d.need?d.loaded/d.need*100:0;
+      return `<div class="door"><div class="dh"><b>${d.id}</b><span class="dst ${cls}">${lab}</span></div>
+        <div class="di">${d.ship?d.ship.id+'<br>'+d.ship.dest:'&mdash;<br>&nbsp;'}</div>
+        <div class="dp"><i style="width:${clamp(p,0,100)}%"></i></div></div>`;
+    }).join('');
+    $('kshHd').textContent=S.shipments.filter(s=>s.state!=='shipped').length+' open';
+    $('kShip').innerHTML=S.shipments.slice(-12).reverse().map(s=>{
+      const need=s.rolls+s.pallets, got=s.loaded.roll+s.loaded.pallet, due=s.dueMin-S.simMin;
+      return `<tr><td>${s.id}</td><td>${s.dest}</td>
+        <td>${s.rolls?fmt(s.rolls)+'R':''}${s.rolls&&s.pallets?'+':''}${s.pallets?fmt(s.pallets)+'P':''}</td>
+        <td>${fmt(got)}/${fmt(need)}</td>
+        <td style="color:${due<0&&s.state!=='shipped'?'var(--alarm)':'var(--muted)'}">${s.state==='shipped'?'—':hhmm(Math.abs(due))}</td>
+        <td>${s.state}</td></tr>`;}).join('');
+  }
+}
+function renderKiosk(A){
+  $('kName').textContent=WAREHOUSE.name;
+  $('kSite').textContent=WAREHOUSE.site;
+  $('kAsset').textContent=WAREHOUSE.asset;
+  $('kFill').textContent=fmt(fillPct(),1)+'%';
+  $('kSchTag').textContent='live twin · sim ×'+WAREHOUSE.simTimeScale;
+  renderPlan();
+  const util=fleetUtil()*100, fp=S.picks?S.fifoOk/S.picks*100:100;
+  const tiles=[
+    ['Fill',fmt(fillPct(),1),'% capacity',fillCol(fillPct()/100)],
+    ['Units',fmt(A.byKind.roll.n+A.byKind.pallet.n),'stored','var(--ink)'],
+    ['Stock',fmt(A.byKind.roll.t+A.byKind.pallet.t+(S.bulk.D||0),0),'t','var(--accent)'],
+    ['Putaway',fmt(ratePerH('put')),'/ h','var(--accent)'],
+    ['Retrieval',fmt(ratePerH('ret')),'/ h','var(--violet)'],
+    ['Fleet',fmt(util),'% util',util>92?'var(--alarm)':util>80?'var(--warn)':'var(--ok)'],
+    ['Queue',S.tasks.length,'tasks',S.tasks.length>40?'var(--alarm)':'var(--ok)'],
+    ['FIFO',fmt(fp,1),'%',fp<90?'var(--warn)':'var(--ok)'],
+  ];
+  $('kTiles').innerHTML=tiles.map(([l,n,u,c])=>
+    `<div class="ktile"><div class="n" style="color:${c}">${n}</div><div class="u">${u}</div><div class="l">${l}</div></div>`).join('');
+  const act=S.alarms.filter(a=>a.sev!=='info').length;
+  $('kAlmTag').textContent=act+' active';
+  $('kAlarms').innerHTML=S.alarms.length?S.alarms.slice(0,8).map(a=>
+    `<div class="kalarm ${a.sev==='alarm'?'crit':a.sev}"><span class="m">${a.msg}</span><span class="t">${a.ts}</span></div>`).join('')
+    :'<div style="color:var(--muted);font-size:13px;font-style:italic;text-align:center;padding:14px">No active alarms — all zones within limits</div>';
+  const v=KVIEWS[kView].id;
+  if(kBuilt!==v){ kBuildPane(v); kDotsRender(); }
+  kUpdate(v,A);
+}
+
+/* =====================================================================
+   SETUP / CONTROLS
+   ===================================================================== */
+const WAREHOUSE0=JSON.parse(JSON.stringify(WAREHOUSE,(k,v)=>k==='_fit'?undefined:v));
+function loadSetupInputs(){
+  const I=WAREHOUSE.intake, P=WAREHOUSE.policy;
+  $('sRollH').value=I.rollPerH; $('sPileH').value=I.pilePerH;
+  $('sPPP').value=I.pilesPerPallet; $('sXdR').value=I.crossDockRollPct;
+  $('sClamp').value=(WAREHOUSE.fleet.find(f=>f.id==='clamp')||{}).n;
+  $('sReach').value=(WAREHOUSE.fleet.find(f=>f.id==='reach')||{}).n;
+  $('sAge').value=P.shelfLifeH; $('sFifo').value=P.fifoWindowPct;
+  $('sDisp').value=WAREHOUSE.dispatch.dispatchPct; $('sPick').value=P.pickBy;
+  const sel=$('szZone');
+  sel.innerHTML=WAREHOUSE.zones.map(z=>
+    `<option value="${z.id}">${z.id} — ${z.name} (${z.kind})</option>`).join('');
+  sel.value=S.sel.zone;
+  loadZoneInputs();
+}
+function loadZoneInputs(){
+  const z=zoneOf($('szZone').value)||WAREHOUSE.zones[0];
+  $('szNames').textContent=z.levelNames.join(' / ');
+  $('szDims').value=z.levelNames.map(k=>z.dims[k]).join(', ');
+  $('szPlan').value=[z.plan.x,z.plan.y,z.plan.w,z.plan.h].join(', ');
+  const f=fitOf(z);
+  $('szHint').className='msg';
+  $('szHint').textContent=z.kind==='stockpile'
+    ? 'Bulk zone — the count is the number of piles; tonnage comes from bay geometry, repose angle and bulk density.'
+    : 'Needs '+fmt(f.need.w,1)+' × '+fmt(f.need.h,1)+' m and '+fmt(f.need.z,1)+' m of height.';
+}
+function msg(id,txt,cls){ const e=$(id); e.className='msg'+(cls?' '+cls:''); e.textContent=txt; }
+function applySetup(){
+  const I=WAREHOUSE.intake, P=WAREHOUSE.policy;
+  const rh=+$('sRollH').value, ph=+$('sPileH').value, pp=+$('sPPP').value, xd=+$('sXdR').value;
+  const nc=+$('sClamp').value, nr=+$('sReach').value, ag=+$('sAge').value, fw=+$('sFifo').value;
+  if([rh,ph,pp,xd,nc,nr,ag,fw].some(v=>isNaN(v)||v<0)) return msg('setHint','Every field must be a number.','err');
+  if(pp<1) return msg('setHint','At least one pile per pallet.','err');
+  I.rollPerH=rh; I.pilePerH=ph; I.pilesPerPallet=pp; I.crossDockRollPct=clamp(xd,0,100);
+  WAREHOUSE.dispatch.dispatchPct=clamp(+$('sDisp').value||0,0,200);
+  P.pickBy=$('sPick').value;
+  P.shelfLifeH=Math.max(1,ag); P.fifoWindowPct=clamp(fw,1,100);
+  const fc=WAREHOUSE.fleet.find(f=>f.id==='clamp'), fr=WAREHOUSE.fleet.find(f=>f.id==='reach');
+  const changed=fc.n!==nc||fr.n!==nr;
+  fc.n=Math.max(1,nc); fr.n=Math.max(1,nr);
+  if(changed){ initFleet(); planBuilt=false; }
+  const inT=(rh*I.roll.kg+ph*I.pile.kg)/1000;
+  const palH=ph/pp;
+  const dp=WAREHOUSE.dispatch.dispatchPct;
+  msg('setHint','Intake '+fmt(inT,1)+' t/h — '+fmt(rh)+' rolls/h and '+fmt(palH,1)
+    +' pallets/h of '+fmt(I.pile.kg*pp)+' kg. Dispatch set to '+fmt(dp)+'% of intake ('
+    +fmt(trailersPerH('roll')+trailersPerH('pallet'),2)+' trailers/h), so stock '
+    +(dp>100?'drains':dp<100?'builds':'holds level')+'. Fleet '+fc.n+' clamp + '+fr.n+' reach.','ok');
+  render();
+}
+function applyZone(){
+  const z=zoneOf($('szZone').value); if(!z) return;
+  const dims=$('szDims').value.split(/[,\s]+/).filter(Boolean).map(Number);
+  const plan=$('szPlan').value.split(/[,\s]+/).filter(Boolean).map(Number);
+  if(dims.length!==z.levelNames.length||dims.some(v=>!Number.isFinite(v)||v<1))
+    return msg('szHint','Give '+z.levelNames.length+' positive counts for '+z.levelNames.join(' / ')+'.','err');
+  if(plan.length!==4||plan.some(v=>!Number.isFinite(v)||v<0))
+    return msg('szHint','Plan rectangle needs four numbers: x, y, w, h in metres.','err');
+  const B=WAREHOUSE.building;
+  if(plan[0]+plan[2]>B.lengthM||plan[1]+plan[3]>B.widthM)
+    return msg('szHint','That rectangle falls outside the '+B.lengthM+' × '+B.widthM+' m building.','err');
+  z.levelNames.forEach((k,i)=>z.dims[k]=Math.round(dims[i]));
+  z.plan={x:plan[0],y:plan[1],w:plan[2],h:plan[3]};
+  z._fit=fitOf(z);
+  // the location grid changed, so this zone's stock has to be re-seeded
+  if(z.kind!=='stockpile'){
+    if(S.slots[z.id]) for(let i=0;i<S.slots[z.id].length;i++){
+      const v=S.slots[z.id][i]; if(v) freeUnit(S.units[v-1]); }
+    const n=slotCount(z);
+    S.slots[z.id]=new Int32Array(n); S.fill[z.id]=0;
+    if(z.kind==='block') S.lane[z.id]=new Int16Array(z.dims.lane);
+    const target=Math.round(n*z.startFillPct/100), life=WAREHOUSE.policy.shelfLifeH*60;
+    let placed=0;
+    if(z.kind==='block'){
+      const per=z.dims.depth*z.dims.tier;
+      const base=Math.floor(target/z.dims.lane), extra=target%z.dims.lane;
+      for(let ln=0;ln<z.dims.lane;ln++){
+        const cnt=Math.min(per,base+(ln<extra?1:0));
+        for(let k=0;k<cnt;k++){ const idx=blockSlot(z,ln,k);
+          const u=newUnit(z.holds,z.id,idx,S.simMin-rnd(2,life*0.85));
+          S.slots[z.id][idx]=u.i+1; placed++; }
+        S.lane[z.id][ln]=cnt;
+      }
+    } else {
+      while(placed<target){ const i=Math.floor(Math.random()*n);
+        if(S.slots[z.id][i]) continue;
+        const u=newUnit(z.holds,z.id,i,S.simMin-rnd(2,life*0.85));
+        S.slots[z.id][i]=u.i+1; placed++; }
+    }
+    S.fill[z.id]=placed;
+  } else {
+    S.bulk[z.id]=Math.min(S.bulk[z.id]||0,zoneCapT(z));
+  }
+  S.tasks=S.tasks.filter(t=>t.zone!==z.id);
+  S.trucks.forEach(tr=>{ if(tr.task&&tr.task.zone===z.id){tr.task=null;tr.t=0;} });
+  S.startWipT=wipT(); S.receivedT=0; S.dispatchedT=0; S.reclaimT=0;
+  planBuilt=false;
+  const f=fitOf(z), ok=f.okW&&f.okH&&f.okZ;
+  msg('szHint',z.id+' now '+z.levelNames.map(k=>z.dims[k]).join(' × ')+' = '+fmt(slotCount(z))
+    +' locations, '+fmt(zoneCapT(z),0)+' t. Needs '+fmt(f.need.w,1)+' × '+fmt(f.need.h,1)+' × '
+    +fmt(f.need.z,1)+' m — '+(ok?'fits.':'DOES NOT FIT the rectangle or the clear height.')
+    +' Stock re-seeded and the balance re-based.', ok?'ok':'err');
+  render();
+}
+function resetAll(){
+  const fresh=JSON.parse(JSON.stringify(WAREHOUSE0));
+  Object.keys(WAREHOUSE).forEach(k=>delete WAREHOUSE[k]);
+  Object.assign(WAREHOUSE,fresh);
+  bootState();
+  loadSetupInputs();
+  msg('setHint','Every value restored to the configuration in the file.','ok');
+  render();
+}
+
+/* ---------------- exports ---------------- */
+function csv(name,rows){
+  const b=new Blob([rows.map(r=>r.join(',')).join('\n')],{type:'text/csv'});
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(b); a.download=name; a.click();
+  setTimeout(()=>URL.revokeObjectURL(a.href),1500);
+}
+function exportStock(){
+  const rows=[['unit_id','kind','product','kg','zone','address','age_h','status','hold']];
+  for(let i=0;i<S.units.length;i++){ const u=S.units[i]; if(!u) continue;
+    const z=u.zone?zoneOf(u.zone):null;
+    rows.push([u.id,u.kind,u.sku,u.kg,u.zone||'',z?addrStr(z,u.slot):'',
+      ((S.simMin-u.born)/60).toFixed(2),u.status,u.hold?'Y':'N']); }
+  csv('warehouse_stock_'+WAREHOUSE.asset+'.csv',rows);
+}
+function exportDispatch(){
+  const rows=[['time','unit_id','kind','product','kg','shipment','destination','door','age_h']];
+  S.dispatchLog.forEach(d=>rows.push([d.ts,d.id,d.kind,d.sku,d.kg,d.ship,d.dest,d.door,d.ageH.toFixed(2)]));
+  csv('warehouse_dispatch_'+WAREHOUSE.asset+'.csv',rows);
+}
+function exportShift(){
+  const A=stockAgg(), wip=wipT();
+  const rows=[['metric','value','unit']];
+  const add=(k,v,u)=>rows.push([k,v,u||'']);
+  add('asset',WAREHOUSE.asset); add('sim_minutes',S.simMin.toFixed(1),'min');
+  add('fill',fillPct().toFixed(2),'%');
+  add('units_stored',A.byKind.roll.n+A.byKind.pallet.n,'units');
+  add('rolls',A.byKind.roll.n,'units'); add('pallets',A.byKind.pallet.n,'units');
+  add('stock',(A.byKind.roll.t+A.byKind.pallet.t).toFixed(2),'t');
+  add('stockpile',(S.bulk.D||0).toFixed(2),'t');
+  add('received',S.receivedT.toFixed(2),'t'); add('dispatched',S.dispatchedT.toFixed(2),'t');
+  add('balance_residual',(S.receivedT+S.startWipT-S.dispatchedT-wip).toFixed(4),'t');
+  add('putaway_moves',S.moves.PUT); add('retrieval_moves',S.moves.RET);
+  add('load_moves',S.moves.LOAD); add('relocation_moves',S.moves.RELOC);
+  add('fleet_utilisation',(fleetUtil()*100).toFixed(2),'%');
+  add('travel',(S.travelM/1000).toFixed(2),'km');
+  add('fifo_compliance',(S.picks?S.fifoOk/S.picks*100:100).toFixed(2),'%');
+  add('shelf_life_breaches',S.breaches,'units');
+  add('energy',S.energyKwh.toFixed(1),'kWh');
+  WAREHOUSE.zones.forEach(z=>{
+    const isT=z.kind==='stockpile';
+    add('zone_'+z.id+'_capacity',zoneCapT(z).toFixed(1),'t');
+    add('zone_'+z.id+'_fill',isT?(S.bulk[z.id]/zoneCapT(z)*100).toFixed(2):(S.fill[z.id]/slotCount(z)*100).toFixed(2),'%');
+  });
+  csv('warehouse_shift_'+WAREHOUSE.asset+'.csv',rows);
+}
+function findUnit(q){
+  q=(q||'').trim().toUpperCase();
+  if(!q) return null;
+  for(let i=0;i<S.units.length;i++){ const u=S.units[i];
+    if(u&&u.id.toUpperCase().includes(q)) return u; }
+  return null;
+}
+
+/* ---------------- wiring ---------------- */
+document.querySelectorAll('.tab').forEach(b=>b.onclick=()=>{
+  activeTab=b.dataset.tab;
+  document.querySelectorAll('.tab').forEach(x=>x.classList.toggle('active',x===b));
+  document.querySelectorAll('.pane').forEach(p=>p.hidden=(p.id!=='pane-'+activeTab));
+  render(); });
+$('btnRun').onclick=()=>{S.running=true;setState();};
+$('btnStop').onclick=()=>{S.running=false;setState();pushAlarm('info','Operator stop requested');};
+$('btnSurge').onclick=()=>{S.surgeMin=120;
+  S.shipments.push({id:'SH-RUSH'+(++S.orderPtr),customer:'Rush order',dest:'Hamburg',
+    rolls:44,pallets:24,dueH:3,picked:{roll:0,pallet:0},loaded:{roll:0,pallet:0},
+    state:'waiting',door:null,dueMin:S.simMin+20});
+  pushAlarm('warn','Dispatch surge — rush shipment added, pick rate doubled for 2 h');};
+$('btnDown').onclick=()=>{
+  const up=S.trucks.filter(t=>t.down<=0);
+  if(!up.length) return;
+  const tr=up[Math.floor(Math.random()*up.length)];
+  tr.down=rnd(18,42);
+  if(tr.task){ S.tasks.unshift(tr.task); tr.task=null; tr.t=0; }
+  pushAlarm('alarm','Truck '+tr.id+' out of service for '+fmt(tr.down)+' min');};
+$('btnKiosk').onclick=()=>setMode(true);
+$('btnDesk').onclick=()=>setMode(false);
+$('btnPause').onclick=()=>{kRotate=!kRotate;
+  const b=$('btnPause');
+  b.textContent=kRotate?'⏸ Pause rotation':'▶ Resume rotation';
+  b.className='ctl'+(kRotate?'':' warnactive');};
+$('btnFs').onclick=()=>{ if(document.fullscreenElement) document.exitFullscreen();
+  else document.documentElement.requestFullscreen&&document.documentElement.requestFullscreen(); };
+$('vPlan').onclick=()=>{S.view='plan';render();};
+$('vElev').onclick=()=>{S.view='elev';render();};
+$('vHeat').onclick=()=>{S.heat='fill';render();};
+$('vAge').onclick=()=>{S.heat='age';render();};
+$('btnApply').onclick=applySetup;
+$('btnReset').onclick=resetAll;
+$('btnZApply').onclick=applyZone;
+$('btnZReset').onclick=()=>{ const z=zoneOf($('szZone').value);
+  const o=WAREHOUSE0.zones.find(x=>x.id===z.id);
+  $('szDims').value=o.levelNames.map(k=>o.dims[k]).join(', ');
+  $('szPlan').value=[o.plan.x,o.plan.y,o.plan.w,o.plan.h].join(', ');
+  applyZone(); };
+$('szZone').onchange=()=>{ S.sel={zone:$('szZone').value,aisle:0}; loadZoneInputs(); render(); };
+$('btnTrace').onclick=()=>{ const u=findUnit($('traceIn').value);
+  if(!u){ S.selUnit=null; $('traceRows').innerHTML='<div class="noalarm">No unit matches that ID.</div>'; return; }
+  S.selUnit=u; if(u.zone) S.sel={zone:u.zone,aisle:decode(zoneOf(u.zone),u.slot)[0]};
+  render(); };
+$('btnOldest').onclick=()=>{ const A=stockAgg();
+  const c=[A.byKind.roll.oldest,A.byKind.pallet.oldest].filter(Boolean)
+    .sort((a,b)=>a.born-b.born)[0];
+  if(c){ S.selUnit=c; $('traceIn').value=c.id;
+    if(c.zone) S.sel={zone:c.zone,aisle:decode(zoneOf(c.zone),c.slot)[0]}; }
+  render(); };
+$('btnCsvStock').onclick=exportStock;
+$('btnCsvDisp').onclick=exportDispatch;
+$('btnCsvShift').onclick=exportShift;
+$('traceIn').addEventListener('keydown',e=>{ if(e.key==='Enter') $('btnTrace').click(); });
+document.addEventListener('keydown',e=>{
+  if(e.target.tagName==='INPUT'||e.target.tagName==='SELECT') return;
+  if(e.key==='w'||e.key==='W') setMode(!kioskOn);
+  if(e.key==='f'||e.key==='F') $('btnFs').click();
+  if(e.key==='e'||e.key==='E'){ S.view=S.view==='plan'?'elev':'plan'; render(); }
+  if(kioskOn&&e.key==='ArrowRight'){kView=(kView+1)%KVIEWS.length;kElapsed=0;kBuilt=null;kDotsRender();render();}
+  if(kioskOn&&e.key==='ArrowLeft'){kView=(kView-1+KVIEWS.length)%KVIEWS.length;kElapsed=0;kBuilt=null;kDotsRender();render();}
+  if(e.key===' '&&kioskOn){e.preventDefault();$('btnPause').click();} });
+function tickClock(){ const d=new Date(), now=d.toTimeString().slice(0,8);
+  const h=d.getHours(), sh=h<8?'C (night)':h<16?'A (day)':'B (evening)';
+  $('clk').textContent=now; $('shift').textContent='Shift '+sh;
+  const kc=$('kClk'); if(kc) kc.textContent=now;
+  const ks=$('kShift'); if(ks) ks.textContent='Shift '+sh; }
+function autoKiosk(){ const h=location.hash.toLowerCase();
+  return h.includes('wall')||h.includes('kiosk')||(window.innerWidth>=1600&&window.innerHeight>=800); }
+
+/* =====================================================================
+   BOOT
+   ===================================================================== */
+function bootState(){
+  S.simMin=0; S.units=[]; S.free=[]; S.unitSeq=0; S.slots={}; S.fill={}; S.bulk={}; S.lane={};
+  S.tasks=[]; S.taskSeq=0; S.staged=[]; S.pilesHeld=0; S.rollAcc=0; S.pileAcc=0;
+  S.received={roll:0,pallet:0}; S.receivedT=0;
+  S.dispatched={roll:0,pallet:0}; S.dispatchedT=0; S.reclaimT=0;
+  S.crossDock={roll:0,pallet:0};
+  S.picks=0; S.fifoOk=0; S.holds=0; S.relocs=0; S.breaches=0; S.digs=0;
+  S.travelM=0; S.moves={PUT:0,RET:0,LOAD:0,CONS:0,RELOC:0};
+  S.trend={put:[],ret:[],load:[],fill:[],util:[],fifo:[]};
+  S.alarms=[]; S.dispatchLog=[]; S.orderPtr=0; S.energyKwh=0; S.kw=0;
+  S.runMin=0; S.downMin=0; S.selUnit=null;
+  S.sel={zone:WAREHOUSE.zones[0].id,aisle:0};
+  initZones(); initFleet(); initDocks(); initShipments();
+  planBuilt=false;
+}
+bootState();
+S.sel={zone:'B',aisle:0};
+loadSetupInputs();
+setMode(autoKiosk());
+setState(); tickClock(); render(); animate(); fitStage();
+setInterval(()=>{simulateTick();render();},WAREHOUSE.updateMs);
+setInterval(tickClock,1000);
+setInterval(()=>kTick(120),120);
+</script>
+</body>
+</html>

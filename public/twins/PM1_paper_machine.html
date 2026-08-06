@@ -1,0 +1,1998 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Digital Twin — Paper Mill Board Machine</title>
+<style>
+  :root{
+    --bg:#0b1016; --panel:#121a24; --panel2:#0f161f; --line:#1e2b3a;
+    --ink:#e8eef6; --muted:#8ba0b6; --dim:#5f7386;
+    --ok:#22c58b; --warn:#f5b642; --alarm:#ff5468; --accent:#37b6ff; --violet:#b694e8;
+    --web:#d7c9a3; --grid:#16202c;
+    --font:'Segoe UI',Roboto,-apple-system,Helvetica,Arial,sans-serif;
+    --mono:'SFMono-Regular',Consolas,'Liberation Mono',Menlo,monospace;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;height:100%}
+  body{background:radial-gradient(1200px 700px at 70% -10%,#132030 0%,var(--bg) 60%);
+    color:var(--ink);font-family:var(--font);font-size:14px;-webkit-font-smoothing:antialiased}
+  .app{display:flex;flex-direction:column;min-height:100vh}
+
+  header{display:flex;align-items:center;gap:16px;padding:13px 22px;flex-wrap:wrap;
+    background:linear-gradient(180deg,#101923,#0c141d);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:6}
+  .brand{display:flex;flex-direction:column;line-height:1.2}
+  .brand h1{margin:0;font-size:17px;letter-spacing:.3px}
+  .brand .sub{color:var(--muted);font-size:12px;margin-top:2px}
+  .brand .sub b{color:var(--accent);font-weight:600}
+  .hspacer{flex:1}
+  .statepill{display:flex;align-items:center;gap:9px;padding:8px 16px;border-radius:999px;
+    font-weight:700;letter-spacing:.4px;font-size:13px;border:1px solid transparent}
+  .statepill .dot{width:11px;height:11px;border-radius:50%}
+  .st-run{background:rgba(34,197,139,.12);color:var(--ok);border-color:rgba(34,197,139,.35)}
+  .st-run .dot{background:var(--ok);box-shadow:0 0 10px var(--ok);animation:pulse 1.4s infinite}
+  .st-stop{background:rgba(139,160,182,.12);color:var(--muted);border-color:rgba(139,160,182,.3)}
+  .st-stop .dot{background:var(--muted)}
+  .st-alarm{background:rgba(255,84,104,.14);color:var(--alarm);border-color:rgba(255,84,104,.4)}
+  .st-alarm .dot{background:var(--alarm);box-shadow:0 0 10px var(--alarm);animation:pulse .7s infinite}
+  .st-hold{background:rgba(245,182,66,.14);color:var(--warn);border-color:rgba(245,182,66,.4)}
+  .st-hold .dot{background:var(--warn);box-shadow:0 0 10px var(--warn);animation:pulse 1s infinite}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+  .clock{font-family:var(--mono);color:var(--muted);font-size:12px;text-align:right;line-height:1.4}
+  .clock b{color:var(--ink);font-size:13px}
+
+  .top{padding:16px 22px 0}
+  .tabs{display:flex;gap:6px;padding:16px 22px 0;flex-wrap:wrap}
+  .tab{background:transparent;border:1px solid var(--line);color:var(--muted);border-radius:9px;
+    padding:9px 18px;font-size:12.5px;font-weight:700;letter-spacing:.4px;cursor:pointer;transition:.15s}
+  .tab:hover{color:var(--ink);border-color:#2c3e52}
+  .tab.active{background:rgba(55,182,255,.13);border-color:var(--accent);color:var(--accent)}
+  .pane[hidden]{display:none}
+
+  .grid{display:grid;grid-template-columns:1.35fr 1fr 1fr;gap:16px;padding:16px 22px}
+  .grid.two{grid-template-columns:1fr 1fr}
+  @media (max-width:1280px){.grid,.grid.two{grid-template-columns:1fr 1fr}}
+  @media (max-width:820px){.grid,.grid.two{grid-template-columns:1fr}}
+  .col{display:flex;flex-direction:column;gap:16px;min-width:0}
+
+  .card{background:linear-gradient(180deg,var(--panel),var(--panel2));border:1px solid var(--line);
+    border-radius:14px;padding:16px 18px;box-shadow:0 6px 22px rgba(0,0,0,.28)}
+  .card h2{margin:0 0 14px;font-size:12px;letter-spacing:1.4px;text-transform:uppercase;
+    color:var(--muted);font-weight:700;display:flex;align-items:center;gap:8px}
+  .card h2 .tag{margin-left:auto;font-size:10px;letter-spacing:1px;color:var(--dim);
+    border:1px solid var(--line);padding:2px 8px;border-radius:6px;text-transform:none}
+
+  svg#twin{width:100%;height:auto;display:block;background:
+    linear-gradient(0deg,transparent 23px,var(--grid) 24px),
+    linear-gradient(90deg,transparent 23px,var(--grid) 24px);
+    background-size:24px 24px;border-radius:10px;border:1px solid var(--line)}
+  .lbl{fill:var(--muted);font:600 11px var(--font)}
+  .lbl-sm{fill:var(--dim);font:500 9.5px var(--font)}
+  .val{fill:var(--ink);font:700 12px var(--mono)}
+  .zone-name{fill:var(--accent);font:700 10px var(--font);letter-spacing:.5px}
+
+  .gauges{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .gauge{display:flex;flex-direction:column;align-items:center;background:var(--panel2);
+    border:1px solid var(--line);border-radius:12px;padding:12px 8px 10px}
+  .gauge .num{font-family:var(--mono);font-size:24px;font-weight:700;margin-top:4px}
+  .gauge .unit{color:var(--muted);font-size:11px;margin-top:1px}
+  .gauge .name{color:var(--muted);font-size:10.5px;letter-spacing:.8px;text-transform:uppercase;margin-top:6px}
+  .gauge .sp{color:var(--dim);font-size:10px;font-family:var(--mono);margin-top:2px}
+
+  .tzone{margin-bottom:11px}.tzone:last-child{margin-bottom:0}
+  .tzone .row{display:flex;justify-content:space-between;font-size:11.5px;margin-bottom:4px}
+  .tzone .row .z{color:var(--ink);font-weight:600}
+  .tzone .row .v{font-family:var(--mono);color:var(--muted)}
+  .tzone .v b{color:var(--ink)}
+  .track{position:relative;height:9px;background:#0a1119;border:1px solid var(--line);border-radius:6px;overflow:hidden}
+  .fill{position:absolute;top:0;bottom:0;left:0;border-radius:6px;transition:width .4s ease,background .3s}
+  .setmark{position:absolute;top:-3px;width:2px;height:15px;background:var(--ink);opacity:.55}
+
+  .drow{display:flex;justify-content:space-between;align-items:baseline;padding:7px 0;border-bottom:1px dashed var(--line)}
+  .drow:last-child{border-bottom:none}
+  .drow .k{color:var(--muted);font-size:12px}
+  .drow .v{font-family:var(--mono);font-size:13px;font-weight:700}
+  .drow .v small{color:var(--dim);font-weight:500;font-size:10px;margin-left:3px}
+
+  table.tbl{width:100%;border-collapse:collapse;font-size:12px}
+  table.tbl th{color:var(--dim);font-weight:600;text-align:right;padding:6px 6px;
+    border-bottom:1px solid var(--line);font-size:10px;letter-spacing:.5px;text-transform:uppercase}
+  table.tbl th:first-child{text-align:left}
+  table.tbl td{padding:8px 6px;border-bottom:1px dashed var(--line);text-align:right;font-family:var(--mono)}
+  table.tbl td:first-child{text-align:left;font-family:var(--font);color:var(--ink)}
+  table.tbl tr.sel td{background:rgba(55,182,255,.08)}
+  table.tbl tr.click{cursor:pointer}
+  table.tbl tr.click:hover td{background:rgba(55,182,255,.06)}
+  .barmini{position:relative;height:6px;width:52px;background:#0a1119;border-radius:4px;display:inline-block;
+    vertical-align:middle;overflow:hidden;border:1px solid var(--line)}
+  .barmini i{position:absolute;left:0;top:0;bottom:0;border-radius:4px;transition:width .4s}
+  .drv-dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:5px;vertical-align:middle}
+
+  .oee{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:12px}
+  .oee .cell{background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:10px;text-align:center}
+  .oee .cell .big{font-family:var(--mono);font-size:20px;font-weight:700}
+  .oee .cell .lb{color:var(--muted);font-size:10px;letter-spacing:.6px;text-transform:uppercase;margin-top:3px}
+  .countrow{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);padding:6px 2px}
+  .countrow b{color:var(--ink);font-family:var(--mono)}
+
+  .alarms{display:flex;flex-direction:column;gap:8px;max-height:230px;overflow:auto}
+  .alarm{display:flex;gap:10px;align-items:flex-start;padding:9px 11px;border-radius:9px;
+    background:var(--panel2);border-left:3px solid var(--line)}
+  .alarm.crit{border-left-color:var(--alarm);background:rgba(255,84,104,.06)}
+  .alarm.warn{border-left-color:var(--warn);background:rgba(245,182,66,.05)}
+  .alarm.info{border-left-color:var(--accent)}
+  .alarm .ico{font-weight:800;font-size:13px;margin-top:1px}
+  .alarm.crit .ico{color:var(--alarm)}.alarm.warn .ico{color:var(--warn)}.alarm.info .ico{color:var(--accent)}
+  .alarm .txt{flex:1;min-width:0}
+  .alarm .txt .m{font-size:12px;color:var(--ink)}
+  .alarm .txt .t{font-size:10px;color:var(--dim);font-family:var(--mono);margin-top:2px}
+  .noalarm{color:var(--muted);font-size:12px;text-align:center;padding:16px;font-style:italic}
+
+  .controls{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+  button.ctl{background:var(--panel2);color:var(--ink);border:1px solid var(--line);border-radius:8px;
+    padding:7px 13px;font-size:12px;cursor:pointer;font-weight:600;transition:.15s}
+  button.ctl:hover{border-color:var(--accent);color:var(--accent)}
+  button.ctl.active{background:rgba(55,182,255,.14);border-color:var(--accent);color:var(--accent)}
+  button.ctl.warnactive{background:rgba(245,182,66,.14);border-color:var(--warn);color:var(--warn)}
+  button.ctl.stop:hover{border-color:var(--alarm);color:var(--alarm)}
+  .foot{color:var(--dim);font-size:11px;padding:6px 22px 18px;text-align:center}
+  .foot code{color:var(--muted);font-family:var(--mono)}
+
+  .spark{width:100%;height:auto;display:block;background:#0a1119;border:1px solid var(--line);border-radius:8px}
+  .spark-wrap{margin-bottom:12px}.spark-wrap:last-child{margin-bottom:0}
+  .spark-hd{display:flex;justify-content:space-between;font-size:11px;margin-bottom:5px}
+  .spark-hd .t{color:var(--muted);font-weight:600;letter-spacing:.3px}
+  .spark-hd .v{font-family:var(--mono);color:var(--ink)}
+  .legend{display:flex;gap:10px;flex-wrap:wrap;font-size:10px;color:var(--muted);margin-top:5px}
+  .legend span{display:inline-flex;align-items:center;gap:4px}
+  .legend i{width:9px;height:3px;border-radius:2px;display:inline-block}
+
+  svg#slitset,svg#defmap{width:100%;height:auto;display:block;background:#0a1119;border:1px solid var(--line);border-radius:8px}
+  .slit-w{fill:var(--dim);font:600 9px var(--mono)}
+
+  .setup{display:grid;grid-template-columns:1fr 1fr;gap:10px 12px}
+  .setup .f{display:flex;flex-direction:column;gap:4px}
+  .setup .f.wide{grid-column:1/3}
+  .setup label{font-size:10.5px;color:var(--muted);letter-spacing:.4px;text-transform:uppercase}
+  .setup input{background:#0a1119;border:1px solid var(--line);border-radius:7px;color:var(--ink);
+    font-family:var(--mono);font-size:13px;padding:8px 10px;width:100%}
+  .setup input:focus{outline:none;border-color:var(--accent)}
+  .setup .apply{grid-column:1/3;display:flex;gap:8px;align-items:center;margin-top:2px;flex-wrap:wrap}
+  .setup .msg{font-size:11px;color:var(--dim)}
+  .setup .msg.err{color:var(--alarm)}.setup .msg.ok{color:var(--ok)}
+
+  .health{margin-bottom:12px}
+  .health .row{display:flex;justify-content:space-between;font-size:12px;margin-bottom:5px}
+  .health .row .k{color:var(--muted)}.health .row .v{font-family:var(--mono)}
+  .wearbar{position:relative;height:11px;background:#0a1119;border:1px solid var(--line);border-radius:6px;overflow:hidden}
+  .wearbar i{position:absolute;left:0;top:0;bottom:0;border-radius:6px;transition:width .4s,background .3s}
+  .wearbar .limit{position:absolute;top:-2px;height:15px;width:2px;background:var(--ink);opacity:.4}
+  .duetag{font-size:10px;font-weight:700;padding:2px 7px;border-radius:5px;letter-spacing:.5px;white-space:nowrap}
+  .due-ok{background:rgba(34,197,139,.14);color:var(--ok)}
+  .due-soon{background:rgba(245,182,66,.14);color:var(--warn)}
+  .due-now{background:rgba(255,84,104,.16);color:var(--alarm)}
+
+  .dd{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px}
+  .ddcell{background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:10px 6px 8px;text-align:center}
+  .ddcell svg{width:100%;max-width:112px;height:auto;display:block;margin:0 auto}
+  .ddname{color:var(--muted);font-size:10px;letter-spacing:.7px;text-transform:uppercase;margin-top:4px}
+  .ddsub{color:var(--dim);font-size:10px;font-family:var(--mono);margin-top:2px}
+  .ddctl{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+
+  /* KPI tiles */
+  .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;margin-bottom:12px}
+  .kpi{background:var(--panel2);border:1px solid var(--line);border-radius:11px;padding:11px;text-align:center}
+  .kpi .n{font-family:var(--mono);font-size:21px;font-weight:700}
+  .kpi .u{color:var(--dim);font-size:10px;margin-top:1px;font-family:var(--mono)}
+  .kpi .l{color:var(--muted);font-size:10px;letter-spacing:.6px;text-transform:uppercase;margin-top:5px}
+
+  /* barcode */
+  .bc{background:#f4f6f8;border-radius:8px;padding:10px 12px 6px;text-align:center;margin-top:10px}
+  .bc svg{width:100%;height:52px;display:block}
+  .bc .id{font-family:var(--mono);font-size:11px;color:#111;letter-spacing:1.5px;margin-top:3px;font-weight:700}
+  .bc .cap{font-size:10px;color:#555;margin-top:2px}
+
+  /* certificate verdict */
+  .verdict{display:inline-block;padding:4px 12px;border-radius:7px;font-weight:800;font-size:12px;letter-spacing:.6px}
+  .v-pass{background:rgba(34,197,139,.15);color:var(--ok)}
+  .v-watch{background:rgba(245,182,66,.15);color:var(--warn)}
+  .v-rej{background:rgba(255,84,104,.16);color:var(--alarm)}
+
+  .qhead{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;
+    background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:10px 12px}
+  .qhead .t{font-size:12px;color:var(--muted)}
+  .qhead .t b{color:var(--ink);font-family:var(--mono);display:block;font-size:14px;margin-top:2px}
+
+  .ordrow{display:flex;gap:10px;align-items:center;padding:10px 12px;border-radius:10px;
+    background:var(--panel2);border:1px solid var(--line);margin-bottom:8px}
+  .ordrow.run{border-color:var(--accent);background:rgba(55,182,255,.07)}
+  .ordrow.done{opacity:.55}
+  .ordrow .oid{font-family:var(--mono);font-weight:700;font-size:12.5px}
+  .ordrow .om{flex:1;min-width:0}
+  .ordrow .osub{color:var(--dim);font-size:10.5px;margin-top:2px}
+  .ordrow .ost{font-size:10px;font-weight:700;padding:3px 8px;border-radius:5px;letter-spacing:.5px}
+  .os-run{background:rgba(55,182,255,.16);color:var(--accent)}
+  .os-q{background:rgba(139,160,182,.14);color:var(--muted)}
+  .os-d{background:rgba(34,197,139,.14);color:var(--ok)}
+
+  /* ================= KIOSK / WALL MODE — fixed 1920×1080 canvas, never scrolls ================= */
+  #stage{display:none}
+  body.kiosk{overflow:hidden}
+  body.kiosk #deskRoot{display:none}
+  body.kiosk #stage{display:block;position:fixed;left:50%;top:50%;width:1920px;height:1080px;
+    transform-origin:center center;overflow:hidden}
+  .kwrap{display:flex;flex-direction:column;height:1080px;padding:14px 18px;gap:11px}
+  .khead{display:flex;align-items:center;gap:16px;height:66px;flex:0 0 auto;
+    background:linear-gradient(180deg,#101923,#0c141d);border:1px solid var(--line);border-radius:14px;padding:0 18px}
+  .khead h1{margin:0;font-size:23px;letter-spacing:.4px;line-height:1.15}
+  .ksub{color:var(--muted);font-size:13px;margin-top:2px}
+  .ksub b{color:var(--accent);font-weight:600}
+  .kbody{display:grid;grid-template-columns:1fr 664px;gap:11px;flex:1 1 auto;min-height:0}
+  .kcol{display:flex;flex-direction:column;gap:11px;min-height:0}
+  .kcard{background:linear-gradient(180deg,var(--panel),var(--panel2));border:1px solid var(--line);
+    border-radius:14px;padding:11px 14px;min-height:0;display:flex;flex-direction:column;overflow:hidden}
+  .kcard h3{margin:0 0 8px;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);
+    font-weight:700;display:flex;align-items:center;gap:9px;flex:0 0 auto}
+  .kcard h3 .tag{font-size:10px;letter-spacing:1px;color:var(--dim);border:1px solid var(--line);
+    padding:2px 8px;border-radius:6px;text-transform:none}
+  .ktiles{display:grid;grid-template-columns:repeat(8,1fr);gap:9px;flex:0 0 auto}
+  .ktile{background:linear-gradient(180deg,var(--panel),var(--panel2));border:1px solid var(--line);
+    border-radius:12px;padding:10px 5px 9px;text-align:center}
+  .ktile .n{font-family:var(--mono);font-size:27px;font-weight:700;line-height:1.05}
+  .ktile .u{color:var(--dim);font-size:10px;font-family:var(--mono);margin-top:2px}
+  .ktile .l{color:var(--muted);font-size:9.5px;letter-spacing:.8px;text-transform:uppercase;margin-top:6px}
+  .kprog{height:4px;background:#0a1119;border-radius:3px;overflow:hidden;flex:0 0 auto}
+  .kprog i{display:block;height:100%;background:var(--accent);width:0%;transition:width .12s linear}
+  .kdots{display:flex;gap:6px;margin-left:auto;align-items:center}
+  .kdot{width:9px;height:9px;border-radius:50%;background:#243447;cursor:pointer;transition:.2s}
+  .kdot.on{background:var(--accent);box-shadow:0 0 7px rgba(55,182,255,.7)}
+  .kalarms{display:flex;flex-direction:column;gap:6px;overflow:hidden;flex:1 1 auto}
+  .kalarm{display:flex;gap:9px;align-items:center;padding:7px 10px;border-radius:8px;
+    background:var(--panel2);border-left:3px solid var(--line);font-size:13px;flex:0 0 auto}
+  .kalarm.crit{border-left-color:var(--alarm);background:rgba(255,84,104,.07)}
+  .kalarm.warn{border-left-color:var(--warn);background:rgba(245,182,66,.05)}
+  .kalarm.info{border-left-color:var(--accent)}
+  .kalarm .m{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .kalarm .t{font-family:var(--mono);font-size:11px;color:var(--dim)}
+  .kpane{flex:1 1 auto;min-height:0;overflow:hidden;margin-top:9px;display:flex;flex-direction:column;gap:9px}
+  .kg2{display:grid;grid-template-columns:1fr 1fr;gap:11px;min-height:0}
+  .ksec{background:var(--panel2);border:1px solid var(--line);border-radius:11px;padding:9px 11px;min-height:0;overflow:hidden}
+  .ksec .st{color:var(--muted);font-size:10px;letter-spacing:.9px;text-transform:uppercase;font-weight:700;margin-bottom:7px;
+    display:flex;justify-content:space-between;align-items:baseline}
+  .ksec .st span{font-family:var(--mono);color:var(--ink);font-size:11px;letter-spacing:0;text-transform:none}
+  body.kiosk .drow{padding:5px 0;font-size:12px}
+  body.kiosk .drow .v{font-size:12.5px}
+  body.kiosk table.tbl td{padding:5px 5px;font-size:11.5px}
+  body.kiosk table.tbl th{padding:4px 5px;font-size:9.5px}
+  body.kiosk .tzone{margin-bottom:8px}
+  body.kiosk .spark{border-radius:7px}
+  .kfit{width:100%;height:auto;display:block}
+  /* charts that stretch to fill their section */
+  .ksec.flexcol{display:flex;flex-direction:column}
+  .kchart{width:100%;flex:1 1 auto;min-height:0;display:block;background:#0a1119;
+    border:1px solid var(--line);border-radius:7px}
+  .kscroll{flex:1 1 auto;min-height:0;overflow:hidden}
+  /* ---------- paper-machine specific ---------- */
+  .secgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+  .seccell{background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:8px 10px}
+  .seccell .sn{color:var(--muted);font-size:9.5px;letter-spacing:.7px;text-transform:uppercase}
+  .seccell .sv{font-family:var(--mono);font-size:15px;font-weight:700;color:var(--ink);margin-top:3px}
+  .seccell .ss{color:var(--dim);font-size:9.5px;font-family:var(--mono);margin-top:2px}
+  .panelsvg{width:100%;height:auto;display:block;background:#0a1119;border:1px solid var(--line);border-radius:8px}
+  .propgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:9px}
+  .prop{background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:9px 10px}
+  .prop .pn{color:var(--muted);font-size:9.5px;letter-spacing:.7px;text-transform:uppercase}
+  .prop .pv{font-family:var(--mono);font-size:19px;font-weight:700;margin-top:2px}
+  .prop .pt{color:var(--dim);font-size:9.5px;font-family:var(--mono);margin-top:2px}
+  .devbar{position:relative;height:7px;background:#0a1119;border:1px solid var(--line);border-radius:5px;margin-top:6px;overflow:hidden}
+  .devbar i{position:absolute;top:0;bottom:0;border-radius:5px;transition:all .35s}
+  .devbar .mid{position:absolute;left:50%;top:-2px;width:1px;height:11px;background:var(--dim);opacity:.7}
+  .steamrow{display:flex;align-items:center;gap:9px;margin-bottom:7px}
+  .steamrow .sl{color:var(--muted);font-size:11px;width:82px;flex:0 0 auto}
+  .steamrow .sb{position:relative;flex:1;height:9px;background:#0a1119;border:1px solid var(--line);border-radius:5px;overflow:hidden}
+  .steamrow .sb i{position:absolute;left:0;top:0;bottom:0;background:linear-gradient(90deg,#37b6ff,#b694e8);border-radius:5px;transition:width .35s}
+  .steamrow .sv{font-family:var(--mono);font-size:11px;color:var(--ink);width:70px;text-align:right;flex:0 0 auto}
+</style>
+</head>
+<body>
+<div class="app" id="deskRoot">
+  <header>
+    <div class="brand">
+      <h1 id="mcName">Board Machine</h1>
+      <div class="sub">Digital Twin · Mill <b id="mcLine">—</b> · Asset <b id="mcAsset">—</b> · Grade <b id="mcOrder">—</b></div>
+    </div>
+    <div class="hspacer"></div>
+    <div class="controls">
+      <button class="ctl active" id="btnRun">▶ Run</button>
+      <button class="ctl stop" id="btnStop">■ Stop</button>
+      <button class="ctl" id="btnTurnup">⟲ Reel turn-up</button>
+      <button class="ctl" id="btnBreak">⚡ Web break</button>
+      <button class="ctl" id="btnKiosk">⛶ Wall mode</button>
+    </div>
+    <div id="statepill" class="statepill st-run"><span class="dot"></span><span id="stateTxt">RUNNING</span></div>
+    <div class="clock"><b id="clk">--:--:--</b><br><span id="shift">Shift —</span></div>
+  </header>
+
+  <div class="top">
+    <div class="card">
+      <h2>Machine Schematic — Wet End to Reel <span class="tag" id="dirTag">Live twin</span></h2>
+      <svg id="twin" viewBox="0 98 980 200" preserveAspectRatio="xMidYMid meet"></svg>
+    </div>
+  </div>
+
+  <div class="tabs">
+    <button class="tab active" data-tab="overview">Overview</button>
+    <button class="tab" data-tab="quality">Quality</button>
+    <button class="tab" data-tab="production">Production</button>
+    <button class="tab" data-tab="losses">Losses &amp; Energy</button>
+  </div>
+
+  <!-- ======================= OVERVIEW ======================= -->
+  <div class="pane" id="pane-overview">
+    <div class="grid">
+      <div class="col">
+        <div class="card">
+          <h2>Speed &amp; Production <span class="tag" id="prodTag">machine output</span></h2>
+          <div class="gauges">
+            <div class="gauge"><div class="name">Machine speed</div>
+              <div class="num" id="gSpeed" style="color:var(--accent)">0</div>
+              <div class="unit">m / min</div><div class="sp" id="gSpeedSp">SP —</div></div>
+            <div class="gauge"><div class="name">Production</div>
+              <div class="num" id="gTph" style="color:var(--ok)">0</div>
+              <div class="unit">t / h</div><div class="sp" id="gTphSp">—</div></div>
+          </div>
+          <div style="height:10px"></div>
+          <div id="prodRows"></div>
+        </div>
+
+        <div class="card">
+          <h2>Dewatering Curve <span class="tag">dry content along the machine</span></h2>
+          <svg id="dewater" class="panelsvg" viewBox="0 0 320 150" preserveAspectRatio="xMidYMid meet"></svg>
+          <div class="legend">
+            <span><i style="background:var(--accent)"></i>Dry content %</span>
+            <span><i style="background:var(--violet)"></i>Water carried (g/m²)</span>
+            <span>Size press re-wets the sheet before the after-dryers</span>
+          </div>
+          <div style="margin-top:10px" id="dewRows"></div>
+        </div>
+
+        <div class="card">
+          <h2>Sheet Properties <span class="tag" id="qcsTag">QCS</span></h2>
+          <div class="propgrid" id="propGrid"></div>
+        </div>
+      </div>
+
+      <div class="col">
+        <div class="card">
+          <h2>Wet End <span class="tag">headbox · wire · press</span></h2>
+          <div class="secgrid" id="wetGrid"></div>
+          <div style="margin-top:11px" id="wetRows"></div>
+        </div>
+
+        <div class="card">
+          <h2>Dryer Section <span class="tag" id="dryTag">steam groups</span></h2>
+          <div id="steamRows"></div>
+          <div style="margin-top:10px" id="dryRows"></div>
+        </div>
+
+        <div class="card">
+          <h2>Pope Reel <span class="tag" id="reelTag">building</span></h2>
+          <div style="display:flex;gap:14px;align-items:center">
+            <svg id="reelRing" viewBox="0 0 100 100" style="width:104px;height:104px;flex:0 0 auto"></svg>
+            <div style="flex:1;min-width:0" id="reelRows"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col">
+        <div class="card">
+          <h2>Section Drives <span class="tag" id="driveTag">axes</span></h2>
+          <table class="tbl">
+            <thead><tr><th>Section</th><th>Load</th><th>Power</th><th>Draw</th><th>Amp</th></tr></thead>
+            <tbody id="driveBody"></tbody>
+          </table>
+        </div>
+
+        <div class="card">
+          <h2>Production &amp; OEE <span class="tag" id="oeeShift">This shift</span></h2>
+          <div class="oee">
+            <div class="cell"><div class="big" id="oeeA" style="color:var(--ok)">—</div><div class="lb">Availability</div></div>
+            <div class="cell"><div class="big" id="oeeP" style="color:var(--accent)">—</div><div class="lb">Performance</div></div>
+            <div class="cell"><div class="big" id="oeeQ" style="color:var(--warn)">—</div><div class="lb">Quality</div></div>
+          </div>
+          <div class="oee" style="grid-template-columns:1fr">
+            <div class="cell" style="padding:12px"><div class="big" id="oeeTotal" style="font-size:30px">—</div>
+              <div class="lb">Overall OEE</div></div>
+          </div>
+          <div class="countrow"><span>Reels produced</span><b id="cReels">0</b></div>
+          <div class="countrow"><span>Tonnage (saleable)</span><b id="cTon">0 t</b></div>
+          <div class="countrow"><span>Broke</span><b id="cBroke">0 t</b></div>
+          <div class="countrow"><span>Web breaks</span><b id="cBreaks">0</b></div>
+        </div>
+
+        <div class="card">
+          <h2>Alarms &amp; Events <span class="tag" id="almCount">0 active</span></h2>
+          <div class="alarms" id="alarms"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================= QUALITY ======================= -->
+  <div class="pane" id="pane-quality" hidden>
+    <div class="grid two">
+      <div class="col">
+        <div class="card">
+          <h2>MD Trends <span class="tag">machine direction</span></h2>
+          <div class="spark-wrap">
+            <div class="spark-hd"><span class="t">Basis weight (g/m²)</span><span class="v" id="mdGsmV">—</span></div>
+            <svg id="mdGsm" class="spark" viewBox="0 0 300 60" preserveAspectRatio="none"></svg>
+          </div>
+          <div class="spark-wrap">
+            <div class="spark-hd"><span class="t">Moisture (%)</span><span class="v" id="mdMoiV">—</span></div>
+            <svg id="mdMoi" class="spark" viewBox="0 0 300 60" preserveAspectRatio="none"></svg>
+          </div>
+          <div class="spark-wrap">
+            <div class="spark-hd"><span class="t">Caliper (mm)</span><span class="v" id="mdCalV">—</span></div>
+            <svg id="mdCal" class="spark" viewBox="0 0 300 60" preserveAspectRatio="none"></svg>
+          </div>
+          <div class="legend"><span>Shaded band = ± specification tolerance</span></div>
+        </div>
+
+        <div class="card">
+          <h2>Reel Quality Certificate <span class="tag" id="certTag">last reel</span></h2>
+          <div id="certBox"></div>
+        </div>
+      </div>
+
+      <div class="col">
+        <div class="card">
+          <h2>CD Profiles <span class="tag" id="cdTag">scanner</span></h2>
+          <div class="spark-wrap">
+            <div class="spark-hd"><span class="t">Basis weight (g/m²)</span><span class="v" id="cdBwV">—</span></div>
+            <svg id="cdBw" class="spark" viewBox="0 0 300 50" preserveAspectRatio="none"></svg>
+          </div>
+          <div class="spark-wrap">
+            <div class="spark-hd"><span class="t">Moisture (%)</span><span class="v" id="cdMoiV">—</span></div>
+            <svg id="cdMoi" class="spark" viewBox="0 0 300 50" preserveAspectRatio="none"></svg>
+          </div>
+          <div class="spark-wrap">
+            <div class="spark-hd"><span class="t">Caliper (mm)</span><span class="v" id="cdCalV">—</span></div>
+            <svg id="cdCal" class="spark" viewBox="0 0 300 50" preserveAspectRatio="none"></svg>
+          </div>
+          <div class="legend"><span>Dashed line = target · shaded = ± tolerance · full trimmed deckle</span></div>
+          <div style="margin-top:11px" id="cdRows"></div>
+        </div>
+
+        <div class="card">
+          <h2>Profile Control <span class="tag">CD actuators</span></h2>
+          <div id="ctrlRows"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================= PRODUCTION ======================= -->
+  <div class="pane" id="pane-production" hidden>
+    <div class="grid two">
+      <div class="col">
+        <div class="card">
+          <h2>Grade Schedule <span class="tag" id="ordTag">run plan</span></h2>
+          <div id="ordList"></div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px">
+            <button class="ctl" id="btnNextOrder">Grade change → next</button>
+            <span class="setup"><span class="msg" id="ordMsg"></span></span>
+          </div>
+        </div>
+
+        <div class="card">
+          <h2>Setup / Recipe <span class="tag">editable</span></h2>
+          <div class="setup">
+            <div class="f"><label>Speed SP (m/min)</label><input id="inSpeed" type="number" min="0" step="10"></div>
+            <div class="f"><label>Basis weight (g/m²)</label><input id="inGsm" type="number" min="20" step="5"></div>
+            <div class="f"><label>Moisture target (%)</label><input id="inMoi" type="number" min="1" step="0.1"></div>
+            <div class="f"><label>Caliper target (mm)</label><input id="inCal" type="number" min="0.02" step="0.01"></div>
+            <div class="f"><label>Trimmed deckle (mm)</label><input id="inDeckle" type="number" min="500" step="10"></div>
+            <div class="f"><label>Reel target Ø (mm)</label><input id="inDia" type="number" min="300" step="50"></div>
+            <div class="apply">
+              <button class="ctl" id="btnApply">Apply recipe</button>
+              <span class="msg" id="setupMsg"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col">
+        <div class="card">
+          <h2>Reel Traceability <span class="tag" id="traceTag">0 reels</span></h2>
+          <div style="color:var(--dim);font-size:11px;margin-bottom:9px">
+            Each parent reel below is the input to the splitter rewinder twin — same Ø, width and grade.
+          </div>
+          <table class="tbl">
+            <thead><tr><th>Reel ID</th><th>Ø</th><th>Length</th><th>t</th><th>gsm</th><th>Moist</th><th>Q</th></tr></thead>
+            <tbody id="traceBody"></tbody>
+          </table>
+          <div class="bc" id="bcBox">
+            <svg id="barcode" viewBox="0 0 400 60" preserveAspectRatio="none"></svg>
+            <div class="id" id="bcId">—</div>
+            <div class="cap" id="bcCap">Code 39 · click any reel above</div>
+          </div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px">
+            <button class="ctl" id="btnCsv">⭳ Export reel report (CSV)</button>
+            <button class="ctl" id="btnShift">⭳ Shift summary (CSV)</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================= LOSSES ======================= -->
+  <div class="pane" id="pane-losses" hidden>
+    <div class="grid two">
+      <div class="col">
+        <div class="card">
+          <h2>Energy &amp; Steam <span class="tag">live &amp; shift</span></h2>
+          <div class="kpis">
+            <div class="kpi"><div class="n" id="enSteam" style="color:var(--violet)">—</div><div class="u">t / h</div><div class="l">Steam</div></div>
+            <div class="kpi"><div class="n" id="enSteamSpec" style="color:var(--warn)">—</div><div class="u">t st / t</div><div class="l">Specific steam</div></div>
+            <div class="kpi"><div class="n" id="enKw" style="color:var(--accent)">—</div><div class="u">kW</div><div class="l">Drive power</div></div>
+            <div class="kpi"><div class="n" id="enSpec">—</div><div class="u">kWh / t</div><div class="l">Specific power</div></div>
+          </div>
+          <div class="spark-wrap">
+            <div class="spark-hd"><span class="t">Steam demand (t/h)</span><span class="v" id="spSteamV">—</span></div>
+            <svg id="spSteam" class="spark" viewBox="0 0 300 60" preserveAspectRatio="none"></svg>
+          </div>
+          <div class="spark-wrap">
+            <div class="spark-hd"><span class="t">Evaporation rate (t water/h)</span><span class="v" id="spEvapV">—</span></div>
+            <svg id="spEvap" class="spark" viewBox="0 0 300 60" preserveAspectRatio="none"></svg>
+          </div>
+          <div id="enRows" style="margin-top:6px"></div>
+        </div>
+      </div>
+
+      <div class="col">
+        <div class="card">
+          <h2>Web Breaks by Location <span class="tag" id="brkTag">0 breaks</span></h2>
+          <svg id="brkPareto" class="panelsvg" viewBox="0 0 320 130" preserveAspectRatio="xMidYMid meet"></svg>
+          <table class="tbl" style="margin-top:10px">
+            <thead><tr><th>Location</th><th>Breaks</th><th>Share</th><th>Lost min</th></tr></thead>
+            <tbody id="brkBody"></tbody>
+          </table>
+        </div>
+
+        <div class="card">
+          <h2>Downtime &amp; Loss Pareto <span class="tag" id="parTag">by reason</span></h2>
+          <svg id="pareto" class="panelsvg" viewBox="0 0 320 130" preserveAspectRatio="xMidYMid meet"></svg>
+          <table class="tbl" style="margin-top:10px">
+            <thead><tr><th>Reason</th><th>Lost min</th><th>Share</th><th>Cum</th></tr></thead>
+            <tbody id="parBody"></tbody>
+          </table>
+        </div>
+
+        <div class="card">
+          <h2>Clothing &amp; Maintenance <span class="tag">predictive</span></h2>
+          <div id="clothBox"></div>
+          <table class="tbl" style="margin-top:8px">
+            <thead><tr><th>Section</th><th>Temp</th><th>Vib</th><th>Health</th></tr></thead>
+            <tbody id="healthBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="foot">
+    Reusable digital-twin template · edit the <code>MACHINE</code> config object (or the Setup / Recipe panel) to retarget any board or paper machine ·
+    production from <code>t/h = gsm · deckle · v · 60 / 10⁶</code>, dewatering from <code>water = gsm·(100/dry − 1)</code>, reel from <code>D² = d² + 4·t·L/π</code> ·
+    replace <code>simulateTick()</code> with live DCS / QCS / OPC-UA tag reads for real data.
+  </div>
+</div>
+
+<!-- ================== KIOSK / WALL DISPLAY ================== -->
+<div id="stage">
+  <div class="kwrap">
+    <div class="khead">
+      <div>
+        <h1 id="kName">Board Machine</h1>
+        <div class="ksub">Digital Twin · Mill <b id="kLine">—</b> · Asset <b id="kAsset">—</b> · <span id="kGrade">—</span></div>
+      </div>
+      <div class="hspacer"></div>
+      <div id="kPill" class="statepill st-run" style="font-size:15px;padding:10px 20px">
+        <span class="dot"></span><span id="kState">RUNNING</span></div>
+      <div class="clock" style="font-size:13px"><b id="kClk" style="font-size:19px">--:--:--</b><br><span id="kShift">Shift —</span></div>
+      <button class="ctl" id="btnPause">⏸ Pause rotation</button>
+      <button class="ctl" id="btnFs">⛶ Fullscreen</button>
+      <button class="ctl" id="btnDesk">🖵 Desk mode</button>
+    </div>
+    <div class="kbody">
+      <div class="kcol">
+        <div class="kcard" style="flex:0 0 auto">
+          <h3>Machine Schematic — Wet End to Reel <span class="tag" id="kSchTag">live twin</span></h3>
+          <div id="kSchematic" style="flex:0 0 auto"></div>
+        </div>
+        <div class="ktiles" id="kTiles"></div>
+        <div class="kcard" style="flex:1 1 auto">
+          <h3>Alarms &amp; Events <span class="tag" id="kAlmTag">0 active</span></h3>
+          <div class="kalarms" id="kAlarms"></div>
+        </div>
+      </div>
+      <div class="kcol">
+        <div class="kcard" style="flex:1 1 auto">
+          <h3><span id="kPaneTitle">Process</span><span class="kdots" id="kDots"></span></h3>
+          <div class="kprog"><i id="kProg"></i></div>
+          <div class="kpane" id="kPane"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* =====================================================================
+   REUSABLE CONFIG — board / paper machine
+   ===================================================================== */
+/* ==== GENERATED CONFIG START ==== */
+/* Generated from mill_asset_registry.xlsx · asset PM1 · 17 field(s) overridden
+   Do not edit this block. Edit mill_asset_registry.xlsx and re-run
+   generate_fleet.py — the next run overwrites everything below.  */
+const MACHINE = {
+  "name": "Board Machine PM-1",
+  "line": "Mill A · PM-1",
+  "asset": "PM1",
+  "gradeName": "Testliner 140 gsm",
+  "deckleMm": 2100,
+  "wireWidthMm": 2350,
+  "target": {
+    "gsm": 140,
+    "moisturePct": 8,
+    "caliperMm": 0.19,
+    "ashPct": 6
+  },
+  "speedSetpoint": 750,
+  "reel": {
+    "targetDiaMm": 1650,
+    "coreMm": 150
+  },
+  "headbox": {
+    "consistencyPct": 0.95,
+    "jetWireRatio": 0.995,
+    "sliceMm": 12.5,
+    "headM": 4.2
+  },
+  "dry": [
+    {
+      "id": "HB",
+      "name": "Headbox",
+      "u": 0.03,
+      "pct": 0.9
+    },
+    {
+      "id": "WIRE",
+      "name": "Wire",
+      "u": 0.23,
+      "pct": 20
+    },
+    {
+      "id": "PR1",
+      "name": "Press 1",
+      "u": 0.31,
+      "pct": 38
+    },
+    {
+      "id": "PR2",
+      "name": "Press 2",
+      "u": 0.38,
+      "pct": 48
+    },
+    {
+      "id": "DR1",
+      "name": "Dryer gp 1-2",
+      "u": 0.57,
+      "pct": 72
+    },
+    {
+      "id": "SP",
+      "name": "Size press",
+      "u": 0.63,
+      "pct": 62
+    },
+    {
+      "id": "DR2",
+      "name": "After-dryers",
+      "u": 0.75,
+      "pct": 93
+    },
+    {
+      "id": "CAL",
+      "name": "Calender",
+      "u": 0.83,
+      "pct": 93.2
+    },
+    {
+      "id": "REEL",
+      "name": "Reel",
+      "u": 0.95,
+      "pct": 92.5
+    }
+  ],
+  "dryerGroups": [
+    {
+      "id": "G1",
+      "name": "Group 1",
+      "cyl": 16,
+      "steamBar": 1.1,
+      "maxBar": 4
+    },
+    {
+      "id": "G2",
+      "name": "Group 2",
+      "cyl": 18,
+      "steamBar": 2.4,
+      "maxBar": 4
+    },
+    {
+      "id": "G3",
+      "name": "After-dryers",
+      "cyl": 12,
+      "steamBar": 3.2,
+      "maxBar": 5
+    }
+  ],
+  "drives": [
+    {
+      "id": "WIRE",
+      "name": "Wire section",
+      "ratedKw": 420,
+      "draw": 0
+    },
+    {
+      "id": "PR1",
+      "name": "Press 1",
+      "ratedKw": 380,
+      "draw": 1.8
+    },
+    {
+      "id": "PR2",
+      "name": "Press 2",
+      "ratedKw": 360,
+      "draw": 0.6
+    },
+    {
+      "id": "DR1",
+      "name": "Dryer group 1",
+      "ratedKw": 340,
+      "draw": -0.4
+    },
+    {
+      "id": "DR2",
+      "name": "Dryer group 2",
+      "ratedKw": 320,
+      "draw": -0.7
+    },
+    {
+      "id": "SP",
+      "name": "Size press",
+      "ratedKw": 180,
+      "draw": 0.9
+    },
+    {
+      "id": "CAL",
+      "name": "Calender",
+      "ratedKw": 260,
+      "draw": 0.5
+    },
+    {
+      "id": "REEL",
+      "name": "Pope reel",
+      "ratedKw": 300,
+      "draw": 0.3
+    }
+  ],
+  "quality": {
+    "gsmTolPct": 1.5,
+    "moistTolPct": 0.5,
+    "calTolPct": 3,
+    "ashTolPct": 1.5,
+    "cdSigmaLimit": 1.2
+  },
+  "orders": [
+    {
+      "id": "GR-210CB",
+      "customer": "Nordic Packaging",
+      "grade": "Coated Board 210 gsm",
+      "gsm": 210,
+      "moisture": 7.5,
+      "caliper": 0.25,
+      "speed": 900,
+      "reels": 5
+    },
+    {
+      "id": "GR-250CB",
+      "customer": "Baltic Cartons",
+      "grade": "Coated Board 250 gsm",
+      "gsm": 250,
+      "moisture": 7.2,
+      "caliper": 0.3,
+      "speed": 820,
+      "reels": 4
+    },
+    {
+      "id": "GR-150GP",
+      "customer": "Alpine Print",
+      "grade": "Graphic Paper 150 gsm",
+      "gsm": 150,
+      "moisture": 6.8,
+      "caliper": 0.18,
+      "speed": 1050,
+      "reels": 6
+    }
+  ],
+  "clothing": [
+    {
+      "id": "wire",
+      "name": "Forming wire",
+      "lifeH": 2200,
+      "usedH": 1490
+    },
+    {
+      "id": "felt1",
+      "name": "Press 1 felt",
+      "lifeH": 900,
+      "usedH": 735
+    },
+    {
+      "id": "felt2",
+      "name": "Press 2 felt",
+      "lifeH": 900,
+      "usedH": 390
+    },
+    {
+      "id": "fab",
+      "name": "Dryer fabrics",
+      "lifeH": 6000,
+      "usedH": 2180
+    }
+  ],
+  "breakLocations": [
+    "Wire",
+    "Press",
+    "Dryer group 1",
+    "Size press",
+    "After-dryers",
+    "Calender",
+    "Reel"
+  ],
+  "steamPerWater": 1.32,
+  "threadMin": 7,
+  "shiftHours": 8,
+  "updateMs": 900,
+  "simTimeScale": 6
+};
+/* ==== GENERATED CONFIG END ==== */
+const ZCOLORS=['#37b6ff','#22c58b','#f5b642','#e07798'];
+
+/* =====================================================================
+   PROCESS MATHS
+     production  t/h  = gsm · deckle_m · v · 60 / 1e6
+     water load  g/m² = gsm · (100/dry − 1)
+     reel        D²   = d² + 4·t·L/π
+   ===================================================================== */
+const waterGm2=(gsm,dryPct)=>gsm*(100/Math.max(0.01,dryPct)-1);
+const lengthOnRoll=(D,d,t)=>Math.max(0,Math.PI*(D*D-d*d)/(4*t)/1000);
+const growDia=(D,t,Lm)=>Math.sqrt(D*D+4*t*(Lm*1000)/Math.PI);
+function derived(){
+  const g=S.gsmAct, dk=MACHINE.deckleMm/1000, v=S.speed;
+  const tph=g*dk*v*60/1e6;
+  const reelDry=100-S.moiAct;
+  const pressDry=MACHINE.dry.find(d=>d.id==='PR2').pct;
+  const evapGm2=Math.max(0,waterGm2(g,pressDry)-waterGm2(g,reelDry));
+  const evapTh=evapGm2*dk*v*60/1e6;
+  const steamTh=evapTh*MACHINE.steamPerWater;
+  return {tph,reelDry,evapGm2,evapTh,steamTh,
+          specSteam:tph>0?steamTh/tph:0,
+          reelLen:lengthOnRoll(MACHINE.reel.targetDiaMm,MACHINE.reel.coreMm,S.calAct),
+          reelT:g*dk*lengthOnRoll(MACHINE.reel.targetDiaMm,MACHINE.reel.coreMm,S.calAct)/1e6};
+}
+
+/* =====================================================================
+   STATE
+   ===================================================================== */
+const S={
+  running:true, breakMode:false, threading:false, breakAt:1, breakLoc:'',
+  speed:0, gsmAct:210, moiAct:7.5, calAct:0.25, ashAct:12,
+  reelDia:MACHINE.reel.coreMm, reelLenM:0,
+  reels:0, tonnes:0, brokeT:0, breaks:0, runMin:0, downMin:0, goodT:0,
+  steamTh:0, evapTh:0, kw:0, kWh:0, steamT:0,
+  drives:{}, cd:null, certs:[], reelLog:[], selReel:null,
+  orderIdx:0, orderReelsDone:0,
+  breakCount:{}, losses:{},
+  trend:{speed:[],gsm:[],moi:[],cal:[],steam:[],evap:[],kw:[]},
+  alarms:[], _t:0, faultTimer:0
+};
+MACHINE.drives.forEach(d=>S.drives[d.id]={load:0,kw:0,draw:d.draw,amp:0,temp:35,vib:0.9});
+
+const rnd=(a,b)=>a+Math.random()*(b-a);
+const pick=a=>a[Math.floor(Math.random()*a.length)];
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+const fmt=(n,d=0)=>(isFinite(n)?n:0).toLocaleString('en-US',{minimumFractionDigits:d,maximumFractionDigits:d});
+const mean=a=>a.length?a.reduce((x,y)=>x+y,0)/a.length:0;
+const sd=a=>{if(a.length<2)return 0;const m=mean(a);return Math.sqrt(mean(a.map(v=>(v-m)*(v-m))));};
+const colorFor=(v,sp,band)=>{const e=Math.abs(v-sp)/(sp||1);return e<band?'var(--ok)':e<band*2.2?'var(--warn)':'var(--alarm)';};
+function eta(min){ if(!isFinite(min)||min<0) return '—'; if(min>600) return '>10 h';
+  const s=Math.round(min*60); return String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0'); }
+function stamp(){const d=new Date(),p=n=>String(n).padStart(2,'0');
+  return d.getFullYear()+p(d.getMonth()+1)+p(d.getDate());}
+function drow(k,v){return `<div class="drow"><span class="k">${k}</span><span class="v">${v}</span></div>`;}
+
+const NS="http://www.w3.org/2000/svg";
+const svg=document.getElementById('twin');
+function el(t,a){const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);return e;}
+function txt(p,x,y,s,fill,style,anchor){const e=el('text',{x,y,'text-anchor':anchor||'start'});
+  e.setAttribute('fill',fill||'var(--muted)');e.setAttribute('style',style||'font:600 9px var(--mono)');
+  e.textContent=s;p.appendChild(e);return e;}
+function clearSvg(id){const s=document.getElementById(id); if(s) s.innerHTML=''; return s;}
+/* dry content at fractional machine position u (linear between the configured points) */
+function dryAt(u){ const D=MACHINE.dry;
+  if(u<=D[0].u) return D[0].pct;
+  for(let i=1;i<D.length;i++) if(u<=D[i].u){
+    const a=D[i-1],b=D[i],f=(u-a.u)/((b.u-a.u)||1); return a.pct+(b.pct-a.pct)*f; }
+  return D[D.length-1].pct; }
+/* web colour: wet blue-grey → dry cream */
+function webColor(dryPct){
+  const f=clamp((dryPct-1)/92,0,1);
+  const c0=[61,106,143], c1=[233,220,187];
+  const c=c0.map((v,i)=>Math.round(v+(c1[i]-v)*Math.pow(f,0.75)));
+  return `rgb(${c[0]},${c[1]},${c[2]})`; }
+
+/* =====================================================================
+   SCHEMATIC
+   ===================================================================== */
+const WEBPTS=[[26,168],[74,178],[130,178],[196,178],[250,178],[276,172],[300,170],[330,170],[356,170],
+  [392,166],[414,150],[446,194],[478,150],[510,194],[542,150],[566,168],[590,170],[614,168],
+  [640,152],[668,190],[696,152],[722,166],[752,164],[782,176],[820,186],[862,192]];
+let webSegs, webDash, reelBuild, reelSpokes, dryerG=[], wireLoop, statusText;
+function ptAt(u){
+  const n=WEBPTS.length-1, x=clamp(u,0,1)*n, i=Math.min(n-1,Math.floor(x)), f=x-i;
+  const a=WEBPTS[i], b=WEBPTS[i+1];
+  return [a[0]+(b[0]-a[0])*f, a[1]+(b[1]-a[1])*f]; }
+function buildSchematic(){
+  svg.innerHTML='';
+  const defs=el('defs');
+  const g1=el('linearGradient',{id:'steel',x1:0,y1:0,x2:0,y2:1});
+  [['0%','#5a6f85'],['50%','#33465a'],['100%','#212f3d']].forEach(s=>g1.appendChild(el('stop',{offset:s[0],'stop-color':s[1]})));
+  defs.appendChild(g1);
+  const g2=el('radialGradient',{id:'reel'});
+  [['0%','#e9dcbb'],['70%','#cbb98f'],['100%','#9c8a63']].forEach(s=>g2.appendChild(el('stop',{offset:s[0],'stop-color':s[1]})));
+  defs.appendChild(g2); svg.appendChild(defs);
+
+  // ---- headbox ----
+  svg.appendChild(el('path',{d:'M 20 148 L 52 156 L 66 166 L 66 176 L 52 182 L 20 192 Z',
+    fill:'#1b2735',stroke:'#3a5a78','stroke-width':2}));
+  svg.appendChild(el('circle',{cx:34,cy:170,r:5,fill:'#3d6a8f'}));
+  txt(svg,44,206,'HEADBOX','var(--accent)','font:700 9.5px var(--font)','middle');
+
+  // ---- wire / forming section ----
+  wireLoop=el('g');
+  wireLoop.appendChild(el('path',{d:'M 78 178 L 246 178 Q 262 178 262 194 L 262 214 Q 262 230 246 230 L 78 230 Q 62 230 62 214 L 62 194 Q 62 178 78 178 Z',
+    fill:'none',stroke:'#4a5d72','stroke-width':2.5,'stroke-dasharray':'9 7'}));
+  svg.appendChild(wireLoop);
+  [[78,178],[246,178],[62,214],[262,214],[150,230]].forEach(p=>
+    svg.appendChild(el('circle',{cx:p[0],cy:p[1],r:8,fill:'url(#steel)',stroke:'#1a2735','stroke-width':1.5})));
+  for(let i=0;i<4;i++) svg.appendChild(el('rect',{x:100+i*36,y:184,width:26,height:14,rx:2,
+    fill:'#16202c',stroke:'#2b3b4e','stroke-width':1}));
+  txt(svg,162,250,'FORMING WIRE','var(--muted)','font:600 9.5px var(--font)','middle');
+  txt(svg,162,262,'suction boxes · couch','var(--dim)','font:600 8px var(--mono)','middle');
+
+  // ---- press section ----
+  [[300,152],[300,188],[356,152],[356,188]].forEach(p=>
+    svg.appendChild(el('circle',{cx:p[0],cy:p[1],r:15,fill:'url(#steel)',stroke:'#1a2735','stroke-width':2})));
+  svg.appendChild(el('path',{d:'M 288 140 Q 276 170 288 200',fill:'none',stroke:'#4a5d72','stroke-width':2,'stroke-dasharray':'6 5'}));
+  svg.appendChild(el('path',{d:'M 368 140 Q 380 170 368 200',fill:'none',stroke:'#4a5d72','stroke-width':2,'stroke-dasharray':'6 5'}));
+  txt(svg,328,224,'PRESS SECTION','var(--muted)','font:600 9.5px var(--font)','middle');
+
+  // ---- dryer groups (two rows of cylinders) ----
+  dryerG=[];
+  const mkDryers=(xs,yTop,yBot,r,label,lx)=>{
+    const g=el('g');
+    xs.forEach((x,i)=>{ const y=i%2===0?yTop:yBot;
+      g.appendChild(el('circle',{cx:x,cy:y,r,fill:'url(#steel)',stroke:'#1a2735','stroke-width':1.5}));
+      g.appendChild(el('circle',{cx:x,cy:y,r:r*0.3,fill:'#1b2531',stroke:'#54697f','stroke-width':1})); });
+    svg.appendChild(g); dryerG.push(g);
+    txt(svg,lx,label==='DRYER GROUPS 1–2'?238:238,label,'var(--muted)','font:600 9.5px var(--font)','middle'); };
+  mkDryers([414,446,478,510,542],136,208,17,'DRYER GROUPS 1–2',478);
+  mkDryers([640,668,696],138,206,13,'AFTER-DRYERS',668);
+  // hoods
+  svg.appendChild(el('rect',{x:396,y:110,width:164,height:14,rx:3,fill:'#141d28',stroke:'#25384c'}));
+  svg.appendChild(el('rect',{x:624,y:116,width:90,height:12,rx:3,fill:'#141d28',stroke:'#25384c'}));
+
+  // ---- size press ----
+  svg.appendChild(el('circle',{cx:590,cy:152,r:14,fill:'url(#steel)',stroke:'#1a2735','stroke-width':2}));
+  svg.appendChild(el('circle',{cx:590,cy:188,r:14,fill:'url(#steel)',stroke:'#1a2735','stroke-width':2}));
+  txt(svg,590,224,'SIZE PRESS','var(--violet)','font:700 9px var(--font)','middle');
+
+  // ---- calender ----
+  [140,160,180,200].forEach((y,i)=>svg.appendChild(el('circle',{cx:752,cy:y,r:11,
+    fill:'url(#steel)',stroke:'#1a2735','stroke-width':1.5})));
+  txt(svg,752,232,'CALENDER','var(--muted)','font:600 9.5px var(--font)','middle');
+
+  // ---- pope reel ----
+  svg.appendChild(el('circle',{cx:822,cy:214,r:24,fill:'url(#steel)',stroke:'#1a2735','stroke-width':2}));
+  reelSpokes=el('g'); svg.appendChild(reelSpokes);
+  reelBuild=el('circle',{cx:884,cy:196,r:12,fill:'url(#reel)',stroke:'#7d6c46','stroke-width':2.5});
+  svg.appendChild(reelBuild);
+  svg.appendChild(el('line',{x1:930,y1:150,x2:930,y2:300,stroke:'#243447','stroke-width':2}));
+  txt(svg,868,258,'POPE REEL','var(--muted)','font:600 9.5px var(--font)','middle');
+  statusText=txt(svg,868,272,'','var(--ink)','font:700 10px var(--mono)','middle');
+
+  // ---- the web itself: coloured wet → dry ----
+  webSegs=el('g'); svg.appendChild(webSegs);
+  webDash=el('path',{d:'',fill:'none',stroke:'rgba(255,255,255,.30)','stroke-width':1.4,
+    'stroke-dasharray':'11 9','stroke-linecap':'round'});
+  svg.appendChild(webDash);
+  drawWeb(1);
+}
+function drawWeb(upTo){
+  if(!webSegs) return;
+  webSegs.innerHTML='';
+  const N=64; let d='';
+  for(let i=0;i<N;i++){
+    const u0=i/N, u1=(i+1)/N;
+    if(u0>upTo) break;
+    const [x0,y0]=ptAt(u0), [x1,y1]=ptAt(u1);
+    webSegs.appendChild(el('line',{x1:x0.toFixed(1),y1:y0.toFixed(1),x2:x1.toFixed(1),y2:y1.toFixed(1),
+      stroke:webColor(dryAt(u0)),'stroke-width':4.2,'stroke-linecap':'round'}));
+    d+=(i===0?'M ':'L ')+x0.toFixed(1)+' '+y0.toFixed(1)+' ';
+  }
+  webDash.setAttribute('d',d);
+}
+
+/* =====================================================================
+   ANIMATION
+   ===================================================================== */
+let rot=0, dash=0;
+function animate(){
+  const spd=S.speed;
+  dash-=spd*0.05+0.2; webDash.setAttribute('stroke-dashoffset',dash);
+  rot+=spd*0.05;
+  if(wireLoop) wireLoop.setAttribute('stroke-dashoffset',dash*0.7);
+  dryerG.forEach(g=>g.querySelectorAll('circle').forEach((c,i)=>{ if(i%2) return; }));
+  // reel build-up + spokes
+  if(!(seq&&seq.kind==='turnup')){
+    const f=clamp((S.reelDia-MACHINE.reel.coreMm)/(MACHINE.reel.targetDiaMm-MACHINE.reel.coreMm),0,1);
+    const r=12+34*f; reelBuild.setAttribute('r',r.toFixed(1));
+    reelSpokes.innerHTML='';
+    for(let i=0;i<4;i++){const a=(rot*1.6+i*90)*Math.PI/180;
+      reelSpokes.appendChild(el('line',{x1:884,y1:196,x2:884+Math.cos(a)*r,y2:196+Math.sin(a)*r,
+        stroke:'#8a7850','stroke-width':1.4,opacity:.5}));}
+  }
+  if(seq){const et=performance.now()-seq.start; seq.kind==='turnup'?stepTurnup(et):stepBreak(et);}
+  requestAnimationFrame(animate);
+}
+
+/* =====================================================================
+   SEQUENCES — reel turn-up and web break / threading
+   ===================================================================== */
+let seq=null; const TURN_DUR=3800, BREAK_DUR=6000;
+function startTurnup(manual){
+  if(seq) return;
+  S.reels++; S.orderReelsDone++; makeCertificate();
+  seq={kind:'turnup',start:performance.now(),r:parseFloat(reelBuild.getAttribute('r')),reset:false};
+  pushAlarm('info',(manual?'Manual turn-up — ':'')+`Reel ${S.reels} complete at Ø ${fmt(S.reelDia)} mm / ${fmt(S.reelLenM)} m — turning up`);
+  document.getElementById('btnTurnup').classList.add('active'); setState();
+}
+function startBreak(manual,loc){
+  if(seq||S.breakMode) return;
+  S.breakMode=true; S.breaks++;
+  S.breakLoc=loc||pick(MACHINE.breakLocations);
+  S.breakCount[S.breakLoc]=(S.breakCount[S.breakLoc]||0)+1;
+  S.losses['Web break — '+S.breakLoc]=(S.losses['Web break — '+S.breakLoc]||0)+MACHINE.threadMin;
+  const li=MACHINE.breakLocations.indexOf(S.breakLoc);
+  S.breakAt=clamp(0.18+li/MACHINE.breakLocations.length*0.75,0.1,0.95);
+  seq={kind:'break',start:performance.now(),reset:false};
+  pushAlarm('crit',(manual?'Manual break — ':'')+`WEB BREAK at ${S.breakLoc} — sheet lost, threading required`);
+  document.getElementById('btnBreak').classList.add('active'); setState();
+}
+function endSeq(){
+  if(seq&&seq.kind==='turnup'){ document.getElementById('btnTurnup').classList.remove('active'); }
+  if(seq&&seq.kind==='break'){ document.getElementById('btnBreak').classList.remove('active');
+    S.breakMode=false; S.threading=false; S.breakAt=1; drawWeb(1); }
+  seq=null; setState();
+}
+function stepTurnup(t){
+  const u=Math.min(t/TURN_DUR,1);
+  if(u<0.6){ const x=884+(u/0.6)*70, y=196+(u/0.6)*16;
+    reelBuild.setAttribute('cx',x); reelBuild.setAttribute('cy',y);
+    reelBuild.setAttribute('opacity',String(u<0.48?1:Math.max(0,1-(u-0.48)/0.12)));
+    reelSpokes.innerHTML='';
+  } else {
+    if(!seq.reset){ seq.reset=true; S.reelDia=MACHINE.reel.coreMm; S.reelLenM=0;
+      pushAlarm('info','Reel turned up to the reel spool — new reel started on the drum'); }
+    reelBuild.setAttribute('cx',884); reelBuild.setAttribute('cy',196);
+    reelBuild.setAttribute('opacity','1'); reelBuild.setAttribute('r','12');
+  }
+  if(u>=1) endSeq();
+}
+function stepBreak(t){
+  const u=Math.min(t/BREAK_DUR,1);
+  if(u<0.34){ drawWeb(S.breakAt*(1-u/0.34)); S.threading=false; }         // sheet collapses back
+  else if(u<0.5){ drawWeb(0.02); S.threading=true; }                       // broke chute, tail cut
+  else { S.threading=true; drawWeb(clamp((u-0.5)/0.45,0.02,1)); }          // threading the tail forward
+  if(u>=1){ pushAlarm('info','Web threaded to the reel — ramping back to speed'); endSeq(); }
+}
+
+/* =====================================================================
+   CD PROFILES / CERTIFICATE
+   ===================================================================== */
+function buildCd(){
+  const N=61; S.cd={bw:[],moi:[],cal:[],N};
+  const P=[rnd(0,6.28),rnd(0,6.28),rnd(0,6.28)];
+  for(let i=0;i<N;i++){ const u=i/(N-1);
+    S.cd.bw.push(MACHINE.target.gsm*(1+0.008*Math.sin(u*6.283*1.7+P[0])+0.004*Math.sin(u*6.283*4.3+P[1])));
+    S.cd.moi.push(MACHINE.target.moisturePct+0.22*Math.sin(u*6.283*1.3+P[1])+0.09*Math.sin(u*6.283*3.7+P[2]));
+    S.cd.cal.push(MACHINE.target.caliperMm*(1+0.012*Math.sin(u*6.283*2.2+P[2])+0.005*Math.sin(u*6.283*5.1+P[0]))); }
+}
+function driftCd(){ if(!S.cd) return buildCd();
+  const T=MACHINE.target;
+  for(let i=0;i<S.cd.N;i++){
+    S.cd.bw[i]+=rnd(-0.06,0.06); S.cd.moi[i]+=rnd(-0.008,0.008); S.cd.cal[i]+=rnd(-0.0004,0.0004);
+    S.cd.bw[i]=clamp(S.cd.bw[i],T.gsm*0.96,T.gsm*1.04);
+    S.cd.moi[i]=clamp(S.cd.moi[i],T.moisturePct-0.9,T.moisturePct+0.9);
+    S.cd.cal[i]=clamp(S.cd.cal[i],T.caliperMm*0.94,T.caliperMm*1.06); } }
+function cdStrip(id,arr,target,tol,unit,dp,valId){
+  const s=clearSvg(id); if(!s||!arr) return;
+  const W=300,H=50,pad=4,ph=H-pad*2;
+  const lo=target*(1-tol*2.4), hi=target*(1+tol*2.4);
+  const yOf=v=>pad+ph-((clamp(v,lo,hi)-lo)/((hi-lo)||1))*ph;
+  s.appendChild(el('rect',{x:0,y:yOf(target*(1+tol)),width:W,
+    height:Math.max(1,yOf(target*(1-tol))-yOf(target*(1+tol))),fill:'rgba(34,197,139,.09)'}));
+  s.appendChild(el('line',{x1:0,y1:yOf(target),x2:W,y2:yOf(target),stroke:'var(--dim)','stroke-width':1,'stroke-dasharray':'4 3'}));
+  s.appendChild(el('polyline',{points:arr.map((v,i)=>((i/(arr.length-1))*W).toFixed(1)+','+yOf(v).toFixed(1)).join(' '),
+    fill:'none',stroke:'var(--accent)','stroke-width':1.6}));
+  const out=arr.filter(v=>Math.abs(v-target)/target>tol).length;
+  if(valId) document.getElementById(valId).textContent=
+    fmt(mean(arr),dp)+' '+unit+' · 2σ '+fmt(sd(arr)*2,dp)+' · '+(out?fmt(out/arr.length*100)+'% out':'in spec');
+}
+function gradeReel(gsmDev,moiDev,cdSig){
+  const q=MACHINE.quality;
+  if(Math.abs(gsmDev)>q.gsmTolPct*2||Math.abs(moiDev)>q.moistTolPct*2||cdSig>q.cdSigmaLimit*2) return 'REJECT';
+  if(Math.abs(gsmDev)>q.gsmTolPct||Math.abs(moiDev)>q.moistTolPct||cdSig>q.cdSigmaLimit) return 'WATCH';
+  return 'PASS';
+}
+function makeCertificate(){
+  const D=derived(), T=MACHINE.target, ord=MACHINE.orders[S.orderIdx]||{id:'—',customer:'—'};
+  const ts=new Date().toTimeString().slice(0,8);
+  const gsmDev=(S.gsmAct-T.gsm)/T.gsm*100, moiDev=S.moiAct-T.moisturePct;
+  const cdSig=S.cd?sd(S.cd.bw)/mean(S.cd.bw)*100*2:0;
+  const g=gradeReel(gsmDev,moiDev,cdSig);
+  const tonnes=S.gsmAct*(MACHINE.deckleMm/1000)*S.reelLenM/1e6;
+  const cert={ id:`${MACHINE.asset}-${stamp()}-R${String(S.reels).padStart(4,'0')}`,
+    no:S.reels, ts, order:ord.id, customer:ord.customer, grade:MACHINE.gradeName,
+    dia:Math.round(S.reelDia), widthMm:MACHINE.deckleMm, lengthM:Math.round(S.reelLenM),
+    tonnes:+tonnes.toFixed(2), gsm:+S.gsmAct.toFixed(1), moisture:+S.moiAct.toFixed(2),
+    caliper:+S.calAct.toFixed(3), gsmDev:+gsmDev.toFixed(2), moiDev:+moiDev.toFixed(2),
+    cdSigma:+cdSig.toFixed(2), q:g };
+  S.certs.unshift(cert); if(S.certs.length>20)S.certs.pop();
+  S.reelLog.unshift(cert); if(S.reelLog.length>200)S.reelLog.length=200;
+  if(!S.selReel) S.selReel=cert;
+  pushAlarm(g==='REJECT'?'crit':g==='WATCH'?'warn':'info',
+    `Reel ${cert.no} certificate: ${g} — ${cert.tonnes} t, ${cert.gsm} g/m², ${cert.moisture}% moisture`);
+  return cert;
+}
+
+/* =====================================================================
+   SIMULATION TICK — replace body with live DCS / QCS tag reads
+   ===================================================================== */
+function simulateTick(){
+  S._t++;
+  const dtMin=MACHINE.updateMs/60000*(MACHINE.simTimeScale||1);
+  const T=MACHINE.target;
+
+  if(S.running&&!S.breakMode){
+    S.speed+=(MACHINE.speedSetpoint-S.speed)*0.22+rnd(-4,4);
+    S.speed=clamp(S.speed,0,MACHINE.speedSetpoint*1.04); S.runMin+=dtMin;
+  } else if(S.breakMode){
+    const thread=MACHINE.speedSetpoint*(S.threading?0.28:0.05);
+    S.speed+=(thread-S.speed)*0.35; S.downMin+=dtMin;
+  } else { S.speed*=0.80; if(S.speed<8)S.speed=0; if(S.speed===0)S.downMin+=dtMin; }
+  const spd=S.speed;
+
+  // sheet properties drift toward target; control is poorer at low speed / after a break
+  const ctrl=S.breakMode?0.06:0.22;
+  S.gsmAct+=(T.gsm-S.gsmAct)*ctrl+rnd(-0.7,0.7)*(S.breakMode?2.5:1);
+  S.moiAct+=(T.moisturePct-S.moiAct)*ctrl+rnd(-0.09,0.09)*(S.breakMode?2.5:1);
+  S.calAct+=(T.caliperMm-S.calAct)*ctrl+rnd(-0.0012,0.0012);
+  S.ashAct+=(T.ashPct-S.ashAct)*0.15+rnd(-0.12,0.12);
+  S.gsmAct=clamp(S.gsmAct,T.gsm*0.9,T.gsm*1.1);
+  S.moiAct=clamp(S.moiAct,1,14);
+  S.calAct=clamp(S.calAct,T.caliperMm*0.85,T.caliperMm*1.15);
+
+  const D=derived();
+  const prodT=D.tph*(dtMin/60);
+
+  if(spd>20&&!S.breakMode&&!seq){
+    S.reelLenM+=spd*dtMin;
+    S.reelDia=Math.min(MACHINE.reel.targetDiaMm,growDia(S.reelDia,S.calAct,spd*dtMin));
+    S.tonnes+=prodT; S.goodT+=prodT*0.995;
+    if(S._t%10===0) driftCd();
+  } else if(spd>5){
+    S.brokeT+=prodT;                        // everything made during a break goes to broke
+  }
+
+  // reel full → turn-up
+  if(!seq&&!S.breakMode&&S.reelDia>=MACHINE.reel.targetDiaMm-2) startTurnup(false);
+  // spontaneous break
+  if(!seq&&!S.breakMode&&S.running&&Math.random()<0.004) startBreak(false);
+
+  // ---- drives / energy ----
+  const f=spd/MACHINE.speedSetpoint; let kw=0;
+  MACHINE.drives.forEach(d=>{ const dv=S.drives[d.id];
+    dv.load=clamp(f*rnd(58,76)+(S.breakMode?rnd(0,12):0)+rnd(-3,3),0,120);
+    dv.kw=dv.load*d.ratedKw/100*rnd(.93,1.04);
+    dv.amp=dv.load/100*d.ratedKw*1.9*rnd(.95,1.05);
+    dv.draw=d.draw+rnd(-0.08,0.08);
+    const tT=35+dv.load*0.42+(d.id.startsWith('DR')?14:0);
+    dv.temp+=(tT-dv.temp)*0.08+rnd(-0.3,0.3);
+    dv.vib=0.8+dv.load*0.02+(dv.temp>78?1.4:0)+rnd(-0.1,0.3);
+    kw+=dv.kw; });
+  kw+=45;                                   // vacuum, hydraulics, auxiliaries
+  S.kw=kw; S.kWh+=kw*(dtMin/60);
+  S.evapTh=D.evapTh; S.steamTh=D.steamTh; S.steamT+=D.steamTh*(dtMin/60);
+
+  // ---- loss accounting ----
+  const lossFrac=1-clamp(spd/MACHINE.speedSetpoint,0,1);
+  if(lossFrac>0.01&&!S.breakMode){
+    const reason=(seq&&seq.kind==='turnup')?'Reel turn-up':!S.running?'Operator stop':'Speed loss / ramp';
+    S.losses[reason]=(S.losses[reason]||0)+lossFrac*dtMin;
+  }
+
+  // ---- clothing wear ----
+  if(spd>20) MACHINE.clothing.forEach(c=>c.usedH+=dtMin/60);
+
+  if(S.running&&!S.breakMode&&Math.random()<0.04){
+    pushAlarm('warn',pick(['Headbox consistency drifting','Vacuum level low on couch',
+      'Dryer group 2 condensate high','Size press starch level low','Calender nip temperature rising',
+      'CD moisture profile 2σ widening']));
+  }
+  pushTrend();
+}
+function pushTrend(){
+  const T=S.trend,N=80;
+  T.speed.push(S.speed); T.gsm.push(S.gsmAct); T.moi.push(S.moiAct); T.cal.push(S.calAct);
+  T.steam.push(S.steamTh); T.evap.push(S.evapTh); T.kw.push(S.kw);
+  if(T.speed.length>N) Object.values(T).forEach(a=>a.shift());
+}
+let alarmSeq=0;
+function pushAlarm(sev,msg){ const ts=new Date().toTimeString().slice(0,8);
+  S.alarms.unshift({sev,msg,ts,id:++alarmSeq}); if(S.alarms.length>60)S.alarms.pop(); }
+
+/* =====================================================================
+   CHART PRIMITIVES
+   ===================================================================== */
+function pointsFrom(buf,ymin,ymax,W,H){ const n=buf.length; if(n<2) return '';
+  return buf.map((v,i)=>{const x=(i/(n-1))*W;
+    const y=H-((clamp(v,ymin,ymax)-ymin)/((ymax-ymin)||1))*H; return x.toFixed(1)+','+y.toFixed(1);}).join(' '); }
+function mdChart(id,buf,target,tolFrac,color,W,H){
+  const s=clearSvg(id); if(!s) return;
+  const lo=target*(1-tolFrac*3), hi=target*(1+tolFrac*3);
+  const yOf=v=>H-((clamp(v,lo,hi)-lo)/((hi-lo)||1))*H;
+  s.appendChild(el('rect',{x:0,y:yOf(target*(1+tolFrac)),width:W,
+    height:Math.max(1,yOf(target*(1-tolFrac))-yOf(target*(1+tolFrac))),fill:'rgba(34,197,139,.10)'}));
+  s.appendChild(el('line',{x1:0,y1:yOf(target),x2:W,y2:yOf(target),stroke:'var(--dim)','stroke-width':1,'stroke-dasharray':'4 3'}));
+  if(buf.length>1) s.appendChild(el('polyline',{points:pointsFrom(buf,lo,hi,W,H),fill:'none',stroke:color,'stroke-width':1.7}));
+}
+function drawRing(id,pct,center,sub,color){
+  const s=clearSvg(id); if(!s) return;
+  const R=36,cx=50,cy=50,C=2*Math.PI*R;
+  s.appendChild(el('circle',{cx,cy,r:R,fill:'none',stroke:'#1a2432','stroke-width':11}));
+  s.appendChild(el('circle',{cx,cy,r:R,fill:'none',stroke:color,'stroke-width':11,'stroke-linecap':'round',
+    'stroke-dasharray':`${(C*clamp(pct,0,100)/100).toFixed(1)} ${(C+2).toFixed(1)}`,transform:`rotate(-90 ${cx} ${cy})`}));
+  txt(s,cx,cy+2,center,'var(--ink)','font:700 16px var(--mono)','middle');
+  txt(s,cx,cy+17,sub,'var(--dim)','font:600 9px var(--font)','middle');
+}
+function barPareto(svgId,entries,tbodyId,unit,extra){
+  const s=clearSvg(svgId); if(!s) return;
+  const L=entries.slice(0,7), tb=tbodyId?document.getElementById(tbodyId):null;
+  const total=entries.reduce((a,b)=>a+b[1],0);
+  if(!L.length){ txt(s,160,64,'Nothing recorded yet','var(--muted)','font:600 11px var(--font)','middle');
+    if(tb) tb.innerHTML='<tr><td colspan="4" style="text-align:center;color:var(--muted);font-family:var(--font)">No data yet</td></tr>';
+    return; }
+  const W=320,H=130,pL=28,pR=30,pT=8,pB=36, pw=W-pL-pR, ph=H-pT-pB;
+  const max=L[0][1], bw=pw/L.length;
+  s.appendChild(el('line',{x1:pL,y1:pT+ph,x2:pL+pw,y2:pT+ph,stroke:'#2b3b4e','stroke-width':1}));
+  let cum=0; const pts=[];
+  L.forEach(([k,v],i)=>{ const h=(v/max)*ph, x=pL+i*bw;
+    s.appendChild(el('rect',{x:(x+bw*.16).toFixed(1),y:(pT+ph-h).toFixed(1),width:(bw*.68).toFixed(1),
+      height:Math.max(1,h).toFixed(1),fill:'var(--accent)',opacity:.85,rx:2}));
+    cum+=v; pts.push((x+bw/2).toFixed(1)+','+(pT+ph-(cum/total)*ph).toFixed(1));
+    txt(s,x+bw/2,pT+ph+12,k.replace('Web break — ','').split(' ')[0].slice(0,7),'var(--dim)','font:600 8px var(--font)','middle');
+    txt(s,x+bw/2,pT+ph+22,fmt(v,v<10?1:0),'var(--muted)','font:600 8px var(--mono)','middle'); });
+  s.appendChild(el('polyline',{points:pts.join(' '),fill:'none',stroke:'var(--warn)','stroke-width':1.6}));
+  pts.forEach(p=>{const[a,b]=p.split(',');s.appendChild(el('circle',{cx:a,cy:b,r:2.4,fill:'var(--warn)'}));});
+  txt(s,4,pT+8,fmt(max,max<10?1:0),'var(--dim)','font:600 8px var(--mono)');
+  txt(s,W-4,pT+8,'100%','var(--warn)','font:600 8px var(--mono)','end');
+  if(tb){ let c=0; tb.innerHTML=entries.map(([k,v])=>{ c+=v;
+    return `<tr><td>${k.replace('Web break — ','')}</td><td>${fmt(v,v<10?1:0)}</td>
+      <td>${fmt(v/total*100,1)}%</td><td>${extra?extra(k,v):fmt(c/total*100,1)+'%'}</td></tr>`;}).join(''); }
+}
+function lossList(){ return Object.entries(S.losses).filter(([,v])=>v>0.001).sort((a,b)=>b[1]-a[1]); }
+function breakList(){ return Object.entries(S.breakCount).sort((a,b)=>b[1]-a[1]); }
+
+/* =====================================================================
+   ORDERS / TRACEABILITY / BARCODE / CSV
+   ===================================================================== */
+function renderOrders(){
+  const list=document.getElementById('ordList'); if(!list) return;
+  list.innerHTML=MACHINE.orders.map((o,i)=>{
+    const st=i<S.orderIdx?'done':i===S.orderIdx?'run':'q';
+    const done=i<S.orderIdx?o.reels:i===S.orderIdx?S.orderReelsDone:0;
+    const lbl=st==='done'?'COMPLETE':st==='run'?'RUNNING':'QUEUED';
+    const cls=st==='done'?'os-d':st==='run'?'os-run':'os-q';
+    return `<div class="ordrow ${st==='run'?'run':st==='done'?'done':''}">
+      <div class="om"><div class="oid">${o.id} · ${o.customer}</div>
+      <div class="osub">${o.grade} · ${o.gsm} g/m² · ${o.moisture}% moisture · ${o.speed} m/min</div></div>
+      <div style="text-align:right"><span class="ost ${cls}">${lbl}</span>
+      <div class="osub" style="margin-top:4px">${done}/${o.reels} reels</div></div></div>`;}).join('');
+  const o=MACHINE.orders[S.orderIdx];
+  document.getElementById('ordTag').textContent=o?('grade '+(S.orderIdx+1)+'/'+MACHINE.orders.length):'all done';
+  document.getElementById('mcOrder').textContent=o?o.id:'—';
+}
+function loadOrder(i){
+  const o=MACHINE.orders[i], msg=document.getElementById('ordMsg');
+  if(!o){ if(msg){msg.className='msg err';msg.textContent='No further grades in the schedule.';} return; }
+  S.orderIdx=i; S.orderReelsDone=0;
+  MACHINE.target.gsm=o.gsm; MACHINE.target.moisturePct=o.moisture; MACHINE.target.caliperMm=o.caliper;
+  MACHINE.speedSetpoint=o.speed; MACHINE.gradeName=o.grade;
+  buildCd(); loadSetupInputs();
+  if(msg){ msg.className='msg ok'; msg.textContent=`Grade change to ${o.id} — ${o.gsm} g/m² at ${o.speed} m/min.`; }
+  pushAlarm('info',`Grade change — ${o.id} (${o.grade}) for ${o.customer}, ${o.reels} reels`);
+  render();
+}
+const C39={'0':'000110100','1':'100100001','2':'001100001','3':'101100000','4':'000110001',
+'5':'100110000','6':'001110000','7':'000100101','8':'100100100','9':'001100100',
+'A':'100001001','B':'001001001','C':'101001000','D':'000011001','E':'100011000',
+'F':'001011000','G':'000001101','H':'100001100','I':'001001100','J':'000011100',
+'K':'100000011','L':'001000011','M':'101000010','N':'000010011','O':'100010010',
+'P':'001010010','Q':'000000111','R':'100000110','S':'001000110','T':'000010110',
+'U':'110000001','V':'011000001','W':'111000000','X':'010010001','Y':'110010000',
+'Z':'011010000','-':'010000101','.':'110000100',' ':'011000100','*':'010010100'};
+function renderBarcode(text){
+  const s=clearSvg('barcode'); if(!s) return;
+  const data='*'+String(text).toUpperCase().replace(/[^0-9A-Z\-. ]/g,'-')+'*';
+  const chars=data.split('').filter(c=>C39[c]);
+  const narrow=1,wide=3,gap=narrow; let total=0;
+  chars.forEach(c=>{C39[c].split('').forEach(b=>total+=(b==='1'?wide:narrow)); total+=gap;});
+  const H=60, unit=400/total; let x=0;
+  chars.forEach(c=>{ C39[c].split('').forEach((b,i)=>{ const w=(b==='1'?wide:narrow)*unit;
+      if(i%2===0) s.appendChild(el('rect',{x:x.toFixed(2),y:0,width:Math.max(0.4,w).toFixed(2),height:H,fill:'#111'}));
+      x+=w; }); x+=gap*unit; });
+  document.getElementById('bcId').textContent=data;
+  document.getElementById('bcCap').textContent='Code 39 · '+chars.length+' chars · scannable';
+}
+function renderTrace(){
+  const tb=document.getElementById('traceBody'); if(!tb) return;
+  document.getElementById('traceTag').textContent=S.reelLog.length+' reels';
+  if(!S.reelLog.length){ tb.innerHTML='<tr><td colspan="7" style="text-align:center;color:var(--muted);font-family:var(--font)">No reels completed yet — records are created at each turn-up</td></tr>'; return; }
+  tb.innerHTML=S.reelLog.slice(0,10).map((r,i)=>
+    `<tr class="click ${S.selReel&&S.selReel.id===r.id?'sel':''}" data-i="${i}">
+      <td style="font-family:var(--mono);font-size:10px">${r.id}</td><td>${fmt(r.dia)}</td>
+      <td>${fmt(r.lengthM)}</td><td>${fmt(r.tonnes,2)}</td><td>${fmt(r.gsm,1)}</td><td>${fmt(r.moisture,2)}</td>
+      <td><span class="duetag ${r.q==='PASS'?'due-ok':r.q==='WATCH'?'due-soon':'due-now'}">${r.q}</span></td></tr>`).join('');
+  tb.querySelectorAll('tr.click').forEach(tr=>tr.onclick=()=>{
+    S.selReel=S.reelLog[+tr.dataset.i]; renderTrace(); renderBarcode(S.selReel.id); });
+  if(S.selReel) renderBarcode(S.selReel.id);
+}
+function downloadCsv(name,rows){
+  const csv=rows.map(r=>r.map(v=>`"${String(v).replace(/"/g,'""')}"`).join(',')).join('\r\n');
+  const blob=new Blob([csv],{type:'text/csv;charset=utf-8;'});
+  const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download=name;
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  setTimeout(()=>URL.revokeObjectURL(a.href),1000);
+  pushAlarm('info','Exported '+name+' ('+(rows.length-1)+' rows)');
+}
+function exportReels(){
+  const rows=[['Reel ID','Time','Grade order','Customer','Grade','Diameter mm','Width mm','Length m','Tonnes',
+    'Basis weight g/m2','Moisture %','Caliper mm','gsm dev %','Moisture dev %','CD 2sigma %','Quality']];
+  S.reelLog.forEach(r=>rows.push([r.id,r.ts,r.order,r.customer,r.grade,r.dia,r.widthMm,r.lengthM,r.tonnes,
+    r.gsm,r.moisture,r.caliper,r.gsmDev,r.moiDev,r.cdSigma,r.q]));
+  downloadCsv(MACHINE.asset+'_reel_report_'+stamp()+'.csv',rows);
+}
+function exportShift(){
+  const D=derived(), totMin=S.runMin+S.downMin||1;
+  const rows=[['Metric','Value','Unit']]; const add=(k,v,u)=>rows.push([k,v,u||'']);
+  add('Asset',MACHINE.asset); add('Mill',MACHINE.line); add('Machine type','Board / paper machine');
+  add('Grade',MACHINE.gradeName); add('Report time',new Date().toString());
+  add('Reels produced',S.reels); add('Saleable tonnage',S.tonnes.toFixed(2),'t');
+  add('Broke',S.brokeT.toFixed(2),'t');
+  add('Trimmed deckle',MACHINE.deckleMm,'mm');
+  add('Average speed',mean(S.trend.speed).toFixed(0),'m/min');
+  add('Run time',S.runMin.toFixed(1),'min'); add('Down time',S.downMin.toFixed(1),'min');
+  add('Availability',(S.runMin/totMin*100).toFixed(1),'%');
+  add('Web breaks',S.breaks);
+  add('Steam consumed',S.steamT.toFixed(1),'t');
+  add('Specific steam',D.specSteam.toFixed(2),'t steam/t paper');
+  add('Electrical energy',S.kWh.toFixed(1),'kWh');
+  add('Specific power',(S.tonnes>0?S.kWh/S.tonnes:0).toFixed(1),'kWh/t');
+  add('Evaporation rate',D.evapTh.toFixed(1),'t water/h');
+  rows.push([]); rows.push(['Break location','Breaks','Share %']);
+  const B=breakList(), bt=B.reduce((a,b)=>a+b[1],0)||1;
+  B.forEach(([k,v])=>rows.push([k,v,(v/bt*100).toFixed(1)]));
+  rows.push([]); rows.push(['Loss reason','Lost minutes','Share %']);
+  const L=lossList(), lt=L.reduce((a,b)=>a+b[1],0)||1;
+  L.forEach(([k,v])=>rows.push([k,v.toFixed(2),(v/lt*100).toFixed(1)]));
+  downloadCsv(MACHINE.asset+'_shift_summary_'+stamp()+'.csv',rows);
+}
+
+/* =====================================================================
+   SETUP / RECIPE
+   ===================================================================== */
+function loadSetupInputs(){
+  const g=id=>document.getElementById(id), T=MACHINE.target;
+  g('inSpeed').value=Math.round(MACHINE.speedSetpoint); g('inGsm').value=T.gsm;
+  g('inMoi').value=T.moisturePct; g('inCal').value=T.caliperMm;
+  g('inDeckle').value=MACHINE.deckleMm; g('inDia').value=MACHINE.reel.targetDiaMm;
+}
+function applySetup(){
+  const g=id=>+document.getElementById(id).value, msg=document.getElementById('setupMsg');
+  const sp=g('inSpeed'),gs=g('inGsm'),mo=g('inMoi'),ca=g('inCal'),dk=g('inDeckle'),di=g('inDia');
+  if(!(sp>0)||!(gs>0)||!(mo>0)||!(ca>0)||!(dk>0)||!(di>MACHINE.reel.coreMm)){
+    msg.className='msg err'; msg.textContent='All values must be positive; reel Ø must exceed the core.'; return; }
+  if(mo>=20){ msg.className='msg err'; msg.textContent='Moisture target above 20% is not a dry sheet — check the value.'; return; }
+  MACHINE.speedSetpoint=sp; MACHINE.target.gsm=gs; MACHINE.target.moisturePct=mo;
+  MACHINE.target.caliperMm=ca; MACHINE.deckleMm=dk; MACHINE.reel.targetDiaMm=di;
+  if(S.reelDia>di){ S.reelDia=MACHINE.reel.coreMm; S.reelLenM=0; }
+  buildCd(); setState();
+  // quote the NEW recipe at setpoint, not the current (still-ramping) actuals
+  const tphNew=gs*(dk/1000)*sp*60/1e6;
+  const evapNew=Math.max(0,waterGm2(gs,48)-waterGm2(gs,100-mo))*(dk/1000)*sp*60/1e6;
+  const reelLenNew=lengthOnRoll(di,MACHINE.reel.coreMm,ca);
+  msg.className='msg ok';
+  msg.textContent=`Applied · ${fmt(tphNew,1)} t/h at SP · ${fmt(tphNew>0?evapNew*MACHINE.steamPerWater/tphNew:0,2)} t steam/t · reel ${fmt(reelLenNew)} m (${fmt(gs*(dk/1000)*reelLenNew/1e6,1)} t).`;
+  pushAlarm('info',`Recipe applied — ${gs} g/m², ${mo}% moisture, ${fmt(sp)} m/min`);
+  render();
+}
+
+/* =====================================================================
+   RENDER — desk mode
+   ===================================================================== */
+let activeTab='overview';
+function render(){
+  const D=derived(), T=MACHINE.target;
+  document.getElementById('mcName').textContent=MACHINE.name;
+  document.getElementById('mcLine').textContent=MACHINE.line;
+  document.getElementById('mcAsset').textContent=MACHINE.asset;
+  document.getElementById('dirTag').textContent='Live twin · sim ×'+(MACHINE.simTimeScale||1);
+  if(statusText) statusText.textContent='Ø '+fmt(S.reelDia)+' / '+fmt(MACHINE.reel.targetDiaMm)+' mm';
+
+  if(kioskOn){ renderKiosk(); return; }
+
+  if(activeTab==='overview'){
+    document.getElementById('gSpeed').textContent=fmt(S.speed);
+    document.getElementById('gSpeedSp').textContent='SP '+fmt(MACHINE.speedSetpoint)+' m/min';
+    document.getElementById('gTph').textContent=fmt(D.tph,1);
+    document.getElementById('gTphSp').textContent=fmt(MACHINE.deckleMm)+' mm × '+fmt(S.gsmAct,0)+' g/m²';
+    document.getElementById('prodRows').innerHTML=[
+      drow('Trimmed deckle',fmt(MACHINE.deckleMm)+' <small>mm</small>'),
+      drow('Grade',MACHINE.gradeName),
+      drow('Reel target',fmt(D.reelLen)+' <small>m · '+fmt(D.reelT,1)+' t</small>'),
+      drow('Evaporation',fmt(D.evapTh,1)+' <small>t water/h</small>'),
+    ].join('');
+    // dewatering curve
+    drawDewater('dewater',320,150);
+    document.getElementById('dewRows').innerHTML=[
+      drow('Water after wire',fmt(waterGm2(S.gsmAct,20))+' <small>g/m²</small>'),
+      drow('Water after press',fmt(waterGm2(S.gsmAct,48))+' <small>g/m²</small>'),
+      drow('Water at reel',fmt(waterGm2(S.gsmAct,D.reelDry),1)+' <small>g/m²</small>'),
+      drow('Evaporated in dryers',fmt(D.evapGm2)+' <small>g/m² ('+fmt(D.evapTh/Math.max(0.01,D.tph),2)+' kg water/kg paper)</small>'),
+    ].join('');
+    // sheet properties
+    const props=[
+      ['Basis weight',S.gsmAct,T.gsm,T.gsm*MACHINE.quality.gsmTolPct/100,'g/m²',1],
+      ['Moisture',S.moiAct,T.moisturePct,MACHINE.quality.moistTolPct,'%',2],
+      ['Caliper',S.calAct,T.caliperMm,T.caliperMm*MACHINE.quality.calTolPct/100,'mm',3],
+      ['Ash',S.ashAct,T.ashPct,MACHINE.quality.ashTolPct,'%',1],
+    ];
+    document.getElementById('propGrid').innerHTML=props.map(([n,v,t,tol,u,dp])=>{
+      const dev=v-t, rel=clamp(dev/(tol*2),-1,1);
+      const col=Math.abs(dev)<=tol?'var(--ok)':Math.abs(dev)<=tol*2?'var(--warn)':'var(--alarm)';
+      const w=Math.abs(rel)*50, left=rel<0?50-w:50;
+      return `<div class="prop"><div class="pn">${n}</div>
+        <div class="pv" style="color:${col}">${fmt(v,dp)}<span style="font-size:11px;color:var(--dim)"> ${u}</span></div>
+        <div class="pt">target ${fmt(t,dp)} · dev ${dev>0?'+':''}${fmt(dev,dp)}</div>
+        <div class="devbar"><i style="left:${left}%;width:${w}%;background:${col}"></i><div class="mid"></div></div></div>`;
+    }).join('');
+    // wet end
+    const hb=MACHINE.headbox;
+    document.getElementById('wetGrid').innerHTML=[
+      ['Headbox consistency',fmt(hb.consistencyPct,2)+' %','stock to slice'],
+      ['Jet / wire ratio',fmt(hb.jetWireRatio,3),'rush-drag'],
+      ['Slice opening',fmt(hb.sliceMm,1)+' mm','across deckle'],
+      ['Dry after wire',fmt(dryAt(0.23),1)+' %','couch'],
+      ['Dry after press',fmt(dryAt(0.38),1)+' %','press 2'],
+      ['Wire speed',fmt(S.speed*hb.jetWireRatio)+' m/min','jet speed'],
+    ].map(([n,v,s])=>`<div class="seccell"><div class="sn">${n}</div><div class="sv">${v}</div><div class="ss">${s}</div></div>`).join('');
+    document.getElementById('wetRows').innerHTML=[
+      drow('Water removed on wire',fmt(waterGm2(S.gsmAct,0.9)-waterGm2(S.gsmAct,20))+' <small>g/m²</small>'),
+      drow('Water removed in press',fmt(waterGm2(S.gsmAct,20)-waterGm2(S.gsmAct,48))+' <small>g/m²</small>'),
+    ].join('');
+    // dryer groups
+    document.getElementById('steamRows').innerHTML=MACHINE.dryerGroups.map(g=>
+      `<div class="steamrow"><span class="sl">${g.name}</span>
+        <span class="sb"><i style="width:${clamp(g.steamBar/g.maxBar*100,0,100)}%"></i></span>
+        <span class="sv">${fmt(g.steamBar,1)} bar</span></div>`).join('');
+    document.getElementById('dryTag').textContent=MACHINE.dryerGroups.reduce((a,g)=>a+g.cyl,0)+' cylinders';
+    document.getElementById('dryRows').innerHTML=[
+      drow('Steam demand',fmt(D.steamTh,1)+' <small>t/h</small>'),
+      drow('Specific steam',fmt(D.specSteam,2)+' <small>t steam / t paper</small>'),
+      drow('Dry after dryers',fmt(dryAt(0.75),1)+' <small>%</small>'),
+      drow('Sheet moisture',fmt(S.moiAct,2)+' <small>% (target '+fmt(T.moisturePct,1)+')</small>'),
+    ].join('');
+    // reel
+    const rf=clamp((S.reelDia-MACHINE.reel.coreMm)/(MACHINE.reel.targetDiaMm-MACHINE.reel.coreMm)*100,0,100);
+    drawRing('reelRing',rf,fmt(S.reelDia),'Ø mm · '+fmt(rf)+'%',rf>=100?'var(--ok)':rf>90?'var(--warn)':'var(--accent)');
+    const toGo=Math.max(0,D.reelLen-S.reelLenM);
+    document.getElementById('reelRows').innerHTML=[
+      drow('Length on reel',fmt(S.reelLenM)+' / '+fmt(D.reelLen)+' <small>m</small>'),
+      drow('Reel weight',fmt(S.gsmAct*(MACHINE.deckleMm/1000)*S.reelLenM/1e6,2)+' <small>t</small>'),
+      drow('Time to turn-up',eta(S.speed>20?toGo/S.speed:Infinity)+' <small>mm:ss</small>'),
+    ].join('');
+    document.getElementById('reelTag').textContent=fmt(rf)+'% built';
+    // drives
+    document.getElementById('driveTag').textContent=MACHINE.drives.length+' sections';
+    document.getElementById('driveBody').innerHTML=MACHINE.drives.map(d=>{
+      const dv=S.drives[d.id],col=dv.load>100?'var(--alarm)':dv.load>85?'var(--warn)':'var(--ok)';
+      return `<tr><td><span class="drv-dot" style="background:${S.speed>20?col:'var(--muted)'}"></span>${d.name}</td>
+        <td><span class="barmini"><i style="width:${clamp(dv.load,0,100)}%;background:${col}"></i></span> ${fmt(dv.load)}%</td>
+        <td>${fmt(dv.kw)} <small style="color:var(--dim)">kW</small></td>
+        <td>${dv.draw>0?'+':''}${fmt(dv.draw,2)}%</td><td>${fmt(dv.amp)}A</td></tr>`;}).join('');
+    // OEE
+    const totMin=S.runMin+S.downMin||1;
+    const avail=clamp(S.runMin/totMin*100,0,100);
+    const idealTph=T.gsm*(MACHINE.deckleMm/1000)*MACHINE.speedSetpoint*60/1e6;
+    const perf=S.runMin>0?clamp((S.tonnes+S.brokeT)/((S.runMin/60)*idealTph||1)*100,0,100):0;
+    const qual=(S.tonnes+S.brokeT)>0?clamp(S.tonnes/(S.tonnes+S.brokeT)*100,0,100):100;
+    const oee=avail*perf*qual/10000;
+    document.getElementById('oeeA').textContent=fmt(avail)+'%';
+    document.getElementById('oeeP').textContent=fmt(perf)+'%';
+    document.getElementById('oeeQ').textContent=fmt(qual)+'%';
+    const ot=document.getElementById('oeeTotal'); ot.textContent=fmt(oee)+'%';
+    ot.style.color=oee>75?'var(--ok)':oee>55?'var(--warn)':'var(--alarm)';
+    document.getElementById('cReels').textContent=S.reels;
+    document.getElementById('cTon').textContent=fmt(S.tonnes,2)+' t';
+    document.getElementById('cBroke').textContent=fmt(S.brokeT,2)+' t';
+    document.getElementById('cBreaks').textContent=S.breaks;
+    // alarms
+    const act=S.alarms.filter(a=>a.sev!=='info').length;
+    document.getElementById('almCount').textContent=act+' active';
+    const box=document.getElementById('alarms');
+    box.innerHTML=S.alarms.length?S.alarms.slice(0,12).map(a=>{
+      const ic=a.sev==='crit'?'✕':a.sev==='warn'?'!':'i';
+      return `<div class="alarm ${a.sev}"><div class="ico">${ic}</div>
+        <div class="txt"><div class="m">${a.msg}</div><div class="t">${a.ts}</div></div></div>`;}).join('')
+      :'<div class="noalarm">No active alarms — all systems nominal</div>';
+  }
+  else if(activeTab==='quality'){
+    const q=MACHINE.quality;
+    mdChart('mdGsm',S.trend.gsm,T.gsm,q.gsmTolPct/100,'var(--accent)',300,60);
+    document.getElementById('mdGsmV').textContent=fmt(S.gsmAct,1)+' g/m²';
+    mdChart('mdMoi',S.trend.moi,T.moisturePct,q.moistTolPct/T.moisturePct,'var(--ok)',300,60);
+    document.getElementById('mdMoiV').textContent=fmt(S.moiAct,2)+' %';
+    mdChart('mdCal',S.trend.cal,T.caliperMm,q.calTolPct/100,'var(--violet)',300,60);
+    document.getElementById('mdCalV').textContent=fmt(S.calAct,3)+' mm';
+    cdStrip('cdBw',S.cd&&S.cd.bw,T.gsm,q.gsmTolPct/100,'g/m²',1,'cdBwV');
+    cdStrip('cdMoi',S.cd&&S.cd.moi,T.moisturePct,q.moistTolPct/T.moisturePct,'%',2,'cdMoiV');
+    cdStrip('cdCal',S.cd&&S.cd.cal,T.caliperMm,q.calTolPct/100,'mm',3,'cdCalV');
+    if(S.cd){
+      const bwSig=sd(S.cd.bw)/mean(S.cd.bw)*100*2, moSig=sd(S.cd.moi)*2, caSig=sd(S.cd.cal)/mean(S.cd.cal)*100*2;
+      document.getElementById('cdRows').innerHTML=[
+        drow('Basis weight 2σ',fmt(bwSig,2)+' <small>% (limit '+q.cdSigmaLimit+')</small>'),
+        drow('Moisture 2σ',fmt(moSig,3)+' <small>%</small>'),
+        drow('Caliper 2σ',fmt(caSig,2)+' <small>%</small>'),
+        drow('Scanner width',fmt(MACHINE.deckleMm)+' <small>mm trimmed</small>'),
+      ].join('');
+      document.getElementById('ctrlRows').innerHTML=[
+        drow('Slice / dilution profiling',bwSig<=q.cdSigmaLimit?'<span class="duetag due-ok">IN CONTROL</span>':'<span class="duetag due-soon">CORRECTING</span>'),
+        drow('Steam box / moisture profiling',moSig<=q.moistTolPct?'<span class="duetag due-ok">IN CONTROL</span>':'<span class="duetag due-soon">CORRECTING</span>'),
+        drow('Calender induction profiling',caSig<=q.calTolPct?'<span class="duetag due-ok">IN CONTROL</span>':'<span class="duetag due-soon">CORRECTING</span>'),
+        drow('MD basis weight control','<span class="duetag due-ok">AUTO</span>'),
+        drow('MD moisture control','<span class="duetag due-ok">AUTO</span>'),
+      ].join('');
+      document.getElementById('cdTag').textContent='2σ '+fmt(bwSig,2)+'%';
+    }
+    renderCert();
+  }
+  else if(activeTab==='production'){ renderOrders(); renderTrace(); }
+  else if(activeTab==='losses'){
+    const D2=derived();
+    document.getElementById('enSteam').textContent=fmt(D2.steamTh,1);
+    document.getElementById('enSteamSpec').textContent=fmt(D2.specSteam,2);
+    document.getElementById('enKw').textContent=fmt(S.kw);
+    document.getElementById('enSpec').textContent=fmt(S.tonnes>0?S.kWh/S.tonnes:0,1);
+    const maxSteam=Math.max(10,...S.trend.steam)*1.2;
+    const st=clearSvg('spSteam');
+    st.appendChild(el('polyline',{points:pointsFrom(S.trend.steam,0,maxSteam,300,60),fill:'none',stroke:'var(--violet)','stroke-width':1.7}));
+    document.getElementById('spSteamV').textContent=fmt(D2.steamTh,1)+' t/h';
+    const ev=clearSvg('spEvap');
+    ev.appendChild(el('polyline',{points:pointsFrom(S.trend.evap,0,maxSteam,300,60),fill:'none',stroke:'var(--accent)','stroke-width':1.7}));
+    document.getElementById('spEvapV').textContent=fmt(D2.evapTh,1)+' t/h';
+    document.getElementById('enRows').innerHTML=[
+      drow('Steam consumed',fmt(S.steamT,1)+' <small>t this shift</small>'),
+      drow('Electrical energy',fmt(S.kWh,1)+' <small>kWh</small>'),
+      drow('Installed drive power',fmt(MACHINE.drives.reduce((a,d)=>a+d.ratedKw,0))+' <small>kW</small>'),
+      drow('Energy per reel',fmt(S.reels>0?S.kWh/S.reels:0,1)+' <small>kWh/reel</small>'),
+    ].join('');
+    barPareto('brkPareto',breakList(),'brkBody','breaks',(k,v)=>fmt(v*MACHINE.threadMin,1));
+    document.getElementById('brkTag').textContent=S.breaks+' breaks';
+    barPareto('pareto',lossList(),'parBody','min');
+    document.getElementById('parTag').textContent=fmt(lossList().reduce((a,b)=>a+b[1],0),1)+' min lost';
+    document.getElementById('clothBox').innerHTML=MACHINE.clothing.map(c=>{
+      const pct=clamp(c.usedH/c.lifeH*100,0,140);
+      return `<div style="margin-bottom:9px"><div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px">
+        <span style="color:var(--muted)">${c.name}</span>
+        <span class="duetag ${pct>100?'due-now':pct>85?'due-soon':'due-ok'}">${pct>100?'CHANGE':pct>85?'DUE SOON':'OK'}</span></div>
+        <div class="wearbar"><i style="width:${Math.min(pct,100)}%;background:${pct>100?'var(--alarm)':pct>85?'var(--warn)':'var(--ok)'}"></i>
+        <div class="limit" style="left:85%"></div></div>
+        <div style="font-size:10px;color:var(--dim);margin-top:3px;font-family:var(--mono)">${fmt(Math.max(0,c.lifeH-c.usedH))} h left of ${fmt(c.lifeH)} h · ${fmt(pct)}% used</div></div>`;
+    }).join('');
+    document.getElementById('healthBody').innerHTML=MACHINE.drives.map(d=>{
+      const dv=S.drives[d.id];
+      const tc=dv.temp>80?'var(--alarm)':dv.temp>68?'var(--warn)':'var(--ok)';
+      const vc=dv.vib>3.5?'var(--alarm)':dv.vib>2.6?'var(--warn)':'var(--ok)';
+      const bad=dv.temp>80||dv.vib>3.5, soon=dv.temp>68||dv.vib>2.6;
+      return `<tr><td>${d.name}</td><td style="color:${tc}">${fmt(dv.temp)}°C</td>
+        <td style="color:${vc}">${fmt(dv.vib,1)}</td>
+        <td>${bad?'<span class="duetag due-now">CHECK</span>':soon?'<span class="duetag due-soon">WATCH</span>':'<span class="duetag due-ok">OK</span>'}</td></tr>`;}).join('');
+  }
+}
+function drawDewater(id,W,H){
+  const s=clearSvg(id); if(!s) return;
+  const pL=32,pR=34,pT=12,pB=30, pw=W-pL-pR, ph=H-pT-pB;
+  const yDry=v=>pT+ph-(clamp(v,0,100)/100)*ph;
+  const maxW=waterGm2(S.gsmAct,15);
+  const yWat=v=>pT+ph-(clamp(v,0,maxW)/maxW)*ph;
+  [0,25,50,75,100].forEach(v=>{
+    s.appendChild(el('line',{x1:pL,y1:yDry(v),x2:pL+pw,y2:yDry(v),stroke:'#16202c','stroke-width':1}));
+    txt(s,pL-4,yDry(v)+3,String(v),'var(--dim)','font:600 8px var(--mono)','end'); });
+  // water curve (right axis)
+  const wp=[],dp=[];
+  for(let i=0;i<=60;i++){ const u=i/60, d=dryAt(u);
+    dp.push((pL+u*pw).toFixed(1)+','+yDry(d).toFixed(1));
+    wp.push((pL+u*pw).toFixed(1)+','+yWat(waterGm2(S.gsmAct,d)).toFixed(1)); }
+  s.appendChild(el('polyline',{points:wp.join(' '),fill:'none',stroke:'var(--violet)','stroke-width':1.5,opacity:.8,'stroke-dasharray':'4 3'}));
+  s.appendChild(el('polyline',{points:dp.join(' '),fill:'none',stroke:'var(--accent)','stroke-width':2.2}));
+  MACHINE.dry.forEach(d=>{ const x=pL+d.u*pw;
+    s.appendChild(el('circle',{cx:x.toFixed(1),cy:yDry(d.pct).toFixed(1),r:2.8,fill:'var(--accent)'}));
+    s.appendChild(el('line',{x1:x,y1:pT,x2:x,y2:pT+ph,stroke:'#1c2836','stroke-width':1,opacity:.7})); });
+  ['Wire','Press','Dryers','SP','Reel'].forEach((n,i)=>{
+    const u=[0.23,0.38,0.57,0.63,0.95][i];
+    txt(s,pL+u*pw,H-16,n,'var(--dim)','font:600 7.5px var(--font)','middle'); });
+  txt(s,pL-4,pT+4,'%','var(--accent)','font:600 8px var(--mono)','end');
+  txt(s,W-4,pT+4,fmt(maxW)+' g/m²','var(--violet)','font:600 8px var(--mono)','end');
+  txt(s,pL,H-4,'headbox','var(--dim)','font:600 7.5px var(--font)');
+  txt(s,pL+pw,H-4,'reel','var(--dim)','font:600 7.5px var(--font)','end');
+}
+function renderCert(){
+  const box=document.getElementById('certBox'); if(!box) return;
+  const c=S.certs[0];
+  if(!c){ box.innerHTML='<div class="noalarm">No completed reel yet — a certificate is issued at each turn-up</div>'; return; }
+  const vc=c.q==='PASS'?'v-pass':c.q==='WATCH'?'v-watch':'v-rej';
+  box.innerHTML=`
+    <div class="qhead"><div class="t">Reel ${c.no} · ${c.order} · ${c.customer}<b>${c.id}</b></div>
+      <span class="verdict ${vc}">${c.q}</span></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:0 20px">
+      <div>${drow('Diameter',fmt(c.dia)+' <small>mm</small>')}
+      ${drow('Width',fmt(c.widthMm)+' <small>mm</small>')}
+      ${drow('Length',fmt(c.lengthM)+' <small>m</small>')}
+      ${drow('Weight',fmt(c.tonnes,2)+' <small>t</small>')}</div>
+      <div>${drow('Basis weight',fmt(c.gsm,1)+' <small>g/m² ('+(c.gsmDev>0?'+':'')+fmt(c.gsmDev,2)+'%)</small>')}
+      ${drow('Moisture',fmt(c.moisture,2)+' <small>% ('+(c.moiDev>0?'+':'')+fmt(c.moiDev,2)+')</small>')}
+      ${drow('Caliper',fmt(c.caliper,3)+' <small>mm</small>')}
+      ${drow('CD 2σ',fmt(c.cdSigma,2)+' <small>%</small>')}</div>
+    </div>
+    <div style="margin-top:9px;font-size:11px;color:var(--dim)">
+      This reel is the parent reel input to the splitter rewinder twin.</div>`;
+  document.getElementById('certTag').textContent='reel '+c.no;
+}
+function tickClock(){ const d=new Date(), now=d.toTimeString().slice(0,8);
+  const h=d.getHours(), sh=h<8?'C (night)':h<16?'A (day)':'B (evening)';
+  document.getElementById('clk').textContent=now;
+  document.getElementById('shift').textContent='Shift '+sh;
+  const kc=document.getElementById('kClk'); if(kc) kc.textContent=now;
+  const ks=document.getElementById('kShift'); if(ks) ks.textContent='Shift '+sh;
+  const oe=document.getElementById('oeeShift'); if(oe) oe.textContent='Shift '+sh[0]; }
+function setState(){
+  const cls=S.breakMode?'st-alarm':(seq&&seq.kind==='turnup')?'st-hold':S.running?'st-run':'st-stop';
+  const lbl=S.breakMode?(S.threading?'THREADING':'WEB BREAK'):(seq&&seq.kind==='turnup')?'TURN-UP':S.running?'RUNNING':'STOPPED';
+  const p=document.getElementById('statepill'), t=document.getElementById('stateTxt');
+  p.className='statepill '+cls; t.textContent=lbl;
+  document.getElementById('btnRun').classList.toggle('active',S.running&&!S.breakMode);
+  const kp=document.getElementById('kPill'), kst=document.getElementById('kState');
+  if(kp){ kp.className='statepill '+cls; kp.style.fontSize='15px'; kp.style.padding='10px 20px'; kst.textContent=lbl; } }
+
+/* =====================================================================
+   KIOSK / WALL DISPLAY
+   ===================================================================== */
+let kioskOn=false, kView=0, kRotate=true, kElapsed=0, kBuilt=null;
+const KDWELL=15000;
+const KVIEWS=[
+  {id:'process',   t:'Process — Dewatering, Wet End &amp; Dryers'},
+  {id:'quality',   t:'Quality — MD Trends &amp; CD Profiles'},
+  {id:'production',t:'Production — Reel, Grades &amp; Traceability'},
+  {id:'losses',    t:'Losses, Breaks &amp; Energy'},
+];
+function fitStage(){ if(!kioskOn) return;
+  const s=Math.min(window.innerWidth/1920,window.innerHeight/1080);
+  document.getElementById('stage').style.transform=`translate(-50%,-50%) scale(${s})`; }
+function setMode(on){
+  kioskOn=on; document.body.classList.toggle('kiosk',on);
+  const twin=document.getElementById('twin');
+  if(on){ twin.classList.add('kfit'); document.getElementById('kSchematic').appendChild(twin); }
+  else  { twin.classList.remove('kfit'); document.querySelector('#deskRoot .top .card').appendChild(twin); }
+  kBuilt=null; fitStage(); render(); }
+window.addEventListener('resize',fitStage);
+function kDots(){
+  document.getElementById('kDots').innerHTML=KVIEWS.map((v,i)=>
+    `<span class="kdot ${i===kView?'on':''}" data-i="${i}"></span>`).join('');
+  document.querySelectorAll('#kDots .kdot').forEach(d=>d.onclick=()=>{
+    kView=+d.dataset.i;kElapsed=0;kBuilt=null;kDots();render();}); }
+function kTick(dt){ if(!kioskOn) return;
+  if(kRotate){ kElapsed+=dt;
+    if(kElapsed>=KDWELL){kElapsed=0;kView=(kView+1)%KVIEWS.length;kBuilt=null;kDots();render();} }
+  const p=document.getElementById('kProg'); if(p) p.style.width=(kRotate?clamp(kElapsed/KDWELL*100,0,100):0)+'%'; }
+function kBuildPane(v){
+  const P=document.getElementById('kPane');
+  document.getElementById('kPaneTitle').innerHTML=KVIEWS.find(x=>x.id===v).t;
+  if(v==='process'){
+    P.innerHTML=`
+      <div class="ksec flexcol" style="flex:1.3 1 auto;min-height:0"><div class="st">Dewatering curve <span id="kDewHd">—</span></div>
+        <svg id="kDewater" viewBox="0 0 320 150" preserveAspectRatio="xMidYMid meet" class="panelsvg"></svg></div>
+      <div class="ksec" style="flex:0 0 auto"><div class="st">Wet end <span id="kWetHd">—</span></div>
+        <div class="secgrid" id="kWet"></div></div>
+      <div class="ksec" style="flex:0 0 auto"><div class="st">Dryer steam <span id="kDryHd">—</span></div>
+        <div id="kSteam"></div></div>
+      <div class="ksec flexcol" style="flex:1 1 auto"><div class="st">Section drives <span id="kDrvHd">—</span></div>
+        <div class="kscroll"><table class="tbl"><thead><tr><th>Section</th><th>Load</th><th>kW</th><th>Draw</th></tr></thead>
+        <tbody id="kDrives"></tbody></table></div></div>`;
+  } else if(v==='quality'){
+    P.innerHTML=`
+      <div class="ksec" style="flex:0 0 auto"><div class="st">Sheet properties <span id="kPropHd">—</span></div>
+        <div class="propgrid" id="kProps"></div></div>
+      <div class="kg2" style="flex:1 1 auto;min-height:0">
+        <div class="ksec flexcol"><div class="st">MD basis weight <span id="kGsmHd">—</span></div>
+          <svg id="kMdGsm" class="kchart" viewBox="0 0 300 60" preserveAspectRatio="none"></svg></div>
+        <div class="ksec flexcol"><div class="st">MD moisture <span id="kMoiHd">—</span></div>
+          <svg id="kMdMoi" class="kchart" viewBox="0 0 300 60" preserveAspectRatio="none"></svg></div>
+      </div>
+      <div class="ksec" style="flex:0 0 auto"><div class="st">CD profiles <span id="kCdHd">scanner</span></div>
+        <div style="display:flex;gap:9px">
+          <div style="flex:1"><div style="font-size:9.5px;color:var(--dim);margin-bottom:3px" id="kCdBwV">Basis weight</div>
+            <svg id="kCdBw" class="spark" viewBox="0 0 300 44" preserveAspectRatio="none"></svg></div>
+          <div style="flex:1"><div style="font-size:9.5px;color:var(--dim);margin-bottom:3px" id="kCdMoiV">Moisture</div>
+            <svg id="kCdMoi" class="spark" viewBox="0 0 300 44" preserveAspectRatio="none"></svg></div>
+          <div style="flex:1"><div style="font-size:9.5px;color:var(--dim);margin-bottom:3px" id="kCdCalV">Caliper</div>
+            <svg id="kCdCal" class="spark" viewBox="0 0 300 44" preserveAspectRatio="none"></svg></div>
+        </div></div>
+      <div class="ksec" style="flex:1 1 auto;overflow:hidden"><div class="st">Last reel certificate <span id="kCertHd">—</span></div>
+        <div id="kCert"></div></div>`;
+  } else if(v==='production'){
+    P.innerHTML=`
+      <div class="ksec" style="flex:0 0 auto"><div class="st">Pope reel <span id="kReelHd">—</span></div>
+        <div style="display:flex;gap:14px;align-items:center">
+          <svg id="kReelRing" viewBox="0 0 100 100" style="width:100px;height:100px;flex:0 0 auto"></svg>
+          <div style="flex:1;min-width:0" id="kReelRows"></div></div></div>
+      <div class="ksec" style="flex:0 0 auto"><div class="st">Grade schedule <span id="kOrdHd">—</span></div>
+        <div id="kOrders"></div></div>
+      <div class="ksec flexcol" style="flex:1 1 auto"><div class="st">Latest reels → rewinder <span id="kReelLogHd">—</span></div>
+        <div class="kscroll"><table class="tbl"><thead><tr><th>Reel ID</th><th>Ø</th><th>t</th><th>gsm</th><th>Moist</th><th>Q</th></tr></thead>
+        <tbody id="kReels"></tbody></table></div></div>`;
+  } else {
+    P.innerHTML=`
+      <div class="ktiles" style="grid-template-columns:repeat(4,1fr);flex:0 0 auto">
+        <div class="ktile"><div class="n" id="kEnSteam" style="color:var(--violet);font-size:23px">—</div><div class="u">t/h</div><div class="l">Steam</div></div>
+        <div class="ktile"><div class="n" id="kEnSpecSt" style="color:var(--warn);font-size:23px">—</div><div class="u">t st/t</div><div class="l">Specific steam</div></div>
+        <div class="ktile"><div class="n" id="kEnKw" style="color:var(--accent);font-size:23px">—</div><div class="u">kW</div><div class="l">Drive power</div></div>
+        <div class="ktile"><div class="n" id="kEnSpec" style="font-size:23px">—</div><div class="u">kWh/t</div><div class="l">Specific power</div></div>
+      </div>
+      <div class="ksec flexcol" style="flex:1 1 auto;min-height:0"><div class="st">Steam demand <span id="kStHd">—</span></div>
+        <svg id="kSpSteam" class="kchart" viewBox="0 0 300 56" preserveAspectRatio="none"></svg></div>
+      <div class="kg2" style="flex:1.4 1 auto;min-height:0">
+        <div class="ksec" style="overflow:hidden"><div class="st">Breaks by location <span id="kBrkHd">—</span></div>
+          <svg id="kBrk" viewBox="0 0 320 130" preserveAspectRatio="xMidYMid meet" class="panelsvg"></svg></div>
+        <div class="ksec" style="overflow:hidden"><div class="st">Loss Pareto <span id="kParHd">—</span></div>
+          <svg id="kPar" viewBox="0 0 320 130" preserveAspectRatio="xMidYMid meet" class="panelsvg"></svg></div>
+      </div>
+      <div class="ksec" style="flex:0 0 auto"><div class="st">Clothing life <span id="kClothHd">—</span></div>
+        <div id="kCloth"></div></div>`;
+  }
+  kBuilt=v;
+}
+function kUpdatePane(v){
+  const D=derived(), T=MACHINE.target, q=MACHINE.quality;
+  if(v==='process'){
+    drawDewater('kDewater',320,150);
+    document.getElementById('kDewHd').textContent=fmt(D.evapTh,1)+' t water/h evaporated';
+    const hb=MACHINE.headbox;
+    document.getElementById('kWet').innerHTML=[
+      ['Consistency',fmt(hb.consistencyPct,2)+' %'],['Jet / wire',fmt(hb.jetWireRatio,3)],
+      ['Dry after wire',fmt(dryAt(0.23),1)+' %'],['Dry after press',fmt(dryAt(0.38),1)+' %'],
+    ].map(([n,val])=>`<div class="seccell"><div class="sn">${n}</div><div class="sv">${val}</div></div>`).join('');
+    document.getElementById('kWetHd').textContent='headbox · wire · press';
+    document.getElementById('kSteam').innerHTML=MACHINE.dryerGroups.map(g=>
+      `<div class="steamrow"><span class="sl">${g.name}</span>
+        <span class="sb"><i style="width:${clamp(g.steamBar/g.maxBar*100,0,100)}%"></i></span>
+        <span class="sv">${fmt(g.steamBar,1)} bar</span></div>`).join('');
+    document.getElementById('kDryHd').textContent=fmt(D.steamTh,1)+' t/h · '+fmt(D.specSteam,2)+' t/t';
+    document.getElementById('kDrvHd').textContent=MACHINE.drives.length+' sections';
+    document.getElementById('kDrives').innerHTML=MACHINE.drives.map(d=>{
+      const dv=S.drives[d.id],col=dv.load>100?'var(--alarm)':dv.load>85?'var(--warn)':'var(--ok)';
+      return `<tr><td><span class="drv-dot" style="background:${S.speed>20?col:'var(--muted)'}"></span>${d.name}</td>
+        <td><span class="barmini"><i style="width:${clamp(dv.load,0,100)}%;background:${col}"></i></span> ${fmt(dv.load)}%</td>
+        <td>${fmt(dv.kw)}</td><td>${dv.draw>0?'+':''}${fmt(dv.draw,2)}%</td></tr>`;}).join('');
+  }
+  else if(v==='quality'){
+    const props=[
+      ['Basis weight',S.gsmAct,T.gsm,T.gsm*q.gsmTolPct/100,'g/m²',1],
+      ['Moisture',S.moiAct,T.moisturePct,q.moistTolPct,'%',2],
+      ['Caliper',S.calAct,T.caliperMm,T.caliperMm*q.calTolPct/100,'mm',3],
+      ['Ash',S.ashAct,T.ashPct,q.ashTolPct,'%',1]];
+    document.getElementById('kProps').innerHTML=props.map(([n,val,t,tol,u,dp])=>{
+      const dev=val-t, rel=clamp(dev/(tol*2),-1,1);
+      const col=Math.abs(dev)<=tol?'var(--ok)':Math.abs(dev)<=tol*2?'var(--warn)':'var(--alarm)';
+      const w=Math.abs(rel)*50, left=rel<0?50-w:50;
+      return `<div class="prop"><div class="pn">${n}</div>
+        <div class="pv" style="color:${col};font-size:17px">${fmt(val,dp)}<span style="font-size:10px;color:var(--dim)"> ${u}</span></div>
+        <div class="pt">target ${fmt(t,dp)} · ${dev>0?'+':''}${fmt(dev,dp)}</div>
+        <div class="devbar"><i style="left:${left}%;width:${w}%;background:${col}"></i><div class="mid"></div></div></div>`;}).join('');
+    document.getElementById('kPropHd').textContent='vs target';
+    mdChart('kMdGsm',S.trend.gsm,T.gsm,q.gsmTolPct/100,'var(--accent)',300,60);
+    document.getElementById('kGsmHd').textContent=fmt(S.gsmAct,1)+' g/m²';
+    mdChart('kMdMoi',S.trend.moi,T.moisturePct,q.moistTolPct/T.moisturePct,'var(--ok)',300,60);
+    document.getElementById('kMoiHd').textContent=fmt(S.moiAct,2)+' %';
+    cdStrip('kCdBw',S.cd&&S.cd.bw,T.gsm,q.gsmTolPct/100,'g/m²',1,null);
+    cdStrip('kCdMoi',S.cd&&S.cd.moi,T.moisturePct,q.moistTolPct/T.moisturePct,'%',2,null);
+    cdStrip('kCdCal',S.cd&&S.cd.cal,T.caliperMm,q.calTolPct/100,'mm',3,null);
+    if(S.cd){
+      document.getElementById('kCdBwV').textContent='Basis wt 2σ '+fmt(sd(S.cd.bw)/mean(S.cd.bw)*200,2)+'%';
+      document.getElementById('kCdMoiV').textContent='Moisture 2σ '+fmt(sd(S.cd.moi)*2,3);
+      document.getElementById('kCdCalV').textContent='Caliper 2σ '+fmt(sd(S.cd.cal)/mean(S.cd.cal)*200,2)+'%'; }
+    const c=S.certs[0], cb=document.getElementById('kCert');
+    if(!c) cb.innerHTML='<div style="color:var(--muted);font-size:12px;font-style:italic;padding:10px 0">Issued at each reel turn-up</div>';
+    else{ const vc=c.q==='PASS'?'v-pass':c.q==='WATCH'?'v-watch':'v-rej';
+      cb.innerHTML=`<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+        <span style="font-size:11.5px;color:var(--muted);font-family:var(--mono)">${c.id}</span>
+        <span class="verdict ${vc}" style="font-size:11px;padding:3px 9px">${c.q}</span></div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:0 16px">
+        <div>${drow('Weight',fmt(c.tonnes,2)+' t')}${drow('Length',fmt(c.lengthM)+' m')}</div>
+        <div>${drow('gsm',fmt(c.gsm,1))}${drow('Moisture',fmt(c.moisture,2)+' %')}</div></div>`; }
+    document.getElementById('kCertHd').textContent=c?('reel '+c.no):'—';
+  }
+  else if(v==='production'){
+    const rf=clamp((S.reelDia-MACHINE.reel.coreMm)/(MACHINE.reel.targetDiaMm-MACHINE.reel.coreMm)*100,0,100);
+    drawRing('kReelRing',rf,fmt(S.reelDia),fmt(rf)+'% built',rf>=100?'var(--ok)':rf>90?'var(--warn)':'var(--accent)');
+    const toGo=Math.max(0,D.reelLen-S.reelLenM);
+    document.getElementById('kReelRows').innerHTML=[
+      drow('Length',fmt(S.reelLenM)+' / '+fmt(D.reelLen)+' <small>m</small>'),
+      drow('Weight',fmt(S.gsmAct*(MACHINE.deckleMm/1000)*S.reelLenM/1e6,2)+' <small>t</small>'),
+      drow('Time to turn-up',eta(S.speed>20?toGo/S.speed:Infinity)+' <small>mm:ss</small>'),
+    ].join('');
+    document.getElementById('kReelHd').textContent=fmt(rf)+'% · '+S.reels+' done';
+    document.getElementById('kOrders').innerHTML=MACHINE.orders.map((o,i)=>{
+      const st=i<S.orderIdx?'done':i===S.orderIdx?'run':'q';
+      const done=i<S.orderIdx?o.reels:i===S.orderIdx?S.orderReelsDone:0;
+      return `<div class="ordrow ${st==='run'?'run':st==='done'?'done':''}" style="padding:6px 9px;margin-bottom:5px">
+        <div class="om"><div class="oid" style="font-size:11.5px">${o.id} · ${o.customer}</div>
+        <div class="osub" style="font-size:9.5px">${o.gsm} g/m² · ${o.speed} m/min</div></div>
+        <div style="text-align:right"><span class="ost ${st==='done'?'os-d':st==='run'?'os-run':'os-q'}" style="font-size:9px">${done}/${o.reels}</span></div></div>`;}).join('');
+    document.getElementById('kOrdHd').textContent='grade '+(S.orderIdx+1)+'/'+MACHINE.orders.length;
+    document.getElementById('kReelLogHd').textContent=S.reelLog.length+' logged';
+    document.getElementById('kReels').innerHTML=S.reelLog.length?S.reelLog.slice(0,5).map(r=>
+      `<tr><td style="font-family:var(--mono);font-size:10px">${r.id}</td><td>${fmt(r.dia)}</td><td>${fmt(r.tonnes,2)}</td>
+      <td>${fmt(r.gsm,1)}</td><td>${fmt(r.moisture,2)}</td>
+      <td><span class="duetag ${r.q==='PASS'?'due-ok':r.q==='WATCH'?'due-soon':'due-now'}">${r.q}</span></td></tr>`).join('')
+      :'<tr><td colspan="6" style="text-align:center;color:var(--muted);font-family:var(--font)">No reels yet</td></tr>';
+  }
+  else {
+    document.getElementById('kEnSteam').textContent=fmt(D.steamTh,1);
+    document.getElementById('kEnSpecSt').textContent=fmt(D.specSteam,2);
+    document.getElementById('kEnKw').textContent=fmt(S.kw);
+    document.getElementById('kEnSpec').textContent=fmt(S.tonnes>0?S.kWh/S.tonnes:0,1);
+    const maxSteam=Math.max(10,...S.trend.steam)*1.2;
+    const st=clearSvg('kSpSteam');
+    if(st) st.appendChild(el('polyline',{points:pointsFrom(S.trend.steam,0,maxSteam,300,56),
+      fill:'none',stroke:'var(--violet)','stroke-width':1.8}));
+    document.getElementById('kStHd').textContent=fmt(D.steamTh,1)+' t/h · '+fmt(D.evapTh,1)+' t water/h';
+    barPareto('kBrk',breakList(),null);
+    document.getElementById('kBrkHd').textContent=S.breaks+' breaks';
+    barPareto('kPar',lossList(),null);
+    document.getElementById('kParHd').textContent=fmt(lossList().reduce((a,b)=>a+b[1],0),1)+' min';
+    document.getElementById('kCloth').innerHTML=MACHINE.clothing.map(c=>{
+      const pct=clamp(c.usedH/c.lifeH*100,0,140);
+      return `<div style="margin-bottom:6px"><div style="display:flex;justify-content:space-between;font-size:11px;margin-bottom:3px">
+        <span style="color:var(--muted)">${c.name}</span>
+        <span style="font-family:var(--mono);color:var(--dim)">${fmt(Math.max(0,c.lifeH-c.usedH))} h</span></div>
+        <div class="wearbar"><i style="width:${Math.min(pct,100)}%;background:${pct>100?'var(--alarm)':pct>85?'var(--warn)':'var(--ok)'}"></i></div></div>`;
+    }).join('');
+    document.getElementById('kClothHd').textContent='forming &amp; press clothing';
+  }
+}
+function renderKiosk(){
+  const D=derived(), T=MACHINE.target;
+  document.getElementById('kName').textContent=MACHINE.name;
+  document.getElementById('kLine').textContent=MACHINE.line;
+  document.getElementById('kAsset').textContent=MACHINE.asset;
+  document.getElementById('kGrade').textContent=MACHINE.gradeName+' · '+fmt(MACHINE.deckleMm)+' mm deckle';
+  document.getElementById('kSchTag').textContent='live twin · sim ×'+(MACHINE.simTimeScale||1);
+  setState();
+  const totMin=S.runMin+S.downMin||1;
+  const avail=clamp(S.runMin/totMin*100,0,100);
+  const idealTph=T.gsm*(MACHINE.deckleMm/1000)*MACHINE.speedSetpoint*60/1e6;
+  const perf=S.runMin>0?clamp((S.tonnes+S.brokeT)/((S.runMin/60)*idealTph||1)*100,0,100):0;
+  const qual=(S.tonnes+S.brokeT)>0?clamp(S.tonnes/(S.tonnes+S.brokeT)*100,0,100):100;
+  const oee=avail*perf*qual/10000;
+  const rf=clamp((S.reelDia-MACHINE.reel.coreMm)/(MACHINE.reel.targetDiaMm-MACHINE.reel.coreMm)*100,0,100);
+  const toGo=Math.max(0,D.reelLen-S.reelLenM);
+  const tiles=[
+    ['Machine speed',fmt(S.speed),'m/min','var(--accent)'],
+    ['Production',fmt(D.tph,1),'t/h','var(--ok)'],
+    ['Basis weight',fmt(S.gsmAct,1),'g/m² (t '+fmt(T.gsm)+')',colorFor(S.gsmAct,T.gsm,MACHINE.quality.gsmTolPct/100)],
+    ['Moisture',fmt(S.moiAct,2),'% (t '+fmt(T.moisturePct,1)+')',Math.abs(S.moiAct-T.moisturePct)<=MACHINE.quality.moistTolPct?'var(--ok)':'var(--warn)'],
+    ['Reel',fmt(rf),'% · '+eta(S.speed>20?toGo/S.speed:Infinity),'#e8c98a'],
+    ['Steam',fmt(D.steamTh,1),'t/h · '+fmt(D.specSteam,2)+' t/t','var(--violet)'],
+    ['Overall OEE',fmt(oee),'%',oee>75?'var(--ok)':oee>55?'var(--warn)':'var(--alarm)'],
+    ['Output',fmt(S.tonnes,1),'t · '+S.reels+' reels','var(--ok)'],
+  ];
+  document.getElementById('kTiles').innerHTML=tiles.map(([l,n,u,c])=>
+    `<div class="ktile"><div class="n" style="color:${c}">${n}</div><div class="u">${u}</div><div class="l">${l}</div></div>`).join('');
+  const act=S.alarms.filter(a=>a.sev!=='info').length;
+  document.getElementById('kAlmTag').textContent=act+' active';
+  document.getElementById('kAlarms').innerHTML=S.alarms.length?S.alarms.slice(0,8).map(a=>
+    `<div class="kalarm ${a.sev}"><span class="m">${a.msg}</span><span class="t">${a.ts}</span></div>`).join('')
+    :'<div style="color:var(--muted);font-size:13px;font-style:italic;text-align:center;padding:14px">No active alarms — all systems nominal</div>';
+  const v=KVIEWS[kView].id;
+  if(kBuilt!==v){ kBuildPane(v); kDots(); }
+  kUpdatePane(v);
+}
+
+/* =====================================================================
+   CONTROLS
+   ===================================================================== */
+document.querySelectorAll('.tab').forEach(b=>b.onclick=()=>{
+  activeTab=b.dataset.tab;
+  document.querySelectorAll('.tab').forEach(x=>x.classList.toggle('active',x===b));
+  document.querySelectorAll('.pane').forEach(p=>p.hidden=(p.id!=='pane-'+activeTab));
+  render(); });
+document.getElementById('btnRun').onclick=()=>{S.running=true;setState();};
+document.getElementById('btnStop').onclick=()=>{S.running=false;setState();pushAlarm('info','Operator stop requested');};
+document.getElementById('btnTurnup').onclick=()=>startTurnup(true);
+document.getElementById('btnBreak').onclick=()=>startBreak(true);
+document.getElementById('btnApply').onclick=applySetup;
+document.getElementById('btnNextOrder').onclick=()=>loadOrder(S.orderIdx+1);
+document.getElementById('btnCsv').onclick=exportReels;
+document.getElementById('btnShift').onclick=exportShift;
+document.getElementById('btnKiosk').onclick=()=>setMode(true);
+document.getElementById('btnDesk').onclick=()=>setMode(false);
+document.getElementById('btnPause').onclick=()=>{kRotate=!kRotate;
+  const b=document.getElementById('btnPause');
+  b.textContent=kRotate?'⏸ Pause rotation':'▶ Resume rotation';
+  b.className='ctl'+(kRotate?'':' warnactive');};
+document.getElementById('btnFs').onclick=()=>{
+  if(document.fullscreenElement) document.exitFullscreen();
+  else document.documentElement.requestFullscreen&&document.documentElement.requestFullscreen(); };
+document.addEventListener('keydown',e=>{
+  if(e.key==='w'||e.key==='W') setMode(!kioskOn);
+  if(e.key==='f'||e.key==='F') document.getElementById('btnFs').click();
+  if(kioskOn&&e.key==='ArrowRight'){kView=(kView+1)%KVIEWS.length;kElapsed=0;kBuilt=null;kDots();render();}
+  if(kioskOn&&e.key==='ArrowLeft'){kView=(kView-1+KVIEWS.length)%KVIEWS.length;kElapsed=0;kBuilt=null;kDots();render();}
+  if(e.key===' '&&kioskOn){e.preventDefault();document.getElementById('btnPause').click();} });
+function autoKiosk(){ const h=location.hash.toLowerCase();
+  return h.includes('wall')||h.includes('kiosk')||(window.innerWidth>=1600&&window.innerHeight>=800); }
+
+/* boot */
+buildSchematic(); buildCd(); loadSetupInputs(); renderOrders();
+setMode(autoKiosk());
+setState(); tickClock(); render(); animate(); fitStage();
+setInterval(()=>{simulateTick();render();},MACHINE.updateMs);
+setInterval(tickClock,1000);
+setInterval(()=>kTick(120),120);
+</script>
+</body>
+</html>
