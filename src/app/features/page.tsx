@@ -73,6 +73,26 @@ export default function FeaturesPage() {
             className="w-full bg-surface border border-border-dim rounded-xl pl-11 pr-4 py-3.5 text-sm text-foreground placeholder:text-text-4 outline-none focus:border-amber-500/40 transition-colors"
           />
         </motion.div>
+
+        {/* Digital twin demo — plain <a>, the fleet is static HTML in /public */}
+        <motion.a
+          href="/twins/index.html"
+          target="_blank"
+          rel="noopener noreferrer"
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.4 }}
+          className="group mt-4 inline-flex items-center gap-3 rounded-xl border border-border-dim bg-surface px-4 py-3 transition-colors hover:border-amber-500/40">
+          <span className="relative flex h-2 w-2 shrink-0">
+            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-amber-500 opacity-60" />
+            <span className="relative inline-flex h-2 w-2 rounded-full bg-amber-500" />
+          </span>
+          <span className="text-sm text-text-2">
+            <span className="font-semibold text-foreground">Open the digital twin demo</span>
+            {" — "}paper machines, rewinders, sheeters, packaging lines and warehouses, running live
+          </span>
+          <ArrowRight size={14} className="shrink-0 text-text-3 transition-colors group-hover:text-amber-400" />
+        </motion.a>
       </section>
 
       {/* GROUP FILTER PILLS */}
