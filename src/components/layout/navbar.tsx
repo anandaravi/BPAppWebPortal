@@ -148,6 +148,19 @@ export function Navbar() {
                       </Link>
                     ))}
                   </div>
+                  {/* Static HTML in /public, so a plain anchor rather than next/link */}
+                  <a href="/twins/index.html" target="_blank" rel="noopener noreferrer" onClick={closeAll}
+                    className="group mt-3 flex items-center gap-3 rounded-lg border border-amber-500/20 bg-amber-500/5 p-3 transition-colors hover:border-amber-500/40 hover:bg-amber-500/10">
+                    <span className="relative flex h-2 w-2 shrink-0">
+                      <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-amber-500 opacity-60" />
+                      <span className="relative inline-flex h-2 w-2 rounded-full bg-amber-500" />
+                    </span>
+                    <span className="min-w-0 flex-1">
+                      <span className="block text-sm font-semibold text-foreground group-hover:text-amber-300 transition-colors">Digital twin demo</span>
+                      <span className="block text-xs text-text-3 leading-snug">Paper machines, sheeters, packaging lines and warehouses, running live</span>
+                    </span>
+                    <ChevronDown size={12} className="-rotate-90 flex-shrink-0 text-text-4 transition-colors group-hover:text-amber-400" />
+                  </a>
                   <div className="mt-3 pt-3 border-t border-border-dim flex items-center justify-between">
                     <Link href="/product" onClick={closeAll}
                       className="text-xs text-amber-400 hover:text-amber-300 transition-colors font-medium">
@@ -258,6 +271,11 @@ export function Navbar() {
           <Link href="/product" className="text-xs text-amber-400 hover:text-amber-300 pl-2 py-1" onClick={() => setMenuOpen(false)}>
             View all 45 modules →
           </Link>
+          {/* Static HTML in /public, so a plain anchor rather than next/link */}
+          <a href="/twins/index.html" target="_blank" rel="noopener noreferrer"
+            className="text-xs text-amber-400 hover:text-amber-300 pl-2 py-1" onClick={() => setMenuOpen(false)}>
+            Digital twin demo →
+          </a>
 
           <p className="text-[10px] font-semibold uppercase tracking-widest text-amber-500 mb-1 mt-3">Solutions</p>
           {SOLUTIONS_LINKS.map((l) => {
