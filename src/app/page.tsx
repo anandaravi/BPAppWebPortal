@@ -11,6 +11,7 @@ const ProductTour = dynamic(() => import("@/components/sections/product-tour").t
 const FeaturesGrid = dynamic(() => import("@/components/sections/features-grid").then((m) => ({ default: m.FeaturesGrid })));
 const ModuleShowcase = dynamic(() => import("@/components/sections/module-showcase").then((m) => ({ default: m.ModuleShowcase })));
 const DeckleSpotlight = dynamic(() => import("@/components/sections/deckle-spotlight").then((m) => ({ default: m.DeckleSpotlight })));
+const TwinSpotlight = dynamic(() => import("@/components/sections/twin-spotlight").then((m) => ({ default: m.TwinSpotlight })));
 const AISpotlight = dynamic(() => import("@/components/sections/ai-spotlight").then((m) => ({ default: m.AISpotlight })));
 const ComplianceStrip = dynamic(() => import("@/components/sections/compliance-strip").then((m) => ({ default: m.ComplianceStrip })));
 const PlatformStrip = dynamic(() => import("@/components/sections/platform-strip").then((m) => ({ default: m.PlatformStrip })));
@@ -30,6 +31,7 @@ export default function HomePage() {
       <ModuleShowcase />
       <FeaturesGrid />
       <DeckleSpotlight />
+      <TwinSpotlight />
       <AISpotlight />
       <ComplianceStrip />
       <PlatformStrip />
