@@ -34,17 +34,17 @@ export function Hero() {
 
           {/* LEFT: Copy */}
           <div>
-            <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}
+            <div
               className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-amber-500/30 bg-amber-500/10 text-amber-400 text-xs font-medium mb-8 tracking-wide uppercase">
               <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse" />
               Built for Indian Paper Manufacturing
-            </motion.div>
+            </div>
 
-            <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.1 }}
+            <h1
               className="text-5xl md:text-6xl lg:text-7xl font-black text-foreground leading-[1.0] tracking-tight mb-6">
               Run your mill.<br />
               <span className="amber-text">Not workarounds.</span>
-            </motion.h1>
+            </h1>
 
             <motion.p initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.2 }}
               className="text-lg text-text-2 max-w-lg mb-10 leading-relaxed">
