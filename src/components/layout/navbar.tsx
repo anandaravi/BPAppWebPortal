@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu, X, ChevronDown } from "lucide-react";
+import { Menu, X, ChevronDown, Scissors } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { MODULE_GROUPS } from "@/lib/modules";
@@ -129,6 +129,20 @@ export function Navbar() {
                   exit={{ opacity: 0, y: -8 }}
                   transition={{ duration: 0.2 }}
                   className="absolute left-1/2 -translate-x-1/2 top-full mt-2 w-[640px] bg-surface border border-border rounded-2xl shadow-2xl shadow-black/50 p-4">
+                  <Link href="/product/deckle" onClick={closeAll}
+                    className="group mb-3 flex items-center gap-3 rounded-lg border border-red-500/25 bg-red-500/5 p-3 transition-colors hover:border-red-500/50 hover:bg-red-500/10">
+                    <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-red-500/30 bg-red-500/10 text-red-400">
+                      <Scissors size={16} />
+                    </span>
+                    <span className="min-w-0 flex-1">
+                      <span className="flex items-center gap-2">
+                        <span className="text-sm font-semibold text-foreground group-hover:text-red-300 transition-colors">Deckle Optimizer</span>
+                        <span className="rounded-full border border-red-500/30 px-1.5 py-px text-[9px] font-semibold uppercase tracking-wider text-red-400">Flagship</span>
+                      </span>
+                      <span className="block text-xs text-text-3 leading-snug">Cut trim waste on every slitting plan, across every paper machine</span>
+                    </span>
+                    <ChevronDown size={12} className="-rotate-90 flex-shrink-0 text-text-4 transition-colors group-hover:text-red-400" />
+                  </Link>
                   <div className="grid grid-cols-2 gap-2">
                     {MODULE_GROUPS.map((g) => (
                       <Link
@@ -257,6 +271,13 @@ export function Navbar() {
         <div id="mobile-nav" className="lg:hidden bg-surface border-b border-border px-6 py-5 flex flex-col gap-3 max-h-[80vh] overflow-y-auto">
           <Link href="/" className={cn("text-sm", mobileLink(isHome))} onClick={() => setMenuOpen(false)} aria-current={isHome ? "page" : undefined}>Home</Link>
           <p className="text-[10px] font-semibold uppercase tracking-widest text-amber-500 mb-1 mt-2">Product</p>
+          <Link href="/product/deckle"
+            className={cn("flex items-center gap-2 text-sm py-1.5 pl-2", pathname.startsWith("/product/deckle") ? "text-red-400 font-semibold" : "text-foreground hover:text-red-300")}
+            onClick={() => setMenuOpen(false)} aria-current={pathname.startsWith("/product/deckle") ? "page" : undefined}>
+            <Scissors size={14} className="text-red-400" />
+            <span>Deckle Optimizer</span>
+            <span className="rounded-full border border-red-500/30 px-1.5 py-px text-[9px] font-semibold uppercase tracking-wider text-red-400">Flagship</span>
+          </Link>
           {MODULE_GROUPS.map((g) => (
             <Link
               key={g.slug}
