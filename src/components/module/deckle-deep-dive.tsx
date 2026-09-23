@@ -20,7 +20,7 @@ const TIERS = [
     icon: Zap, name: "Instant Mode", time: "< 2 seconds", color: "#FBBF24", lightHex: "rgba(251,191,36,0.1)",
     use: "Mid-shift quick fixes",
     when: "Order changed. Reel rejected. Last-minute customer call.",
-    method: "Greedy heuristics, pre-warmed cache, demand graph traversal",
+    method: "Proprietary optimization engine — fast pass on a pre-warmed pattern cache",
     quality: "Good (~92% of optimal)",
     constraints: "Hard constraints only",
   },
@@ -28,7 +28,7 @@ const TIERS = [
     icon: Brain, name: "Planning Mode", time: "5 – 30 seconds", color: "#60A5FA", lightHex: "rgba(96,165,250,0.1)",
     use: "Shift-level planning",
     when: "Morning planner meeting. Shift handover.",
-    method: "Metaheuristic search with neighborhood exploration",
+    method: "Proprietary optimization engine — balanced search across pattern alternatives",
     quality: "Very good (~97% of optimal)",
     constraints: "Hard + soft preferences",
   },
@@ -36,7 +36,7 @@ const TIERS = [
     icon: Target, name: "Full Optimization", time: "≤ 5 minutes", color: "#34D399", lightHex: "rgba(52,211,153,0.1)",
     use: "Daily / weekly plan",
     when: "Production planner builds the next-day master plan.",
-    method: "Exact MILP solving with 180+ constraints",
+    method: "Proprietary optimization engine — full solve with 180+ constraints",
     quality: "Provably optimal",
     constraints: "All hard, all soft, all preferences",
   },
@@ -477,7 +477,7 @@ export function DeckleDeepDive({ data }: { data: ModuleData }) {
                 { label: "Trim", value: "1.4%", color: "#34D399" },
                 { label: "Recovery", value: "98.6%", color: "#34D399" },
                 { label: "SWO value", value: "₹4.2L", color: "#FBBF24" },
-                { label: "Solver", value: "MILP · 3m42s", color: "#60A5FA" },
+                { label: "Solve time", value: "3m42s", color: "#60A5FA" },
               ].map((s) => (
                 <div key={s.label} className="bg-background rounded-lg p-3 border border-border-dim">
                   <p className="text-[10px] text-text-3 uppercase tracking-wider mb-1 font-semibold">{s.label}</p>

@@ -14,6 +14,15 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  async redirects() {
+    return [
+      {
+        source: "/product/deckle/multi-machine-compare",
+        destination: "/product/deckle/multi-machine-split",
+        permanent: true,
+      },
+    ];
+  },
 };
 
 export default nextConfig;

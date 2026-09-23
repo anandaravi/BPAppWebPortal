@@ -17,6 +17,14 @@ export const MODULE_FAQS: Record<string, { q: string; a: string }[]> = {
       a: "Both. The Deckle Optimizer can run standalone with REST API integration to your existing ERP, or as a fully-integrated module inside Papyrus BPApp.",
     },
     {
+      q: "We run more than one paper machine. Can it plan across all of them?",
+      a: "Yes. The optimizer splits one order pool across your paper machines using each machine's GSM, BF, grade and width limits, your mandatory and preferred assignment rules, and rated capacity. You pick a Balanced, Min Trim or Fast Delivery objective, review the proposed split, move lines where needed, and confirm. Single-machine mills can switch the feature off.",
+    },
+    {
+      q: "What does the AI review actually do?",
+      a: "After each run it checks your master data and optimizer settings against a fixed rule set and lists anything that looks wrong, without changing the plan. A weekly off-shift calibration job proposes settings changes with evidence and a rupee impact; nothing applies until an authorised user approves it.",
+    },
+    {
       q: "What about explainability — can planners see why a plan was chosen?",
       a: "Yes. Every plan shows the active constraints, satisfied/violated counts, and reasoning. Planners can compare alternatives side-by-side before approving.",
     },
@@ -32,7 +40,7 @@ export const MODULE_FAQS: Record<string, { q: string; a: string }[]> = {
     },
     {
       q: "Can it handle multi-PM (multiple paper machines) on same campus?",
-      a: "Yes. Each machine has its own schedule, OEE, and crew. Pulp allocation across PMs is calculated automatically.",
+      a: "Yes. Each machine has its own schedule, OEE, and crew. The planning wizard can also assign order lines across all paper machines automatically — within each machine's capabilities, your assignment rules and rated capacity — and lets you review the split before confirming. Pulp allocation across PMs is calculated automatically.",
     },
     {
       q: "Mobile shop floor app available?",

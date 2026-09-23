@@ -57,6 +57,8 @@ All visuals must be specific to Indian paper manufacturing, dark-theme compatibl
 | P-12 | Feature: Downtime & Optimization | Feature Photo | Machine downtime event board | `[x]` |
 | P-13 | Feature: Resource & Labour | Feature Photo | Shift crew assignment / roster view | `[x]` |
 | P-14 | SPC Control Chart | Infographic | GSM control chart with UCL/LCL violation markers | `[ ]` |
+| P-15 | Feature: Deckle to Winder | Feature Photo | Jumbo reel slit on winder, operator scanning reel label | `[x]` |
+| P-16 | Feature: Sheeting & Packing | Feature Photo | Sheeter output bundled into reams and pallets | `[x]` |
 
 ---
 
@@ -71,6 +73,9 @@ All visuals must be specific to Indian paper manufacturing, dark-theme compatibl
 | D-05 | Pattern Catalog Mockup | UI Mockup | Saved deckle patterns grid with performance scores | `[ ]` |
 | D-06 | Feature: Optimization Engine | Feature Photo | Slitting machine with width markings | `[x]` |
 | D-07 | Feature: Order Integration | Feature Photo | SO to deckle plan flow | `[x]` |
+| D-08 | Feature: Multi-Machine Planning | Feature Photo | Several paper machines side by side with planner | `[x]` |
+| D-09 | Feature: Rupee Cost Model | Feature Photo | Slitter knives with edge trim falling away | `[x]` |
+| D-10 | Feature: AI Review & Calibration | Feature Photo | Engineer reviewing AI findings panel beside winder | `[x]` |
 
 ---
 
